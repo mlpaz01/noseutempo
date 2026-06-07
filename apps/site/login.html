@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NoSeuTempo â€” Entrar</title>
+  <title>NoSeuTempo — Entrar</title>
   <link rel="icon" href="assets/logo-icon.svg" />
   <link rel="stylesheet" href="css/styles.css?v=3" />
   <link rel="stylesheet" href="css/platform.css?v=3" />
@@ -50,7 +50,7 @@
   <main class="section">
     <div class="container" style="max-width:480px">
       <div class="text-center" style="margin-bottom:24px">
-        <span class="eyebrow"><span class="heart">â™¥</span> Que bom te ver de novo</span>
+        <span class="eyebrow"><span class="heart">♥</span> Que bom te ver de novo</span>
         <h1 style="margin-top:14px">Entrar</h1>
         <p class="lead" style="margin:8px auto 0">Acesse sua conta para continuar de onde parou.</p>
       </div>
@@ -72,7 +72,7 @@
           <button type="submit" class="btn btn--primary btn--block" id="btn-login">Entrar</button>
         </form>
         <p style="text-align:center;color:var(--navy-muted);margin-top:16px">
-          Ainda nÃ£o tem conta? <a href="cadastro.html" style="color:var(--navy);font-weight:700;text-decoration:underline">Criar conta</a>
+          Ainda não tem conta? <a href="cadastro.html" style="color:var(--navy);font-weight:700;text-decoration:underline">Criar conta</a>
         </p>
       </div>
     </div>
@@ -91,7 +91,7 @@
     var erro   = document.getElementById('erro');
     var btn    = document.getElementById('btn-login');
 
-    // Utilidade: fazer chamada Ã  API (independente do NST.api)
+    // Utilidade: fazer chamada à API (independente do NST.api)
     function apiCall(path, body) {
       var headers = { 'Content-Type': 'application/json' };
       var token = localStorage.getItem('nst.token');
@@ -128,7 +128,7 @@
       e.preventDefault();
       erro.classList.add('hidden');
       btn.disabled = true;
-      btn.textContent = 'Entrandoâ€¦';
+      btn.textContent = 'Entrando…';
 
       var email = document.getElementById('email').value.trim();
       var senha = document.getElementById('senha').value;
@@ -140,7 +140,7 @@
         .then(function (res) {
           if (!res.ok) { showErro(res.data.error || 'E-mail ou senha incorretos.'); return; }
           localStorage.setItem('nst.token', res.data.token);
-          // Admin â†’ painel admin | Aluno pago â†’ plataforma | Sem acesso â†’ pagamento
+          // Admin → painel admin | Aluno pago → plataforma | Sem acesso → pagamento
           if (res.data.admin) {
             location.href = 'admin.html';
           } else if (res.data.paid) {
