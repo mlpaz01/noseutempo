@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoSeuTempo â€” Entrar</title>
+  <link rel="icon" href="assets/logo-icon.svg" />
+  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/platform.css?v=3" />
+  <style>
+    .password-wrap { position: relative; }
+    .password-wrap input { padding-right: 52px; }
+    .password-toggle {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--navy-muted);
+      font-size: 1.15rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+    .password-toggle:hover,
+    .password-toggle:focus-visible {
+      background: var(--teal-soft);
+      color: var(--teal-deep);
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <img class="logo-mark" src="assets/logo-icon.svg" alt="" />
+        <span class="wordmark">No<span class="seu">Seu</span>Tempo</span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn btn--ghost" href="cadastro.html">Criar conta</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container" style="max-width:480px">
+      <div class="text-center" style="margin-bottom:24px">
+        <span class="eyebrow"><span class="heart">â™¥</span> Que bom te ver de novo</span>
+        <h1 style="margin-top:14px">Entrar</h1>
+        <p class="lead" style="margin:8px auto 0">Acesse sua conta para continuar de onde parou.</p>
+      </div>
+
+      <div class="checkout-card">
+        <form id="form-login" novalidate>
+          <div class="field">
+            <label for="email">Seu e-mail</label>
+            <input type="email" id="email" placeholder="voce@email.com" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="senha">Sua senha</label>
+            <div class="password-wrap">
+              <input type="password" id="senha" placeholder="sua senha" autocomplete="current-password" required />
+              <button type="button" class="password-toggle" id="toggle-senha" aria-label="Mostrar senha" aria-pressed="false" title="Mostrar senha">&#128065;</button>
+            </div>
+          </div>
+          <p id="erro" class="hidden" style="background:var(--blush-soft);color:var(--coral);padding:12px 14px;border-radius:12px;font-weight:600;margin-bottom:12px"></p>
+          <button type="submit" class="btn btn--primary btn--block" id="btn-login">Entrar</button>
+        </form>
+        <p style="text-align:center;color:var(--navy-muted);margin-top:16px">
+          Ainda nÃ£o tem conta? <a href="cadastro.html" style="color:var(--navy);font-weight:700;text-decoration:underline">Criar conta</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- config e main ANTES do script inline -->
+  <script src="js/config.js?v=5"></script>
+  <script src="js/main.js?v=3"></script>
+  <script>
+  (function () {
+    var API = /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
+      ? location.origin
+      : (window.NST_API || 'https://api.noseutempo.app');
+    var params = new URLSearchParams(location.search);
+    var plano  = params.get('plano');
+    var erro   = document.getElementById('erro');
+    var btn    = document.getElementById('btn-login');
+
+    // Utilidade: fazer chamada Ã  API (independente do NST.api)
+    function apiCall(path, body) {
+      var headers = { 'Content-Type': 'application/json' };
+      var token = localStorage.getItem('nst.token');
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+      var controller = new AbortController();
+      var timer = setTimeout(function () { controller.abort(); }, 12000);
+      return fetch(API + path, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(body),
+        signal: controller.signal
+      }).finally(function () { clearTimeout(timer); });
+    }
+
+    function showErro(msg) {
+      erro.textContent = msg;
+      erro.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Entrar';
+    }
+
+    var senhaInput = document.getElementById('senha');
+    var toggleSenha = document.getElementById('toggle-senha');
+    toggleSenha.addEventListener('click', function () {
+      var mostrar = senhaInput.type === 'password';
+      senhaInput.type = mostrar ? 'text' : 'password';
+      toggleSenha.setAttribute('aria-label', mostrar ? 'Ocultar senha' : 'Mostrar senha');
+      toggleSenha.setAttribute('aria-pressed', mostrar ? 'true' : 'false');
+      toggleSenha.title = mostrar ? 'Ocultar senha' : 'Mostrar senha';
+      senhaInput.focus();
+    });
+
+    document.getElementById('form-login').addEventListener('submit', function (e) {
+      e.preventDefault();
+      erro.classList.add('hidden');
+      btn.disabled = true;
+      btn.textContent = 'Entrandoâ€¦';
+
+      var email = document.getElementById('email').value.trim();
+      var senha = document.getElementById('senha').value;
+
+      if (!email || !senha) { showErro('Preencha e-mail e senha.'); return; }
+
+      apiCall('/api/login', { email: email, senha: senha })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+        .then(function (res) {
+          if (!res.ok) { showErro(res.data.error || 'E-mail ou senha incorretos.'); return; }
+          localStorage.setItem('nst.token', res.data.token);
+          // Admin â†’ painel admin | Aluno pago â†’ plataforma | Sem acesso â†’ pagamento
+          if (res.data.admin) {
+            location.href = 'admin.html';
+          } else if (res.data.paid) {
+            location.href = 'plataforma.html';
+          } else {
+            location.href = 'pagamento.html' + (plano ? '?plano=' + plano : '');
+          }
+        })
+        .catch(function (err) {
+          showErro('Falha de conexao local. Recarregue e tente de novo. API: ' + API);
+          console.error(err);
+        });
+    });
+
+  })();
+  </script>
+</body>
+</html>
+
+

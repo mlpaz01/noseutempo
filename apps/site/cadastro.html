@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoSeuTempo â€” Criar conta</title>
+  <link rel="icon" href="assets/logo-icon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    background: #FAF8F5;
+    display: flex; flex-direction: column;
+    position: relative; overflow-x: hidden;
+  }
+
+  /* blobs de fundo */
+  .cad-blob {
+    position: fixed; border-radius: 50%;
+    filter: blur(80px); pointer-events: none; z-index: 0;
+  }
+  .cad-blob-tl {
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(14,165,160,.22) 0%, rgba(52,198,176,.1) 60%, transparent 100%);
+    bottom: -60px; left: -80px;
+  }
+  .cad-blob-br {
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(251,146,60,.2) 0%, rgba(252,192,130,.1) 60%, transparent 100%);
+    bottom: -40px; right: -60px;
+  }
+
+  /* HEADER */
+  .cad-header {
+    position: relative; z-index: 10;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,.06);
+    padding: 0 32px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cad-logo {
+    display: flex; align-items: center; gap: 9px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif; font-weight: 800;
+    font-size: 1.1rem; color: #1A1A2E;
+  }
+  .cad-logo img { width: 34px; height: 34px; }
+  .cad-logo .t { color: #0EA5A0; }
+  .cad-btn-login {
+    padding: 9px 18px;
+    border: 1.5px solid #1A1A2E; border-radius: 10px;
+    background: transparent; color: #1A1A2E;
+    font-weight: 600; font-size: .88rem;
+    text-decoration: none; transition: all .15s;
+    white-space: nowrap;
+  }
+  .cad-btn-login:hover { background: #1A1A2E; color: #fff; }
+
+  /* MAIN */
+  .cad-main {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-start;
+    padding: 36px 20px 60px;
+    position: relative; z-index: 1;
+  }
+
+  /* EYEBROW */
+  .cad-eyebrow {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: #fff; border: 1px solid #E5E7EB;
+    border-radius: 99px; padding: 7px 18px;
+    font-size: .82rem; font-weight: 600; color: #374151;
+    margin-bottom: 22px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  }
+  .cad-eyebrow-ic { font-size: 1rem; }
+
+  /* TÃTULOS */
+  .cad-h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800; color: #1A1A2E;
+    line-height: 1.2; text-align: center;
+    margin-bottom: 14px;
+  }
+  .cad-sub {
+    color: #4B5563; font-size: 1rem; line-height: 1.65;
+    text-align: center; max-width: 480px; margin-bottom: 36px;
+  }
+  .cad-sub .cad-teal { color: #0EA5A0; font-weight: 700; }
+
+  /* CARD DO FORMULÃRIO */
+  .cad-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 36px 36px 28px;
+    width: 100%; max-width: 500px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.1);
+  }
+
+  /* CAMPOS */
+  .cad-field { margin-bottom: 20px; }
+  .cad-field label {
+    display: block; font-weight: 700;
+    font-size: .92rem; color: #1A1A2E;
+    margin-bottom: 8px;
+  }
+  .cad-field input {
+    width: 100%; padding: 13px 16px;
+    border: 1.5px solid #E5E7EB; border-radius: 12px;
+    font-size: .97rem; color: #1A1A2E;
+    background: #FAFAFA;
+    transition: border-color .15s, box-shadow .15s;
+    outline: none;
+  }
+  .cad-field input::placeholder { color: #9CA3AF; }
+  .cad-field input:focus {
+    border-color: #0EA5A0;
+    box-shadow: 0 0 0 3px rgba(14,165,160,.12);
+    background: #fff;
+  }
+  .cad-senha-wrap { position: relative; }
+  .cad-senha-wrap input { padding-right: 46px; }
+  .cad-eye {
+    position: absolute; right: 14px; top: 50%;
+    transform: translateY(-50%);
+    background: none; border: none; cursor: pointer;
+    color: #9CA3AF; padding: 4px; font-size: 1.1rem;
+    transition: color .15s;
+  }
+  .cad-eye:hover { color: #374151; }
+
+  /* INFO BOX */
+  .cad-infobox {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: #EFF9F8; border-radius: 14px;
+    padding: 14px 16px; margin-bottom: 22px;
+  }
+  .cad-infobox-ic {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: #0EA5A0; display: flex;
+    align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 1rem;
+  }
+  .cad-infobox p {
+    font-size: .88rem; color: #1A6B67;
+    line-height: 1.55; font-weight: 500;
+  }
+
+  /* ERRO */
+  .cad-erro {
+    background: #FEF2F2; color: #DC2626;
+    border: 1px solid #FECACA; border-radius: 12px;
+    padding: 12px 16px; font-size: .9rem;
+    font-weight: 600; margin-bottom: 16px;
+    display: none;
+  }
+  .cad-erro.visible { display: block; }
+
+  /* BOTÃƒO PRINCIPAL */
+  .cad-btn-submit {
+    width: 100%; padding: 15px 20px;
+    background: #8B5CF6; color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; font-size: clamp(.88rem, 2.5vw, 1rem);
+    white-space: nowrap;
+    border: none; border-radius: 14px;
+    cursor: pointer; transition: background .17s, transform .14s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-bottom: 18px;
+  }
+  .cad-btn-submit:hover:not(:disabled) { background: #7C3AED; transform: translateY(-1px); }
+  .cad-btn-submit:disabled { opacity: .65; cursor: not-allowed; }
+
+  /* LINK JÃ TEM CONTA */
+  .cad-login-link {
+    text-align: center; font-size: .92rem; color: #6B7280;
+  }
+  .cad-login-link a {
+    color: #0EA5A0; font-weight: 700; text-decoration: none;
+  }
+  .cad-login-link a:hover { text-decoration: underline; }
+
+  /* TRUST BAR */
+  .cad-trust {
+    display: flex; gap: 40px; justify-content: center;
+    flex-wrap: wrap; margin-top: 36px;
+    position: relative; z-index: 1;
+    padding: 0 24px 40px;
+  }
+  .cad-trust-item {
+    display: flex; align-items: center; gap: 9px;
+    font-size: .85rem; color: #6B7280; font-weight: 500;
+  }
+  .cad-trust-ic {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .ti-shield { background: #F0EDFF; }
+  .ti-lock   { background: #EFF9F8; }
+  .ti-smile  { background: #FFF8EE; }
+
+  /* DECORAÃ‡ÃƒO (espiral + coraÃ§Ã£o) */
+  .cad-deco {
+    position: fixed; bottom: 80px; right: 40px;
+    pointer-events: none; z-index: 0;
+  }
+  .cad-deco svg { opacity: .55; }
+  .cad-deco-heart {
+    position: fixed; bottom: 52px; right: 48px;
+    font-size: 1.4rem; pointer-events: none; z-index: 0;
+  }
+
+  /* separador no trust */
+  .cad-trust-sep {
+    width: 1px; height: 28px; background: #E5E7EB;
+    align-self: center;
+  }
+
+  @media (max-width: 540px) {
+    .cad-card { padding: 28px 22px 22px; }
+    .cad-trust-sep { display: none; }
+    .cad-trust { gap: 20px; }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- BLOBS -->
+  <div class="cad-blob cad-blob-tl"></div>
+  <div class="cad-blob cad-blob-br"></div>
+
+  <!-- DECORAÃ‡ÃƒO -->
+  <div class="cad-deco">
+    <svg width="90" height="110" viewBox="0 0 90 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M80 10 C90 30, 70 50, 50 45 C30 40, 20 60, 30 80 C40 100, 60 105, 55 90" stroke="#C4B5FD" stroke-width="2" stroke-dasharray="6 5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="cad-deco-heart">ðŸ’œ</div>
+
+  <!-- HEADER -->
+  <header class="cad-header">
+    <a href="index.html" class="cad-logo">
+      <img src="assets/logo-icon.svg" alt="NoSeuTempo logo">
+      NoSeu<span class="t">Tempo</span>
+    </a>
+    <a href="login.html" class="cad-btn-login">JÃ¡ tenho conta</a>
+  </header>
+
+  <!-- MAIN -->
+  <main class="cad-main">
+
+    <h1 class="cad-h1">Seu teste de 24 horas<br>comeÃ§a aqui ðŸ’œ</h1>
+
+    <p class="cad-sub" id="cad-sub-text">
+      Crie sua conta e tenha 24h de acesso completo ao NoSeuTempo.<br>
+      ConheÃ§a a Geni IA e veja como o aprendizado pode ser feito
+      <span class="cad-teal">do seu jeito.</span>
+    </p>
+
+    <div class="cad-card">
+      <form id="form-cadastro" novalidate>
+
+        <div class="cad-field">
+          <label for="nome">Como podemos te chamar?</label>
+          <input type="text" id="nome" placeholder="Seu nome" autocomplete="name" required />
+        </div>
+
+        <div class="cad-field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="seu@email.com" autocomplete="email" required />
+        </div>
+
+        <div class="cad-field">
+          <label for="senha">Senha</label>
+          <div class="cad-senha-wrap">
+            <input type="password" id="senha" placeholder="MÃ­nimo 6 caracteres" autocomplete="new-password" minlength="6" required />
+            <button type="button" class="cad-eye" id="btn-eye" aria-label="Mostrar senha">ðŸ‘</button>
+          </div>
+        </div>
+
+        <div class="cad-infobox">
+          <div class="cad-infobox-ic">â°</div>
+          <p>VocÃª terÃ¡ 24 horas para explorar tudo com calma.<br>Sem cartÃ£o. Sem compromisso.</p>
+        </div>
+
+        <div class="cad-erro" id="cad-erro"></div>
+
+        <button type="submit" class="cad-btn-submit" id="btn-cadastrar">
+          ComeÃ§ar meu teste de 24 horas âœ¨
+        </button>
+
+      </form>
+
+      <p class="cad-login-link">JÃ¡ tem conta? <a href="login.html">Entrar</a></p>
+    </div>
+
+  </main>
+
+
+  <script src="js/config.js?v=5"></script>
+  <script src="js/main.js?v=3"></script>
+  <script>
+  (function () {
+    var API = window.NST_API || 'https://api.noseutempo.app';
+    var params = new URLSearchParams(location.search);
+    var plano  = params.get('plano') || 'anual';
+    var trial  = params.get('trial') === '1';
+    var erro   = document.getElementById('cad-erro');
+    var btn    = document.getElementById('btn-cadastrar');
+
+    // toggle senha visÃ­vel
+    document.getElementById('btn-eye').addEventListener('click', function() {
+      var inp = document.getElementById('senha');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      this.textContent = inp.type === 'password' ? 'ðŸ‘' : 'ðŸ™ˆ';
+    });
+
+    // Se jÃ¡ estiver logado, redireciona
+    var token = localStorage.getItem('nst.token');
+    if (token) {
+      fetch(API + '/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(me){
+          if (!me) return;
+          if (me.admin) { location.href = 'admin.html'; return; }
+          if (me.acesso) { location.href = 'plataforma.html'; return; }
+          if (trial) {
+            fetch(API + '/api/trial/start', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } })
+              .then(function(){ location.href = 'plataforma.html'; })
+              .catch(function(){ location.href = 'plataforma.html'; });
+            return;
+          }
+          location.href = 'pagamento.html?plano=' + plano;
+        }).catch(function(){});
+      return;
+    }
+
+    function apiCall(path, body) {
+      return fetch(API + path, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+    }
+
+    function showErro(msg) {
+      erro.textContent = msg;
+      erro.classList.add('visible');
+      btn.disabled = false;
+      btn.innerHTML = 'ComeÃ§ar meu teste de 24 horas âœ¨';
+    }
+
+    document.getElementById('form-cadastro').addEventListener('submit', function (e) {
+      e.preventDefault();
+      erro.classList.remove('visible');
+      btn.disabled = true;
+      btn.innerHTML = 'Criando sua contaâ€¦';
+
+      var nome  = document.getElementById('nome').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var senha = document.getElementById('senha').value;
+
+      if (!nome)               { showErro('Informe seu nome.'); return; }
+      if (!email.includes('@')){ showErro('Informe um e-mail vÃ¡lido.'); return; }
+      if (senha.length < 6)    { showErro('A senha precisa ter pelo menos 6 caracteres.'); return; }
+
+      apiCall('/api/registrar', { nome: nome, email: email, senha: senha, trial: trial })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+        .then(function (res) {
+          if (!res.ok) { showErro(res.data.error || 'Erro ao criar conta. Tente novamente.'); return; }
+          localStorage.setItem('nst.token', res.data.token);
+          location.href = trial ? 'plataforma.html' : ('pagamento.html?plano=' + plano);
+        })
+        .catch(function () {
+          showErro('NÃ£o conseguimos conectar. Tente novamente em instantes.');
+        });
+    });
+  })();
+  </script>
+</body>
+</html>
+
+

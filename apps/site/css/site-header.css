@@ -1,0 +1,61 @@
+/* ============================================================
+   NoSeuTempo — Cabeçalho padrão (igual à tela inicial)
+   Desktop: barra superior. Mobile: barra inferior fixa (tab bar).
+   Classes próprias (.nsthd-*) — não usa seletores de elemento,
+   então não conflita com o CSS das páginas.
+   ============================================================ */
+.nsthd-wrap{
+  font-family:'Poppins',system-ui,sans-serif;
+  background:#fff;border-bottom:1px solid #EFEDE8;
+  padding:0 40px;height:96px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;
+}
+.nsthd-brand{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.nsthd-logo{width:56px;height:56px;flex:none;display:block;transition:transform .5s cubic-bezier(.34,1.56,.64,1);}
+.nsthd-brand:hover .nsthd-logo{transform:rotate(-12deg) scale(1.06);}
+.nsthd-bt h1{margin:0;font-size:27px;font-weight:700;letter-spacing:-.3px;color:#1E2A4A;line-height:1.1;}
+.nsthd-bt h1 .seu{color:#1FA6A8;}
+.nsthd-bt p{margin:2px 0 0;font-size:13px;color:#8A90A0;font-weight:400;}
+
+.nsthd-nav{display:flex;align-items:center;gap:38px;}
+.nsthd-item{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:500;color:#5A6378;padding:6px 2px;position:relative;text-decoration:none;transition:color .2s ease;white-space:nowrap;}
+.nsthd-item svg{width:22px;height:22px;flex:none;}
+.nsthd-item.active{color:#1FA6A8;font-weight:600;}
+.nsthd-item.active::after{content:"";position:absolute;left:0;right:0;bottom:-34px;height:3px;border-radius:3px;background:#1FA6A8;}
+.nsthd-item:not(.active):hover{color:#1FA6A8;}
+.nsthd-sm{display:none;}
+
+.nsthd-right{display:flex;align-items:center;gap:22px;}
+.nsthd-bell{position:relative;color:#5A6378;display:flex;align-items:center;background:none;border:0;cursor:pointer;text-decoration:none;}
+.nsthd-bell svg{width:26px;height:26px;}
+.nsthd-badge{position:absolute;top:-7px;right:-7px;min-width:19px;height:19px;border-radius:50%;background:#F0902F;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #fff;}
+.nsthd-sair{border:1.5px solid #E3E1DC;background:#fff;border-radius:13px;padding:11px 26px;font-size:16px;font-weight:500;color:#5A6378;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;transition:background .2s,transform .2s;}
+.nsthd-sair:hover{background:#FAF9F6;transform:translateY(-1px);}
+
+/* ───────────── MOBILE ───────────── */
+@media (max-width:980px){
+  .nsthd-wrap{padding:0 16px;height:64px;}
+  .nsthd-logo{width:42px;height:42px;}
+  .nsthd-bt h1{font-size:19px;}
+  .nsthd-bt p{display:none;}
+  .nsthd-sair{padding:8px 16px;font-size:14px;border-radius:11px;}
+  .nsthd-right{gap:14px;}
+
+  /* Menu vira barra inferior fixa (tab bar) */
+  .nsthd-nav{
+    position:fixed;left:0;right:0;bottom:0;z-index:60;
+    background:#fff;border-top:1px solid #ECEAE4;
+    display:flex;justify-content:space-around;align-items:stretch;gap:0;
+    padding:6px 4px;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px));
+    box-shadow:0 -4px 18px rgba(30,42,74,.07);
+  }
+  .nsthd-item{flex-direction:column;gap:3px;flex:1;justify-content:center;
+    font-size:10.5px;font-weight:600;padding:4px 2px;text-align:center;}
+  .nsthd-item svg{width:23px;height:23px;}
+  .nsthd-item.active::after{display:none;}
+  .nsthd-tx{display:none;}
+  .nsthd-sm{display:block;line-height:1.1;}
+
+  /* espaço para a barra inferior não cobrir o conteúdo */
+  body{padding-bottom:66px;}
+}

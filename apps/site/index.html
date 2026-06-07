@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NoSeuTempo — Cada cérebro aprende de um jeito</title>
+<meta name="description" content="Plataforma acolhedora de aprendizagem adaptativa para pessoas neurodivergentes. Aprenda no seu ritmo, sem pressão, com a Geni IA ao seu lado.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.app-preview{display:none!important;}
+/* Mesmo fundo lavanda da pagina Sobre nos */
+body{background:#f8f5ff!important;}
+.nst-sec{padding:60px 0;}
+.nst-wrap{max-width:1120px;margin:0 auto;padding:0 22px;}
+.nst-center{text-align:center;}
+.nst-eyebrow{display:inline-flex;align-items:center;gap:8px;background:#EDE7FA;color:#5B3FA0;font-weight:700;font-size:.82rem;padding:7px 15px;border-radius:99px;}
+.nst-h2{font-family:'Poppins',system-ui,sans-serif;font-size:clamp(1.55rem,3.2vw,2.35rem);font-weight:800;color:#1E2A4A;line-height:1.18;margin:14px 0 0;}
+.nst-sub{color:#5A6B82;font-size:1.05rem;margin-top:10px;max-width:640px;line-height:1.55;}
+.nst-center .nst-sub{margin-left:auto;margin-right:auto;}
+/* Conheça a Geni */
+.geni-block{display:grid;grid-template-columns:0.85fr 1.15fr;gap:40px;align-items:center;background:linear-gradient(135deg,#EAF4FF,#F3F9FF 60%,#FBFDFF);border:1.5px solid #DCEAF7;border-radius:28px;padding:38px 42px;}
+.geni-figure{display:grid;place-items:center;position:relative;}
+.geni-figure img{width:100%;max-width:330px;filter:drop-shadow(0 18px 32px rgba(26,43,74,.18));}
+.geni-steps{display:flex;flex-direction:column;gap:12px;margin-top:20px;}
+.geni-line{display:flex;align-items:center;gap:14px;background:#fff;border:1.5px solid #E6ECF4;border-radius:16px;padding:13px 18px;box-shadow:0 6px 16px rgba(26,43,74,.05);}
+.geni-line .gl-ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:1.35rem;flex:none;}
+.geni-line b{display:block;font-size:1rem;color:#1E2A4A;}
+.geni-line small{font-size:.9rem;color:#5A6B82;}
+.geni-final{font-weight:700;color:#0F8275;margin-top:14px;font-size:1.05rem;}
+/* Para quem é */
+.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;}
+.aud-card{background:#fff;border:1.5px solid #E6ECF4;border-radius:18px;padding:24px 20px;text-align:center;box-shadow:0 6px 18px rgba(26,43,74,.05);transition:.18s;}
+.aud-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(26,43,74,.1);border-color:#CDE3DF;}
+.aud-card .ac-em{font-size:2.1rem;line-height:1;}
+.aud-card b{display:block;margin-top:12px;color:#1E2A4A;font-size:1.02rem;font-weight:700;}
+/* Como funciona */
+.steps5{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px;}
+.step5{background:#fff;border:1.5px solid #E6ECF4;border-radius:18px;padding:24px 16px;text-align:center;}
+.step5 .s5-num{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1FA6A8,#34C6B0);color:#fff;font-weight:800;display:grid;place-items:center;margin:0 auto 12px;font-size:1.05rem;}
+.step5 b{display:block;color:#1E2A4A;font-size:1rem;}
+/* Trial */
+.trial-band{background:linear-gradient(135deg,#E4F4F1,#EAF4FF 58%,#F3F0FF);border:1.5px solid #CFE9E1;border-radius:28px;padding:46px 40px;text-align:center;}
+.trial-band .t-spark{font-size:2rem;}
+.trial-band h2{font-family:'Poppins',system-ui,sans-serif;font-size:clamp(1.45rem,3.3vw,2.2rem);font-weight:800;color:#1E2A4A;margin:8px 0 0;}
+.trial-band p{color:#5A6B82;font-size:1.08rem;margin:12px auto 0;max-width:580px;line-height:1.55;}
+.trial-band .trial-btn{margin-top:22px;font-size:1.05rem;padding:15px 32px;}
+.trial-band .t-mini{display:block;margin-top:12px;font-size:.85rem;color:#6B7A8D;}
+/* Frase emocional */
+.emotion{background:linear-gradient(135deg,#1E2A4A 0%,#2B2150 55%,#3A2A63 100%);color:#fff;border-radius:30px;padding:78px 44px;text-align:center;position:relative;overflow:hidden;}
+.emotion .e-heart{font-size:2.6rem;}
+.emotion h2{font-family:'Poppins',system-ui,sans-serif;font-size:clamp(1.65rem,3.8vw,2.6rem);font-weight:800;line-height:1.34;margin:18px auto 0;max-width:880px;}
+.emotion p{color:#CBC0E8;font-size:clamp(1.05rem,2vw,1.3rem);margin-top:18px;font-weight:500;}
+/* Cards pessoais ao redor da aluna */
+.stu-chip{position:absolute;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #EDEFF5;border-radius:14px;padding:9px 13px;font-size:.84rem;font-weight:600;color:#1E2A4A;box-shadow:0 10px 24px rgba(26,43,74,.12);white-space:nowrap;z-index:5;}
+.stu-chip .se{font-size:1.05rem;}
+@media (prefers-reduced-motion:no-preference){ .stu-chip{animation:stuFloat 5s ease-in-out infinite;} @keyframes stuFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}} }
+/* Footer emocional */
+.emo-footer{background:linear-gradient(180deg,#FBFCFE,#F2F6FB);border-top:1px solid #E6ECF4;padding:62px 22px 34px;text-align:center;}
+.emo-footer .ef-geni{width:96px;height:auto;margin:0 auto 4px;display:block;filter:drop-shadow(0 10px 18px rgba(26,43,74,.14));}
+.emo-footer .ef-quote{font-family:'Poppins',system-ui,sans-serif;font-size:clamp(1.35rem,3vw,2rem);font-weight:800;color:#1E2A4A;margin:10px auto 0;max-width:640px;line-height:1.32;}
+.emo-footer .ef-sub{color:#5A6B82;font-size:1.05rem;margin:12px 0 0;}
+.emo-footer .ef-cta{margin-top:24px;font-size:1.02rem;padding:14px 30px;}
+.emo-footer .ef-brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:38px;font-family:'Poppins',system-ui,sans-serif;font-weight:700;font-size:1.12rem;color:#1E2A4A;}
+.emo-footer .ef-bottom{margin-top:14px;font-size:.82rem;color:#94A0B2;}
+@media(max-width:880px){
+  .geni-block{grid-template-columns:1fr;text-align:center;}
+  .geni-figure img{max-width:200px;}
+  .geni-line{text-align:left;}
+  .audience-grid{grid-template-columns:repeat(2,1fr);}
+  .steps5{grid-template-columns:repeat(2,1fr);}
+  .stu-chip{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="bg-fx" aria-hidden="true"><span class="orb a"></span><span class="orb b"></span><span class="orb c"></span></div>
+
+<!-- ====================== HEADER ====================== -->
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="index.html" class="logo-lockup" aria-label="NoSeuTempo — início">
+      <span class="logo-mark"><span class="lm-arc"></span><svg viewBox="0 0 100 100" class="lm-hands" aria-hidden="true"><g fill="none" stroke-width="9" stroke-linecap="round"><path d="M50 50 V28"/><path d="M50 50 H72"/></g><path class="lm-arrow" d="M72 64 L86 60 L78 74 Z"/></svg></span>
+      <span class="logo-word">NoSeu<span class="t">Tempo</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Início</a>
+      <a href="#metodo">Método</a>
+      <a href="sobre.html">Sobre nós</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="login.html" class="btn btn-ghost" id="nav-entrar" data-entrar>Entrar</a>
+      <a href="cadastro.html" class="btn btn-primary" id="nav-criar">Criar minha conta</a>
+      <button class="nav-toggle" aria-label="Abrir menu"><i data-lucide="menu"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- ====================== HERO ====================== -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="chip hero-eyebrow reveal"><i data-lucide="sparkles"></i> Aprendizagem que se adapta a você</span>
+      <h1 class="reveal d1">Cada cérebro aprende de um jeito. <span class="grad-text">O NoSeuTempo respeita o seu.</span></h1>
+      <p class="hero-lead reveal d2">Aprenda no seu ritmo, sem pressão e com uma experiência que se adapta quando você precisa de outro caminho.</p>
+      <div class="hero-actions reveal d3">
+        <a href="#metodo" class="btn btn-primary">Conhecer o método</a>
+        <a href="cadastro.html?trial=1" class="btn btn-ghost">Já quero começar</a>
+      </div>
+      <div class="hero-mini reveal d4">
+        <span><i data-lucide="heart"></i> Comece de graça</span>
+        <span><i data-lucide="clock"></i> 5 min por dia</span>
+        <span><i data-lucide="shield-check"></i> Sem pressão</span>
+      </div>
+    </div>
+    <div class="scene reveal d2">
+      <div class="halo"></div>
+      <div class="ring-spin"></div>
+      <div class="dots"></div>
+      <img class="portrait-img" src="assets/carol-nova.png" alt="Estudante sorrindo, aprendendo no seu ritmo" width="470" height="610">
+      <div class="hand-bubble">Cada pessoa aprende de um jeito. <span class="hb-strong">E tudo bem!</span> <span class="hb-heart">♥</span></div>
+      <div class="scene-chip sc-streak">
+        <span class="sc-ic" style="background:#ffe6cf;"><i data-lucide="flame" style="color:#e07b16;"></i></span>
+        <span><span class="sc-t">7 dias seguidos</span><span class="sc-s">sua sequência 🔥</span></span>
+      </div>
+      <div class="scene-chip sc-ring">
+        <span class="mini-ring">
+          <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="#e7eef7" stroke-width="5"/><circle cx="20" cy="20" r="16" fill="none" stroke="#2f7fd1" stroke-width="5" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="35"/></svg>
+          <span>65%</span>
+        </span>
+        <span><span class="sc-t">Nível 1</span><span class="sc-s">A caminho 🚀</span></span>
+      </div>
+      <div class="scene-chip sc-done">
+        <span class="sc-ic" style="background:#d6f0ea;"><i data-lucide="circle-check" style="color:#0e8a83;"></i></span>
+        <span><span class="sc-t">Lição concluída</span><span class="sc-s">+10 XP no seu tempo</span></span>
+      </div>
+      <div class="stu-chip" style="top:16%;left:-26px;animation-delay:.2s"><span class="se">🤖</span> A Geni explicou de outro jeito</div>
+      <div class="stu-chip" style="top:50%;left:-34px;animation-delay:1s"><span class="se">📚</span> Achei um jeito que funciona pra mim</div>
+      <div class="stu-chip" style="bottom:6%;left:2%;animation-delay:1.6s"><span class="se">💜</span> Hoje consegui estudar 5 min</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== VALUE BAR (marquee) ====================== -->
+<section class="valuebar" aria-label="Nossos valores">
+  <div class="marquee">
+    <span class="mq-item"><i data-lucide="heart"></i> Você não precisa aprender igual todo mundo</span><span class="mq-dot"></span>
+    <span class="mq-item"><i data-lucide="sparkles"></i> O método se adapta a você</span><span class="mq-dot"></span>
+    <span class="mq-item"><i data-lucide="refresh-cw"></i> Se um caminho não funciona, tentamos outro</span><span class="mq-dot"></span>
+    <span class="mq-item"><i data-lucide="shield-check"></i> Sem pressão. Sem comparação. No seu tempo</span><span class="mq-dot"></span>
+    <span class="mq-item" aria-hidden="true"><i data-lucide="heart"></i> Você não precisa aprender igual todo mundo</span><span class="mq-dot"></span>
+    <span class="mq-item" aria-hidden="true"><i data-lucide="sparkles"></i> O método se adapta a você</span><span class="mq-dot"></span>
+    <span class="mq-item" aria-hidden="true"><i data-lucide="refresh-cw"></i> Se um caminho não funciona, tentamos outro</span><span class="mq-dot"></span>
+    <span class="mq-item" aria-hidden="true"><i data-lucide="shield-check"></i> Sem pressão. Sem comparação. No seu tempo</span><span class="mq-dot"></span>
+  </div>
+</section>
+
+<!-- ====================== CONHEÇA A GENI ====================== -->
+<section class="nst-sec" id="metodo">
+  <div class="nst-wrap">
+    <div class="geni-block reveal">
+      <div class="geni-figure">
+        <img src="assets/aprender/robot_cut.png" alt="Geni IA — sua companheira de aprendizagem" onerror="this.onerror=null;this.src='assets/GeniIA-robot.png'">
+      </div>
+      <div>
+        <span class="nst-eyebrow">🤖 Conheça a Geni IA</span>
+        <h2 class="nst-h2">Ela observa como você aprende e adapta a forma de ensinar.</h2>
+        <div class="geni-steps">
+          <div class="geni-line"><span class="gl-ic" style="background:#EAF4FF">📖</span><div><b>Não aprendeu lendo?</b><small>→ Tentamos imagens.</small></div></div>
+          <div class="geni-line"><span class="gl-ic" style="background:#F1EAFB">🎮</span><div><b>Não funcionou?</b><small>→ Tentamos jogos.</small></div></div>
+          <div class="geni-line"><span class="gl-ic" style="background:#E4F4EC">💬</span><div><b>Ainda não deu certo?</b><small>→ Tentamos conversar.</small></div></div>
+        </div>
+        <p class="geni-final">💜 Até encontrar o jeito que funciona para você.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== PARA QUEM É ====================== -->
+<section class="nst-sec">
+  <div class="nst-wrap nst-center">
+    <span class="nst-eyebrow reveal">💜 Para quem é</span>
+    <h2 class="nst-h2 reveal d1">Feito para quem aprende de forma diferente</h2>
+    <div class="audience-grid">
+      <div class="aud-card reveal"><span class="ac-em">🧩</span><b>Pessoas autistas</b></div>
+      <div class="aud-card reveal d1"><span class="ac-em">⚡</span><b>Pessoas com TDAH</b></div>
+      <div class="aud-card reveal d2"><span class="ac-em">📖</span><b>Pessoas com dislexia</b></div>
+      <div class="aud-card reveal"><span class="ac-em">🎓</span><b>Adultos voltando a estudar</b></div>
+      <div class="aud-card reveal d1"><span class="ac-em">👨‍👩‍👧</span><b>Crianças que precisam de outro ritmo</b></div>
+      <div class="aud-card reveal d2"><span class="ac-em">💜</span><b>Quem já se sentiu frustrado aprendendo</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== COMO FUNCIONA ====================== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow reveal">O método</p>
+      <h2 class="reveal d1">Como funciona?</h2>
+    </div>
+    <div class="steps5">
+      <div class="step5 reveal"><div class="s5-num">1</div><b>A Geni conhece você</b></div>
+      <div class="step5 reveal d1"><div class="s5-num">2</div><b>Você aprende</b></div>
+      <div class="step5 reveal d2"><div class="s5-num">3</div><b>A Geni adapta</b></div>
+      <div class="step5 reveal d3"><div class="s5-num">4</div><b>Você avança</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== TRIAL ====================== -->
+<section class="nst-sec">
+  <div class="nst-wrap">
+    <div class="trial-band reveal">
+      <div class="t-spark">💜</div>
+      <span class="nst-eyebrow" style="margin-bottom:8px">Agora que você conhece o método</span>
+      <h2>Descubra o seu jeito de aprender</h2>
+      <p>Conheça a Geni, faça sua personalização e veja seu primeiro conteúdo adaptado — gratuitamente.</p>
+      <a href="cadastro.html?trial=1" class="btn btn-primary trial-btn">💜 Descobrir gratuitamente</a>
+      <span class="t-mini">Sem cartão · Comece em 1 minuto</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FRASE EMOCIONAL ====================== -->
+<section class="nst-sec">
+  <div class="nst-wrap">
+    <div class="emotion reveal">
+      <div class="e-heart">💜</div>
+      <h2>Se você ainda não aprendeu, isso não significa que não consegue aprender.</h2>
+      <p>Talvez só não tenham encontrado o seu jeito ainda.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== CTA ====================== -->
+<section class="section-sm">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <div class="cta-glow" style="width:340px;height:340px;background:#6c3fb5;top:-120px;left:-60px;"></div>
+      <div class="cta-glow" style="width:300px;height:300px;background:#f7941d;bottom:-140px;right:-40px;"></div>
+      <h2>Sua jornada começa agora</h2>
+      <p>Aprenda no seu ritmo, com apoio da Geni IA e sem pressão.</p>
+      <div class="stores">
+        <a href="cadastro.html?trial=1" class="btn btn-primary">💜 Descobrir meu jeito de aprender</a>
+        <a href="#metodo" class="btn btn-ghost">Ver como funciona</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="emo-footer">
+  <div class="nst-wrap">
+    <img class="ef-geni" src="assets/aprender/robot_cut.png" alt="Geni IA" onerror="this.style.display='none'">
+    <p class="ef-quote">“Porque aprender não deveria machucar.”</p>
+    <p class="ef-sub">Cada cérebro aprende de um jeito. E tudo bem. 💜</p>
+    <a href="cadastro.html?trial=1" class="btn btn-primary ef-cta">💜 Descobrir meu jeito de aprender</a>
+    <div class="ef-brand">
+      <span class="logo-mark"><span class="lm-arc"></span><svg viewBox="0 0 100 100" class="lm-hands" aria-hidden="true"><g fill="none" stroke-width="9" stroke-linecap="round"><path d="M50 50 V28"/><path d="M50 50 H72"/></g><path class="lm-arrow" d="M72 64 L86 60 L78 74 Z"/></svg></span>
+      <span class="logo-word">NoSeu<span class="t">Tempo</span></span>
+    </div>
+    <div class="ef-bottom">© 2026 NoSeuTempo · oi@noseutempo.app · Feito com 💜</div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="site.js"></script>
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Se já logado (pago ou trial): adapta CTAs
+document.addEventListener('DOMContentLoaded', async function() {
+  if (!window.NST || !NST.isLogged()) return;
+  const me = await NST.me().catch(function(){ return null; });
+  if (!me) return;
+  const entrar = document.getElementById('nav-entrar');
+  if (entrar) { entrar.textContent = 'Sair'; entrar.href = '#'; entrar.addEventListener('click', function(e){ e.preventDefault(); NST.logout(); }); }
+  if (me.acesso || me.paid) {
+    document.querySelectorAll('a[href^="cadastro.html"]').forEach(function(a) { a.href = 'plataforma.html'; a.textContent = 'Acessar plataforma →'; });
+  }
+});
+</script>
+</body>
+</html>

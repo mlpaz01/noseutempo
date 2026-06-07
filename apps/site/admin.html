@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoSeuTempo — Painel Admin</title>
+  <link rel="icon" href="assets/logo-icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+<div class="admin-layout">
+
+  <!-- ═══════════ SIDEBAR ═══════════ -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <img src="assets/logo-icon.svg" alt="" />
+      <span class="wordmark">NoSeu<span class="t">Tempo</span></span>
+      <span class="sb-badge">ADMIN</span>
+    </div>
+
+    <nav class="sb-nav">
+      <span class="sb-section">Principal</span>
+      <a class="sb-link active" href="#dashboard" data-page="dashboard">
+        <span class="ic">📊</span> Dashboard
+      </a>
+      <a class="sb-link" href="#usuarios" data-page="usuarios">
+        <span class="ic">👥</span> Usuários
+      </a>
+      <a class="sb-link" href="#vendas" data-page="vendas">
+        <span class="ic">💳</span> Vendas
+      </a>
+
+      <span class="sb-section">Conteúdo</span>
+      <a class="sb-link" href="#studio" data-page="studio">
+        <span class="ic">✨</span> Estúdio com IA
+      </a>
+      <a class="sb-link" href="#cursos" data-page="cursos">
+        <span class="ic">📚</span> Cursos
+      </a>
+      <a class="sb-link" href="#matriculas" data-page="matriculas">
+        <span class="ic">🎓</span> Matrículas manuais
+      </a>
+
+      <span class="sb-section">Links rápidos</span>
+      <a class="sb-link" href="index.html" target="_blank">
+        <span class="ic">🌐</span> Ver site
+      </a>
+      <a class="sb-link" href="plataforma.html" target="_blank">
+        <span class="ic">🎮</span> Ver plataforma
+      </a>
+    </nav>
+
+    <div class="sb-footer">
+      <div class="sb-user">
+        <div class="sb-avatar" id="sb-avatar">A</div>
+        <div class="sb-user-info">
+          <div class="sb-user-name" id="sb-nome">Carregando…</div>
+          <div class="sb-user-role" id="sb-email">admin</div>
+        </div>
+        <button class="sb-logout" id="btn-logout" title="Sair">↩</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════ MAIN ═══════════ -->
+  <div class="admin-main">
+    <header class="admin-header">
+      <button class="btn btn--icon" id="btn-sb-toggle" style="display:none">☰</button>
+      <h1 id="admin-title">Dashboard</h1>
+    </header>
+
+    <div class="admin-content">
+
+      <!-- ═══════════ DASHBOARD ═══════════ -->
+      <div id="page-dashboard">
+        <div class="stat-grid">
+          <div class="stat-card st--teal">
+            <span class="st-ic">👥</span>
+            <div class="st-label">Total de alunos</div>
+            <div class="st-val" id="st-total">—</div>
+            <div class="st-sub">cadastrados</div>
+          </div>
+          <div class="stat-card st--green">
+            <span class="st-ic">✅</span>
+            <div class="st-label">Alunos pagantes</div>
+            <div class="st-val" id="st-paid">—</div>
+            <div class="st-sub" id="st-free-sub">com acesso liberado</div>
+          </div>
+          <div class="stat-card st--orange">
+            <span class="st-ic">💰</span>
+            <div class="st-label">Receita total</div>
+            <div class="st-val" id="st-receita">—</div>
+            <div class="st-sub" id="st-vendas-sub"><span id="st-vendas">—</span> venda(s)</div>
+          </div>
+          <div class="stat-card">
+            <span class="st-ic">📚</span>
+            <div class="st-label">Cursos ativos</div>
+            <div class="st-val" id="st-cursos">—</div>
+            <div class="st-sub">publicados</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:24px">
+          <div class="card-head">
+            <h2>Ações rápidas</h2>
+          </div>
+          <div style="padding:22px;display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn btn--primary" href="#usuarios" onclick="location.hash='usuarios'">👥 Ver todos os alunos</a>
+            <a class="btn btn--teal" href="#matriculas" onclick="location.hash='matriculas'">🎓 Matricular aluno</a>
+            <a class="btn btn--ghost" href="#cursos" onclick="location.hash='cursos'">📚 Gerenciar cursos</a>
+            <a class="btn btn--ghost" href="#vendas" onclick="location.hash='vendas'">💳 Ver vendas</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════ USUÁRIOS ═══════════ -->
+      <div id="page-usuarios" class="hidden" id="usuarios-page">
+        <div class="card">
+          <div class="card-head">
+            <h2>Usuários <span id="users-count" style="color:var(--muted);font-weight:400;font-size:.85rem"></span></h2>
+            <input class="search-input" id="users-search" placeholder="🔍 Buscar por nome ou e-mail…" />
+            <div class="filter-tabs">
+              <button class="ftab active" data-filter="all">Todos</button>
+              <button class="ftab" data-filter="paid">Pagantes</button>
+              <button class="ftab" data-filter="free">Gratuitos</button>
+              <button class="ftab" data-filter="admin">Admins</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aluno</th>
+                  <th>Status</th>
+                  <th>Role</th>
+                  <th>Cadastro</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="users-tbody">
+                <tr><td colspan="5"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════ VENDAS ═══════════ -->
+      <div id="page-vendas" class="hidden">
+        <div class="card">
+          <div class="card-head">
+            <h2>Vendas <span id="sales-count" style="color:var(--muted);font-weight:400;font-size:.85rem"></span></h2>
+            <span style="margin-left:auto;font-weight:800;font-size:1.1rem" id="sales-total"></span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Aluno</th>
+                  <th>Plano</th>
+                  <th>Valor</th>
+                  <th>Origem</th>
+                  <th>ID MP</th>
+                </tr>
+              </thead>
+              <tbody id="sales-tbody">
+                <tr><td colspan="6"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════ ESTÚDIO COM IA ═══════════ -->
+      <div id="page-studio" class="hidden">
+        <div style="max-width:640px">
+
+          <!-- Cabeçalho do Estúdio -->
+          <div style="background:linear-gradient(135deg,#1B2B4A 0%,#1F9AAB 100%);border-radius:20px;padding:28px 32px;color:#fff;margin-bottom:24px">
+            <div style="font-size:2rem;margin-bottom:8px">✨</div>
+            <h2 style="margin-bottom:8px;color:#fff">Estúdio de Criação com IA</h2>
+            <p style="color:rgba(255,255,255,.8);font-size:.95rem">
+              Descreva o tema e a IA cria um curso completo — com blocos lúdicos, jogos, reflexões e desafios de voz —
+              adaptado para pessoas com dificuldade de aprender.
+            </p>
+          </div>
+
+          <!-- Saúde do motor de IA -->
+          <div id="studio-health" style="display:none;margin-bottom:18px;border-radius:14px;padding:14px 18px;font-size:.88rem;line-height:1.5"></div>
+
+          <div class="card" style="padding:28px">
+            <form id="form-studio">
+              <div class="field">
+                <label>🎯 Tema do curso *</label>
+                <input type="text" id="st-topic" placeholder='Ex: "Como usar ChatGPT no trabalho", "Técnicas de foco para quem tem TDAH"' required />
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>📂 Categoria</label>
+                  <select id="st-category">
+                    <option value="personal_ia">✨ IA Pessoal</option>
+                    <option value="estudos" selected>📖 Estudos</option>
+                    <option value="produtividade">⚡ Produtividade</option>
+                    <option value="neurodiversidade">🧠 Neurodiversidade</option>
+                    <option value="carreira">🎯 Carreira</option>
+                    <option value="dev_humano">🌱 Desenvolvimento Humano</option>
+                    <option value="idiomas">🗣️ Idiomas</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>📊 Dificuldade</label>
+                  <select id="st-difficulty">
+                    <option value="basico" selected>🌱 Básico (iniciante)</option>
+                    <option value="intermediario">🔥 Intermediário</option>
+                    <option value="avancado">⚡ Avançado</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>⏱️ Duração estimada (min)</label>
+                  <select id="st-duration">
+                    <option value="30">30 min (3 unidades)</option>
+                    <option value="60" selected>60 min (4 unidades)</option>
+                    <option value="90">90 min (5 unidades)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>👥 Público-alvo</label>
+                  <input type="text" id="st-audience" placeholder="Ex: adultos com TDAH que querem aprender IA" />
+                </div>
+              </div>
+              <button type="submit" class="btn btn--primary" style="width:100%;font-size:1rem;height:52px" id="btn-gerar">
+                ✨ Gerar curso com IA
+              </button>
+            </form>
+
+            <!-- Progresso da geração -->
+            <div id="studio-progress" class="hidden" style="margin-top:24px">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+                <div style="width:28px;height:28px;border:3px solid var(--teal-soft);border-top-color:var(--teal);border-radius:50%;animation:spin 1s linear infinite;flex:none"></div>
+                <span id="studio-status" style="font-weight:700;color:var(--navy)">Iniciando…</span>
+              </div>
+              <div style="background:var(--bg);border-radius:10px;overflow:hidden;height:10px">
+                <div id="studio-bar" style="height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:10px;transition:width .4s ease"></div>
+              </div>
+              <p id="studio-pct" style="font-size:.82rem;color:var(--muted);margin-top:6px">0%</p>
+              <!-- Log ao vivo (provedores, fallbacks, avisos) -->
+              <div id="studio-notes" style="margin-top:12px;max-height:160px;overflow-y:auto;background:#0E1A2E;color:#CBE3E6;border-radius:10px;padding:10px 12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.74rem;line-height:1.6;display:none"></div>
+            </div>
+
+            <!-- Resultado -->
+            <div id="studio-result" class="hidden" style="margin-top:24px;background:var(--green-soft);border:1.5px solid #CDE7D8;border-radius:16px;padding:20px">
+              <div style="font-size:1.5rem;margin-bottom:8px">🎉</div>
+              <h3 id="st-result-title" style="margin-bottom:6px"></h3>
+              <p id="st-result-desc" style="color:var(--muted);font-size:.9rem;margin-bottom:14px"></p>
+              <div id="st-result-warn" style="display:none;background:#FFF4E5;border:1.5px solid #F0C98A;border-radius:12px;padding:12px 14px;font-size:.85rem;color:#7A4E12;margin-bottom:14px;line-height:1.5"></div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="btn btn--teal btn--sm" id="btn-ver-curso">📚 Ver curso criado</button>
+                <button class="btn btn--ghost btn--sm" id="btn-gerar-outro">✨ Criar outro</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dicas -->
+          <div class="card" style="padding:20px;margin-top:18px">
+            <h4 style="margin-bottom:12px">💡 Temas que funcionam bem</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:8px" id="studio-suggestions">
+              <button class="ftab" onclick="usarSugestao(this)">ChatGPT para iniciantes</button>
+              <button class="ftab" onclick="usarSugestao(this)">Técnicas de memorização com TDAH</button>
+              <button class="ftab" onclick="usarSugestao(this)">Produtividade com método Pomodoro</button>
+              <button class="ftab" onclick="usarSugestao(this)">Espanhol para viagens</button>
+              <button class="ftab" onclick="usarSugestao(this)">Comunicação assertiva</button>
+              <button class="ftab" onclick="usarSugestao(this)">Como criar hábitos que ficam</button>
+              <button class="ftab" onclick="usarSugestao(this)">IA para criação de conteúdo</button>
+              <button class="ftab" onclick="usarSugestao(this)">Gestão emocional no trabalho</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════ CURSOS ═══════════ -->
+      <div id="page-cursos" class="hidden">
+        <div class="card">
+          <div class="card-head">
+            <h2>Cursos <span id="courses-count" style="color:var(--muted);font-weight:400;font-size:.85rem"></span></h2>
+            <button class="btn btn--primary" id="btn-new-course">+ Novo curso</button>
+          </div>
+          <div style="padding:14px 22px" id="courses-list">
+            <div class="spinner"></div>
+          </div>
+        </div>
+
+        <!-- Editor de módulos (aparece ao editar) -->
+        <div class="card hidden" id="modulos-container" style="margin-top:22px">
+          <div class="card-head">
+            <h2>Módulos e aulas</h2>
+          </div>
+          <div style="padding:18px 22px" id="modulos-lista"></div>
+        </div>
+      </div>
+
+      <!-- ═══════════ MATRÍCULAS MANUAIS ═══════════ -->
+      <div id="page-matriculas" class="hidden">
+        <div style="max-width:520px">
+          <div class="card" style="padding:28px">
+            <h2 style="margin-bottom:6px">Matrícula manual</h2>
+            <p style="color:var(--muted);margin-bottom:22px;font-size:.9rem">Libere o acesso de um aluno sem pagamento — para cortesias, permutas ou correções.</p>
+            <form id="form-matricula">
+              <div class="field">
+                <label for="mat-email">E-mail do aluno (precisa ter conta)</label>
+                <input type="email" id="mat-email" placeholder="aluno@email.com" required />
+              </div>
+              <div class="field">
+                <label for="mat-plano">Plano a liberar</label>
+                <select id="mat-plano">
+                  <option value="gratuito" selected>🎁 Gratuito (cortesia) — não conta como venda</option>
+                  <option value="mensal">Mensal — R$ 39</option>
+                  <option value="anual">Anual — R$ 297</option>
+                  <option value="vitalicio">Vitalício — R$ 597</option>
+                  <option value="custom">💰 Valor personalizado…</option>
+                </select>
+              </div>
+              <div class="field" id="mat-valor-wrap" style="display:none">
+                <label for="mat-valor">Valor da venda (R$)</label>
+                <input type="number" id="mat-valor" min="0" step="0.01" placeholder="Ex.: 150" />
+              </div>
+              <button type="submit" class="btn btn--teal" style="width:100%">🎓 Liberar acesso</button>
+            </form>
+            <div id="mat-resultado" style="margin-top:16px"></div>
+          </div>
+
+          <div class="card" style="padding:22px;margin-top:18px;background:var(--orange-soft);border-color:var(--orange)">
+            <h3 style="margin-bottom:8px">⚠️ Atenção</h3>
+            <p style="font-size:.88rem;color:var(--muted)">
+              Escolha <b>Gratuito (cortesia)</b> para liberar o acesso <b>sem contar como venda</b> (não entra em "cursos vendidos" nem na receita).
+              Escolha um plano (Mensal/Anual/Vitalício) para registrar como venda. O aluno precisa ter conta cadastrada antes da matrícula.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-main -->
+</div><!-- /admin-layout -->
+
+<!-- Modal: Criar/Editar curso -->
+<div class="modal-overlay hidden" id="modal-course">
+  <div class="modal">
+    <h3 id="course-form-title">Novo curso</h3>
+    <div class="field">
+      <label>Título do curso *</label>
+      <input type="text" id="cf-titulo" placeholder="Ex: Espanhol para Iniciantes" />
+    </div>
+    <div class="field">
+      <label>Descrição</label>
+      <textarea id="cf-descricao" placeholder="Descreva o curso em poucas linhas…"></textarea>
+    </div>
+    <div class="field">
+      <label>URL da capa (imagem)</label>
+      <input type="url" id="cf-capa" placeholder="https://…" />
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn--ghost" id="btn-cancel-course">Cancelar</button>
+      <button class="btn btn--primary" id="btn-save-course">Salvar curso</button>
+    </div>
+  </div>
+</div>
+
+<!-- Visualizador de conteúdo do curso (árvore de módulos → aulas → blocos) -->
+<div class="modal-overlay hidden" id="modal-content">
+  <div class="modal" style="max-width:920px;width:96%;max-height:92vh;display:flex;flex-direction:column;padding:0;overflow:hidden">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 24px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#1B2B4A 0%,#1F9AAB 100%);color:#fff">
+      <div style="min-width:0">
+        <h3 id="mc-title" style="margin:0;color:#fff;font-size:1.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Conteúdo do curso</h3>
+        <p id="mc-sub" style="margin:2px 0 0;font-size:.8rem;color:rgba(255,255,255,.82)"></p>
+      </div>
+      <button class="btn btn--sm" id="mc-close" style="background:rgba(255,255,255,.18);color:#fff;flex:none">✕ Fechar</button>
+    </div>
+    <div id="mc-body" style="padding:18px 24px;overflow-y:auto;background:var(--bg)"></div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toasts"></div>
+
+<script src="js/config.js?v=6"></script>
+<script src="js/admin.js?v=12"></script>
+</body>
+</html>

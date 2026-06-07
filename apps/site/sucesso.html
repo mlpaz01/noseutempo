@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoSeuTempo â€” Confirmando pagamento</title>
+  <link rel="icon" href="assets/logo-icon.svg" />
+  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/platform.css?v=3" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <img class="logo-mark" src="assets/logo-icon.svg" alt="" />
+        <span class="wordmark">No<span class="seu">Seu</span>Tempo</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container" style="max-width:560px">
+      <div class="checkout-card" style="text-align:center">
+
+        <!-- Verificando -->
+        <div id="verificando">
+          <div class="spinner"></div>
+          <h2>Confirmando seu pagamentoâ€¦</h2>
+          <p style="color:var(--navy-muted)">SÃ³ um instante. Respira fundo. ðŸ’™</p>
+        </div>
+
+        <!-- Aprovado -->
+        <div id="aprovado" class="hidden">
+          <div class="check">âœ“</div>
+          <h2>Pagamento aprovado! ðŸŽ‰</h2>
+          <p style="color:var(--navy-muted);margin-bottom:22px">Sua plataforma estÃ¡ liberada. Vamos no seu tempo.</p>
+          <a class="btn btn--primary btn--block" href="plataforma.html">Entrar na plataforma â†’</a>
+        </div>
+
+        <!-- Pendente -->
+        <div id="pendente" class="hidden">
+          <h2>Estamos quase lÃ¡ â³</h2>
+          <p style="color:var(--navy-muted);margin-bottom:22px">Seu pagamento estÃ¡ sendo processado. Quando aprovar, seu acesso Ã© liberado. Tente entrar em alguns minutos.</p>
+          <a class="btn btn--ghost btn--block" href="index.html">Voltar ao inÃ­cio</a>
+        </div>
+
+        <!-- Erro -->
+        <div id="erro" class="hidden">
+          <h2>NÃ£o conseguimos confirmar ðŸ˜•</h2>
+          <p style="color:var(--navy-muted);margin-bottom:22px">Se vocÃª pagou, nÃ£o se preocupe â€” pode levar alguns minutos. Tente novamente ou fale com a gente.</p>
+          <a class="btn btn--primary btn--block" href="pagamento.html">Tentar de novo</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="js/config.js?v=5"></script>
+  <script src="js/main.js?v=3"></script>
+  <script>
+  (function () {
+    var API      = window.NST_API || 'https://api.noseutempo.app';
+    var params   = new URLSearchParams(location.search);
+    var payId    = params.get('payment_id') || params.get('collection_id');
+    var statusUrl = params.get('status') || params.get('collection_status');
+    var token    = localStorage.getItem('nst.token');
+
+    function show(id) {
+      ['verificando','aprovado','pendente','erro'].forEach(function (s) {
+        document.getElementById(s).classList.toggle('hidden', s !== id);
+      });
+    }
+
+    // Sem token: volta pro login
+    if (!token) { location.href = 'login.html'; return; }
+
+    // Sem payment_id: pode jÃ¡ estar pago (webhook jÃ¡ processou) â€” verifica /me
+    if (!payId) {
+      fetch(API + '/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (me) { show(me && me.paid ? 'aprovado' : 'erro'); })
+        .catch(function () { show('erro'); });
+      return;
+    }
+
+    // Confirma no backend com o payment_id
+    fetch(API + '/api/confirmar?payment_id=' + encodeURIComponent(payId), {
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.paid) {
+          show('aprovado');
+        } else if (data.status === 'pending' || data.status === 'in_process' || statusUrl === 'pending') {
+          show('pendente');
+        } else {
+          show('erro');
+        }
+      })
+      .catch(function () { show('erro'); });
+  })();
+  </script>
+</body>
+</html>
+
+

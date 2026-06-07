@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NoSeuTempo | Sobre nós</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap");
+
+      @property --logo-angle {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 188deg;
+      }
+
+      :root {
+        --ink: #09245b;
+        --muted: #1f376f;
+        --purple: #6545d6;
+        --purple-2: #8e73ee;
+        --lavender: #f2edff;
+        --line: #d9d0f8;
+        --soft: #fbf9ff;
+        --white: #ffffff;
+        --shadow: 0 12px 30px rgba(43, 31, 109, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: #f8f5ff;
+        color: var(--ink);
+        font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 10% 40%, rgba(141, 114, 238, 0.13), transparent 28%),
+          linear-gradient(180deg, #fff 0%, #f9f6ff 46%, #fff 100%);
+      }
+
+      /* Header agora vem do styles.css (mesmo das demais telas) */
+      .click-card:hover,
+      .click-card:focus-visible,
+      .trust-link:hover,
+      .trust-link:focus-visible {
+        transform: translateY(-1px);
+      }
+
+      .hero {
+        position: relative;
+        min-height: 748px;
+        padding: 33px 30px 28px;
+        background: #fff;
+      }
+
+      .hero::after {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        content: "";
+        background:
+          linear-gradient(90deg, #fff 0%, #fff 33%, rgba(255, 255, 255, 0.92) 41%, rgba(255, 255, 255, 0.25) 55%, transparent 68%),
+          linear-gradient(180deg, transparent 0 84%, rgba(255, 255, 255, 0.18) 100%);
+      }
+
+      .hero-art {
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        right: 0;
+        width: 64.3%;
+        height: 622px;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .hero-copy {
+        position: relative;
+        z-index: 2;
+        width: 370px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 30px;
+        padding: 0 14px;
+        border-radius: 999px;
+        color: var(--purple);
+        background: rgba(239, 232, 255, 0.9);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .heart {
+        width: 15px;
+        height: 15px;
+        fill: currentColor;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        color: var(--ink);
+        letter-spacing: 0;
+      }
+
+      h1 {
+        margin-top: 18px;
+        font-size: 34px;
+        line-height: 1.12;
+        font-weight: 900;
+      }
+
+      .purple-text {
+        color: var(--purple);
+      }
+
+      .squiggle {
+        width: 152px;
+        height: 16px;
+        margin: 8px 0 18px -4px;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.65;
+      }
+
+      .lead p + p,
+      .geni-copy p + p,
+      .cta-copy p + p {
+        margin-top: 16px;
+      }
+
+      .geni {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        padding: 0 30px 38px;
+        background:
+          radial-gradient(circle at 24% 30%, rgba(127, 91, 230, 0.16), transparent 28%),
+          linear-gradient(90deg, #f6f1ff 0%, #fff 48%, #f6f1ff 100%);
+      }
+
+      .geni-visual {
+        display: flex;
+        align-items: center;
+        min-height: 333px;
+        margin-left: -30px;
+      }
+
+      .geni-visual img {
+        width: 430px;
+        max-width: none;
+      }
+
+      .geni-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 36px 6px 0 14px;
+      }
+
+      .geni-copy h2,
+      .audience h2 {
+        margin-top: 16px;
+        font-size: 30px;
+        line-height: 1.12;
+        font-weight: 900;
+      }
+
+      .geni-copy p {
+        max-width: 334px;
+        margin-top: 16px;
+      }
+
+      .secao-editorial-paged {
+        width: 100%;
+        padding: 80px 6%;
+        background: transparent;
+      }
+
+      .secao-editorial-paged:first-of-type {
+        background:
+          radial-gradient(circle at 72% 22%, rgba(141, 114, 238, 0.2), transparent 32%),
+          linear-gradient(90deg, #fff 0%, #fbf8ff 100%);
+      }
+
+      .editorial-grid-wrapper {
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+        gap: 8vw;
+        align-items: center;
+      }
+
+      .editorial-grid-wrapper.reverse {
+        grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+      }
+
+      .editorial-bloco-conteudo {
+        width: 100%;
+        text-align: left;
+      }
+
+      .editorial-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        color: #5d5fef;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+      }
+
+      .editorial-badge.teal {
+        color: #008b8b;
+      }
+
+      .editorial-grid-wrapper h2 {
+        margin: 0 0 28px;
+        color: #1f2249;
+        font-size: clamp(32px, 3.5vw, 46px);
+        font-weight: 900;
+        line-height: 1.25;
+        letter-spacing: 0;
+      }
+
+      .editorial-paragrafo {
+        margin: 0 0 24px;
+        color: #4f5774;
+        font-size: 18px;
+        line-height: 1.85;
+      }
+
+      .editorial-paragrafo:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .brand-focus {
+        color: #1f2249;
+        font-weight: 800;
+      }
+
+      .brand-focus .s-tempo {
+        color: #00a7a0;
+      }
+
+      .editorial-quote-aberto {
+        margin-top: 40px;
+        padding-left: 24px;
+        border-left: 3px solid #5d5fef;
+      }
+
+      .editorial-quote-aberto.teal {
+        border-left-color: #00b4b4;
+      }
+
+      .editorial-quote-aberto p {
+        margin: 0;
+        color: #1f2249;
+        font-size: 18px;
+        font-style: italic;
+        font-weight: 700;
+        line-height: 1.6;
+      }
+
+      .editorial-bloco-imagem {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .editorial-imagem-fluida {
+        display: block;
+        width: 100%;
+        max-width: 540px;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 22px 34px rgba(43, 31, 109, 0.14));
+      }
+
+      .editorial-imagem-fluida.rounded {
+        overflow: hidden;
+        border-radius: 18px;
+      }
+
+      .geni-ia-imagem {
+        max-width: 540px;
+        border-radius: 0;
+        box-shadow: none;
+        filter: drop-shadow(0 24px 34px rgba(43, 31, 109, 0.12));
+      }
+
+      .secao-historia-topo {
+        width: 100%;
+        padding: 80px 4%;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      .grid-historia-topo,
+      .container-historia-topo {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 60px;
+        align-items: center;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .conteudo-historia-topo {
+        width: 100%;
+        text-align: left;
+      }
+
+      .bloco-leitura-focado {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        max-width: 640px;
+        text-align: left;
+      }
+
+      .badge-historia-topo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        color: #5d5fef;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+      }
+
+      .grid-historia-topo h2,
+      .container-historia-topo h2 {
+        margin: 0 0 24px;
+        color: #1f2249;
+        font-size: clamp(34px, 3.2vw, 46px);
+        font-weight: 900;
+        line-height: 1.25;
+        letter-spacing: 0;
+      }
+
+      .paragrafo-historia-topo {
+        margin: 0 0 32px;
+        color: #6b6c82;
+        font-size: 18px;
+        line-height: 1.75;
+      }
+
+      .paragrafo-editorial {
+        margin: 0;
+        color: #4a4d66;
+        font-size: 18px;
+        line-height: 1.8;
+      }
+
+      .paragrafo-historia-topo:last-of-type {
+        margin-bottom: 0;
+      }
+
+      .marca-no-seu {
+        color: #1f2249;
+        font-weight: 800;
+      }
+
+      .marca-tempo {
+        color: #05b6a5;
+        font-weight: 800;
+      }
+
+      .quote-historia-topo {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 540px;
+        margin-top: 0;
+        padding: 24px 28px;
+        border: 0;
+        border-radius: 16px;
+        background: #f8f7ff;
+      }
+
+      .caixa-manifesto-premium {
+        margin-top: 8px;
+        padding: 24px 28px;
+        border-left: 4px solid #5d5fef;
+        border-radius: 4px 16px 16px 4px;
+        background: #f9f9ff;
+        box-shadow: 0 8px 24px rgba(93, 95, 239, 0.03);
+      }
+
+      .caixa-manifesto-premium p {
+        margin: 0;
+        color: #1f2249;
+        font-size: 17px;
+        font-style: italic;
+        font-weight: 700;
+        line-height: 1.6;
+      }
+
+      .quote-historia-topo p {
+        margin: 0;
+        color: #1f2249;
+        font-size: 17px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 1.5;
+      }
+
+      .quote-historia-topo::before {
+        content: none;
+      }
+
+      .quote-historia-topo::after {
+        content: none;
+      }
+
+      .bloco-imagem-topo {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .imagem-topo-ampliada {
+        display: block;
+        width: 100%;
+        max-width: 460px;
+        height: auto;
+        object-fit: contain;
+        margin-bottom: 0;
+        filter: drop-shadow(0 18px 20px rgba(43, 31, 109, 0.06));
+      }
+
+      .imagem-topo-ajustada {
+        display: block;
+        width: 100%;
+        max-width: 550px;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 18px 20px rgba(43, 31, 109, 0.06));
+      }
+
+      .audience {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 28px 30px 25px;
+        background: linear-gradient(180deg, #fff 0%, #f8f5ff 100%);
+      }
+
+      .audience h2 {
+        margin: 16px 0 18px;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+
+      .click-card {
+        display: grid;
+        grid-template-columns: 54px 1fr;
+        align-items: center;
+        min-height: 114px;
+        padding: 17px 16px;
+        border: 1px solid rgba(120, 92, 214, 0.13);
+        border-radius: 8px;
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.74);
+        box-shadow: var(--shadow);
+        transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+      }
+
+      .click-card:hover,
+      .click-card:focus-visible {
+        border-color: rgba(101, 69, 214, 0.42);
+        background: #fff;
+      }
+
+      .icon-bubble {
+        display: inline-grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        color: var(--purple);
+        background: #f0eaff;
+      }
+
+      .click-card:nth-child(7) .icon-bubble {
+        color: #54a96e;
+        background: #e9f5ee;
+      }
+
+      .card-title {
+        font-size: 11px;
+        font-weight: 850;
+        line-height: 1.55;
+      }
+
+      .icon {
+        width: 27px;
+        height: 27px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2;
+      }
+
+      .icon.fill {
+        fill: currentColor;
+        stroke: none;
+      }
+
+      .cta {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 24px 25px;
+        background: #f8f5ff;
+      }
+
+      .cta-panel {
+        display: grid;
+        grid-template-columns: 1fr 1.22fr;
+        min-height: 307px;
+        overflow: hidden;
+        border-radius: 12px;
+        background:
+          radial-gradient(circle at 30% 24%, rgba(141, 114, 238, 0.2), transparent 32%),
+          linear-gradient(90deg, #fff 0%, #efe7ff 100%);
+      }
+
+      .cta-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 36px 14px 36px 34px;
+      }
+
+      .cta-copy h2 {
+        max-width: 325px;
+        margin-top: 17px;
+        font-size: 27px;
+        line-height: 1.18;
+        font-weight: 900;
+      }
+
+      .cta-copy p {
+        max-width: 250px;
+        margin-top: 15px;
+      }
+
+      .cta-art {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .trust {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 21px 31px 34px;
+        background: #fff;
+      }
+
+      .trust-link {
+        display: grid;
+        grid-template-columns: 32px 1fr;
+        gap: 12px;
+        align-items: center;
+        min-height: 52px;
+        padding: 0 17px;
+        color: var(--muted);
+        border-right: 1px solid rgba(101, 69, 214, 0.18);
+        transition: transform 160ms ease, color 160ms ease;
+      }
+
+      .trust-link:first-child {
+        padding-left: 0;
+      }
+
+      .trust-link:last-child {
+        border-right: 0;
+        padding-right: 0;
+      }
+
+      .trust-link:hover,
+      .trust-link:focus-visible {
+        color: var(--purple);
+      }
+
+      .trust-link .icon {
+        width: 26px;
+        height: 26px;
+        color: var(--purple);
+      }
+
+      .trust-link span {
+        font-size: 10px;
+        line-height: 1.45;
+        font-weight: 650;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (max-width: 760px) {
+        .site-header {
+          height: auto;
+          flex-wrap: wrap;
+          gap: 14px;
+          padding: 16px 18px;
+        }
+
+        .main-nav {
+          order: 3;
+          width: 100%;
+          justify-content: space-between;
+          margin-left: 0;
+          gap: 12px;
+        }
+
+        .header-actions {
+          margin-left: auto;
+        }
+
+        .hero {
+          min-height: auto;
+          padding: 34px 22px 0;
+        }
+
+        .hero::after {
+          background: linear-gradient(180deg, #fff 0 44%, rgba(255, 255, 255, 0.86) 58%, transparent 78%);
+        }
+
+        .hero-copy {
+          width: 100%;
+          max-width: 390px;
+        }
+
+        .hero-art {
+          position: relative;
+          width: calc(100% + 44px);
+          height: auto;
+          margin: 18px -22px 0;
+        }
+
+        .secao-editorial-paged {
+          padding: 60px 24px;
+        }
+
+        .editorial-grid-wrapper,
+        .editorial-grid-wrapper.reverse {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+
+        .ordem-mobile-imagem {
+          order: -1;
+        }
+
+        .editorial-grid-wrapper h2 {
+          font-size: 30px;
+        }
+
+        .editorial-paragrafo,
+        .editorial-quote-aberto p {
+          font-size: 16px;
+        }
+
+        .editorial-imagem-fluida {
+          max-width: 390px;
+        }
+
+        .secao-historia-topo {
+          min-height: auto;
+          padding: 52px 24px 0;
+        }
+
+        .grid-historia-topo {
+          grid-template-columns: 1fr;
+          gap: 32px;
+          text-align: center;
+        }
+
+        .container-historia-topo {
+          grid-template-columns: 1fr;
+          gap: 32px;
+          text-align: center;
+        }
+
+        .conteudo-historia-topo {
+          text-align: center;
+        }
+
+        .bloco-leitura-focado {
+          align-items: center;
+          max-width: 100%;
+          text-align: center;
+        }
+
+        .quote-historia-topo {
+          margin: 0 auto;
+        }
+
+        .imagem-topo-ampliada {
+          max-width: 320px;
+        }
+
+        .imagem-topo-ajustada {
+          max-width: 360px;
+        }
+
+        h1 {
+          font-size: 36px;
+        }
+
+        .geni,
+        .cta-panel {
+          grid-template-columns: 1fr;
+        }
+
+        .geni {
+          padding: 0 22px 34px;
+        }
+
+        .geni-visual {
+          justify-content: center;
+          margin: 0 -22px;
+        }
+
+        .geni-copy {
+          padding: 0;
+        }
+
+        .card-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .cta {
+          padding: 0 18px 24px;
+        }
+
+        .cta-art {
+          min-height: 260px;
+        }
+
+        .trust {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 14px 0;
+          padding: 22px;
+        }
+
+        .trust-link:nth-child(2) {
+          border-right: 0;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .logo-word {
+          font-size: 21px;
+        }
+
+        .header-actions {
+          width: 100%;
+        }
+
+        .btn {
+          flex: 1;
+        }
+
+        .main-nav {
+          font-size: 12px;
+        }
+
+        h1 {
+          font-size: 32px;
+        }
+
+        .geni-copy h2,
+        .audience h2 {
+          font-size: 26px;
+        }
+
+        .audience {
+          padding: 27px 18px 24px;
+        }
+
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .trust {
+          grid-template-columns: 1fr;
+        }
+
+        .trust-link,
+        .trust-link:nth-child(2) {
+          border-right: 0;
+          border-bottom: 1px solid rgba(101, 69, 214, 0.16);
+          padding: 0 0 13px;
+        }
+
+        .trust-link:last-child {
+          border-bottom: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <div class="wrap nav">
+          <a href="index.html" class="logo-lockup" aria-label="NoSeuTempo — início">
+            <span class="logo-mark"><span class="lm-arc"></span><svg viewBox="0 0 100 100" class="lm-hands" aria-hidden="true"><g fill="none" stroke-width="9" stroke-linecap="round"><path d="M50 50 V28"/><path d="M50 50 H72"/></g><path class="lm-arrow" d="M72 64 L86 60 L78 74 Z"/></svg></span>
+            <span class="logo-word">NoSeu<span class="t">Tempo</span></span>
+          </a>
+          <nav class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="index.html#metodo">Método</a>
+            <a href="sobre.html" class="active">Sobre nós</a>
+          </nav>
+          <div class="nav-cta">
+            <a href="login.html" class="btn btn-ghost" id="nav-entrar" data-entrar>Entrar</a>
+            <a href="cadastro.html" class="btn btn-primary" id="nav-criar">Criar minha conta</a>
+            <button class="nav-toggle" aria-label="Abrir menu"><i data-lucide="menu"></i></button>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="secao-historia-topo" id="sobre" aria-labelledby="titulo-sobre">
+          <div class="container-historia-topo">
+            <div class="conteudo-historia-topo bloco-leitura-focado">
+              <h2 id="titulo-sobre">Nascemos para tornar o aprendizado mais leve, humano e possível. 💜</h2>
+
+              <p class="paragrafo-editorial">
+                O <span class="marca-no-seu">NoSeu</span><span class="marca-tempo">Tempo</span> nasceu da vida real, do desejo de criar caminhos de aprendizagem mais respeitosos, acolhedores e adaptáveis para cada pessoa.
+              </p>
+
+              <div class="caixa-manifesto-premium">
+                <p>Aqui, a gente não força ninguém a se encaixar. A gente adapta o caminho. 💜</p>
+              </div>
+            </div>
+
+            <div class="bloco-imagem-topo">
+              <img class="imagem-topo-ajustada" src="assets/foto-familia-cutout.png" alt="Mãe, filho e Geni IA">
+            </div>
+          </div>
+        </section>
+
+        <section class="secao-editorial-paged" id="metodo" aria-labelledby="titulo-geni">
+          <div class="editorial-grid-wrapper reverse">
+            <div class="editorial-bloco-imagem ordem-mobile-imagem">
+              <img class="editorial-imagem-fluida geni-ia-imagem" src="assets/geni-ia-maos-sem-fundo-v2.png" alt="Geni IA sem fundo">
+            </div>
+
+            <div class="editorial-bloco-conteudo">
+              <div class="editorial-badge teal">🤖 Geni IA</div>
+              <h2 id="titulo-geni">Quem é a Geni IA?</h2>
+
+              <p class="editorial-paragrafo">
+                <strong>A Geni IA é a inteligência acolhedora do <span class="marca-no-seu">NoSeu</span><span class="marca-tempo">Tempo</span>.</strong>
+              </p>
+
+              <p class="editorial-paragrafo">
+                Ela foi criada para acompanhar o processo de aprendizagem de forma sensível, observando dificuldades, preferências e ritmos para adaptar caminhos de estudo com mais cuidado e personalização.
+              </p>
+
+              <p class="editorial-paragrafo">
+                Inspirada na minha avó Geni, ela carrega a essência de quem ensina com paciência: explicar de outra forma, respeitar o tempo de cada pessoa e transformar o erro em possibilidade.
+              </p>
+
+              <div class="editorial-quote-aberto teal">
+                <p>"Mais do que responder, a Geni IA ajuda a encontrar caminhos."</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="audience" aria-labelledby="titulo-para-quem">
+          <span class="eyebrow">
+            <svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.4-9.7-9A5.8 5.8 0 0 1 12 5.6 5.8 5.8 0 0 1 21.7 12C19.5 16.6 12 21 12 21Z"/></svg>
+            Para quem criamos isso
+          </span>
+          <h2 id="titulo-para-quem">O NoSeuTempo é para você.</h2>
+
+          <div class="card-grid">
+            <a class="click-card" id="apoio-neurodivergente" href="#apoio-neurodivergente">
+              <span class="icon-bubble" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6v1a3 3 0 0 0 6 0V7a3 3 0 0 0-3-3Z"/><path d="M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 0 6v1a3 3 0 0 1-6 0V7a3 3 0 0 1 3-3Z"/><path d="M9 9H5m14 0h-4M9 15H5m14 0h-4"/></svg></span>
+              <span class="card-title">Apoio para pessoas neurodivergentes (TDAH, TEA, dislexia e outros).</span>
+            </a>
+
+            <a class="click-card" id="adaptacao" href="#adaptacao">
+              <span class="icon-bubble" aria-hidden="true"><svg class="icon fill" viewBox="0 0 24 24"><path d="M9.5 3a2 2 0 0 0-2 2v3H4.2A2.2 2.2 0 0 0 2 10.2v3.6A2.2 2.2 0 0 0 4.2 16h3.3v3a2 2 0 0 0 2 2h3.2a2 2 0 0 0 2-2v-3H18a4 4 0 0 0 0-8h-3.3V5a2 2 0 0 0-2-2H9.5Z"/></svg></span>
+              <span class="card-title">Adaptação que respeita o seu ritmo e sua forma de aprender.</span>
+            </a>
+
+            <a class="click-card" id="aprendizado-leve" href="#aprendizado-leve">
+              <span class="icon-bubble" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5.5c2.6 0 5.2.6 8 2.2v12c-2.8-1.6-5.4-2.2-8-2.2v-12Z"/><path d="M20 5.5c-2.6 0-5.2.6-8 2.2v12c2.8-1.6 5.4-2.2 8-2.2v-12Z"/></svg></span>
+              <span class="card-title">Aprendizado leve, sem pressão e sem comparação.</span>
+            </a>
+
+            <a class="click-card" id="criancas-adultos" href="#criancas-adultos">
+              <span class="icon-bubble" aria-hidden="true"><svg class="icon fill" viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5Zm-7 8.2v4.1c1.9 2 4.2 3 7 3s5.1-1 7-3v-4.1l-7 3.5-7-3.5Zm15 0v5.4l2 1v-7.4l-2 1Z"/></svg></span>
+              <span class="card-title">Para crianças, adolescentes e adultos.</span>
+            </a>
+
+            <a class="click-card" id="conteudos" href="#conteudos">
+              <span class="icon-bubble" aria-hidden="true"><svg class="icon fill" viewBox="0 0 24 24"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.1 6.6L12 17.5l-5.8 3.1L7.3 14 2.5 9.4l6.6-.9L12 2.5Z"/></svg></span>
+              <span class="card-title">Conteúdos interativos que prendem a atenção e dão prazer.</span>
+            </a>
+
+            <a class="click-card" id="ambiente" href="#ambiente">
+              <span class="icon-bubble" aria-hidden="true"><svg class="icon fill" viewBox="0 0 24 24"><path d="M12 21s-8-4.8-10-9.3A5.5 5.5 0 0 1 12 6.2a5.5 5.5 0 0 1 10 5.5C20 16.2 12 21 12 21Z"/></svg></span>
+              <span class="card-title">Ambiente acolhedor que entende seus dias bons e seus dias difíceis.</span>
+            </a>
+
+            <a class="click-card" id="autonomia" href="#autonomia">
+              <span class="icon-bubble" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21V10"/><path d="M12 14c-4 0-7-2.8-8-7 4.2.1 7 2.3 8 7Z"/><path d="M13 12c1.1-4 3.8-6.3 7.7-6.8-.2 4.3-3.1 7.4-7.7 6.8Z"/></svg></span>
+              <span class="card-title">Estímulo à autonomia e à confiança para aprender sempre.</span>
+            </a>
+
+            <a class="click-card" id="familias" href="#familias">
+              <span class="icon-bubble" aria-hidden="true"><svg class="icon fill" viewBox="0 0 24 24"><path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3 19a5 5 0 0 1 10 0v1H3v-1Zm8 1v-1a6.7 6.7 0 0 0-1.4-4.1A5 5 0 0 1 21 19v1H11Z"/></svg></span>
+              <span class="card-title">Famílias e educadores com apoio de verdade, não sozinhos.</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="cta" id="criar-conta" aria-labelledby="titulo-direito">
+          <div class="cta-panel">
+            <div class="cta-copy">
+              <span class="eyebrow">
+                <svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.4-9.7-9A5.8 5.8 0 0 1 12 5.6 5.8 5.8 0 0 1 21.7 12C19.5 16.6 12 21 12 21Z"/></svg>
+                Se você chegou até aqui, saiba de uma coisa:
+              </span>
+              <h2 id="titulo-direito">Acreditamos que aprender é um direito. E que cada pessoa merece encontrar <span class="purple-text">o seu jeito, no seu tempo.</span></h2>
+              <p>É por isso que o NoSeuTempo existe. Para caminhar ao seu lado, com respeito, leveza e propósito.</p>
+            </div>
+            <img class="cta-art" src="assets/cta-family.png" width="456" height="307" alt="Carol, uma criança e a Geni estudando juntas">
+          </div>
+        </section>
+      </main>
+
+      <footer class="trust" id="entrar" aria-label="Compromissos do NoSeuTempo">
+        <a class="trust-link" id="seguranca" href="#seguranca">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3 7.7 7.5 9.5 4.5-1.8 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m9.5 12 1.6 1.6 3.7-4"/></svg>
+          <span>Ambiente seguro e protegido</span>
+        </a>
+        <a class="trust-link" id="privacidade" href="#privacidade">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2"/><path d="M6 10h12v10H6z"/><path d="M12 14v2"/></svg>
+          <span>Privacidade e proteção de dados</span>
+        </a>
+        <a class="trust-link" id="respeito" href="#respeito">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8l-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9L12 3Z"/></svg>
+          <span>Respeito ao seu ritmo e às suas necessidades</span>
+        </a>
+        <a class="trust-link" id="voce" href="#voce">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-4.8-10-9.3A5.5 5.5 0 0 1 12 6.2a5.5 5.5 0 0 1 10 5.5C20 16.2 12 21 12 21Z"/></svg>
+          <span>Aqui não existe certo ou errado, existe você</span>
+        </a>
+      </footer>
+    </div>
+
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+    <script src="site.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+      if (window.lucide) lucide.createIcons();
+      document.addEventListener('DOMContentLoaded', async function () {
+        if (!window.NST || !NST.isLogged()) return;
+        var me = await NST.me().catch(function () { return null; });
+        if (!me) return;
+        var entrar = document.getElementById('nav-entrar');
+        if (entrar) { entrar.textContent = 'Sair'; entrar.href = '#'; entrar.addEventListener('click', function (e) { e.preventDefault(); NST.logout(); }); }
+        if (me.acesso || me.paid) {
+          var criar = document.getElementById('nav-criar');
+          if (criar) { criar.href = 'plataforma.html'; criar.textContent = 'Acessar minha conta →'; }
+        }
+      });
+    </script>
+  </body>
+</html>

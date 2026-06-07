@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Método — NoSeuTempo</title>
+<meta name="description" content="Como a Geni IA entende, adapta e acompanha cada pessoa para aprender no seu próprio tempo.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ============================================================
+   MÉTODO — NoSeuTempo
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+body { background: #FAFAF8; font-family: system-ui, -apple-system, sans-serif; margin: 0; }
+
+.mt-wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+
+/* ---------- HEADER ---------- */
+.mt-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #E8E4F0;
+}
+.mt-nav {
+  max-width: 1160px; margin: 0 auto; padding: 0 28px;
+  display: flex; align-items: center; height: 68px;
+}
+.mt-logo {
+  display: flex; align-items: center; gap: 9px;
+  text-decoration: none; font-family: 'Poppins', sans-serif;
+  font-weight: 800; font-size: 1.15rem; color: #1A1A2E; flex-shrink: 0;
+}
+.mt-logo-mark {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.mt-logo-mark img { width: 36px; height: 36px; }
+.mt-logo .t { color: #0EA5A0; }
+.mt-nav-links {
+  display: flex; gap: 36px; margin: 0 auto;
+  list-style: none; padding: 0;
+}
+.mt-nav-links a {
+  text-decoration: none; color: #374151; font-weight: 500;
+  font-size: .97rem; transition: color .15s; padding: 4px 0;
+}
+.mt-nav-links a:hover { color: #0EA5A0; }
+.mt-nav-links a.active {
+  color: #0EA5A0; font-weight: 700;
+  border-bottom: 2px solid #0EA5A0; padding-bottom: 2px;
+}
+.mt-nav-cta { display: flex; gap: 10px; align-items: center; }
+.mt-btn-out {
+  padding: 9px 20px; border: 1.5px solid #CBD5E0; border-radius: 10px;
+  background: transparent; color: #374151; font-weight: 600; font-size: .93rem;
+  text-decoration: none; transition: border-color .15s;
+}
+.mt-btn-out:hover { border-color: #0EA5A0; color: #0EA5A0; }
+.mt-btn-fill {
+  padding: 9px 22px; border-radius: 10px;
+  background: #5B21B6; color: #fff; font-weight: 700; font-size: .93rem;
+  text-decoration: none; transition: background .15s;
+}
+.mt-btn-fill:hover { background: #4C1D95; }
+
+/* ---------- HERO ---------- */
+.mt-hero {
+  padding: 72px 0 0;
+  background: linear-gradient(160deg, #FEFEFF 0%, #F0EEF9 45%, #EBF8F7 100%);
+  overflow: hidden;
+}
+.mt-hero-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 28px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; align-items: center;
+}
+
+/* left copy */
+.mt-copy { padding-right: 28px; padding-bottom: 72px; }
+.mt-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #FEF0EE; color: #C84B3A;
+  font-size: .72rem; font-weight: 700; letter-spacing: .07em;
+  padding: 6px 14px; border-radius: 99px;
+  border: 1px solid #FBDAD5; margin-bottom: 22px;
+  text-transform: uppercase;
+}
+.mt-eyebrow-dot { width: 7px; height: 7px; background: #E06352; border-radius: 50%; }
+.mt-h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.85rem, 3.8vw, 2.75rem);
+  font-weight: 800; color: #1A1A2E; line-height: 1.17; margin: 0 0 18px;
+}
+.mt-h1 .mt-teal { color: #0EA5A0; display: block; }
+.mt-sub {
+  color: #4B5563; font-size: 1rem; line-height: 1.7;
+  margin: 0 0 10px; max-width: 420px;
+}
+.mt-sub-em { color: #0EA5A0; font-weight: 700; font-size: 1.02rem; margin: 0 0 32px; }
+.mt-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+.mt-cta-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #0EA5A0; color: #fff;
+  font-weight: 700; font-size: .97rem; padding: 14px 24px;
+  border-radius: 12px; text-decoration: none;
+  box-shadow: 0 4px 18px rgba(14,165,160,.35);
+  transition: background .17s, transform .14s;
+}
+.mt-cta-primary:hover { background: #0B8F8A; transform: translateY(-1px); }
+.mt-cta-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: #374151;
+  font-weight: 600; font-size: .97rem; padding: 14px 22px;
+  border-radius: 12px; border: 1.5px solid #D1D5DB;
+  text-decoration: none; transition: border-color .15s;
+}
+.mt-cta-ghost:hover { border-color: #0EA5A0; color: #0EA5A0; }
+.mt-badges { display: flex; gap: 20px; flex-wrap: wrap; }
+.mt-badge {
+  display: flex; align-items: center; gap: 7px;
+  font-size: .86rem; color: #6B7280; font-weight: 500;
+}
+
+/* right visual */
+.mt-visual {
+  position: relative; display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px; align-items: center;
+  padding-bottom: 60px; padding-top: 20px;
+}
+
+/* robot column */
+.mt-robot-col {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 16px; position: relative;
+}
+.mt-robot-img {
+  width: 200px;
+  filter: drop-shadow(0 20px 36px rgba(10,30,60,.2));
+  animation: mt-float 6s ease-in-out infinite;
+}
+@keyframes mt-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+
+/* speech bubble */
+.mt-bubble {
+  position: absolute; top: -20px; left: -170px;
+  background: #fff; border-radius: 18px 18px 18px 4px;
+  padding: 14px 16px; width: 196px;
+  box-shadow: 0 8px 28px rgba(10,30,60,.11);
+}
+.mt-bubble-name {
+  font-weight: 800; font-size: .87rem; color: #1A1A2E; margin-bottom: 6px;
+}
+.mt-bubble p {
+  font-size: .77rem; color: #4B5563; line-height: 1.55; margin: 0;
+}
+.mt-bubble-tail {
+  position: absolute; bottom: -10px; left: 18px;
+  width: 0; height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
+  filter: drop-shadow(0 3px 4px rgba(10,30,60,.07));
+}
+
+/* feature cards column */
+.mt-cards-col {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.mt-feat-card {
+  background: #fff; border-radius: 16px;
+  padding: 13px 15px; display: flex; gap: 12px; align-items: flex-start;
+  box-shadow: 0 4px 16px rgba(10,30,60,.08);
+  transition: transform .18s;
+}
+.mt-feat-card:hover { transform: translateX(4px); }
+.mt-feat-ic {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.15rem; flex-shrink: 0;
+}
+.mt-feat-card b {
+  font-size: .82rem; color: #1A1A2E; font-weight: 700;
+  display: block; margin-bottom: 3px;
+}
+.mt-feat-card small {
+  font-size: .74rem; color: #6B7280; line-height: 1.45; display: block;
+}
+
+/* ---------- COMO A GENI IA TRABALHA ---------- */
+.mt-metodo {
+  padding: 72px 0;
+  background: #fff;
+}
+.mt-section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+  font-weight: 800; color: #1A1A2E;
+  text-align: center; margin: 0 0 52px;
+}
+.mt-section-title span { color: #0EA5A0; }
+.mt-steps-row {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 14px; position: relative;
+}
+.mt-steps-row::before {
+  content: '';
+  position: absolute;
+  top: 46px; left: calc(10% + 8px); right: calc(10% + 8px);
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg, #BAE6E4 0, #BAE6E4 6px, transparent 6px, transparent 14px
+  );
+  z-index: 0;
+}
+.mt-step {
+  background: #FAFCFF; border: 1.5px solid #EEF0F6;
+  border-radius: 20px; padding: 24px 14px 20px;
+  text-align: center; position: relative; z-index: 2;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.mt-step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(14,165,160,.13);
+  border-color: #0EA5A0;
+}
+.mt-step-icon {
+  width: 64px; height: 64px; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.75rem; margin: 0 auto 14px;
+}
+.msi-1 { background: #FFF1EE; }
+.msi-2 { background: #EFF9F8; }
+.msi-3 { background: #F0EDFF; }
+.msi-4 { background: #FFF8EE; }
+.msi-5 { background: #EEFAF4; }
+.mt-step-num {
+  font-size: .68rem; font-weight: 700; color: #0EA5A0;
+  text-transform: uppercase; letter-spacing: .05em; margin-bottom: 5px;
+}
+.mt-step h4 {
+  font-size: .92rem; font-weight: 700; color: #1A1A2E;
+  margin: 0 0 8px; line-height: 1.28;
+}
+.mt-step p {
+  font-size: .76rem; color: #6B7280; line-height: 1.55; margin: 0;
+}
+/* connectors between steps */
+.mt-step-hearts {
+  display: flex; justify-content: space-evenly;
+  padding: 0 calc(10% + 24px);
+  margin-top: -40px; margin-bottom: 12px;
+  position: relative; z-index: 3; pointer-events: none;
+}
+.mt-step-hearts span { font-size: .75rem; color: #5EEAD4; }
+
+/* ---------- VISITINHA RÁPIDA ---------- */
+.mt-cta-section { padding: 56px 0; background: #F8F7FC; }
+.mt-cta-band {
+  background: linear-gradient(135deg, #1E1B4B 0%, #2A2570 45%, #14324E 100%);
+  border-radius: 28px; padding: 44px 52px;
+  display: grid; grid-template-columns: 130px 1fr auto;
+  gap: 36px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.mt-cta-band::before {
+  content: ''; position: absolute;
+  top: -80px; right: -80px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(94,234,212,.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.mt-cta-band::after {
+  content: ''; position: absolute;
+  bottom: -60px; left: 60px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(167,139,250,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.mt-cta-illo {
+  display: flex; align-items: flex-end;
+  justify-content: center; gap: 6px;
+}
+.mt-cta-illo img {
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
+}
+.mt-cta-illo img.cal { width: 86px; }
+.mt-cta-copy h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.2rem, 2.3vw, 1.65rem);
+  font-weight: 800; color: #fff; margin: 0 0 8px;
+}
+.mt-cta-copy p { color: #BAB4F0; font-size: .92rem; line-height: 1.6; margin: 0; }
+.mt-cta-right {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 10px; flex-shrink: 0;
+}
+.mt-visit-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: #fff; color: #0EA5A0;
+  font-weight: 700; font-size: .95rem;
+  padding: 14px 22px; border-radius: 14px;
+  text-decoration: none; white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(0,0,0,.18);
+  transition: transform .15s, box-shadow .15s;
+}
+.mt-visit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.24); }
+.mt-cta-right small { color: #A5B4FC; font-size: .77rem; text-align: center; line-height: 1.5; }
+
+/* ---------- FEITO PARA QUEM ---------- */
+.mt-audience { padding: 64px 0; background: #fff; }
+.mt-aud-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  font-weight: 800; color: #1A1A2E;
+  text-align: center; margin: 0 0 36px;
+}
+.mt-aud-icons {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  justify-content: center; margin-bottom: 10px;
+}
+.mt-aud-chip {
+  display: flex; flex-direction: column; align-items: center; gap: 7px;
+  background: #F3F0FB; border-radius: 16px; padding: 16px 14px 13px;
+  min-width: 90px; transition: transform .15s, box-shadow .15s;
+  cursor: default;
+}
+.mt-aud-chip:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(91,33,182,.12); }
+.mt-aud-em { font-size: 1.9rem; line-height: 1; }
+.mt-aud-lb {
+  font-size: .73rem; font-weight: 600; color: #374151;
+  text-align: center; line-height: 1.3;
+}
+
+/* ---------- TRUST BAR ---------- */
+.mt-trust-bar {
+  background: #FAFAF8; border-top: 1px solid #EDEBF5; padding: 28px 0;
+}
+.mt-trust-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 28px;
+  display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+}
+.mt-tbi { display: flex; align-items: center; gap: 11px; }
+.mt-tbi-ic {
+  width: 36px; height: 36px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.ic-lock { background: #EFF9F8; }
+.ic-shield { background: #F0EDFF; }
+.ic-cancel { background: #FEF0EE; }
+.ic-support { background: #FFF8E1; }
+.mt-tbi b { display: block; font-size: .85rem; color: #1A1A2E; font-weight: 700; }
+.mt-tbi span { display: block; font-size: .74rem; color: #6B7280; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 960px) {
+  .mt-hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .mt-copy { padding-right: 0; padding-bottom: 32px; }
+  .mt-sub, .mt-sub-em { max-width: 100%; }
+  .mt-ctas, .mt-badges { justify-content: center; }
+  .mt-visual { grid-template-columns: 1fr; justify-items: center; padding-bottom: 32px; }
+  .mt-bubble { position: static; width: 220px; border-radius: 18px; margin-bottom: 0; }
+  .mt-bubble-tail { display: none; }
+  .mt-robot-col { flex-direction: row; gap: 16px; align-items: center; }
+  .mt-robot-img { width: 140px; }
+  .mt-cards-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+  .mt-steps-row { grid-template-columns: repeat(2, 1fr); }
+  .mt-steps-row::before { display: none; }
+  .mt-step-hearts { display: none; }
+  .mt-cta-band { grid-template-columns: 1fr; text-align: center; padding: 36px 28px; }
+  .mt-cta-illo { display: none; }
+  .mt-cta-right { align-items: center; }
+  .mt-trust-inner { gap: 28px; }
+}
+@media (max-width: 580px) {
+  .mt-steps-row { grid-template-columns: 1fr; }
+  .mt-cards-col { grid-template-columns: 1fr; }
+  .mt-aud-icons { gap: 10px; }
+  .mt-aud-chip { min-width: 76px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="mt-header">
+  <nav class="mt-nav">
+    <a href="index.html" class="mt-logo">
+      <span class="mt-logo-mark">
+        <img src="assets/logo-icon.svg" alt="" aria-hidden="true">
+      </span>
+      NoSeu<span class="t">Tempo</span>
+    </a>
+    <ul class="mt-nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="metodo.html" class="active">Método</a></li>
+      <li><a href="sobre-nos.html">Sobre nós</a></li>
+    </ul>
+    <div class="mt-nav-cta">
+      <a href="login.html" class="mt-btn-out">Entrar</a>
+      <a href="cadastro.html" class="mt-btn-fill">Criar conta</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="mt-hero">
+  <div class="mt-hero-inner">
+
+    <!-- COPY ESQUERDA -->
+    <div class="mt-copy">
+      <div class="mt-eyebrow">
+        <span class="mt-eyebrow-dot"></span>
+        💜 Aprendizado que respeita você
+      </div>
+
+      <h1 class="mt-h1">
+        Nem todo mundo aprende<br>do mesmo jeito.<br>
+        <span class="mt-teal">E tudo bem. 💜</span>
+      </h1>
+
+      <p class="mt-sub">
+        A Geni IA entende você de verdade.<br>
+        Ela observa, aprende e adapta o caminho<br>
+        até encontrar o que funciona para você.
+      </p>
+      <p class="mt-sub-em">Aprender pode e deve ser leve.</p>
+
+      <div class="mt-ctas">
+        <a href="plataforma.html" class="mt-cta-primary">Conhecer a plataforma</a>
+        <a href="cadastro.html?trial=1" class="mt-cta-ghost">Fazer uma visitinha rápida&nbsp;→</a>
+      </div>
+
+      <div class="mt-badges">
+        <span class="mt-badge">🤍 Sem comparação</span>
+        <span class="mt-badge">⏰ No seu ritmo</span>
+        <span class="mt-badge">🛡️ Ambiente seguro e acolhedor</span>
+      </div>
+    </div>
+
+    <!-- VISUAL DIREITA -->
+    <div class="mt-visual">
+
+      <!-- ROBÔ + BALÃO -->
+      <div class="mt-robot-col">
+        <!-- balão de fala -->
+        <div class="mt-bubble">
+          <div class="mt-bubble-name">Oi, eu sou a Geni IA! 💜</div>
+          <p>Quero conhecer você primeiro. Assim consigo adaptar atividades, exemplos, jogos e desafios para o seu jeito de aprender.</p>
+          <div class="mt-bubble-tail"></div>
+        </div>
+        <img src="assets/aprender/robot_cut.png" alt="Geni IA — sua parceira de aprendizagem" class="mt-robot-img">
+      </div>
+
+      <!-- CARDS DIREITA -->
+      <div class="mt-cards-col">
+
+        <div class="mt-feat-card">
+          <div class="mt-feat-ic" style="background:#EFF9F8;">🔍</div>
+          <div>
+            <b>Observo com carinho</b>
+            <small>Entendo suas dificuldades, preferências e o que faz sentido para você.</small>
+          </div>
+        </div>
+
+        <div class="mt-feat-card">
+          <div class="mt-feat-ic" style="background:#F0EDFF;">🧠</div>
+          <div>
+            <b>Entendo o que funciona</b>
+            <small>Identifico padrões e descubro como você aprende melhor.</small>
+          </div>
+        </div>
+
+        <div class="mt-feat-card">
+          <div class="mt-feat-ic" style="background:#FFF8EE;">🧩</div>
+          <div>
+            <b>Crio o seu caminho</b>
+            <small>Adapto atividades, exemplos e explicações até encontrar o melhor jeito.</small>
+          </div>
+        </div>
+
+        <div class="mt-feat-card">
+          <div class="mt-feat-ic" style="background:#EEFAF4;">📈</div>
+          <div>
+            <b>Acompanho você</b>
+            <small>Acompanho seu progresso e construo novos caminhos para você continuar evoluindo.</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== COMO A GENI IA TRABALHA ========== -->
+<section class="mt-metodo">
+  <div class="mt-wrap">
+    <h2 class="mt-section-title">Como a <span>Geni IA</span> trabalha por você</h2>
+
+    <div class="mt-steps-row">
+
+      <div class="mt-step">
+        <div class="mt-step-icon msi-1">📋</div>
+        <div class="mt-step-num">1. Acolhe</div>
+        <h4>Acolhe e entende</h4>
+        <p>A Geni IA faz perguntas com carinho para entender sua história, seus desafios e seus objetivos.</p>
+      </div>
+
+      <div class="mt-step">
+        <div class="mt-step-icon msi-2">🔍</div>
+        <div class="mt-step-num">2. Observa</div>
+        <h4>Observa</h4>
+        <p>A Geni IA observa como você interage, suas dificuldades, preferências e tempo.</p>
+      </div>
+
+      <div class="mt-step">
+        <div class="mt-step-icon msi-3">🧠</div>
+        <div class="mt-step-num">3. Entende</div>
+        <h4>Entende</h4>
+        <p>Ela identifica padrões e entende o que funciona melhor para você.</p>
+      </div>
+
+      <div class="mt-step">
+        <div class="mt-step-icon msi-4">🧩</div>
+        <div class="mt-step-num">4. Adapta</div>
+        <h4>Adapta</h4>
+        <p>A Geni IA muda atividades, exemplos, jogos e explicações até encontrar o melhor jeito.</p>
+      </div>
+
+      <div class="mt-step">
+        <div class="mt-step-icon msi-5">🌱</div>
+        <div class="mt-step-num">5. Acompanha</div>
+        <h4>Acompanha</h4>
+        <p>Ela acompanha seu progresso e cria novos caminhos para você continuar evoluindo.</p>
+      </div>
+
+    </div>
+
+    <!-- corações conectores -->
+    <div class="mt-step-hearts" aria-hidden="true">
+      <span>💜</span>
+      <span>💜</span>
+      <span>💜</span>
+      <span>💜</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== VISITINHA RÁPIDA ========== -->
+<section class="mt-cta-section">
+  <div class="mt-wrap">
+    <div class="mt-cta-band">
+
+      <div class="mt-cta-illo">
+        <img src="assets/calendar.png" alt="" class="cal" aria-hidden="true">
+      </div>
+
+      <div class="mt-cta-copy">
+        <h2>Que tal uma visitinha rápida?</h2>
+        <p>Faça uma visitinha rápida e descubra como a Geni IA adapta a experiência para você.</p>
+      </div>
+
+      <div class="mt-cta-right">
+        <a href="cadastro.html?trial=1" class="mt-visit-btn">💜 Fazer minha visitinha rápida</a>
+        <small>Sem compromisso. Sem cartão. Apenas uma forma<br>de conhecer o NoSeuTempo por dentro.</small>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEITO PARA QUEM ========== -->
+<section class="mt-audience">
+  <div class="mt-wrap">
+    <h2 class="mt-aud-title">Feito para quem aprende de forma diferente</h2>
+    <div class="mt-aud-icons">
+      <div class="mt-aud-chip"><span class="mt-aud-em">🧩</span><span class="mt-aud-lb">Autistas</span></div>
+      <div class="mt-aud-chip"><span class="mt-aud-em">⚡</span><span class="mt-aud-lb">TDAH</span></div>
+      <div class="mt-aud-chip"><span class="mt-aud-em">📖</span><span class="mt-aud-lb">Dislexia</span></div>
+      <div class="mt-aud-chip"><span class="mt-aud-em">🎓</span><span class="mt-aud-lb">Adultos retomando os estudos</span></div>
+      <div class="mt-aud-chip"><span class="mt-aud-em">👧</span><span class="mt-aud-lb">Crianças que precisam de outro ritmo</span></div>
+      <div class="mt-aud-chip"><span class="mt-aud-em">💜</span><span class="mt-aud-lb">Quem já se sentiu frustrado aprendendo</span></div>
+      <div class="mt-aud-chip"><span class="mt-aud-em">🔄</span><span class="mt-aud-lb">Quem já desistiu de cursos</span></div>
+      <div class="mt-aud-chip"><span class="mt-aud-em">🧠</span><span class="mt-aud-lb">Quem acha que "não leva jeito"</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BARRA DE CONFIANÇA ========== -->
+<div class="mt-trust-bar">
+  <div class="mt-trust-inner">
+    <div class="mt-tbi">
+      <div class="mt-tbi-ic ic-lock">🔒</div>
+      <div>
+        <b>Ambiente 100% seguro</b>
+        <span>Seus dados protegidos com todo cuidado.</span>
+      </div>
+    </div>
+    <div class="mt-tbi">
+      <div class="mt-tbi-ic ic-shield">🛡️</div>
+      <div>
+        <b>Privacidade respeitada</b>
+        <span>Você no controle de tudo, sempre.</span>
+      </div>
+    </div>
+    <div class="mt-tbi">
+      <div class="mt-tbi-ic ic-cancel">✖️</div>
+      <div>
+        <b>Cancelamento fácil</b>
+        <span>Você pode cancelar quando quiser.</span>
+      </div>
+    </div>
+    <div class="mt-tbi">
+      <div class="mt-tbi-ic ic-support">😊</div>
+      <div>
+        <b>Suporte humano</b>
+        <span>Estamos aqui para te ouvir e ajudar.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="site.js"></script>
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

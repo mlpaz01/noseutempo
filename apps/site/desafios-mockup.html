@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mockup — Desafios & Aprendizado Adaptativo (NoSeuTempo)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#1E2A4A; --navy2:#234B86; --teal:#1FA6A8; --teal-deep:#0F8275;
+    --lav:#EDE7FA; --ia:#EAF4FF; --orange:#F0902F; --yellow:#FFC23C;
+    --bg:#F4F7F6; --ink:#1E2A4A; --muted:#62708A; --line:#E6ECF3;
+    --green:#2E9E68;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);font-family:'Lexend',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55;}
+  h1,h2,h3,h4{font-family:'Poppins',system-ui,sans-serif;margin:0;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+  a{color:inherit;text-decoration:none;}
+
+  .mock-flag{background:#FFF4E5;color:#7A4E12;text-align:center;font-size:13px;font-weight:600;padding:8px;}
+
+  /* Topbar simples (menu permanece o mesmo do site) */
+  .top{background:#fff;border-bottom:1px solid var(--line);height:70px;display:flex;align-items:center;gap:30px;padding:0 28px;position:sticky;top:0;z-index:20;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins';font-weight:700;font-size:1.2rem;}
+  .brand .lg{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--navy),var(--teal));display:grid;place-items:center;color:#fff;font-size:18px;}
+  .brand .seu{color:var(--teal);}
+  .topnav{display:flex;gap:26px;margin-left:6px;}
+  .topnav a{color:var(--muted);font-weight:600;font-size:.95rem;display:flex;align-items:center;gap:7px;}
+  .topnav a.active{color:var(--teal);}
+  .top .right{margin-left:auto;color:var(--muted);font-size:.85rem;}
+
+  .wrap{max-width:880px;margin:0 auto;padding:22px 20px 70px;}
+
+  /* Breadcrumb contexto */
+  .crumb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.86rem;color:var(--muted);font-weight:600;margin:6px 2px 14px;}
+  .crumb b{color:var(--navy2);}
+  .crumb .sep{opacity:.5;}
+
+  /* Stepper do fluxo */
+  .flow{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 14px;}
+  .step{flex:none;display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--line);border-radius:99px;padding:7px 14px;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;transition:.15s;}
+  .step:hover{border-color:var(--teal);}
+  .step .n{width:20px;height:20px;border-radius:50%;background:var(--lav);color:var(--navy2);display:grid;place-items:center;font-size:.72rem;font-weight:800;}
+  .step.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+  .step.active .n{background:rgba(255,255,255,.25);color:#fff;}
+  .step.done .n{background:var(--teal);color:#fff;}
+
+  /* Card base */
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:22px;box-shadow:0 6px 22px rgba(26,43,74,.05);padding:30px 32px;margin-top:8px;}
+  .stage{display:none;animation:fade .35s ease;}
+  .stage.on{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--ia);color:var(--navy2);font-weight:700;font-size:.8rem;padding:6px 13px;border-radius:99px;margin-bottom:14px;}
+  .stage h2{font-size:1.6rem;line-height:1.2;}
+  .stage .lead{color:var(--muted);font-size:1.02rem;margin-top:8px;max-width:60ch;}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;border-radius:14px;padding:13px 22px;font-weight:700;font-size:.98rem;transition:.18s;}
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:0 8px 18px rgba(31,166,168,.26);}
+  .btn-primary:hover{filter:brightness(1.06);transform:translateY(-1px);}
+  .btn-ghost{background:#fff;border:1.5px solid var(--line);color:var(--navy2);}
+  .btn-ghost:hover{border-color:var(--teal);color:var(--teal-deep);}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;align-items:center;}
+  .spacer{flex:1;}
+
+  /* listas de opção (reforço, ações) */
+  .opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;}
+  .opt{display:flex;align-items:center;gap:13px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:15px 16px;cursor:pointer;transition:.16s;text-align:left;}
+  .opt:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 10px 22px rgba(26,43,74,.08);}
+  .opt .em{font-size:1.5rem;flex:none;}
+  .opt .tx b{display:block;font-family:'Poppins';font-size:.98rem;}
+  .opt .tx span{display:block;color:var(--muted);font-size:.82rem;margin-top:1px;}
+
+  /* jogos */
+  .games{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px;}
+  .game{background:#fff;border:1.5px solid var(--line);border-radius:16px;overflow:hidden;}
+  .game .top2{height:84px;display:grid;place-items:center;font-size:2.4rem;}
+  .game .bd{padding:13px 14px;}
+  .game h4{font-size:.98rem;}
+  .game p{color:var(--muted);font-size:.8rem;margin:4px 0 0;}
+
+  /* desafio: questão */
+  .qbar{height:9px;background:#EAE8F2;border-radius:99px;overflow:hidden;margin-bottom:6px;}
+  .qbar>i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),#34C6B0);border-radius:99px;width:35%;}
+  .qmeta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);font-weight:600;margin-bottom:18px;}
+  .qtext{font-family:'Poppins';font-size:1.28rem;font-weight:700;line-height:1.3;margin-bottom:6px;}
+  .qhint{color:var(--muted);font-size:.9rem;margin-bottom:18px;}
+  .choice{display:flex;align-items:center;gap:13px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:15px 18px;margin-top:11px;cursor:pointer;font-size:1.02rem;font-weight:500;transition:.15s;}
+  .choice:hover{border-color:var(--teal);background:#F3FBFA;}
+  .choice .k{width:30px;height:30px;border-radius:9px;background:var(--lav);color:var(--navy2);display:grid;place-items:center;font-weight:800;flex:none;font-family:'Poppins';}
+
+  /* resultado */
+  .result-hero{text-align:center;padding:14px 0 6px;}
+  .result-hero .ring{width:108px;height:108px;margin:0 auto 14px;border-radius:50%;background:conic-gradient(var(--teal) 0 252deg,#E7EEF3 252deg 360deg);display:grid;place-items:center;}
+  .result-hero .ring .inner{width:84px;height:84px;border-radius:50%;background:#fff;display:grid;place-items:center;font-family:'Poppins';font-weight:800;font-size:1.5rem;color:var(--navy);}
+  .result-hero h2{font-size:1.7rem;}
+  .result-hero p{color:var(--muted);font-size:1.05rem;margin-top:8px;}
+
+  /* análise geni */
+  .geni-card{background:linear-gradient(135deg,#EAF4FF 0%,#F3F9FF 60%,#FEFEFE 100%);border:1.5px solid #D6E7F7;}
+  .geni-head{display:flex;align-items:center;gap:13px;margin-bottom:6px;}
+  .geni-head .av{width:46px;height:46px;border-radius:13px;background:#fff;border:1.5px solid #CFE0F2;display:grid;place-items:center;font-size:24px;flex:none;}
+  .geni-head h2{font-size:1.4rem;}
+  .anal{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+  .anal .box{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;}
+  .anal .box h4{font-size:1rem;margin-bottom:12px;}
+  .anal ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .anal li{display:flex;align-items:center;gap:10px;font-size:.98rem;font-weight:600;}
+  .tag-ok{color:var(--green);} .tag-prat{color:var(--navy2);}
+
+  /* frustração */
+  .frus-card{background:linear-gradient(135deg,#FBF1FF 0%,#F6F2FF 60%,#FEFEFE 100%);border:1.5px solid #E6D8F5;}
+  .speak{display:flex;gap:14px;align-items:flex-start;}
+  .speak .av{width:50px;height:50px;border-radius:14px;background:#fff;border:1.5px solid #E0CFF2;display:grid;place-items:center;font-size:26px;flex:none;}
+  .speak .bubble{background:#fff;border:1.5px solid #EADDFB;border-radius:16px;border-top-left-radius:5px;padding:16px 18px;font-size:1.05rem;line-height:1.6;}
+
+  /* material adaptado */
+  .prep{text-align:center;padding:10px 0;}
+  .prep .orb{width:96px;height:96px;border-radius:50%;margin:0 auto 18px;background:radial-gradient(circle at 50% 40%, #EAF4FF, #D6ECF7);display:grid;place-items:center;font-size:42px;position:relative;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .prep .orb::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:3px solid var(--teal);border-top-color:transparent;animation:spin 1.5s linear infinite;}
+  @media(prefers-reduced-motion:reduce){ .prep .orb::after{animation:none;border-top-color:var(--teal);} }
+  .prep h2{font-size:1.45rem;}
+  .prep p{color:var(--muted);max-width:48ch;margin:10px auto 0;font-size:1.02rem;}
+
+  /* novo caminho (trilha adaptada) */
+  .path{display:flex;flex-direction:column;gap:12px;margin-top:18px;}
+  .pstep{display:flex;align-items:center;gap:15px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:15px 18px;position:relative;}
+  .pstep .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:22px;flex:none;background:var(--lav);}
+  .pstep h4{font-size:1.02rem;}
+  .pstep p{color:var(--muted);font-size:.85rem;margin:2px 0 0;}
+  .pstep .badge{margin-left:auto;font-size:.72rem;font-weight:800;color:var(--teal-deep);background:#E4F4F1;padding:4px 10px;border-radius:99px;white-space:nowrap;}
+
+  /* filosofia */
+  .philo{margin-top:26px;background:var(--navy);color:#fff;border-radius:20px;padding:24px 28px;}
+  .philo .q{font-family:'Poppins';font-size:1.18rem;font-weight:700;line-height:1.4;}
+  .philo .s{color:#B9C6E0;font-size:.95rem;margin-top:10px;}
+  .philo .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+  .philo .chips span{background:rgba(255,255,255,.12);border-radius:99px;padding:5px 13px;font-size:.8rem;font-weight:600;}
+
+  .navbtns{display:flex;justify-content:space-between;margin-top:22px;}
+  @media (max-width:720px){ .opt-grid,.anal,.games{grid-template-columns:1fr;} .topnav{display:none;} }
+</style>
+</head>
+<body>
+  <div class="mock-flag">🔍 MOCKUP — experiência de Desafios & Aprendizado Adaptativo · dados simulados (sem IA real) · clique nas etapas ou use “Continuar”.</div>
+
+  <div class="top">
+    <div class="brand"><span class="lg">⏳</span> No<span class="seu">Seu</span>Tempo</div>
+    <nav class="topnav">
+      <a href="#">🏠 Início</a>
+      <a class="active" href="#">📚 Cursos</a>
+      <a href="#">🎯 Atividades</a>
+      <a href="#">🤖 Geni IA</a>
+    </nav>
+    <div class="right">o menu permanece o mesmo</div>
+  </div>
+
+  <div class="wrap">
+    <div class="crumb">
+      📚 <b>Espanhol</b> <span class="sep">›</span> <b>Módulo 1 · Primeiros Passos</b> <span class="sep">›</span> 🎯 Desafio do módulo
+    </div>
+
+    <!-- Stepper -->
+    <div class="flow" id="flow"></div>
+
+    <!-- ETAPA 0 — CONTEÚDO -->
+    <section class="stage on" data-i="0">
+      <div class="card">
+        <span class="eyebrow">📘 Você acabou de estudar</span>
+        <h2>Módulo 1 · Primeiros Passos</h2>
+        <p class="lead">Você viu cumprimentos, cores, apresentações, números e os dias da semana. Quando quiser, dá pra reforçar brincando antes do desafio — sem pressa, no seu tempo. 💙</p>
+        <div class="actions">
+          <button class="btn btn-primary" onclick="go(1)">Ir para os jogos do módulo →</button>
+          <button class="btn btn-ghost" onclick="go(2)">Pular para o desafio</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 1 — JOGOS -->
+    <section class="stage" data-i="1">
+      <div class="card">
+        <span class="eyebrow">🎮 Jogos do módulo</span>
+        <h2>Reforce brincando</h2>
+        <p class="lead">Jogos contextualizados ao Módulo 1. Servem pra fixar sem cobrança — errar aqui faz parte do aprender.</p>
+        <div class="games">
+          <div class="game"><div class="top2" style="background:linear-gradient(150deg,#FCEFE3,#FBE7D6)">🧠</div><div class="bd"><h4>Jogo da Memória</h4><p>Cumprimentos & cores</p></div></div>
+          <div class="game"><div class="top2" style="background:linear-gradient(150deg,#E7F1FB,#DCEBF8)">🔤</div><div class="bd"><h4>Caça-palavras</h4><p>Números 1–10</p></div></div>
+          <div class="game"><div class="top2" style="background:linear-gradient(150deg,#E4F4EC,#D9F0E5)">🔊</div><div class="bd"><h4>Ditado com áudio</h4><p>Dias da semana</p></div></div>
+        </div>
+        <div class="navbtns">
+          <button class="btn btn-ghost" onclick="go(0)">← Voltar ao conteúdo</button>
+          <button class="btn btn-primary" onclick="go(2)">Estou pronto para o desafio →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 2 — DESAFIO -->
+    <section class="stage" data-i="2">
+      <div class="card">
+        <div class="qbar"><i></i></div>
+        <div class="qmeta"><span>🎯 Desafio · Módulo 1</span><span>Questão 4 de 10</span></div>
+        <div class="qtext">Como você cumprimenta alguém de manhã em espanhol?</div>
+        <div class="qhint">Sem pressa — escolha a opção que fizer mais sentido pra você.</div>
+        <button class="choice" onclick="go(3)"><span class="k">A</span> Buenas noches</button>
+        <button class="choice" onclick="go(3)"><span class="k">B</span> Buenos días</button>
+        <button class="choice" onclick="go(3)"><span class="k">C</span> Hasta luego</button>
+        <div class="navbtns">
+          <button class="btn btn-ghost" onclick="go(1)">← Voltar</button>
+          <button class="btn btn-ghost" onclick="go(3)">Ver resultado (demo) →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 3 — RESULTADO -->
+    <section class="stage" data-i="3">
+      <div class="card">
+        <div class="result-hero">
+          <div class="ring"><div class="inner">7/10</div></div>
+          <h2>Você acertou 7 de 10 questões.</h2>
+          <p>Muito bem por chegar até aqui! Cada resposta ajuda a Geni a entender como te ensinar melhor. 💙</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h3 style="font-size:1.25rem;margin-bottom:4px">O que deseja fazer agora?</h3>
+        <p style="color:var(--muted);font-size:.92rem">Escolha o caminho que te deixar mais confortável. Não existe certo ou errado aqui.</p>
+        <div class="opt-grid">
+          <button class="opt" onclick="go(2)"><span class="em">🔄</span><span class="tx"><b>Refazer desafio</b><span>Tentar de novo, no seu ritmo</span></span></button>
+          <button class="opt" onclick="go(0)"><span class="em">📖</span><span class="tx"><b>Revisar conteúdo</b><span>Voltar ao módulo</span></span></button>
+          <button class="opt" onclick="go(1)"><span class="em">🎮</span><span class="tx"><b>Fazer atividades recomendadas</b><span>Reforçar brincando</span></span></button>
+          <button class="opt" onclick="go(5)"><span class="em">🤖</span><span class="tx"><b>Treinar com a Geni IA</b><span>Conversa guiada</span></span></button>
+          <button class="opt" onclick="go(4)"><span class="em">➡️</span><span class="tx"><b>Continuar aprendendo</b><span>Ver o que a Geni sugere</span></span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 4 — ANÁLISE DA GENI -->
+    <section class="stage" data-i="4">
+      <div class="card geni-card">
+        <div class="geni-head">
+          <span class="av">🤖</span>
+          <h2>A Geni IA analisou seu desafio</h2>
+        </div>
+        <p class="lead">Olhei suas respostas com carinho. Veja o que já está ótimo e o que a gente pode praticar mais — juntas, sem pressa.</p>
+        <div class="anal">
+          <div class="box">
+            <h4>Você demonstrou domínio em:</h4>
+            <ul>
+              <li class="tag-ok">✅ Cumprimentos</li>
+              <li class="tag-ok">✅ Cores</li>
+              <li class="tag-ok">✅ Apresentações</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h4>Podemos praticar mais:</h4>
+            <ul>
+              <li class="tag-prat">📖 Números</li>
+              <li class="tag-prat">📖 Dias da semana</li>
+              <li class="tag-prat">📖 Pedindo informações</li>
+            </ul>
+          </div>
+        </div>
+        <div class="navbtns">
+          <button class="btn btn-ghost" onclick="go(3)">← Resultado</button>
+          <button class="btn btn-primary" onclick="go(5)">Ver reforço inteligente →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 5 — REFORÇO INTELIGENTE -->
+    <section class="stage" data-i="5">
+      <div class="card">
+        <span class="eyebrow">🧩 Reforço inteligente</span>
+        <h2>Vamos praticar Números, Dias da semana e Pedir informações</h2>
+        <p class="lead">A Geni escolhe a melhor forma com base nas suas respostas, tentativas e no seu histórico. Escolha por onde começar:</p>
+        <div class="opt-grid">
+          <button class="opt"><span class="em">📖</span><span class="tx"><b>Explicação simplificada</b><span>Do jeito mais fácil de entender</span></span></button>
+          <button class="opt"><span class="em">🎮</span><span class="tx"><b>Jogos recomendados</b><span>Fixar brincando</span></span></button>
+          <button class="opt"><span class="em">🗣️</span><span class="tx"><b>Conversa guiada</b><span>Praticar com a Geni IA</span></span></button>
+          <button class="opt"><span class="em">📝</span><span class="tx"><b>Novo desafio adaptado</b><span>Focado no que ficou difícil</span></span></button>
+          <button class="opt"><span class="em">🎥</span><span class="tx"><b>Conteúdo visual adaptado</b><span>Aprender vendo</span></span></button>
+        </div>
+        <div class="navbtns">
+          <button class="btn btn-ghost" onclick="go(4)">← Análise</button>
+          <button class="btn btn-primary" onclick="go(6)">E se ainda estiver difícil? →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 6 — DETECÇÃO DE FRUSTRAÇÃO -->
+    <section class="stage" data-i="6">
+      <div class="card frus-card">
+        <span class="eyebrow" style="background:#F3E8FF;color:#6B3FA0">💜 Quando há sinais de dificuldade</span>
+        <div class="speak">
+          <span class="av">🤖</span>
+          <div class="bubble">
+            <b>Geni IA</b><br/>
+            Percebi que este conteúdo ainda está desafiador. Estou preparando um material adaptado especialmente para você.<br/><br/>
+            Enquanto isso, vamos reforçar os conteúdos que você já domina. 💙
+          </div>
+        </div>
+        <p class="lead" style="margin-top:18px">A plataforma não insiste no mesmo método. Quando há muitos erros seguidos, várias tentativas ou os mesmos erros se repetindo, a Geni <b>muda de estratégia</b>.</p>
+        <div class="opt-grid">
+          <button class="opt"><span class="em">🎮</span><span class="tx"><b>Jogar atividades recomendadas</b><span>Leve e sem cobrança</span></span></button>
+          <button class="opt"><span class="em">🌟</span><span class="tx"><b>Revisar conquistas</b><span>Lembrar do quanto você já avançou</span></span></button>
+          <button class="opt"><span class="em">🤖</span><span class="tx"><b>Conversar com a Geni IA</b><span>Sem julgamento, no seu tempo</span></span></button>
+          <button class="opt"><span class="em">📚</span><span class="tx"><b>Explorar outros conteúdos</b><span>Mudar de ar um pouquinho</span></span></button>
+        </div>
+        <div class="navbtns">
+          <button class="btn btn-ghost" onclick="go(5)">← Reforço</button>
+          <button class="btn btn-primary" onclick="go(7)">Acompanhar material adaptado →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 7 — MATERIAL ADAPTADO (preparando) -->
+    <section class="stage" data-i="7">
+      <div class="card">
+        <div class="prep">
+          <div class="orb">✨</div>
+          <h2>Seu material adaptado está sendo preparado.</h2>
+          <p>A Geni IA está criando uma nova forma de ensinar este conteúdo para você. Você poderá acessá-lo em breve.</p>
+        </div>
+        <div style="background:#F7FBFA;border:1.5px solid #DDEFEC;border-radius:16px;padding:16px 18px;margin-top:18px;font-size:.92rem;color:var(--navy2)">
+          <b>O que a Geni vai gerar automaticamente:</b> nova explicação · novos exemplos · novas atividades · novos exercícios · conteúdo visual quando necessário — tudo focado em <b>Números</b>, <b>Dias da semana</b> e <b>Pedir informações</b>.
+        </div>
+        <div class="navbtns">
+          <button class="btn btn-ghost" onclick="go(6)">← Voltar</button>
+          <button class="btn btn-primary" onclick="go(8)">Ver novo caminho de aprendizagem →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 8 — NOVO CAMINHO -->
+    <section class="stage" data-i="8">
+      <div class="card">
+        <span class="eyebrow">🗺️ Novo caminho de aprendizagem</span>
+        <h2>Um jeito novo de aprender, feito pra você</h2>
+        <p class="lead">A Geni reorganizou o caminho focando no que ficou difícil — em formatos diferentes, um passo de cada vez.</p>
+        <div class="path">
+          <div class="pstep"><span class="ic" style="background:#EAF4FF">🎥</span><div><h4>Números — em vídeo curtinho</h4><p>Aprender vendo e ouvindo</p></div><span class="badge">Novo formato</span></div>
+          <div class="pstep"><span class="ic" style="background:#E4F4EC">🎮</span><div><h4>Dias da semana — jogo de arrastar</h4><p>Fixar brincando</p></div><span class="badge">Recomendado</span></div>
+          <div class="pstep"><span class="ic" style="background:#F3E8FF">🗣️</span><div><h4>Pedindo informações — conversa guiada</h4><p>Praticar falando com a Geni</p></div><span class="badge">Adaptado</span></div>
+          <div class="pstep"><span class="ic" style="background:#FFF1E0">📝</span><div><h4>Novo desafio adaptado</h4><p>Só com os temas que você quer dominar</p></div><span class="badge">Quando você quiser</span></div>
+        </div>
+
+        <div class="philo">
+          <div class="q">“O problema nunca é o aluno. Se o aluno não aprendeu, significa apenas que ainda não encontramos a melhor forma de ensinar.”</div>
+          <div class="s">Essa é a essência do NoSeuTempo — e vale para jogos, desafios, conversas com a Geni, atividades e conteúdos.</div>
+          <div class="chips"><span>acolhimento</span><span>segurança</span><span>progresso</span><span>autonomia</span><span>sem julgamento</span><span>sem pressão</span></div>
+        </div>
+        <div class="navbtns">
+          <button class="btn btn-ghost" onclick="go(0)">↺ Recomeçar o fluxo</button>
+          <button class="btn btn-primary" onclick="go(3)">Voltar ao resultado</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+<script>
+  var STEPS = ['Conteúdo','Jogos','Desafio','Resultado','Análise da Geni','Reforço','Detecção de frustração','Material adaptado','Novo caminho'];
+  var cur = 0;
+  var flow = document.getElementById('flow');
+  flow.innerHTML = STEPS.map(function(s,i){
+    return '<button class="step" data-s="'+i+'" onclick="go('+i+')"><span class="n">'+(i+1)+'</span>'+s+'</button>';
+  }).join('');
+
+  window.go = function(i){
+    cur = i;
+    document.querySelectorAll('.stage').forEach(function(el){ el.classList.toggle('on', +el.dataset.i === i); });
+    document.querySelectorAll('.step').forEach(function(el){
+      var si = +el.dataset.s;
+      el.classList.toggle('active', si === i);
+      el.classList.toggle('done', si < i);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  go(0);
+</script>
+</body>
+</html>

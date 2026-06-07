@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoSeuTempo â€” Finalizar inscriÃ§Ã£o</title>
+  <link rel="icon" href="assets/logo-icon.svg" />
+  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/platform.css?v=3" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <img class="logo-mark" src="assets/logo-icon.svg" alt="" />
+        <span class="wordmark">No<span class="seu">Seu</span>Tempo</span>
+      </a>
+      <div class="nav-actions">
+        <a class="btn btn--ghost" href="index.html">â† Voltar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:36px">
+        <span class="eyebrow"><span class="heart">â™¥</span> Falta pouco para comeÃ§ar</span>
+        <h1 style="margin-top:14px">Finalize sua inscriÃ§Ã£o</h1>
+        <p class="lead" style="margin:10px auto 0">O pagamento Ã© na tela segura do Mercado Pago. Quando aprovar, sua plataforma Ã© liberada na hora. ðŸ’™</p>
+      </div>
+
+      <div class="checkout">
+        <div class="checkout-card">
+          <p id="ola-aluno" style="font-weight:700;color:var(--navy);margin-bottom:12px"></p>
+          <h3>Pagamento seguro</h3>
+          <p style="color:var(--navy-muted)">VocÃª serÃ¡ levado ao <b>Mercado Pago</b> para pagar com <b>PIX</b> ou <b>cartÃ£o</b>. RÃ¡pido e protegido.</p>
+
+          <div class="pay-methods" style="pointer-events:none;margin:16px 0">
+            <div class="pay-method active"><span class="ic">âš¡</span>PIX</div>
+            <div class="pay-method active"><span class="ic">ðŸ’³</span>CartÃ£o</div>
+          </div>
+
+          <p id="aviso-falha" class="hidden" style="background:var(--blush-soft);color:var(--coral);padding:14px 16px;border-radius:12px;font-weight:600;margin-bottom:14px">
+            O pagamento nÃ£o foi concluÃ­do. Sem problema â€” vocÃª pode tentar de novo. ðŸ’™
+          </p>
+
+          <button id="btn-pagar" class="btn btn--primary btn--block">
+            Pagar com Mercado Pago
+          </button>
+
+          <p style="color:var(--navy-muted);font-size:.9rem;margin-top:14px;text-align:center">
+            ðŸ”’ Seus dados de cartÃ£o sÃ£o processados pelo Mercado Pago â€” nunca passam pelo nosso site.
+          </p>
+        </div>
+
+        <aside class="checkout-card">
+          <h3>Resumo</h3>
+          <ul class="summary" style="list-style:none;padding:0;margin:16px 0 0">
+            <li><span>Curso de Espanhol Â· Iniciante</span><span id="plan-name">Anual</span></li>
+            <li><span>Acesso Ã  plataforma</span><span>âœ“</span></li>
+            <li><span>Momento Papo com IA</span><span>âœ“</span></li>
+            <li><span>Jogos e treinos</span><span>âœ“</span></li>
+            <li class="total"><span>Total</span><span id="plan-price">R$ 297</span></li>
+          </ul>
+          <div class="locked-banner" style="margin-top:24px">
+            <span class="ic">ðŸ”“</span>
+            <p>Assim que o pagamento for aprovado, o curso Ã© desbloqueado automaticamente.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/config.js?v=5"></script>
+  <script src="js/main.js?v=3"></script>
+  <script>
+  (function () {
+    var API    = window.NST_API || 'https://api.noseutempo.app';
+    var params = new URLSearchParams(location.search);
+    var plano  = params.get('plano') || 'anual';
+    var PLANOS = {
+      mensal:    { name: 'Mensal',    price: 'R$ 39/mÃªs' },
+      anual:     { name: 'Anual',     price: 'R$ 297' },
+      vitalicio: { name: 'VitalÃ­cio', price: 'R$ 597' }
+    };
+
+    // Atualiza o resumo com o plano escolhido
+    if (PLANOS[plano]) {
+      document.getElementById('plan-name').textContent  = PLANOS[plano].name;
+      document.getElementById('plan-price').textContent = PLANOS[plano].price;
+    }
+
+    // Aviso de falha (voltou do MP com erro)
+    if (params.get('status') === 'falhou') {
+      document.getElementById('aviso-falha').classList.remove('hidden');
+    }
+
+    // Precisa estar logado â€” senÃ£o vai criar conta
+    var token = localStorage.getItem('nst.token');
+    if (!token) { location.href = 'cadastro.html?plano=' + plano; return; }
+
+    // Busca o nome do aluno para saudaÃ§Ã£o
+    fetch(API + '/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (me) {
+        if (!me) { localStorage.removeItem('nst.token'); location.href = 'login.html?plano=' + plano; return; }
+        if (me.admin) { location.href = 'admin.html'; return; }
+      if (me.paid)  { location.href = 'plataforma.html'; return; }
+        document.getElementById('ola-aluno').textContent = 'OlÃ¡, ' + me.nome + '! Falta sÃ³ o pagamento. ðŸ’™';
+      })
+      .catch(function () {});
+
+    // BotÃ£o pagar
+    var btn = document.getElementById('btn-pagar');
+    btn.addEventListener('click', function () {
+      btn.disabled = true;
+      btn.textContent = 'Abrindo pagamento seguroâ€¦';
+
+      fetch(API + '/api/criar-pagamento', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ plano: plano })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.init_point) {
+            window.location.href = data.init_point;
+          } else {
+            throw new Error(data.error || 'sem init_point');
+          }
+        })
+        .catch(function (err) {
+          console.error(err);
+          btn.disabled = false;
+          btn.textContent = 'Pagar com Mercado Pago';
+          var av = document.getElementById('aviso-falha');
+          av.textContent = 'NÃ£o conseguimos abrir o pagamento agora. Tente novamente em instantes. ðŸ’™';
+          av.classList.remove('hidden');
+        });
+    });
+  })();
+  </script>
+</body>
+</html>
+
+

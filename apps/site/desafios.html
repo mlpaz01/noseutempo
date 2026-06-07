@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NoSeuTempo â€” Desafio do mÃ³dulo</title>
+<link rel="icon" href="assets/logo-icon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#1E2A4A; --navy2:#234B86; --teal:#1FA6A8; --teal-deep:#0F8275;
+    --lav:#EDE7FA; --ia:#EAF4FF; --orange:#F0902F; --yellow:#FFC23C;
+    --bg:#F4F7F6; --ink:#1E2A4A; --muted:#62708A; --line:#E6ECF3; --green:#2E9E68;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);font-family:'Lexend',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55;}
+  h1,h2,h3,h4{font-family:'Poppins',system-ui,sans-serif;margin:0;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+  a{color:inherit;text-decoration:none;}
+  .hidden{display:none!important;}
+
+  .top{background:#fff;border-bottom:1px solid var(--line);height:70px;display:flex;align-items:center;gap:18px;padding:0 28px;position:sticky;top:0;z-index:20;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Poppins';font-weight:700;font-size:1.18rem;}
+  .brand .lg{width:34px;height:34px;border-radius:9px;overflow:hidden;display:grid;place-items:center;}
+  .brand .lg img{width:100%;height:100%;object-fit:contain;}
+  .brand .seu{color:var(--teal);}
+  .top .close{margin-left:auto;color:var(--muted);font-size:.9rem;font-weight:600;display:flex;align-items:center;gap:6px;}
+
+  .wrap{max-width:760px;margin:0 auto;padding:22px 20px 70px;}
+  .crumb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.86rem;color:var(--muted);font-weight:600;margin:6px 2px 16px;}
+  .crumb b{color:var(--navy2);} .crumb .sep{opacity:.5;}
+
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:22px;box-shadow:0 6px 22px rgba(26,43,74,.05);padding:30px 32px;margin-top:14px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--ia);color:var(--navy2);font-weight:700;font-size:.8rem;padding:6px 13px;border-radius:99px;margin-bottom:14px;}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:14px;padding:13px 22px;font-weight:700;font-size:.98rem;transition:.18s;}
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:0 8px 18px rgba(31,166,168,.26);}
+  .btn-primary:hover{filter:brightness(1.06);transform:translateY(-1px);}
+  .btn-ghost{background:#fff;border:1.5px solid var(--line);color:var(--navy2);}
+  .btn-ghost:hover{border-color:var(--teal);color:var(--teal-deep);}
+  .navbtns{display:flex;justify-content:space-between;gap:12px;margin-top:22px;flex-wrap:wrap;}
+
+  /* quiz */
+  .qbar{height:9px;background:#EAE8F2;border-radius:99px;overflow:hidden;margin-bottom:6px;}
+  .qbar>i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),#34C6B0);border-radius:99px;width:0;transition:width .3s;}
+  .qmeta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);font-weight:600;margin-bottom:18px;}
+  .qtopic{font-size:.78rem;color:var(--teal-deep);font-weight:700;}
+  .qtext{font-family:'Poppins';font-size:1.28rem;font-weight:700;line-height:1.32;margin-bottom:4px;}
+  .qhint{color:var(--muted);font-size:.9rem;margin-bottom:16px;}
+  .choice{display:flex;align-items:center;gap:13px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:15px 18px;margin-top:11px;cursor:pointer;font-size:1.02rem;font-weight:500;transition:.15s;width:100%;text-align:left;}
+  .choice:hover{border-color:var(--teal);background:#F3FBFA;}
+  .choice .k{width:30px;height:30px;border-radius:9px;background:var(--lav);color:var(--navy2);display:grid;place-items:center;font-weight:800;flex:none;font-family:'Poppins';}
+
+  /* resultado */
+  .result-hero{text-align:center;padding:8px 0 2px;}
+  .result-hero .em{font-size:2.4rem;}
+  .result-hero h2{font-size:1.7rem;margin-top:6px;}
+  .result-hero p{color:var(--muted);font-size:1.04rem;margin-top:8px;max-width:52ch;margin-left:auto;margin-right:auto;}
+
+  .opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;}
+  .opt{display:flex;align-items:center;gap:13px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:15px 16px;cursor:pointer;transition:.16s;text-align:left;}
+  .opt:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 10px 22px rgba(26,43,74,.08);}
+  .opt .em{font-size:1.5rem;flex:none;}
+  .opt .tx b{display:block;font-family:'Poppins';font-size:.96rem;}
+  .opt .tx span{display:block;color:var(--muted);font-size:.8rem;margin-top:1px;}
+
+  .geni-card{background:linear-gradient(135deg,#EAF4FF 0%,#F3F9FF 60%,#FEFEFE 100%);border:1.5px solid #D6E7F7;}
+  .geni-head{display:flex;align-items:center;gap:13px;margin-bottom:6px;}
+  .geni-head .av{width:46px;height:46px;border-radius:13px;background:#fff;border:1.5px solid #CFE0F2;display:grid;place-items:center;font-size:24px;flex:none;}
+  .geni-head h2{font-size:1.35rem;}
+  .anal{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+  .anal .box{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;}
+  .anal .box h4{font-size:1rem;margin-bottom:12px;}
+  .anal ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .anal li{display:flex;align-items:center;gap:10px;font-size:.98rem;font-weight:600;}
+  .tag-ok{color:var(--green);} .tag-prat{color:var(--navy2);}
+
+  .frus-card{background:linear-gradient(135deg,#FBF1FF 0%,#F6F2FF 60%,#FEFEFE 100%);border:1.5px solid #E6D8F5;}
+  .speak{display:flex;gap:14px;align-items:flex-start;}
+  .speak .av{width:50px;height:50px;border-radius:14px;background:#fff;border:1.5px solid #E0CFF2;display:grid;place-items:center;font-size:26px;flex:none;}
+  .speak .bubble{background:#fff;border:1.5px solid #EADDFB;border-radius:16px;border-top-left-radius:5px;padding:16px 18px;font-size:1.04rem;line-height:1.6;}
+
+  .path{display:flex;flex-direction:column;gap:12px;margin-top:16px;}
+  .pstep{display:flex;align-items:center;gap:15px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px 18px;}
+  .pstep .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:22px;flex:none;background:var(--lav);}
+  .pstep h4{font-size:1.0rem;} .pstep p{color:var(--muted);font-size:.84rem;margin:2px 0 0;}
+
+  .philo{margin-top:26px;background:var(--navy);color:#fff;border-radius:20px;padding:22px 26px;}
+  .philo .q{font-family:'Poppins';font-size:1.12rem;font-weight:700;line-height:1.45;}
+  .philo .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+  .philo .chips span{background:rgba(255,255,255,.12);border-radius:99px;padding:5px 13px;font-size:.78rem;font-weight:600;}
+
+  .av img{width:100%;height:100%;object-fit:contain;display:block;border-radius:inherit;}
+  .opt .em img{width:26px;height:26px;object-fit:contain;display:block;}
+  .center{display:grid;place-items:center;min-height:50vh;text-align:center;}
+  .spin{width:42px;height:42px;border:4px solid #D9EFEC;border-top-color:var(--teal);border-radius:50%;animation:sp 1s linear infinite;margin:0 auto;}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .sec-title{font-size:.82rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:26px 4px 0;}
+  @media (max-width:680px){ .opt-grid,.anal{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+  <div class="top">
+    <a class="brand" href="plataforma.html"><img src="assets/logo.png" alt="NoSeuTempo" onerror="this.onerror=null;this.src='assets/logo-icon.svg'" style="height:36px;width:auto;display:block" /> No<span class="seu">Seu</span>Tempo</a>
+    <a class="close" id="topClose" href="plataforma.html">âœ• Sair do desafio</a>
+  </div>
+
+  <div class="wrap">
+    <div class="crumb" id="crumb"></div>
+
+    <!-- LOADING -->
+    <div id="scr-loading" class="center"><div><div class="spin"></div><p style="color:var(--muted);margin-top:14px">Preparando seu desafioâ€¦</p></div></div>
+
+    <!-- ERRO / SEM CONTEXTO -->
+    <div id="scr-error" class="center hidden">
+      <div class="card" style="max-width:460px">
+        <div style="font-size:2rem">ðŸŽ¯</div>
+        <h2 style="margin:8px 0 6px;font-size:1.3rem">Escolha um mÃ³dulo</h2>
+        <p style="color:var(--muted)" id="err-msg">Os desafios ficam dentro de cada mÃ³dulo do curso. Conclua um mÃ³dulo e toque em â€œDesafio do mÃ³duloâ€. ðŸ’™</p>
+        <a class="btn btn-primary" href="cursos.html" style="margin-top:16px">Ir para meus cursos</a>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <section id="scr-quiz" class="hidden">
+      <div class="card">
+        <div class="qbar"><i id="qbar-i"></i></div>
+        <div class="qmeta"><span id="q-topic" class="qtopic"></span><span id="q-count"></span></div>
+        <div class="qtext" id="q-text"></div>
+        <div class="qhint">Sem pressa â€” escolha a opÃ§Ã£o que fizer mais sentido pra vocÃª.</div>
+        <div id="q-choices"></div>
+      </div>
+    </section>
+
+    <!-- RESULTADO + ANÃLISE (montado via JS) -->
+    <section id="scr-result" class="hidden"></section>
+  </div>
+
+  <script src="js/config.js?v=5"></script>
+  <script>
+  (function () {
+    var API   = window.NST_API || 'https://api.noseutempo.app';
+    var token = localStorage.getItem('nst.token');
+    if (!token) { location.href = 'login.html?next=desafios.html'; return; }
+
+    var params   = new URLSearchParams(location.search);
+    var courseId = params.get('course');
+    var unitIdx  = parseInt(params.get('unit') || '0', 10);
+
+    function $(id){ return document.getElementById(id); }
+    function show(id){ ['scr-loading','scr-error','scr-quiz','scr-result'].forEach(function(s){ $(s).classList.toggle('hidden', s!==id); }); }
+    function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    if (!courseId) { show('scr-error'); return; }
+
+    var DATA = null, answers = [], idx = 0;
+
+    fetch(API + '/api/desafios/' + encodeURIComponent(courseId) + '/' + unitIdx, { headers: { 'Authorization':'Bearer '+token } })
+      .then(function(r){ if(!r.ok) return r.json().then(function(d){ throw new Error(d.error||'erro'); }); return r.json(); })
+      .then(function(d){
+        DATA = d; answers = new Array(d.questions.length).fill(null);
+        $('crumb').innerHTML = 'ðŸ“š <b>'+esc(d.courseTitle)+'</b> <span class="sep">â€º</span> <b>'+esc(d.unitIcon||'')+' '+esc(d.unitTitle)+'</b> <span class="sep">â€º</span> ðŸŽ¯ Desafio do mÃ³dulo';
+        renderQ();
+      })
+      .catch(function(e){ $('err-msg').textContent = e.message || 'NÃ£o foi possÃ­vel carregar o desafio.'; show('scr-error'); });
+
+    function renderQ(){
+      show('scr-quiz');
+      var q = DATA.questions[idx];
+      $('qbar-i').style.width = Math.round((idx/DATA.questions.length)*100) + '%';
+      $('q-topic').textContent = q.topic || '';
+      $('q-count').textContent = 'QuestÃ£o ' + (idx+1) + ' de ' + DATA.questions.length;
+      $('q-text').textContent = q.text;
+      var letters = ['A','B','C','D','E','F'];
+      $('q-choices').innerHTML = q.options.map(function(o,i){
+        return '<button class="choice" data-i="'+i+'"><span class="k">'+letters[i]+'</span>'+esc(o)+'</button>';
+      }).join('');
+      Array.prototype.forEach.call($('q-choices').children, function(btn){
+        btn.addEventListener('click', function(){
+          answers[idx] = parseInt(btn.getAttribute('data-i'),10);
+          if (idx < DATA.questions.length-1){ idx++; renderQ(); }
+          else submit();
+        });
+      });
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function submit(){
+      show('scr-loading');
+      $('scr-loading').innerHTML = '<div><div class="spin"></div><p style="color:var(--muted);margin-top:14px">A Geni estÃ¡ analisando seu desafio com carinhoâ€¦</p></div>';
+      fetch(API + '/api/desafios/responder', {
+        method:'POST', headers:{ 'Content-Type':'application/json','Authorization':'Bearer '+token },
+        body: JSON.stringify({ courseId: courseId, unitIndex: unitIdx, answers: answers })
+      }).then(function(r){ return r.json(); }).then(renderResult)
+        .catch(function(){ $('err-msg').textContent='NÃ£o foi possÃ­vel analisar o desafio agora.'; show('scr-error'); });
+    }
+
+    var REC_IC = { explicacao:'ðŸ“–', jogo:'ðŸŽ®', conversa:'ðŸ—£ï¸', desafio:'ðŸ“', video:'ðŸŽ¥' };
+    var GENI_AV = '<img src="assets/aprender/robot_cut.png" alt="Geni">';
+
+    function optBtn(em, title, sub, onclick){
+      return '<button class="opt"'+(onclick?(' onclick="'+onclick+'"'):'')+'><span class="em">'+em+'</span>'
+        + '<span class="tx"><b>'+esc(title)+'</b><span>'+esc(sub)+'</span></span></button>';
+    }
+
+    function renderResult(R){
+      if (R.error){ $('err-msg').textContent = R.error; show('scr-error'); return; }
+      var a = R.analise || { dominio:[], praticar:[], mensagem:'' };
+      var dom = (a.dominio||[]).map(function(t){ return '<li class="tag-ok">âœ… '+esc(t)+'</li>'; }).join('') || '<li style="color:var(--muted);font-weight:500">â€”</li>';
+      var prat = (a.praticar||[]).map(function(t){ return '<li class="tag-prat">ðŸ“– '+esc(t)+'</li>'; }).join('') || '<li style="color:var(--muted);font-weight:500">Tudo dominado! ðŸŽ‰</li>';
+
+      var nextUnitHref = 'aula.html?course='+encodeURIComponent(courseId)+'&unit='+(unitIdx+1)+'&lesson=0';
+      var revisarHref  = 'aula.html?course='+encodeURIComponent(courseId)+'&unit='+unitIdx+'&lesson=0';
+      var materialHref = 'aula.html?adapted=1&course='+encodeURIComponent(courseId)+'&unit='+unitIdx;
+      var html = '';
+
+      html += '<div class="card"><div class="result-hero">'
+        + '<div class="em">ðŸŽ¯</div>'
+        + '<h2>VocÃª acertou '+R.acertos+' de '+R.total+' questÃµes.</h2>'
+        + '<p>'+esc(a.mensagem)+'</p>'
+        + '</div></div>';
+
+      html += '<div class="card"><h3 style="font-size:1.22rem;margin-bottom:4px">O que deseja fazer agora?</h3>'
+        + '<p style="color:var(--muted);font-size:.9rem">Escolha o caminho que te deixar mais confortÃ¡vel. NÃ£o existe certo ou errado aqui.</p>'
+        + '<div class="opt-grid">'
+        + optBtn('ðŸ”„','Refazer desafio','Tentar de novo, no seu ritmo',"location.reload()")
+        + optBtn('ðŸ“–','Revisar conteÃºdo','Voltar ao mÃ³dulo',"location.href='"+revisarHref+"'")
+        + optBtn('ðŸŽ®','Fazer atividades recomendadas','ReforÃ§ar brincando',"location.href='treino-extra.html'")
+        + optBtn(GENI_AV,'Treinar com a Geni IA','Conversa guiada',"location.href='geni.html'")
+        + optBtn('âž¡ï¸','Continuar aprendendo','Seguir no curso',"location.href='"+nextUnitHref+"'")
+        + '</div></div>';
+
+      html += '<div class="card geni-card">'
+        + '<div class="geni-head"><span class="av"><img src="assets/aprender/robot_cut.png" alt="Geni"></span><h2>A Geni IA analisou seu desafio</h2></div>'
+        + '<div class="anal">'
+        + '<div class="box"><h4>VocÃª demonstrou domÃ­nio em:</h4><ul>'+dom+'</ul></div>'
+        + '<div class="box"><h4>Podemos praticar mais:</h4><ul>'+prat+'</ul></div>'
+        + '</div></div>';
+
+      if ((R.recomendacoes||[]).length){
+        html += '<div class="sec-title">ReforÃ§o inteligente</div><div class="card"><div class="opt-grid">'
+          + R.recomendacoes.map(function(r){ return optBtn(REC_IC[r.tipo]||'âœ¨', r.titulo||'RecomendaÃ§Ã£o', r.motivo||'', ""); }).join('')
+          + '</div></div>';
+      }
+
+      if (R.frustracao){
+        html += '<div class="sec-title">A Geni mudou de estratÃ©gia</div>'
+          + '<div class="card frus-card">'
+          + '<div class="speak"><span class="av"><img src="assets/aprender/robot_cut.png" alt="Geni"></span><div class="bubble"><b>Geni IA</b><br/>'
+          + 'Percebi que este conteÃºdo ainda estÃ¡ desafiador. Estou preparando um material adaptado especialmente para vocÃª.<br/><br/>'
+          + 'Enquanto isso, vamos reforÃ§ar os conteÃºdos que vocÃª jÃ¡ domina. ðŸ’™</div></div>';
+        if (R.materialAdaptado){
+          html += '<div style="background:#F7FBFA;border:1.5px solid #DDEFEC;border-radius:16px;padding:16px 18px;margin-top:16px">'
+            + '<b style="color:var(--teal-deep)">âœ¨ Material adaptado</b><p style="margin:6px 0 0;color:var(--navy2)">'+esc(R.materialAdaptado)+'</p></div>';
+        }
+        html += '<div class="opt-grid">'
+          + optBtn('ðŸŽ®','Jogar atividades recomendadas','Leve e sem cobranÃ§a',"location.href='treino-extra.html'")
+          + optBtn('ðŸŒŸ','Revisar conquistas','Lembrar do quanto jÃ¡ avanÃ§ou',"location.href='plataforma.html'")
+          + optBtn(GENI_AV,'Conversar com a Geni IA','Sem julgamento',"location.href='geni.html'")
+          + optBtn('ðŸ“š','Explorar outros conteÃºdos','Mudar de ar',"location.href='cursos.html'")
+          + '</div></div>';
+      }
+
+      if ((R.recomendacoes||[]).length){
+        html += '<div class="sec-title">Novo caminho de aprendizagem</div><div class="card"><div class="path">'
+          + R.recomendacoes.map(function(r){
+              return '<div class="pstep"><span class="ic">'+(REC_IC[r.tipo]||'âœ¨')+'</span><div><h4>'+esc(r.titulo||'')+'</h4><p>'+esc(r.motivo||'')+'</p></div></div>';
+            }).join('')
+          + '</div></div>';
+      }
+
+      if (R.materialDisponivel){
+        var temas = (a.praticar && a.praticar.length) ? esc(a.praticar.join(', ')) : 'este conteÃºdo';
+        html += '<div class="sec-title">Material adaptado pra vocÃª</div><div class="card">'
+          + '<div class="speak"><span class="av" style="background:#E4F4F1;border-color:#CDEAE4">âœ¨</span>'
+          + '<div class="bubble" style="border-color:#CDEAE4;border-top-left-radius:5px">A Geni estÃ¡ criando uma <b>nova forma de ensinar</b> '+temas+' especialmente pra vocÃª â€” com explicaÃ§Ã£o simplificada, exemplos e atividades novas. Pode levar alguns instantes.</div></div>'
+          + '<div style="margin-top:16px"><a class="btn btn-primary" href="'+materialHref+'">âœ¨ Acessar meu material adaptado</a></div>'
+          + '</div>';
+      }
+
+      html += '<div class="philo"><div class="q">â€œO problema nunca Ã© o aluno. Se o aluno nÃ£o aprendeu, significa apenas que ainda nÃ£o encontramos a melhor forma de ensinar.â€</div>'
+        + '<div class="chips"><span>acolhimento</span><span>seguranÃ§a</span><span>progresso</span><span>autonomia</span><span>sem julgamento</span><span>sem pressÃ£o</span></div></div>';
+
+      $('scr-result').innerHTML = html;
+      show('scr-result');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+  })();
+  </script>
+</body>
+</html>
+
+

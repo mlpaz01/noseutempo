@@ -1,0 +1,466 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NoSeuTempo â€” Perfil de Aprendizagem</title>
+<link rel="icon" href="assets/logo-icon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --teal:#1FA6A8; --teal-deep:#0F8275; --navy:#1E2A4A; --navy2:#234B86;
+    --lav:#EDE7FA; --purple:#7C5CE0; --ia:#EAF4FF; --bg:#F4F7F6; --card:#FFF;
+    --muted:#62708A; --line:#E6ECF3; --font:'Lexend',system-ui,sans-serif; --head:'Poppins',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font);color:var(--navy);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.55;
+    background:
+      radial-gradient(460px circle at 10% 14%, rgba(31,166,168,.10), transparent 60%),
+      radial-gradient(420px circle at 90% 8%,  rgba(46,158,104,.09), transparent 60%),
+      radial-gradient(520px circle at 84% 92%, rgba(124,92,224,.07), transparent 62%),
+      var(--bg);
+    background-attachment:fixed;}
+  h1,h2,h3,.btn,.brand{font-family:var(--head);}
+  button{font-family:inherit;cursor:pointer;border:none;}
+  a{color:inherit;text-decoration:none;}
+  .hidden{display:none!important;}
+
+  .top{background:#fff;border-bottom:1px solid var(--line);height:64px;display:flex;align-items:center;padding:0 24px;}
+  .brand{font-weight:700;font-size:1.15rem;} .brand .seu{color:var(--teal);}
+  .top-right{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:7px;}
+  .prog{width:340px;max-width:42vw;height:6px;background:#E7EFEC;border-radius:99px;overflow:hidden;}
+  .prog>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),#34C6B0);border-radius:99px;transition:width .4s ease;}
+  .top-step{font-size:.8rem;font-weight:600;color:var(--teal-deep);white-space:nowrap;}
+
+  /* DecoraÃ§Ãµes da Geni na tela inicial (halo + estrela + coraÃ§Ã£o) */
+  .wc-geni::before{content:"";position:absolute;width:92%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle, rgba(31,166,168,.14), rgba(124,92,224,.06) 58%, transparent 72%);top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;}
+  .wc-geni .geni-hero{position:relative;z-index:1;}
+  .g-deco{position:absolute;z-index:3;width:46px;height:46px;border-radius:50%;background:#fff;box-shadow:0 7px 18px rgba(26,43,74,.15);display:grid;place-items:center;font-size:1.45rem;line-height:1;}
+  .d-heart{top:2%;left:-4%;}
+  .d-star{top:-6%;left:40%;width:39px;height:39px;font-size:1.2rem;}
+  .d-game{top:8%;right:0%;}
+  .d-book{top:52%;left:-8%;}
+  .d-puzzle{bottom:4%;right:-3%;}
+  @media (prefers-reduced-motion:no-preference){
+    @keyframes gfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+    .g-deco{animation:gfloat 4.5s ease-in-out infinite;}
+    .d-star{animation-delay:.4s;} .d-game{animation-delay:.8s;} .d-book{animation-delay:1.2s;} .d-puzzle{animation-delay:1.6s;}
+  }
+
+  .wrap{max-width:980px;margin:0 auto;padding:20px 20px 26px;}
+  .screen{display:none;animation:fade .4s ease;}
+  .screen.on{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  .geni-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .geni-av{width:75px;height:75px;flex:none;display:grid;place-items:center;}
+  .geni-av img{width:100%;height:100%;object-fit:contain;display:block;}
+  .opt .sub{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-top:3px;}
+  .geni-hero{width:146px;height:auto;display:block;margin:2px auto 8px;filter:drop-shadow(0 12px 20px rgba(26,43,74,.16));}
+  .step-ind{display:inline-block;background:#F1FAF7;color:var(--teal-deep);border:1px solid #CFE9E1;border-radius:99px;padding:7px 15px;font-size:.82rem;font-weight:700;}
+  .philo-card{background:linear-gradient(135deg,#F4F0FF,#FAF8FF);border:1.5px solid #E6D8F5;border-radius:16px;padding:15px 18px;margin:4px auto 14px;max-width:430px;text-align:left;}
+  .philo-eyebrow{display:block;font-family:var(--head);font-weight:800;font-size:.72rem;letter-spacing:.7px;color:var(--purple);margin-bottom:6px;}
+  .philo-phrase{font-family:var(--head);font-weight:700;font-size:1.2rem;line-height:1.35;color:var(--navy);margin:0;}
+  .philo-sub{font-family:var(--font);font-weight:500;font-size:.96rem;line-height:1.5;color:#5B4E82;margin:7px 0 0;}
+  .privacy{margin-top:14px;font-size:.82rem;color:var(--muted);line-height:1.45;display:flex;align-items:center;justify-content:center;gap:7px;max-width:420px;margin-left:auto;margin-right:auto;}
+  .privacy .lk{flex:none;}
+  .geni-tag{font-size:.78rem;font-weight:700;color:var(--navy2);}
+  h1{font-size:1.7rem;line-height:1.2;margin-bottom:10px;}
+  h2{font-size:1.4rem;line-height:1.25;margin-bottom:8px;}
+  .lead{color:var(--muted);font-size:1.04rem;margin-bottom:8px;}
+  .mini{color:var(--muted);font-size:.92rem;}
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:20px;box-shadow:0 6px 22px rgba(26,43,74,.05);padding:24px 30px;}
+  /* Tela inicial em 2 colunas (Geni esquerda / conteÃºdo direita) */
+  .welcome-2col{display:flex;align-items:center;gap:34px;text-align:left;}
+  .wc-geni{flex:none;width:34%;max-width:260px;display:grid;place-items:center;position:relative;}
+  .wc-geni .geni-hero{width:100%;max-width:235px;margin:0;}
+  .wc-body{flex:1;min-width:0;}
+  .wc-body h1{margin-bottom:8px;}
+  .wc-body .lead{margin-bottom:12px;}
+  .wc-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;}
+  .wc-cta .btn{margin:0;}
+  /* BalÃ£o de conversa da Geni (aponta para a esquerda, onde estÃ¡ a Geni) */
+  .chat-bubble{position:relative;background:linear-gradient(180deg,#FFFFFF,#FBFCFE);border:1.5px solid #E6ECF4;border-radius:24px;padding:22px 26px;box-shadow:0 14px 34px rgba(26,43,74,.10);}
+  .chat-bubble::before{content:"";position:absolute;left:-13px;top:60px;border:12px solid transparent;border-right-color:#E6ECF4;border-left:0;}
+  .chat-bubble::after{content:"";position:absolute;left:-11px;top:61px;border:11px solid transparent;border-right-color:#fff;border-left:0;}
+  .chat-bubble p{margin:0 0 10px;font-size:1.04rem;line-height:1.6;color:#3A4760;}
+  .chat-bubble p:first-child{font-weight:600;color:var(--navy);font-size:1.12rem;}
+  .chat-bubble p:last-child{margin-bottom:0;}
+  .chat-bubble .cb-highlight{margin:14px 0 0;padding:13px 16px;border-radius:14px;background:linear-gradient(135deg,#F3F0FF,#FBF8FF);border:1px solid #ECE3FB;font-weight:700;color:#6B45C9;font-size:1.04rem;line-height:1.45;}
+  .wc-time{font-size:.8rem;color:var(--muted);margin:10px 0 0;}
+  /* Centraliza verticalmente a tela de boas-vindas (composiÃ§Ã£o harmoniosa, sem vazio embaixo) */
+  .screen[data-s="welcome"].on{display:flex;align-items:center;min-height:calc(100vh - 128px);}
+  @media(max-width:720px){ .welcome-2col{flex-direction:column;text-align:center;gap:14px;} .wc-geni{width:auto;} .wc-cta{justify-content:center;} }
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:12px;margin-top:14px;}
+  .opt{border:2px solid var(--line);border-radius:14px;padding:18px 12px;text-align:center;cursor:pointer;font-weight:600;transition:.16s;background:#fff;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.95rem;}
+  .opt .e{font-size:1.7rem;}
+  .opt:hover{border-color:var(--teal);background:#F3FBFA;transform:translateY(-2px);}
+  .opt.sel{border-color:var(--teal);background:#E4F4F1;color:var(--teal-deep);}
+  .fg{margin-top:16px;} .fg label{display:block;font-weight:600;margin-bottom:6px;font-size:.95rem;}
+  .fg-row{display:flex;gap:18px;flex-wrap:wrap;} .fg-row .fg{flex:1;min-width:170px;}
+  .ctrl{width:100%;padding:.9rem 1rem;border:2px solid var(--line);border-radius:12px;font-family:inherit;font-size:1rem;color:var(--navy);}
+  .ctrl:focus{outline:none;border-color:var(--teal);}
+  textarea.ctrl{resize:vertical;min-height:96px;}
+
+  .nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;align-items:center;}
+  .btn{padding:.85rem 1.7rem;border-radius:13px;font-size:1rem;font-weight:700;transition:.18s;}
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:0 8px 18px rgba(31,166,168,.26);}
+  .btn-primary:hover{filter:brightness(1.06);transform:translateY(-1px);}
+  .btn-primary:disabled{opacity:.5;transform:none;cursor:default;}
+  .btn-ghost{background:transparent;color:var(--muted);}
+  .btn-ghost:hover{color:var(--navy);}
+  .skip{display:block;text-align:center;margin-top:14px;color:var(--muted);font-size:.85rem;text-decoration:underline;cursor:pointer;}
+
+  /* processing */
+  .orb{width:96px;height:96px;border-radius:50%;margin:6px auto 18px;background:radial-gradient(circle at 50% 40%,var(--ia),#D6ECF7);display:grid;place-items:center;font-size:42px;position:relative;}
+  .orb::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:3px solid var(--teal);border-top-color:transparent;animation:spin 1.3s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){.orb::after{animation:none;border-top-color:var(--teal);}}
+  .chk{display:flex;flex-direction:column;gap:12px;margin-top:22px;max-width:340px;margin-left:auto;margin-right:auto;}
+  .chk div{display:flex;align-items:center;gap:11px;font-weight:600;color:var(--muted);opacity:.4;transition:opacity .4s,color .4s;}
+  .chk div.done{opacity:1;color:var(--navy);}
+  .chk .ic{width:26px;height:26px;border-radius:50%;background:#E4F4F1;color:var(--teal-deep);display:grid;place-items:center;font-weight:800;flex:none;}
+
+  /* final */
+  .disc{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;}
+  .disc .box{border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;}
+  .disc .box.use{background:#F1FAF7;border-color:#CFE9E1;}
+  .disc .box.avoid{background:#FBF4F4;border-color:#F0D9D9;}
+  .disc h3{font-size:1rem;margin-bottom:12px;}
+  .disc ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .disc li{font-size:.95rem;font-weight:600;}
+  .geni-msg{margin-top:18px;background:linear-gradient(135deg,#F4F0FF,#FAF8FF);border:1.5px solid #E6D8F5;border-radius:18px;padding:20px 22px;}
+  .geni-msg .h{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--purple);margin-bottom:8px;}
+  .geni-msg p{font-size:1.06rem;line-height:1.6;}
+  @media(max-width:560px){.disc{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+  <div class="top">
+    <a class="brand" href="plataforma.html" style="display:flex;align-items:center;gap:9px">
+      <img src="assets/logo.png" alt="NoSeuTempo" onerror="this.onerror=null;this.src='assets/logo-icon.svg'" style="height:38px;width:auto;display:block" />
+      <span>No<span class="seu">Seu</span>Tempo</span>
+    </a>
+    <div class="top-right">
+      <div class="prog"><i id="prog"></i></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- TELA 1 â€” BOAS-VINDAS -->
+    <section class="screen on" data-s="welcome">
+      <div class="card welcome-2col">
+        <div class="wc-geni">
+          <span class="g-deco d-heart">â¤ï¸</span>
+          <span class="g-deco d-star">â­</span>
+          <span class="g-deco d-game">ðŸŽ®</span>
+          <span class="g-deco d-book">ðŸ“–</span>
+          <span class="g-deco d-puzzle">ðŸ§©</span>
+          <img class="geni-hero" src="assets/aprender/robot_cut.png" alt="Geni IA" onerror="this.onerror=null;this.src='assets/geni-robot.png'" />
+        </div>
+        <div class="wc-body">
+          <div class="geni-tag" style="margin-bottom:10px">Geni IA</div>
+          <div class="chat-bubble">
+            <p>Oi! Que bom que vocÃª chegou. Eu estava te esperando! ðŸ’œ</p>
+            <p>Cada pessoa tem um ritmo Ãºnico e um jeito todinho seu de aprender. Por isso, antes de comeÃ§ar, quero te conhecer melhor.</p>
+            <p>Me conta um pouquinho sobre vocÃª? Assim, posso preparar conteÃºdos, atividades, jogos e desafios que faÃ§am mais sentido para a sua realidade, respeitando seu jeito de aprender.</p>
+            <p class="cb-highlight">âœ¨ Vamos encontrar juntos o caminho que funciona melhor para vocÃª?</p>
+          </div>
+          <div class="wc-cta" style="margin-top:16px">
+            <button class="btn btn-primary" onclick="next()">ðŸš€ ComeÃ§ar minha jornada</button>
+          </div>
+          <p class="wc-time">â±ï¸ Leva menos de 2 minutos</p>
+          <p class="privacy" style="justify-content:flex-start;margin:8px 0 0"><span class="lk">ðŸ”’</span> Suas respostas serÃ£o usadas apenas para personalizar sua experiÃªncia.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TELA 2 â€” QUEM VAI APRENDER -->
+    <section class="screen" data-s="quem">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>Para quem vamos preparar o caminho de aprendizagem?</h2></div></div>
+        <p class="lead" style="margin:2px 0 6px">Vamos adaptar a experiÃªncia de acordo com quem vai aprender.</p>
+        <div class="cards" id="quem-cards">
+          <div class="opt" onclick="pickTipo('crianca',this)"><span class="e">ðŸ§¸</span>CrianÃ§a<span class="sub">AtÃ© 12 anos</span></div>
+          <div class="opt" onclick="pickTipo('adolescente',this)"><span class="e">ðŸŽ’</span>Adolescente<span class="sub">13 a 17 anos</span></div>
+          <div class="opt" onclick="pickTipo('adulto',this)"><span class="e">ðŸ’¼</span>Adulto<span class="sub">18 anos ou mais</span></div>
+        </div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><span></span></div>
+      </div>
+    </section>
+
+    <!-- ===== FLUXO CRIANÃ‡A / ADOLESCENTE ===== -->
+    <section class="screen" data-s="c_sobre">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>Conte um pouco sobre quem vai aprender</h2></div></div>
+        <div class="fg-row">
+          <div class="fg"><label>ðŸ‘¦ Nome</label><input class="ctrl" data-key="nome" placeholder="Como podemos chamar?"></div>
+          <div class="fg"><label>ðŸŽ‚ Idade</label><input class="ctrl" type="number" data-key="idade" placeholder="Ex: 8"></div>
+        </div>
+        <div class="fg"><label>ðŸ‘© Quem estÃ¡ respondendo?</label>
+          <div class="cards" data-key="quemResponde" data-single="1">
+            <div class="opt" onclick="single(this)">MÃ£e</div><div class="opt" onclick="single(this)">Pai</div><div class="opt" onclick="single(this)">ResponsÃ¡vel</div><div class="opt" onclick="single(this)">Professor</div><div class="opt" onclick="single(this)">Terapeuta</div>
+          </div>
+        </div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="next()">Continuar</button></div>
+      </div>
+    </section>
+
+    <section class="screen" data-s="c_diag">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>Existe algum diagnÃ³stico ou acompanhamento?</h2></div></div>
+        <p class="mini">Responder Ã© opcional. Isso serve apenas para a Geni adaptar a experiÃªncia â€” nunca para rotular.</p>
+        <div class="cards" data-key="diagnostico">
+          <div class="opt" onclick="multi(this)">TEA</div><div class="opt" onclick="multi(this)">TDAH</div><div class="opt" onclick="multi(this)">Dislexia</div><div class="opt" onclick="multi(this)">Outro</div><div class="opt" onclick="multi(this)">Ainda nÃ£o sei</div><div class="opt" onclick="multi(this)">Prefiro nÃ£o informar</div>
+        </div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="next()">Continuar</button></div>
+      </div>
+    </section>
+
+    <section class="screen" data-s="c_dific">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>O que costuma deixar o aprendizado mais difÃ­cil?</h2></div></div>
+        <div class="cards" data-key="dificuldade">
+          <div class="opt" onclick="multi(this)"><span class="e">ðŸ“„</span>Textos longos</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ“</span>Muitas atividades seguidas</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ”Š</span>Sons e distraÃ§Ãµes</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ¤”</span>NÃ£o entender de primeira</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ˜Ÿ</span>Medo de errar</div><div class="opt" onclick="multi(this)"><span class="e">â³</span>Ficar muito tempo parado</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ“š</span>OrganizaÃ§Ã£o</div><div class="opt" onclick="multi(this)"><span class="e">âž•</span>Outro</div>
+        </div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="next()">Continuar</button></div>
+      </div>
+    </section>
+
+    <section class="screen" data-s="c_ajuda">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>O que costuma ajudar mais?</h2></div></div>
+        <div class="cards" data-key="ajuda">
+          <div class="opt" onclick="multi(this)"><span class="e">ðŸŽ®</span>Jogos</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ“·</span>Imagens</div><div class="opt" onclick="multi(this)"><span class="e">ðŸŽ¥</span>VÃ­deos</div><div class="opt" onclick="multi(this)"><span class="e">ðŸŽµ</span>MÃºsica</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ“–</span>Leitura</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ’¬</span>Conversa</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ§©</span>Atividades prÃ¡ticas</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ”„</span>RepetiÃ§Ã£o</div>
+        </div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="next()">Continuar</button></div>
+      </div>
+    </section>
+
+    <!-- ===== FLUXO ADULTO ===== -->
+    <section class="screen" data-s="a_sobre">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>Conte um pouco sobre vocÃª</h2></div></div>
+        <div class="fg-row">
+          <div class="fg"><label>ðŸ‘¤ Como podemos te chamar?</label><input class="ctrl" data-key="nome" placeholder="Seu nome ou apelido"></div>
+          <div class="fg"><label>ðŸŽ‚ Sua idade</label><input class="ctrl" type="number" data-key="idade" placeholder="Sua idade"></div>
+        </div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="next()">Continuar</button></div>
+      </div>
+    </section>
+
+    <section class="screen" data-s="a_dific">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>Qual Ã© sua maior dificuldade para estudar?</h2></div></div>
+        <div class="cards" data-key="dificuldade">
+          <div class="opt" onclick="multi(this)">Manter foco</div><div class="opt" onclick="multi(this)">ComeÃ§ar</div><div class="opt" onclick="multi(this)">Terminar</div><div class="opt" onclick="multi(this)">Lembrar</div><div class="opt" onclick="multi(this)">Entender textos</div><div class="opt" onclick="multi(this)">OrganizaÃ§Ã£o</div><div class="opt" onclick="multi(this)">Ansiedade</div><div class="opt" onclick="multi(this)">ConstÃ¢ncia</div>
+        </div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="next()">Continuar</button></div>
+      </div>
+    </section>
+
+    <section class="screen" data-s="a_diag">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>Tem diagnÃ³stico, suspeita ou dificuldade especÃ­fica?</h2></div></div>
+        <p class="mini">Responder Ã© opcional. Serve sÃ³ para a Geni adaptar â€” nunca para rotular.</p>
+        <div class="cards" data-key="diagnostico">
+          <div class="opt" onclick="multi(this)">TDAH</div><div class="opt" onclick="multi(this)">TEA</div><div class="opt" onclick="multi(this)">Dislexia</div><div class="opt" onclick="multi(this)">Ansiedade</div><div class="opt" onclick="multi(this)">Dificuldade de foco</div><div class="opt" onclick="multi(this)">Ainda nÃ£o sei</div><div class="opt" onclick="multi(this)">Prefiro nÃ£o informar</div>
+        </div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="next()">Continuar</button></div>
+      </div>
+    </section>
+
+    <section class="screen" data-s="a_aprende">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>Como vocÃª prefere aprender?</h2></div></div>
+        <div class="cards" data-key="aprendeMelhor">
+          <div class="opt" onclick="multi(this)"><span class="e">ðŸŽ§</span>Ouvindo</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ“–</span>Lendo</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ“·</span>Vendo exemplos</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ§©</span>Fazendo atividades</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ’¬</span>Conversando</div><div class="opt" onclick="multi(this)"><span class="e">ðŸŽ®</span>Jogando</div><div class="opt" onclick="multi(this)"><span class="e">ðŸŽµ</span>Com mÃºsica</div>
+        </div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="next()">Continuar</button></div>
+      </div>
+    </section>
+
+    <section class="screen" data-s="a_frustra">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>O que mais gera frustraÃ§Ã£o durante os estudos?</h2></div></div>
+        <div class="cards" data-key="frustracao">
+          <div class="opt" onclick="multi(this)">NÃ£o entender rÃ¡pido</div><div class="opt" onclick="multi(this)">Errar muitas vezes</div><div class="opt" onclick="multi(this)">Textos longos</div><div class="opt" onclick="multi(this)">PressÃ£o</div><div class="opt" onclick="multi(this)">Tempo contado</div><div class="opt" onclick="multi(this)">Falta de organizaÃ§Ã£o</div><div class="opt" onclick="multi(this)">ComparaÃ§Ã£o</div>
+        </div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="next()">Continuar</button></div>
+      </div>
+    </section>
+
+    <!-- ===== COMPARTILHADAS ===== -->
+    <section class="screen" data-s="interesses">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2 id="int-title">O que essa pessoa mais gosta?</h2></div></div>
+        <p class="mini">Isso ajuda a Geni a criar exemplos mais interessantes pra vocÃª.</p>
+        <div class="cards" data-key="interesses">
+          <div class="opt" onclick="multi(this)"><span class="e">ðŸ¦–</span>Dinossauros</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ¶</span>Animais</div><div class="opt" onclick="multi(this)"><span class="e">âš½</span>Futebol</div><div class="opt" onclick="multi(this)"><span class="e">ðŸš—</span>Carros</div><div class="opt" onclick="multi(this)"><span class="e">ðŸŽ®</span>Jogos</div><div class="opt" onclick="multi(this)"><span class="e">ðŸš€</span>EspaÃ§o</div><div class="opt" onclick="multi(this)"><span class="e">ðŸŽµ</span>MÃºsica</div><div class="opt" onclick="multi(this)"><span class="e">ðŸ’»</span>Tecnologia</div><div class="opt" onclick="multi(this)"><span class="e">ðŸŽ¨</span>Desenho</div>
+        </div>
+        <div class="fg"><input class="ctrl" data-key="interessesOutro" placeholder="âž• Outro interesse (opcional)"></div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="next()">Continuar</button></div>
+      </div>
+    </section>
+
+    <section class="screen" data-s="obs">
+      <div class="card">
+        <div class="geni-head"><span class="geni-av"><img src="assets/aprender/robot_cut.png" alt="Geni" onerror="this.onerror=null;this.parentNode.textContent='ðŸ¤–'" /></span><div><div class="geni-tag">Geni IA</div><h2>Tem algo que vocÃª gostaria que eu soubesse?</h2></div></div>
+        <p class="mini">Ex.: "Tem hiperfoco em dinossauros" Â· "Aprende melhor vendo exemplos" Â· "NÃ£o gosta de barulho" Â· "Fica frustrado quando erra muitas vezes".</p>
+        <div class="fg"><textarea class="ctrl" data-key="obs" placeholder="Escreva Ã  vontade (opcional)â€¦"></textarea></div>
+        <div class="nav"><button class="btn btn-ghost" onclick="back()">Voltar</button><button class="btn btn-primary" onclick="goProcessing()">Concluir ðŸ’œ</button></div>
+      </div>
+    </section>
+
+    <!-- PROCESSAMENTO -->
+    <section class="screen" data-s="processing">
+      <div class="card" style="text-align:center">
+        <div class="orb">âœ¨</div>
+        <h2>Organizando sua experiÃªncia</h2>
+        <p class="lead">A Geni IA estÃ¡ preparando um caminho personalizado para vocÃª.</p>
+        <div class="chk" id="chk">
+          <div data-c><span class="ic">âœ“</span> Interesses identificados</div>
+          <div data-c><span class="ic">âœ“</span> PreferÃªncias identificadas</div>
+          <div data-c><span class="ic">âœ“</span> EstratÃ©gia inicial criada</div>
+          <div data-c><span class="ic">âœ“</span> Perfil de aprendizagem configurado</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <section class="screen" data-s="final">
+      <div class="card">
+        <h2>ðŸ’œ O que descobrimos sobre vocÃª</h2>
+        <p class="lead">A Geni IA preparou um caminho inicial personalizado.</p>
+        <div class="disc">
+          <div class="box use"><h3>Vamos usar mais</h3><ul id="use-list"></ul></div>
+          <div class="box avoid"><h3>Vamos evitar</h3><ul id="avoid-list"></ul></div>
+        </div>
+        <div class="geni-msg">
+          <div class="h"><span style="width:28px;height:28px;display:inline-grid;place-items:center;flex:none"><img src="assets/aprender/robot_cut.png" alt="Geni" style="width:100%;height:100%;object-fit:contain" /></span> Mensagem da Geni IA</div>
+          <p>VocÃª nÃ£o precisa aprender igual todo mundo. Vamos encontrar juntos o jeito que funciona para vocÃª. ðŸ’œ</p>
+        </div>
+        <div style="margin-top:22px;text-align:center"><button class="btn btn-primary" id="btn-final" onclick="finish()">ComeÃ§ar minha jornada â†’</button></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/config.js?v=5"></script>
+  <script>
+  (function(){
+    var API = window.NST_API || 'https://api.noseutempo.app';
+    var token = localStorage.getItem('nst.token');
+    if (!token) { location.href = 'login.html?next=perfil.html'; return; }
+
+    var FLOW = {
+      crianca:     ['welcome','quem','c_sobre','c_diag','c_dific','c_ajuda','interesses','obs','processing','final'],
+      adolescente: ['welcome','quem','c_sobre','c_diag','c_dific','c_ajuda','interesses','obs','processing','final'],
+      adulto:      ['welcome','quem','a_sobre','a_dific','a_diag','a_aprende','interesses','a_frustra','obs','processing','final']
+    };
+    var seq = ['welcome','quem'];
+    var pos = 0, tipo = '';
+
+    function $(s){ return document.querySelector('[data-s="'+s+'"]'); }
+    function showAt(i){
+      pos = i;
+      document.querySelectorAll('.screen').forEach(function(el){ el.classList.toggle('on', el.getAttribute('data-s')===seq[i]); });
+      var pct = Math.round((i/(seq.length-1))*100);
+      document.getElementById('prog').style.width = pct+'%';
+      var qTotal = (seq.length > 2) ? seq.length - 2 : 8;
+      var ts = document.getElementById('topStep');
+      if (ts) ts.textContent = 'Passo ' + Math.min(i+1, qTotal) + ' de ' + qTotal + ' â€¢ leva menos de 2 minutos';
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    window.next = function(){ if (pos < seq.length-1) showAt(pos+1); };
+    window.back = function(){ if (pos > 0) showAt(pos-1); };
+
+    window.pickTipo = function(t, el){
+      tipo = t;
+      el.parentNode.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('sel'); });
+      el.classList.add('sel');
+      seq = FLOW[t].slice();
+      // ajusta tÃ­tulo dos interesses para crianÃ§as (3Âª pessoa) vs adulto
+      var it = document.getElementById('int-title');
+      if (it) it.textContent = (t==='adulto') ? 'Quais sÃ£o seus interesses?' : 'O que essa pessoa mais gosta?';
+      setTimeout(window.next, 180);
+    };
+    window.single = function(el){ el.parentNode.querySelectorAll('.opt').forEach(function(o){o.classList.remove('sel');}); el.classList.add('sel'); };
+    window.multi  = function(el){ el.classList.toggle('sel'); };
+
+    function collect(){
+      var p = { tipo: tipo, at: new Date().toISOString() };
+      seq.forEach(function(sid){
+        var sc = $(sid); if (!sc) return;
+        sc.querySelectorAll('[data-key]').forEach(function(el){
+          var key = el.getAttribute('data-key');
+          if (el.classList.contains('cards')){
+            var sel = [].slice.call(el.querySelectorAll('.opt.sel')).map(function(o){ return o.textContent.trim(); });
+            p[key] = el.getAttribute('data-single') ? (sel[0]||'') : sel;
+          } else { p[key] = (el.value||'').trim(); }
+        });
+      });
+      // junta "interessesOutro" no array de interesses
+      if (p.interessesOutro){ p.interesses = (p.interesses||[]).concat([p.interessesOutro]); delete p.interessesOutro; }
+      return p;
+    }
+
+    // â”€â”€ derivar "usar mais / evitar" das respostas â”€â”€
+    var USE_MAP = {
+      'Jogos':'ðŸŽ® Atividades interativas','Imagens':'ðŸ“· Exemplos visuais','VÃ­deos':'ðŸŽ¥ VÃ­deos curtos','MÃºsica':'ðŸŽµ MÃºsica no aprendizado',
+      'Leitura':'ðŸ“– Leitura no seu ritmo','Conversa':'ðŸ’¬ Conversas guiadas','Atividades prÃ¡ticas':'ðŸ§© Atividades prÃ¡ticas','RepetiÃ§Ã£o':'ðŸ”„ RepetiÃ§Ã£o leve',
+      'Ouvindo':'ðŸŽ§ ConteÃºdo em Ã¡udio','Lendo':'ðŸ“– Leitura no seu ritmo','Vendo exemplos':'ðŸ“· Exemplos visuais','Fazendo atividades':'ðŸ§© Atividades prÃ¡ticas',
+      'Conversando':'ðŸ’¬ Conversas guiadas','Jogando':'ðŸŽ® Atividades interativas','Com mÃºsica':'ðŸŽµ MÃºsica no aprendizado'
+    };
+    var AVOID_MAP = {
+      'Textos longos':'ðŸ“„ Textos muito longos','Muitas atividades seguidas':'ðŸ“š Muitas atividades seguidas','Sons e distraÃ§Ãµes':'ðŸ”Š Ambientes barulhentos',
+      'NÃ£o entender de primeira':'â° Pressa para entender','Medo de errar':'âŒ PressÃ£o por acertar','Ficar muito tempo parado':'â³ Longos perÃ­odos parado',
+      'OrganizaÃ§Ã£o':'ðŸ—‚ï¸ Falta de estrutura','NÃ£o entender rÃ¡pido':'â° Pressa para entender','Errar muitas vezes':'âŒ PressÃ£o por acertar',
+      'PressÃ£o':'â° PressÃ£o por tempo','Tempo contado':'â° PressÃ£o por tempo','Falta de organizaÃ§Ã£o':'ðŸ—‚ï¸ Falta de estrutura','ComparaÃ§Ã£o':'âš–ï¸ ComparaÃ§Ãµes',
+      'Ansiedade':'ðŸ˜° SituaÃ§Ãµes de pressÃ£o'
+    };
+    function uniq(a){ var s=[],o={}; a.forEach(function(x){ if(x && !o[x]){o[x]=1;s.push(x);} }); return s; }
+    function buildDiscovery(p){
+      var use = [];
+      (p.ajuda||[]).concat(p.aprendeMelhor||[]).forEach(function(x){ if(USE_MAP[x]) use.push(USE_MAP[x]); });
+      if ((p.interesses||[]).length) use.push('ðŸŒŸ Temas: ' + p.interesses.slice(0,4).join(', '));
+      if (!use.length) use = ['ðŸŽ® Atividades interativas','ðŸ“· Exemplos visuais','ðŸ’¬ Conversas guiadas'];
+      var avoid = [];
+      (p.dificuldade||[]).concat(p.frustracao||[]).forEach(function(x){ if(AVOID_MAP[x]) avoid.push(AVOID_MAP[x]); });
+      if (!avoid.length) avoid = ['ðŸ“„ Textos muito longos','â° PressÃ£o por tempo','âŒ ExercÃ­cios repetitivos'];
+      return { use: uniq(use).slice(0,5), avoid: uniq(avoid).slice(0,5) };
+    }
+
+    var savedPerfil = null;
+    window.goProcessing = function(){
+      savedPerfil = collect();
+      // salva em background enquanto mostra a animaÃ§Ã£o
+      fetch(API + '/api/me/perfil', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}, body: JSON.stringify(savedPerfil) }).catch(function(){});
+      // preenche a tela final
+      var d = buildDiscovery(savedPerfil);
+      document.getElementById('use-list').innerHTML  = d.use.map(function(x){ return '<li>'+x+'</li>'; }).join('');
+      document.getElementById('avoid-list').innerHTML = d.avoid.map(function(x){ return '<li>'+x+'</li>'; }).join('');
+      showAt(seq.indexOf('processing'));
+      // anima o checklist
+      var items = document.querySelectorAll('#chk [data-c]');
+      items.forEach(function(it,i){ setTimeout(function(){ it.classList.add('done'); }, 500 + i*500); });
+      setTimeout(function(){ showAt(seq.indexOf('final')); }, 500 + items.length*500 + 400);
+    };
+
+    window.finish = function(){
+      var b = document.getElementById('btn-final'); b.disabled = true; b.textContent = 'Preparandoâ€¦';
+      // garante o save antes de seguir
+      fetch(API + '/api/me/perfil', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}, body: JSON.stringify(savedPerfil || collect()) })
+        .then(function(){ location.href = 'plataforma.html'; })
+        .catch(function(){ location.href = 'plataforma.html'; });
+    };
+
+    showAt(0);
+  })();
+  </script>
+</body>
+</html>
+
+

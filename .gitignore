@@ -1,0 +1,36 @@
+.DS_Store
+Thumbs.db
+
+# Dependencies and builds
+node_modules/
+dist/
+build/
+.vite/
+.turbo/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Runtime data from production
+apps/api/data/**/*.json
+apps/api/data/**/*.bak*
+apps/api/data/**/*.log
+apps/api/data/recordings/**
+apps/api/data/tts-cache/**
+!apps/api/data/**/.gitkeep
+
+# Local artifacts
+*.tgz
+*.tar.gz
+*.zip
+*.log
+local_proxy_server.log
+local_proxy_server.err.log
+
+# Editor
+.vscode/
+.idea/

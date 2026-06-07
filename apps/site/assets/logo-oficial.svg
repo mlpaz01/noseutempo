@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="NoSeuTempo">
+  <defs>
+    <linearGradient id="nstRingOf" x1="0.12" y1="0.05" x2="0.9" y2="0.98">
+      <stop offset="0%"   stop-color="#3E86CC"/>
+      <stop offset="45%"  stop-color="#2AA0AE"/>
+      <stop offset="100%" stop-color="#2E9E68"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Anel do relógio — gradiente AZUL -> VERDE -->
+  <circle cx="24" cy="24" r="18.5" fill="none" stroke="url(#nstRingOf)"
+          stroke-width="6.4" stroke-linecap="round"
+          stroke-dasharray="98 18" transform="rotate(132 24 24)"/>
+
+  <!-- Ponta de seta (avanço/progresso) em verde -->
+  <path d="M37.5 12.8 l5.2 1.0 -2.0 4.9 z" fill="#2E9E68"/>
+
+  <!-- Ponteiros do relógio em "L" (12h + 3h) -->
+  <path d="M24 24 L24 12.4" stroke="#234B86" stroke-width="5" stroke-linecap="round"/>
+  <path d="M24 24 L32.8 24" stroke="#234B86" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="24" cy="24" r="3.1" fill="#234B86"/>
+</svg>

@@ -1,0 +1,656 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoSeuTempo â€” Aula</title>
+  <link rel="icon" href="assets/logo-icon.svg" />
+  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/platform.css?v=3" />
+  <link rel="stylesheet" href="css/aula.css?v=1" />
+</head>
+<body class="aula-body">
+
+  <!-- Header compacto -->
+  <header class="aula-header">
+    <a class="aula-back" id="btn-back" href="cursos.html">âœ•</a>
+    <div class="aula-progress-wrap">
+      <div class="aula-progress-track"><div class="aula-progress-fill" id="aula-bar"></div></div>
+    </div>
+    <div class="aula-xp" id="aula-xp">+0 XP</div>
+  </header>
+
+  <!-- Loading -->
+  <div class="aula-loading" id="aula-loading">
+    <div class="spinner"></div>
+    <p>Carregando sua aulaâ€¦</p>
+  </div>
+
+  <!-- Erro -->
+  <div class="aula-error hidden" id="aula-error">
+    <div style="font-size:3rem">ðŸ˜•</div>
+    <h2>Ops! NÃ£o encontramos essa aula.</h2>
+    <p>Verifique se o curso foi gerado corretamente.</p>
+    <a class="btn btn--teal" href="cursos.html" style="margin-top:16px">â† Voltar aos cursos</a>
+  </div>
+
+  <!-- Player de blocos -->
+  <main class="aula-main hidden" id="aula-main">
+    <!-- CabeÃ§alho da aula -->
+    <div class="aula-meta">
+      <span class="aula-unit-tag" id="aula-unit"></span>
+      <h2 id="aula-title"></h2>
+      <a href="geni.html" title="Tirar dÃºvida com a Geni" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:.9rem;font-weight:600;color:#0d9488;text-decoration:none;background:#f0fdfa;border:1px solid #99f6e4;padding:6px 12px;border-radius:999px;">ðŸ’¬ Falar com a Geni</a>
+    </div>
+
+    <!-- Bloco atual -->
+    <div class="aula-block-wrap" id="aula-block"></div>
+
+    <!-- Feedback (correto / quase lÃ¡) -->
+    <div class="aula-feedback hidden" id="aula-feedback">
+      <div class="af-icon" id="af-icon">âœ“</div>
+      <div class="af-msg" id="af-msg"></div>
+    </div>
+
+    <!-- BotÃ£o continuar -->
+    <div class="aula-foot">
+      <button class="btn btn--primary aula-next" id="btn-next" disabled>Continuar</button>
+    </div>
+  </main>
+
+  <!-- Tela de conclusÃ£o -->
+  <div class="aula-done hidden" id="aula-done">
+    <div class="done-confetti" aria-hidden="true">ðŸŽ‰</div>
+    <h2>Aula concluÃ­da!</h2>
+    <p id="done-msg">VocÃª mandou bem! Um passo de cada vez. ðŸ’™</p>
+    <div class="done-xp" id="done-xp">+10 XP</div>
+    <a class="btn btn--primary hidden" id="btn-desafio" href="#" style="margin-bottom:12px">ðŸŽ¯ Fazer o Desafio do mÃ³dulo</a>
+    <a class="btn btn--teal" href="geni.html" style="margin-bottom:12px">ðŸ’¬ Praticar com a Geni</a>
+    <div class="done-btns">
+      <a class="btn btn--ghost" href="cursos.html">Ver todos os cursos</a>
+      <a class="btn btn--primary" id="btn-next-lesson" href="cursos.html">PrÃ³xima aula â†’</a>
+    </div>
+  </div>
+
+  <script src="js/config.js?v=5"></script>
+  <script src="js/main.js?v=3"></script>
+  <script>
+  (function () {
+    'use strict';
+    var params = new URLSearchParams(location.search);
+    var demo      = params.get('demo') === '1';
+    var API   = window.NST_API || 'https://api.noseutempo.app';
+    var token = localStorage.getItem('nst.token');
+    if (!token && !demo) { location.href = 'login.html'; return; }
+    var courseId   = params.get('course');
+    var unitIndex  = parseInt(params.get('unit')  || '0', 10);
+    var lessonIndex= parseInt(params.get('lesson')|| '0', 10);
+    var preview    = params.get('preview') === '1' || demo;   // modo admin/demo: nao grava progresso
+    var adapted    = params.get('adapted') === '1';   // material adaptado gerado pela Geni
+
+    if (!courseId && !demo) { show('aula-error'); return; }
+    /* Faixa de prÃ©-visualizaÃ§Ã£o (admin) */
+    if (preview) {
+      document.addEventListener('DOMContentLoaded', function () {
+        var bar = document.createElement('div');
+        bar.textContent = demo ? 'Preview local - nenhum dado sera gravado' : 'Preview admin - o progresso nao sera gravado';
+        bar.className = 'aula-preview-bar';
+        document.body.appendChild(bar);
+        document.body.style.paddingTop = '34px';
+      });
+    }
+
+    // â”€â”€ Estado â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    var blocks = [], blockIdx = 0, xp = 0, answered = false;
+    var course, unit, lesson;
+
+    // â”€â”€ UtilitÃ¡rios â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function show(id){ ['aula-loading','aula-error','aula-main','aula-done'].forEach(function(i){ document.getElementById(i).classList.toggle('hidden', i!==id); }); }
+    function speak(txt){ if(!window.speechSynthesis||!txt) return; var u=new SpeechSynthesisUtterance(txt); u.lang='es-ES'; u.rate=0.8; speechSynthesis.cancel(); speechSynthesis.speak(u); }
+
+    function updateProgress() {
+      var pct = blocks.length ? Math.round((blockIdx / blocks.length) * 100) : 0;
+      document.getElementById('aula-bar').style.width = pct + '%';
+      document.getElementById('aula-xp').textContent = '+' + xp + ' XP';
+    }
+
+    // â”€â”€ Carregar curso â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    if (demo) { loadDemo(); } else if (adapted) { loadAdapted(); } else {
+    fetch(API + '/api/courses/' + courseId + '/content', { headers: {'Authorization':'Bearer '+token} })
+      .then(function(r){ if(!r.ok) throw new Error('not found'); return r.json(); })
+      .then(function(c) {
+        course = c;
+        unit   = c.units[unitIndex];
+        lesson = unit && unit.lessons[lessonIndex];
+        if (!lesson) { show('aula-error'); return; }
+
+        document.title = lesson.title + ' â€” NoSeuTempo';
+        document.getElementById('aula-unit').textContent = unit.icon + ' ' + unit.title;
+        document.getElementById('aula-title').textContent = lesson.title;
+
+        // â”€â”€ Contexto para a Geni IA (curso / mÃ³dulo / aula) â”€â”€
+        try {
+          localStorage.setItem('nst.ctx.curso',  c.title || c.name || 'Espanhol');
+          localStorage.setItem('nst.ctx.modulo', unit.title || '');
+          localStorage.setItem('nst.ctx.aula',   lesson.title || '');
+          localStorage.setItem('nst.ctx.emoji',  unit.icon || 'ðŸ‡ªðŸ‡¸');
+          localStorage.setItem('nst.ctx.courseId', courseId);
+          localStorage.setItem('nst.ctx.unit', String(unitIndex));
+          localStorage.setItem('nst.ctx.lesson', String(lessonIndex));
+        } catch (e) {}
+
+        blocks = lesson.blocks || [];
+        if (!blocks.length) { show('aula-error'); return; }
+
+        // prÃ³xima aula
+        var nextLesson = unit.lessons[lessonIndex + 1];
+        var nextUnit   = !nextLesson && c.units[unitIndex + 1];
+        var nextHref;
+        if (nextLesson) nextHref = 'aula.html?course='+courseId+'&unit='+unitIndex+'&lesson='+(lessonIndex+1);
+        else if (nextUnit) nextHref = 'aula.html?course='+courseId+'&unit='+(unitIndex+1)+'&lesson=0';
+        else nextHref = 'cursos.html';
+        document.getElementById('btn-next-lesson').href = nextHref;
+
+        // Desafio do mÃ³dulo â€” disponÃ­vel ao concluir qualquer aula (diagnÃ³stico, nÃ£o Ã© prova)
+        var bd = document.getElementById('btn-desafio');
+        if (bd) {
+          bd.href = 'desafios.html?course=' + encodeURIComponent(courseId) + '&unit=' + unitIndex;
+          bd.classList.remove('hidden');
+        }
+
+        show('aula-main');
+        updateProgress();
+        renderBlock();
+      })
+      .catch(function(e){ console.error(e); show('aula-error'); });
+    }
+
+    function loadDemo() {
+      courseId = 'demo-local';
+      course = {
+        title: 'Curso Demo Local',
+        units: [{
+          icon: '*',
+          title: 'Modulo de demonstracao',
+          lessons: [{ id: 'demo-aula', title: 'Como o visualizador aparece para o aluno' }]
+        }]
+      };
+      unit = course.units[0];
+      lesson = unit.lessons[0];
+      blocks = [
+        {
+          type: 'concept',
+          emoji: '>>',
+          title: 'Um passo de cada vez',
+          body: 'Esta tela mostra a aula em blocos curtos, com foco no proximo gesto do aluno e sem ruido visual.'
+        },
+        {
+          type: 'audio_vocab',
+          title: 'OuÃ§a e repita',
+          tip: 'Toque nas palavras para testar o audio do navegador.',
+          words: [
+            { emoji: 'sol', word: 'Buenos dias', translation: 'Bom dia' },
+            { emoji: 'msg', word: 'Gracias', translation: 'Obrigado' },
+            { emoji: 'ola', word: 'Hasta luego', translation: 'Ate logo' }
+          ],
+          instruction: 'Este bloco valida cartoes, espacamento e toque em mobile.'
+        },
+        {
+          type: 'multiple_choice',
+          question: 'Qual opcao significa "obrigado" em espanhol?',
+          options: ['Hola', 'Gracias', 'Agua'],
+          correctIndex: 1,
+          explanation: 'Gracias e a forma mais comum de agradecer.'
+        },
+        {
+          type: 'fill_blank',
+          template: '____, como estas?',
+          wordBank: ['Hola', 'Casa', 'Pan'],
+          correctAnswers: ['Hola'],
+          explanation: 'Hola abre a conversa de forma simples.'
+        },
+        {
+          type: 'reflection',
+          question: 'Como voce explicaria este conteudo para alguem da sua familia?',
+          guidance: 'A resposta nao e enviada no modo demo. Serve so para testar a experiencia.',
+          prompt: 'Escreva uma frase curta...'
+        }
+      ];
+
+      document.title = lesson.title + ' - NoSeuTempo';
+      document.getElementById('aula-unit').textContent = unit.icon + ' ' + unit.title;
+      document.getElementById('aula-title').textContent = lesson.title;
+      document.getElementById('btn-next-lesson').href = 'aula.html?demo=1';
+      var desafio = document.getElementById('btn-desafio');
+      if (desafio) desafio.classList.add('hidden');
+      show('aula-main');
+      updateProgress();
+      renderBlock();
+    }
+
+    // â”€â”€ Material adaptado (Geni) â€” reusa os renderizadores de bloco â”€â”€
+    function loadAdapted() {
+      var loadingEl = document.getElementById('aula-loading');
+      var origLoading = loadingEl ? loadingEl.innerHTML : '';
+      function preparing() {
+        if (loadingEl) loadingEl.innerHTML =
+          '<div style="text-align:center;max-width:420px;margin:0 auto">' +
+          '<div style="font-size:2.4rem">âœ¨</div>' +
+          '<h2 style="margin:10px 0 6px">Seu material adaptado estÃ¡ sendo preparado</h2>' +
+          '<p style="color:#62708A">A Geni IA estÃ¡ criando uma nova forma de ensinar este conteÃºdo para vocÃª. Aguarde sÃ³ um instanteâ€¦ ðŸ’™</p>' +
+          '<div style="width:38px;height:38px;border:4px solid #D9EFEC;border-top-color:#1FA6A8;border-radius:50%;animation:sp 1s linear infinite;margin:18px auto 0"></div>' +
+          '<style>@keyframes sp{to{transform:rotate(360deg)}}</style></div>';
+        show('aula-loading');
+      }
+      function poll() {
+        fetch(API + '/api/desafios/material/' + encodeURIComponent(courseId) + '/' + unitIndex, { headers: {'Authorization':'Bearer '+token} })
+          .then(function(r){ return r.json(); })
+          .then(function(m){
+            if (m.status === 'ready' && m.lesson && (m.lesson.blocks||[]).length) {
+              lesson = { id: 'adapted', title: m.lesson.title || 'Material adaptado', blocks: m.lesson.blocks };
+              document.title = lesson.title + ' â€” NoSeuTempo';
+              document.getElementById('aula-unit').textContent = 'âœ¨ Material adaptado pra vocÃª';
+              document.getElementById('aula-title').textContent = lesson.title;
+              blocks = lesson.blocks; blockIdx = 0;
+              document.getElementById('btn-next-lesson').href = 'desafios.html?course=' + encodeURIComponent(courseId) + '&unit=' + unitIndex;
+              document.getElementById('btn-next-lesson').textContent = 'Voltar ao desafio â†’';
+              if (loadingEl) loadingEl.innerHTML = origLoading;
+              show('aula-main'); updateProgress(); renderBlock();
+            } else if (m.status === 'error' || m.status === 'unavailable') {
+              show('aula-error');
+            } else {
+              preparing(); setTimeout(poll, 4000);
+            }
+          })
+          .catch(function(){ setTimeout(poll, 5000); });
+      }
+      preparing(); poll();
+    }
+
+    // â”€â”€ BotÃ£o continuar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    document.getElementById('btn-next').addEventListener('click', function() {
+      if (!answered && !isAutoBlock(blocks[blockIdx])) return;
+      hideFeedback();
+      blockIdx++;
+      if (blockIdx >= blocks.length) {
+        finishLesson();
+      } else {
+        answered = false;
+        document.getElementById('btn-next').disabled = true;
+        updateProgress();
+        renderBlock();
+      }
+    });
+
+    function isAutoBlock(b) {
+      return b && ['concept','example','reflection','audio_vocab','voice_challenge','mission'].includes(b.type);
+    }
+
+    function enableNext() {
+      answered = true;
+      document.getElementById('btn-next').disabled = false;
+    }
+
+    function showFeedback(correct, msg) {
+      var el = document.getElementById('aula-feedback');
+      var icon = document.getElementById('af-icon');
+      var msgEl = document.getElementById('af-msg');
+      el.classList.remove('hidden','fb-ok','fb-try');
+      el.classList.add(correct ? 'fb-ok' : 'fb-try');
+      icon.textContent = correct ? 'âœ“' : 'ðŸ’ª';
+      msgEl.textContent = msg || (correct ? 'âœ… Correto!' : 'Quase lÃ¡! Tente de novo.');
+      if (correct) { xp += 10; updateProgress(); }
+    }
+
+    function hideFeedback() {
+      document.getElementById('aula-feedback').classList.add('hidden');
+    }
+
+    // â”€â”€ ConclusÃ£o â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    function finishLesson() {
+      document.getElementById('done-xp').textContent = '+' + xp + ' XP';
+      document.getElementById('done-msg').textContent = 'VocÃª completou "' + lesson.title + '"! Continue assim ðŸ’™';
+      if (window.NST && NST.setProgress) NST.setProgress((NST.getProgress() || 65) + 5);
+      show('aula-done');
+      if (preview || adapted) return; // prÃ©-visualizaÃ§Ã£o (admin) ou material adaptado: nÃ£o grava progresso
+      /* Marca a aula como concluÃ­da (progresso real por aluno) */
+      try {
+        fetch(API + '/api/progress/complete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+          body: JSON.stringify({
+            courseId: courseId,
+            lessonId: (lesson && lesson.id) || '',
+            unitIndex: unitIndex,
+            lessonIndex: lessonIndex
+          })
+        });
+      } catch (e) {}
+      /* NotificaÃ§Ã£o de progresso (deduplicada por aula) */
+      try {
+        fetch(API + '/api/notifications/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+          body: JSON.stringify({
+            type: 'progresso',
+            text: 'VocÃª concluiu a aula "' + lesson.title + '". ParabÃ©ns por continuar sua jornada! ðŸ’™',
+            key: 'aula-' + courseId + '-' + unitIndex + '-' + lessonIndex
+          })
+        });
+      } catch (e) {}
+    }
+
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    //  RENDERIZADORES DE BLOCOS
+    // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    function renderBlock() {
+      var block = blocks[blockIdx];
+      if (!block) return;
+      var container = document.getElementById('aula-block');
+      container.innerHTML = '';
+
+      var d = block.data || block;   // blocos podem vir aninhados (data) ou planos
+      switch (block.type) {
+
+        // â”€â”€ CONCEITO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'concept':
+          container.innerHTML =
+            '<div class="bl-concept">'
+            + (d.emoji ? '<div class="bl-emoji">' + d.emoji + '</div>' : '')
+            + '<h3>' + esc(d.title || '') + '</h3>'
+            + '<p>' + esc(d.body || '') + '</p>'
+            + '</div>';
+          enableNext();
+          break;
+
+        // â”€â”€ EXEMPLO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'example':
+          container.innerHTML =
+            '<div class="bl-example">'
+            + (d.character ? '<div class="bl-char">ðŸ‘¤ ' + esc(d.character) + '</div>' : '')
+            + '<div class="bl-scenario">' + esc(d.scenario || '') + '</div>'
+            + '<div class="bl-takeaway"><span>ðŸ’¡</span>' + esc(d.takeaway || '') + '</div>'
+            + '</div>';
+          enableNext();
+          break;
+
+        // â”€â”€ VOCABULÃRIO COM ÃUDIO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'audio_vocab':
+          var words = d.words || [];
+          container.innerHTML =
+            '<div class="bl-audio-vocab">'
+            + '<h3>' + esc(d.title || 'OuÃ§a e repita:') + '</h3>'
+            + (d.tip ? '<p class="bl-tip">ðŸ’¡ ' + esc(d.tip) + '</p>' : '')
+            + '<div class="av-grid">'
+            + words.map(function(w) {
+                return '<div class="av-card" style="cursor:pointer" onclick="(function(){var u=new SpeechSynthesisUtterance(\''+w.word.replace(/'/g,"\\'")+'\')+\'\';u.lang=\'es-ES\';u.rate=0.8;speechSynthesis.cancel();speechSynthesis.speak(u);this.classList.add(\'playing\');var self=this;setTimeout(function(){self.classList.remove(\'playing\');},1000);}).call(this)">'
+                  + (w.emoji ? '<span class="av-emoji">' + w.emoji + '</span>' : '')
+                  + '<span class="av-word">' + esc(w.word) + '</span>'
+                  + (w.translation ? '<span class="av-trans">' + esc(w.translation) + '</span>' : '')
+                  + '<button class="av-play" onclick="event.stopPropagation()" aria-label="Ouvir">ðŸ”Š</button>'
+                  + '</div>';
+              }).join('')
+            + '</div>'
+            + '<p class="av-tip">' + esc(d.instruction || 'Toque em cada palavra para ouvir') + '</p>'
+            + '</div>';
+          // Adiciona eventos de Ã¡udio
+          container.querySelectorAll('.av-card').forEach(function(card, i) {
+            var word = words[i] ? words[i].word : '';
+            function playWord(){ speak(word); card.classList.add('playing'); setTimeout(function(){ card.classList.remove('playing'); }, 1000); }
+            card.addEventListener('click', playWord);
+            var btn = card.querySelector('.av-play');
+            if (btn) btn.addEventListener('click', function(e){ e.stopPropagation(); playWord(); });
+          });
+          enableNext();
+          break;
+
+        // â”€â”€ MÃšLTIPLA ESCOLHA / QUICK CHECK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'quick_check':
+        case 'multiple_choice':
+          renderMultiChoice(container, d);
+          break;
+
+        // â”€â”€ VERDADEIRO OU FALSO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'true_false':
+          container.innerHTML =
+            '<div class="bl-truefalse">'
+            + '<h3>' + esc(d.statement || '') + '</h3>'
+            + '<div class="tf-btns">'
+            +   '<button class="tf-btn" data-val="true">âœ… Verdadeiro</button>'
+            +   '<button class="tf-btn" data-val="false">âŒ Falso</button>'
+            + '</div>'
+            + '</div>';
+          container.querySelectorAll('.tf-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              if (answered) return;
+              var val = btn.dataset.val === 'true';
+              var correct = val === d.answer;
+              container.querySelectorAll('.tf-btn').forEach(function(b){ b.disabled = true; });
+              btn.classList.add(correct ? 'tf-ok' : 'tf-err');
+              if (d.answer !== undefined) container.querySelectorAll('.tf-btn').forEach(function(b){ if(b.dataset.val === String(d.answer)) b.classList.add('tf-ok'); });
+              showFeedback(correct, correct ? (d.explanation || 'Exato! ðŸŽ‰') : ('Quase lÃ¡! ' + (d.explanation || '')));
+              enableNext();
+            });
+          });
+          break;
+
+        // â”€â”€ COMPLETE A LACUNA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'fill_blank':
+          var bank = d.wordBank || d.correctAnswers || [];
+          var shuffled = bank.slice().sort(function(){ return Math.random() - .5; });
+          container.innerHTML =
+            '<div class="bl-fillblank">'
+            + '<h3>' + esc((d.template || '').replace('____', '<span class="blank-slot" id="blank-slot">___</span>')) + '</h3>'
+            + (d.hint ? '<p class="bl-tip">ðŸ’¡ ' + esc(d.hint) + '</p>' : '')
+            + '<div class="fb-bank">'
+            + shuffled.map(function(w){ return '<button class="fb-chip">'+esc(w)+'</button>'; }).join('')
+            + '</div>'
+            + '</div>';
+          var chosen = null;
+          container.querySelectorAll('.fb-chip').forEach(function(chip) {
+            chip.addEventListener('click', function() {
+              if (answered) return;
+              container.querySelectorAll('.fb-chip').forEach(function(c){ c.classList.remove('fb-selected'); });
+              chip.classList.add('fb-selected');
+              chosen = chip.textContent;
+              var slot = document.getElementById('blank-slot');
+              if (slot) slot.textContent = chosen;
+              // Verifica
+              var correct = d.correctAnswers && d.correctAnswers.some(function(a){ return a.toLowerCase() === chosen.toLowerCase(); });
+              showFeedback(correct, correct ? (d.explanation || 'âœ… Correto!') : ('Quase lÃ¡! A resposta certa Ã©: ' + (d.correctAnswers || [])[0]));
+              enableNext();
+            });
+          });
+          break;
+
+        // â”€â”€ ORDENAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'drag_order':
+          var items = (d.items || []).slice().sort(function(){ return Math.random()-.5; });
+          container.innerHTML =
+            '<div class="bl-order">'
+            + '<h3>' + esc(d.instruction || 'Coloque na ordem certa:') + '</h3>'
+            + '<div class="do-list" id="do-list">'
+            + items.map(function(it){ return '<div class="do-item" draggable="true">'+esc(it)+'</div>'; }).join('')
+            + '</div>'
+            + '<button class="btn btn--ghost do-check" style="margin-top:14px">âœ“ Verificar</button>'
+            + '</div>';
+          initDragList(container.querySelector('#do-list'));
+          container.querySelector('.do-check').addEventListener('click', function() {
+            if (answered) return;
+            var current = Array.from(container.querySelectorAll('.do-item')).map(function(el){ return el.textContent; });
+            var correct = JSON.stringify(current) === JSON.stringify(d.correctOrder || []);
+            showFeedback(correct, correct ? (d.explanation||'Ordem perfeita! ðŸŽ‰') : 'Quase lÃ¡! Tente organizar de novo.');
+            if (!correct) return;
+            enableNext();
+          });
+          break;
+
+        // â”€â”€ CONECTAR PARES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'match_pairs':
+          renderMatchPairs(container, d);
+          break;
+
+        // â”€â”€ ESCOLHA DE CENÃRIO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'scenario_choice':
+          var choices = d.choices || [];
+          container.innerHTML =
+            '<div class="bl-scenario-wrap">'
+            + (d.character ? '<div class="bl-char">ðŸ‘¤ ' + esc(d.character) + '</div>' : '')
+            + '<div class="bl-scenario">' + esc(d.scenario || '') + '</div>'
+            + '<h3 style="margin:16px 0 12px">' + esc(d.question || 'O que vocÃª faria?') + '</h3>'
+            + '<div class="sc-choices">'
+            + choices.map(function(c, i) {
+                return '<button class="sc-btn" data-idx="'+i+'" data-best="'+c.isBest+'">'+esc(c.text)+'</button>';
+              }).join('')
+            + '</div>'
+            + '</div>';
+          container.querySelectorAll('.sc-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              if (answered) return;
+              container.querySelectorAll('.sc-btn').forEach(function(b){ b.disabled=true; });
+              var isBest = btn.dataset.best === 'true';
+              var idx = parseInt(btn.dataset.idx);
+              btn.classList.add(isBest ? 'sc-ok' : 'sc-err');
+              var bestBtn = container.querySelector('.sc-btn[data-best="true"]');
+              if (bestBtn) bestBtn.classList.add('sc-ok');
+              var outcome = choices[idx] ? choices[idx].outcome : '';
+              showFeedback(isBest, (isBest ? 'âœ… ' : 'ðŸ’™ Boa reflexÃ£o! ') + esc(outcome));
+              enableNext();
+            });
+          });
+          break;
+
+        // â”€â”€ REFLEXÃƒO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'reflection':
+          container.innerHTML =
+            '<div class="bl-reflection">'
+            + '<div class="refl-icon">ðŸ’­</div>'
+            + '<h3>' + esc(d.question || '') + '</h3>'
+            + (d.guidance ? '<p class="bl-tip">' + esc(d.guidance) + '</p>' : '')
+            + '<textarea class="refl-input" placeholder="' + esc(d.prompt || 'Escreva sua reflexÃ£oâ€¦') + '" rows="4"></textarea>'
+            + '</div>';
+          enableNext(); // reflexÃ£o nÃ£o tem certo/errado
+          break;
+
+        // â”€â”€ DESAFIO DE VOZ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'voice_challenge':
+          container.innerHTML =
+            '<div class="bl-voice">'
+            + '<div class="vc-icon">ðŸŽ¤</div>'
+            + '<h3>' + esc(d.instruction || 'Diga em voz alta:') + '</h3>'
+            + '<div class="vc-phrase">' + esc(d.instruction ? (d.text || '') : '') + '</div>'
+            + '<button class="btn btn--teal vc-play">ðŸ”Š Ouvir pronÃºncia</button>'
+            + (d.tip ? '<p class="bl-tip">ðŸ’¡ ' + esc(d.tip) + '</p>' : '')
+            + '</div>';
+          var phrase = d.text || d.instruction || '';
+          container.querySelector('.vc-play').addEventListener('click', function(){ speak(phrase); });
+          enableNext();
+          break;
+
+        // â”€â”€ MISSÃƒO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        case 'mission':
+          container.innerHTML =
+            '<div class="bl-mission">'
+            + '<div class="mission-badge">ðŸŽ¯ MissÃ£o do dia</div>'
+            + '<h3>' + esc(d.title || 'MissÃ£o') + '</h3>'
+            + '<p>' + esc(d.description || '') + '</p>'
+            + (d.howToReport ? '<div class="bl-tip">ðŸ“‹ ' + esc(d.howToReport) + '</div>' : '')
+            + (d.motivation ? '<div class="mission-motive">ðŸ’™ ' + esc(d.motivation) + '</div>' : '')
+            + '</div>';
+          enableNext();
+          break;
+
+        default:
+          container.innerHTML = '<div class="bl-concept"><p>' + esc(JSON.stringify(d)) + '</p></div>';
+          enableNext();
+      }
+    }
+
+    // â”€â”€ MÃºltipla escolha â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    function renderMultiChoice(container, d) {
+      var options = d.options || [];
+      container.innerHTML =
+        '<div class="bl-multichoice">'
+        + '<h3>' + esc(d.question || '') + '</h3>'
+        + '<div class="mc-options">'
+        + options.map(function(opt, i) {
+            return '<button class="mc-opt" data-idx="'+i+'">'
+              + '<span class="mc-letter">' + String.fromCharCode(65+i) + '</span>'
+              + esc(opt)
+              + '</button>';
+          }).join('')
+        + '</div>'
+        + '</div>';
+      container.querySelectorAll('.mc-opt').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (answered) return;
+          container.querySelectorAll('.mc-opt').forEach(function(b){ b.disabled=true; });
+          var idx = parseInt(btn.dataset.idx);
+          var correct = idx === d.correctIndex;
+          btn.classList.add(correct ? 'mc-ok' : 'mc-err');
+          if (!correct && d.correctIndex !== undefined) container.querySelector('[data-idx="'+d.correctIndex+'"]').classList.add('mc-ok');
+          showFeedback(correct, correct ? (d.explanation||'âœ… Correto!') : ('ðŸ’¡ ' + (d.explanation || 'A resposta certa estÃ¡ marcada em verde.')));
+          enableNext();
+        });
+      });
+    }
+
+    // â”€â”€ Drag reorder â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    function initDragList(list) {
+      var dragging = null;
+      list.querySelectorAll('.do-item').forEach(function(item) {
+        item.addEventListener('dragstart', function(){ dragging=item; item.classList.add('dragging'); });
+        item.addEventListener('dragend',   function(){ item.classList.remove('dragging'); dragging=null; });
+        item.addEventListener('dragover',  function(e){ e.preventDefault(); var r=item.getBoundingClientRect(); if(dragging&&dragging!==item){ if(e.clientY<r.top+r.height/2) list.insertBefore(dragging,item); else list.insertBefore(dragging,item.nextSibling); } });
+      });
+    }
+
+    // â”€â”€ Match pairs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    function renderMatchPairs(container, d) {
+      var left = d.leftItems || [], right = d.rightItems || [];
+      var shuffRight = right.slice().sort(function(){ return Math.random()-.5; });
+      var selectedLeft = null, matched = 0;
+      container.innerHTML =
+        '<div class="bl-match">'
+        + '<h3>' + esc(d.instruction || 'Conecte os pares:') + '</h3>'
+        + '<div class="mp-cols">'
+        +   '<div class="mp-left">'  + left.map(function(l,i){ return '<button class="mp-item mp-l" data-idx="'+i+'">'+esc(l)+'</button>'; }).join('') + '</div>'
+        +   '<div class="mp-right">' + shuffRight.map(function(r,i){ var origIdx=right.indexOf(r); return '<button class="mp-item mp-r" data-orig="'+origIdx+'" data-sidx="'+i+'">'+esc(r)+'</button>'; }).join('') + '</div>'
+        + '</div>'
+        + '</div>';
+      container.querySelectorAll('.mp-l').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (btn.disabled) return;
+          container.querySelectorAll('.mp-l').forEach(function(b){ b.classList.remove('mp-selected'); });
+          btn.classList.add('mp-selected');
+          selectedLeft = parseInt(btn.dataset.idx);
+        });
+      });
+      container.querySelectorAll('.mp-r').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          if (selectedLeft === null || btn.disabled) return;
+          var correctPairs = d.correctPairs || [];
+          var isCorrect = correctPairs.some(function(p){ return p[0]===selectedLeft && p[1]===parseInt(btn.dataset.orig); });
+          if (isCorrect) {
+            btn.disabled = true; btn.classList.add('mp-ok');
+            var lBtn = container.querySelector('.mp-l[data-idx="'+selectedLeft+'"]');
+            if (lBtn) { lBtn.disabled=true; lBtn.classList.add('mp-ok'); }
+            matched++;
+            xp += 5;
+            if (matched === left.length) { showFeedback(true, d.explanation || 'ðŸŽ‰ Todos os pares conectados!'); enableNext(); }
+          } else {
+            btn.classList.add('mp-err'); setTimeout(function(){ btn.classList.remove('mp-err'); }, 600);
+          }
+          container.querySelectorAll('.mp-l').forEach(function(b){ b.classList.remove('mp-selected'); });
+          selectedLeft = null;
+        });
+      });
+    }
+
+  })();
+  </script>
+</body>
+</html>
+
+

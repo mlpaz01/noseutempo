@@ -1,0 +1,756 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NoSeuTempo â€” InÃ­cio</title>
+<link rel="icon" href="assets/logo-icon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#FAF8F2;
+    --ink:#1E2A4A;
+    --ink-soft:#5A6378;
+    --muted:#8A90A0;
+    --purple:#6A41C9;
+    --purple-soft:#7C5BD0;
+    --purple-bar:#7B4FD6;
+    --blue:#1FA6A8;
+    --blue-btn:#2563E0;
+    --teal:#179A8C;
+    --teal-btn:#15978B;
+    --green:#2E9E68;
+    --orange:#F0892A;
+    --card-radius:22px;
+    --shadow:0 10px 30px rgba(40,40,80,.06);
+    --shadow-sm:0 4px 14px rgba(40,40,80,.05);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#f4f7f6;
+    font-family:'Lexend',system-ui,sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Poppins',system-ui,sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    background:#fff;
+    border-bottom:1px solid #EFEDE8;
+    padding:0 40px;
+    height:96px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;top:0;z-index:20;
+  }
+  .brand{display:flex;align-items:center;gap:14px;}
+  .logo-mark{
+    width:56px;height:56px;flex:none;display:block;
+    transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  .brand:hover .logo-mark{transform:rotate(-12deg) scale(1.06);}
+  .brand-text h1{margin:0;font-size:27px;font-weight:700;letter-spacing:-.3px;}
+  .brand-text h1 .no{color:var(--ink);}
+  .brand-text h1 .seu{color:var(--teal);}
+  .brand-text h1 .tempo{color:var(--ink);}
+  .brand-text p{margin:2px 0 0;font-size:13px;color:var(--muted);font-weight:400;}
+
+  nav{display:flex;align-items:center;gap:38px;}
+  .nav-item{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:500;color:var(--ink-soft);padding:6px 2px;position:relative;}
+  .nav-item svg{width:22px;height:22px;}
+  .nav-item.active{color:var(--teal);font-weight:600;}
+  .nav-item.active::after{
+    content:"";position:absolute;left:0;right:0;bottom:-34px;height:3px;border-radius:3px;background:var(--teal);
+  }
+
+  .header-right{display:flex;align-items:center;gap:22px;}
+  .bell{position:relative;color:var(--ink-soft);display:flex;align-items:center;}
+  .bell svg{width:26px;height:26px;}
+  .badge{
+    position:absolute;top:-7px;right:-7px;min-width:19px;height:19px;border-radius:50%;
+    background:#E5484D;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #fff;
+  }
+  .btn-sair{
+    border:1.5px solid #E3E1DC;background:#fff;border-radius:13px;padding:11px 26px;font-size:16px;font-weight:500;color:var(--ink-soft);
+  }
+  .btn-sair:hover{background:#FAF9F6;}
+
+  /* ---------- LAYOUT ---------- */
+  main{max-width:1536px;margin:0 auto;padding:24px 40px 32px;}
+  .greeting{margin-bottom:14px;}
+  .greeting h2{margin:0;font-size:34px;font-weight:700;letter-spacing:-.6px;}
+  .greeting p{margin:9px 0 0;font-size:18px;font-weight:500;color:var(--ink-soft);}
+
+  .top-grid{display:grid;grid-template-columns:1.63fr 1fr;gap:24px;margin-top:8px;align-items:start;}
+  .left-col{display:flex;flex-direction:column;}
+  .right-col{display:flex;flex-direction:column;gap:24px;}
+
+  .card{border-radius:var(--card-radius);box-shadow:var(--shadow);}
+
+  /* hero */
+  .hero{
+    background:#ffffff;
+    padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:14px;overflow:hidden;position:relative;
+  }
+  .hero-left{display:flex;flex-direction:column;}
+  .course-head{display:flex;align-items:center;gap:16px;}
+  .flag{
+    width:54px;height:54px;border-radius:50%;flex:none;overflow:hidden;
+    box-shadow:0 3px 8px rgba(0,0,0,.12);
+    background:linear-gradient(135deg,#1FA6A8,#46C4C6);
+  }
+  .course-head h3{margin:0;font-size:25px;font-weight:700;}
+  .course-head p{margin:3px 0 0;font-size:15.5px;color:var(--muted);font-weight:500;}
+  .next-label{margin:12px 0 0;font-size:14px;font-weight:600;color:#1FA6A8;}
+  .next-title{margin:3px 0 0;font-size:24px;font-weight:700;}
+  .next-sub{margin:2px 0 0;font-size:15px;color:var(--ink-soft);font-weight:500;}
+  .progress{margin-top:10px;width:300px;max-width:100%;height:10px;border-radius:7px;background:#E2D8F2;overflow:hidden;}
+  .progress > i{display:block;height:100%;width:65%;border-radius:7px;background:#1FA6A8;}
+  .progress-label{margin:6px 0 0;font-size:13.5px;color:var(--muted);font-weight:500;}
+  .btn-primary{
+    margin-top:14px;align-self:flex-start;background:#1FA6A8;color:#fff;border-radius:14px;
+    padding:12px 26px;font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:14px;
+    box-shadow:0 8px 18px rgba(31,166,168,.30);
+  }
+  .btn-primary:hover{filter:brightness(1.05);}
+  .btn-primary svg{width:20px;height:20px;}
+  .hero-illustration{align-self:center;}
+  .hero-illustration img{width:180px;height:auto;display:block;mix-blend-mode:multiply;}
+
+  /* geni card */
+  .geni{
+    background:linear-gradient(102deg,#E6ECFD 0%,#ECEFFE 40%,#F5F3FC 70%,#FEFEFE 100%);
+    padding:26px 30px;display:flex;justify-content:space-between;gap:8px;overflow:hidden;position:relative;
+  }
+  .geni-left{max-width:320px;}
+  .geni-head{display:flex;align-items:center;gap:14px;}
+  .geni-avatar{width:54px;height:54px;border-radius:50%;flex:none;background:#fff;box-shadow:0 3px 8px rgba(40,60,120,.12);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .geni-avatar img{width:100%;height:100%;object-fit:cover;}
+  .geni-head .t1{margin:0;font-size:18px;font-weight:600;color:var(--ink);line-height:1.25;}
+  .geni-head .t2{color:var(--blue);font-weight:700;font-size:24px;display:block;}
+  .geni p.desc{margin:16px 0 0;font-size:16px;color:var(--ink-soft);font-weight:500;line-height:1.4;max-width:250px;}
+  .btn-blue{
+    margin-top:18px;background:var(--blue-btn);color:#fff;border-radius:14px;padding:14px 24px;font-size:16px;font-weight:600;
+    display:inline-flex;align-items:center;gap:12px;box-shadow:0 8px 16px rgba(37,99,224,.28);
+  }
+  .btn-blue:hover{filter:brightness(1.06);}
+  .geni-illustration{align-self:center;}
+  .geni-illustration img{width:240px;height:auto;display:block;mix-blend-mode:multiply;}
+
+  /* jornada card */
+  .jornada{background:#FBF5E6;padding:26px 32px;}
+  .jornada-head{display:flex;align-items:center;gap:12px;}
+  .jornada-head .star{font-size:24px;}
+  .jornada-head h3{margin:0;font-size:22px;font-weight:700;}
+  .stats{display:flex;justify-content:space-between;gap:18px;margin-top:22px;}
+  .stat{display:flex;align-items:center;gap:14px;flex:1;}
+  .stat-ico{width:50px;height:50px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;}
+  .stat-ico svg{width:26px;height:26px;}
+  .ico-blue{background:#DCEBFB;color:#1FA6A8;}
+  .ico-green{background:#E0F3E7;color:#2E9E68;}
+  .ico-orange{background:#FCEBDC;color:#F0892A;}
+  .stat .num{font-size:25px;font-weight:700;line-height:1;}
+  .stat .lbl{font-size:14px;color:var(--ink-soft);font-weight:500;line-height:1.2;margin-top:3px;}
+
+  /* aprender brincando */
+  .play{background:#ffffff;padding:26px 30px 30px;margin-top:24px;}
+  .play-top{display:flex;align-items:flex-start;justify-content:space-between;}
+  .play-title{display:flex;align-items:center;gap:14px;}
+  .play-title .pad{width:34px;height:34px;color:#1FA6A8;}
+  .play-title h3{margin:0;font-size:24px;font-weight:700;}
+  .play-title p{margin:3px 0 0;font-size:16px;color:var(--muted);font-weight:500;}
+  .btn-ghost{
+    border:1.5px solid #E5E2DC;background:#fff;border-radius:13px;padding:11px 22px;font-size:15.5px;font-weight:600;color:var(--ink-soft);
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .btn-ghost:hover{background:#FAF9F6;}
+  .btn-ghost svg{width:17px;height:17px;}
+  .games{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px;}
+  .game{border-radius:18px;padding:22px 24px;position:relative;min-height:200px;display:flex;flex-direction:column;overflow:hidden;}
+  .game h4{margin:0;font-size:20px;font-weight:700;}
+  .game .art{flex:1;display:flex;align-items:center;justify-content:center;}
+  .game-memoria{background:#EEF7F4;}
+  .game-memoria .art img{width:205px;}
+  .art-memoria img{
+    -webkit-mask-image:linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%), linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+    mask-image:linear-gradient(to right, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%), linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+    -webkit-mask-composite:source-in;
+    mask-composite:intersect;
+  }
+  .game-caca{background:#FEF7E9;}
+  .game-caca .art img{width:230px;}
+  .game-ditado{background:#F4EDFA;}
+  .game-ditado .art img{width:300px;}
+  .art-ditado img{
+    -webkit-mask-image:linear-gradient(to right, transparent 0, #000 7px, #000 calc(100% - 20px), transparent 100%), linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+    mask-image:linear-gradient(to right, transparent 0, #000 7px, #000 calc(100% - 20px), transparent 100%), linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+    -webkit-mask-composite:source-in;
+    mask-composite:intersect;
+  }
+  .btn-jogar{
+    align-self:flex-start;background:#fff;border-radius:12px;padding:11px 22px;font-size:16px;font-weight:600;
+    display:inline-flex;align-items:center;gap:10px;box-shadow:var(--shadow-sm);
+  }
+  .btn-jogar svg{width:15px;height:15px;}
+  .jg-green{color:#1FA6A8;}
+  .jg-orange{color:#1FA6A8;}
+  .jg-purple{color:#1FA6A8;}
+
+  /* help */
+  .help{
+    background:linear-gradient(100deg,#E7F2F1 0%,#EDF3F1 50%,#F0F4F0 100%);
+    margin-top:24px;padding:22px 30px;display:flex;align-items:center;gap:22px;
+  }
+  .help-ico{width:54px;height:54px;border-radius:50%;flex:none;background:var(--blue-btn);display:flex;align-items:center;justify-content:center;color:#fff;}
+  .help-ico svg{width:28px;height:28px;}
+  .help-text h3{margin:0;font-size:21px;font-weight:700;}
+  .help-text p{margin:4px 0 0;font-size:16px;color:var(--ink-soft);font-weight:500;}
+  .help-right{margin-left:auto;display:flex;align-items:center;gap:18px;}
+  .btn-teal{
+    background:linear-gradient(100deg,#179A8C,#1AAE8E);color:#fff;border-radius:14px;padding:14px 26px;font-size:16px;font-weight:600;
+    display:inline-flex;align-items:center;gap:12px;box-shadow:0 8px 16px rgba(23,154,140,.28);
+  }
+  .btn-teal:hover{filter:brightness(1.05);}
+  .btn-teal svg{width:19px;height:19px;}
+  .carol{width:60px;height:60px;border-radius:50%;overflow:hidden;flex:none;box-shadow:0 4px 12px rgba(0,0,0,.12);background:#cfe7e6;}
+  .carol img{width:100%;height:100%;object-fit:cover;}
+
+  /* ---------- MOTION ---------- */
+  .card{transition:transform .4s cubic-bezier(.22,.61,.36,1), box-shadow .4s ease;}
+  .hero:hover,.geni:hover,.jornada:hover,.play:hover,.help:hover{transform:translateY(-4px);box-shadow:0 18px 42px rgba(40,40,80,.11);}
+  .game{transition:transform .32s ease, box-shadow .32s ease;}
+  .game:hover{transform:translateY(-6px);box-shadow:0 16px 32px rgba(40,40,80,.10);}
+  .btn-primary,.btn-blue,.btn-teal,.btn-jogar,.btn-ghost,.btn-sair{transition:transform .2s ease, filter .2s ease, box-shadow .2s ease;}
+  .btn-primary:hover,.btn-blue:hover,.btn-teal:hover{transform:translateY(-2px);}
+  .btn-jogar:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(40,40,80,.13);}
+  .btn-sair:hover{transform:translateY(-1px);}
+  .btn-primary svg,.btn-teal svg,.btn-ghost svg,.btn-jogar svg{transition:transform .25s ease;}
+  .btn-primary:hover svg,.btn-teal:hover svg,.btn-ghost:hover svg,.btn-jogar:hover svg{transform:translateX(4px);}
+  .nav-item{transition:color .2s ease;}
+  .nav-item:not(.active):hover{color:var(--teal);}
+  .stat-ico{transition:transform .25s ease;}
+  .stat:hover .stat-ico{transform:scale(1.1) rotate(-4deg);}
+  .flag{transition:transform .35s ease;}
+  .course-head:hover .flag{transform:rotate(-7deg) scale(1.06);}
+  .geni-avatar{transition:transform .35s ease;}
+  .geni-head:hover .geni-avatar{transform:rotate(8deg) scale(1.06);}
+  .carol{transition:transform .35s ease;}
+  .carol:hover{transform:scale(1.07);}
+
+  /* equalizer bars in Conversar agora */
+  .eq{display:inline-flex;align-items:center;gap:3px;height:18px;margin-left:2px;}
+  .eq i{width:3px;background:currentColor;border-radius:2px;height:6px;}
+
+  /* progress fill */
+  .js .progress > i{width:65%;animation:fillBar 1.5s cubic-bezier(.22,.61,.36,1) .35s both;}
+  @keyframes fillBar{from{width:0}to{width:65%}}
+
+  /* reveal (pure CSS, ends visible regardless of JS) */
+  @keyframes revealUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  .js .reveal{animation:revealUp .7s cubic-bezier(.22,.61,.36,1) both;animation-delay:var(--rd,0s);}
+  .greeting.reveal{--rd:0s}
+  .hero.reveal{--rd:.08s}
+  .geni.reveal{--rd:.16s}
+  .jornada.reveal{--rd:.24s}
+  .play.reveal{--rd:.1s}
+  .game-memoria.reveal{--rd:.2s}
+  .game-caca.reveal{--rd:.28s}
+  .game-ditado.reveal{--rd:.36s}
+  .help.reveal{--rd:.18s}
+
+  @media (prefers-reduced-motion:no-preference){
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+    @keyframes floaty2{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+    .hero-illustration img{animation:floaty 5s ease-in-out infinite;}
+    .geni-illustration img{animation:floaty 4.2s ease-in-out infinite;}
+    .game-memoria .art img{animation:floaty2 4.6s ease-in-out infinite;}
+    .game-caca .art img{animation:floaty2 5.1s ease-in-out infinite .3s;}
+    .game-ditado .art img{animation:floaty2 4.3s ease-in-out infinite .15s;}
+
+    @keyframes badgePulse{0%{box-shadow:0 0 0 0 rgba(229,72,77,.55)}70%{box-shadow:0 0 0 9px rgba(229,72,77,0)}100%{box-shadow:0 0 0 0 rgba(229,72,77,0)}}
+    .badge{animation:badgePulse 2.1s ease-out infinite;}
+
+    @keyframes twinkle{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.2) rotate(10deg)}}
+    .jornada-head .star{display:inline-block;transform-origin:center;animation:twinkle 2.8s ease-in-out infinite;}
+
+    @keyframes wave{0%,55%,100%{transform:rotate(0)}10%,30%{transform:rotate(17deg)}20%,40%{transform:rotate(-9deg)}}
+    .wave-emoji{display:inline-block;transform-origin:70% 80%;animation:wave 2.6s ease-in-out infinite;}
+
+    @keyframes eq{0%,100%{height:5px}50%{height:16px}}
+    .eq i{animation:eq 1s ease-in-out infinite;}
+    .eq i:nth-child(1){animation-delay:0s}
+    .eq i:nth-child(2){animation-delay:.14s}
+    .eq i:nth-child(3){animation-delay:.28s}
+    .eq i:nth-child(4){animation-delay:.42s}
+    .eq i:nth-child(5){animation-delay:.56s}
+  }
+
+  @media (max-width:1100px){
+    .top-grid{grid-template-columns:1fr;}
+    .bottom-grid{grid-template-columns:1fr;}
+    .games{grid-template-columns:1fr;}
+    nav{display:none;}
+  }
+
+  /* ============================================================
+     Widget flutuante da Carol (carol-chat.js) â€” estilos prÃ³prios
+     ============================================================ */
+  /* â”€â”€ Bottom grid: Aprender Brincando + HistÃ³rias â”€â”€ */
+  .bottom-grid{display:grid;grid-template-columns:1.63fr 1fr;gap:24px;margin-top:24px;align-items:start;}
+  .bottom-grid .play{margin-top:0;}
+
+  /* â”€â”€ HistÃ³rias Reais dos Alunos â”€â”€ */
+  .historias{background:#ffffff;padding:26px 30px;}
+  .historias-head{display:flex;align-items:center;gap:12px;}
+  .historias-ico{width:38px;height:38px;border-radius:50%;flex:none;background:#DCE7FB;color:#1FA6A8;display:flex;align-items:center;justify-content:center;}
+  .historias-ico svg{width:21px;height:21px;}
+  .historias-head h3{margin:0;font-size:22px;font-weight:700;}
+  .historias-body{text-align:center;margin-top:18px;}
+  .historias-deco{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px;}
+  .historias-deco .hd-h{font-size:30px;line-height:1;}
+  .historias-deco .hd-s{font-size:15px;color:#9DBDF0;}
+  .historias-body p{margin:0 0 12px;font-size:15.5px;color:var(--ink-soft);line-height:1.6;}
+  .historias-body p strong{color:var(--ink);font-weight:700;}
+  .historias-quiet{color:var(--muted)!important;font-size:14.5px!important;margin-top:4px!important;}
+  .historias-quiet b{color:#1FA6A8;}
+  .historias.reveal{--rd:.26s;}
+  .depo{background:#fff;border:1.5px solid #E4ECF7;border-radius:16px;padding:16px 18px;margin-top:14px;text-align:center;}
+  .depo-stars{color:#F4B740;font-size:15px;letter-spacing:2px;}
+  .depo-txt{font-size:15px;color:var(--ink);font-weight:600;margin:8px 0 6px;line-height:1.5;}
+  .depo-aut{font-size:13.5px;color:var(--muted);}
+
+  /* â”€â”€ Geni IA â€” card destaque (referÃªncia, universal) â”€â”€ */
+  .geni-card{background:#ffffff;border:1.5px solid #E9EEF3;padding:22px 40px;margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:24px;overflow:hidden;position:relative;}
+  .geni-card-left{flex:1 1 auto;max-width:540px;position:relative;z-index:2;}
+  .geni-card-head{display:flex;align-items:center;gap:16px;}
+  .geni-mic{width:54px;height:54px;border-radius:16px;background:#DCEFF0;color:#1FA6A8;display:flex;align-items:center;justify-content:center;flex:none;}
+  .geni-mic svg{width:26px;height:26px;}
+  .geni-card-head h2{margin:0;font-size:30px;font-weight:700;line-height:1.12;color:#1E2A4A;letter-spacing:-.3px;}
+  .geni-card-head h2 span{color:#1FA6A8;}
+  .geni-card-sub{margin:12px 0 0;font-size:16px;color:#5A6378;font-weight:500;line-height:1.4;max-width:430px;}
+  .geni-card-hl{margin:13px 0 0;display:inline-flex;align-items:center;gap:11px;background:#E5E8FC;border-radius:14px;padding:11px 16px;color:#2A3658;font-weight:600;font-size:15px;}
+  .geni-card-hl svg{width:19px;height:19px;color:#1FA6A8;flex:none;}
+  .geni-card-btn{margin-top:16px;display:inline-flex;align-items:center;gap:14px;background:#1FA6A8;color:#fff;border-radius:16px;padding:13px 28px;font-size:16px;font-weight:600;box-shadow:0 10px 22px rgba(31,166,168,.30);transition:filter .2s,transform .2s;}
+  .geni-card-btn:hover{filter:brightness(1.06);transform:translateY(-2px);}
+  .geni-card-art{flex:none;width:44%;max-width:470px;display:flex;justify-content:flex-end;align-items:center;}
+  .geni-card-art img{width:100%;max-width:460px;height:auto;display:block;}
+  .geni-bot{width:100%;max-width:320px;height:auto;display:block;}
+  @media (prefers-reduced-motion:no-preference){
+    .geni-wave{transform-box:fill-box;transform-origin:92% 96%;animation:geniHand 1.4s ease-in-out infinite;}
+    @keyframes geniHand{0%,100%{transform:rotate(0)}25%{transform:rotate(-20deg)}60%{transform:rotate(8deg)}}
+    .geni-eyes{transform-box:fill-box;transform-origin:50% 50%;animation:geniBlink 5.5s infinite;}
+    @keyframes geniBlink{0%,93%,100%{transform:scaleY(1)}96.5%{transform:scaleY(.12)}}
+  }
+  @media (max-width:820px){
+    .geni-card{flex-direction:column;align-items:flex-start;padding:26px 22px;}
+    .geni-card-left{max-width:none;}
+    .geni-card-art{width:100%;max-width:none;justify-content:center;margin-top:6px;}
+    .geni-card-art img{max-width:260px;}
+    .geni-card-head h2{font-size:25px;}
+  }
+
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Mobile da tela inicial â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  .hero-illustration img,.geni-illustration img{max-width:100%;}
+  .game .art img{max-width:100%;height:auto;}
+  @media (max-width:640px){
+    main{padding:22px 16px 84px;}
+    .greeting h2{font-size:24px;}
+    .greeting p{font-size:15px;}
+    .hero,.geni{flex-direction:column;align-items:flex-start;padding:22px 20px;}
+    .hero-illustration,.geni-illustration{align-self:center;}
+    .hero-illustration img{width:200px;}
+    .geni-illustration img{width:170px;}
+    .course-head h3{font-size:21px;}
+    .next-title{font-size:24px;}
+    .geni-left{max-width:none;}
+    .geni p.desc{max-width:none;}
+    .stats{flex-direction:column;gap:14px;}
+    .play{padding:22px 18px 26px;}
+    .play-top{flex-direction:column;gap:12px;align-items:flex-start;}
+    .btn-ghost{align-self:flex-start;}
+    .help{flex-direction:column;align-items:flex-start;gap:14px;padding:22px 18px;}
+    .help-right{margin-left:0;width:100%;justify-content:space-between;}
+  }
+
+  /* ============================================================
+     Widget flutuante da Carol (carol-chat.js) â€” estilos prÃ³prios
+     ============================================================ */
+  #carol-widget-root { position: fixed; bottom: 22px; right: 24px; z-index: 9000; font-family:'Poppins',system-ui,sans-serif; }
+  @media (max-width: 640px) { #carol-widget-root { bottom: 16px; right: 14px; } }
+  .hidden { display: none !important; }
+
+  .carol-fab { display: flex; align-items: center; gap: 10px; background: transparent; border: 0; cursor: pointer; padding: 0; font-family: inherit; }
+  .carol-fab-bubble { background: var(--teal); color: #fff; font-weight: 700; font-size: .76rem; line-height: 1.2; text-align: center; padding: 8px 13px; border-radius: 14px; box-shadow: 0 6px 18px rgba(23,154,140,.30); white-space: nowrap; position: relative; }
+  .carol-fab-bubble::after { content: ""; position: absolute; right: -6px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-left-color: var(--teal); }
+  .carol-fab-x { position: absolute; top: -8px; right: -8px; width: 18px; height: 18px; border-radius: 50%; background: #fff; color: #5A6378; border: 1px solid #E3E1DC; font-size: 10px; line-height: 1; cursor: pointer; padding: 0; display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0,0,0,.18); }
+  .carol-fab-x:hover { background: #F3F4F6; color: #1E2A4A; }
+  .carol-fab-avatar { position: relative; width: 50px; height: 50px; border-radius: 50%; border: 2.5px solid var(--teal); overflow: hidden; flex: none; background: #fff; box-shadow: 0 6px 18px rgba(27,43,74,.20); transition: transform .15s; padding: 0; cursor: pointer; }
+  .carol-fab:hover .carol-fab-avatar { transform: scale(1.06); }
+  .carol-fab-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .carol-fab-dot { position: absolute; bottom: 2px; right: 2px; width: 11px; height: 11px; border-radius: 50%; background: var(--green); border: 2px solid #fff; }
+
+  .ccw-box { position: absolute; bottom: 78px; right: 0; width: 360px; border-radius: 20px; background: #fff; border: 1.5px solid #E0E8F0; box-shadow: 0 24px 60px rgba(27,43,74,.24); overflow: hidden; animation: ccw-pop .22s cubic-bezier(.34,1.56,.64,1); transform-origin: bottom right; }
+  @keyframes ccw-pop { from { opacity: 0; transform: scale(.88) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  @media (max-width: 420px) { .ccw-box { width: calc(100vw - 28px); right: -10px; } .ccw-body { max-height: 52vh; } }
+  .ccw-header { background: var(--teal); padding: 12px 12px 12px 14px; display: flex; align-items: center; gap: 10px; color: #fff; }
+  .ccw-hav-img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; object-position: center top; border: 2px solid rgba(255,255,255,.5); flex: none; }
+  .ccw-hinfo { flex: 1; min-width: 0; line-height: 1.15; }
+  .ccw-htitle { display: block; font-size: .9rem; font-weight: 800; white-space: nowrap; }
+  .ccw-status { display: flex; align-items: center; gap: 5px; font-size: .7rem; color: rgba(255,255,255,.9); margin-top: 2px; }
+  .ccw-status-dot { width: 7px; height: 7px; border-radius: 50%; background: #8FE0B6; display: inline-block; flex: none; }
+  .ccw-icon-btn { background: rgba(255,255,255,.16); border: 0; color: #fff; width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-size: .8rem; flex: none; line-height: 1; display: grid; place-items: center; }
+  .ccw-icon-btn:hover { background: rgba(255,255,255,.32); }
+  .ccw-body { padding: 16px 14px; background: #F1FAF8; min-height: 120px; max-height: 460px; overflow-y: auto; }
+  .ccw-bubble { background: #E3F4F1; border: 1.5px solid #CDEAE4; border-radius: 16px; padding: 13px 15px; font-size: .85rem; line-height: 1.62; color: var(--ink); }
+  .ccw-bubble b { color: var(--teal); }
+  .ccw-confirm { text-align: center; font-weight: 700; color: var(--green); padding: 14px 8px; font-size: .9rem; }
+  .ccw-foot { border-top: 1.5px solid #E0E8F0; padding: 12px; display: flex; gap: 9px; align-items: center; background: #fff; }
+  .ccw-input { flex: 1; border: 1.5px solid #E0E8F0; border-radius: 14px; padding: 11px 14px; font-family: inherit; font-size: .88rem; resize: none; min-height: 44px; max-height: 90px; background: var(--bg); line-height: 1.4; }
+  .ccw-input:focus { outline: none; border-color: var(--teal); }
+  .ccw-send { background: var(--teal); color: #fff; border: 0; border-radius: 50%; width: 44px; height: 44px; font-size: 1.05rem; cursor: pointer; flex: none; display: grid; place-items: center; }
+  .ccw-send:hover { filter: brightness(1.08); }
+  .ccw-send:disabled { opacity: .6; cursor: default; }
+  /* ===== HOME â€” dashboard 2 colunas (referÃªncia Atividades) ===== */
+  .hm-grid{display:grid;grid-template-columns:1fr 388px;gap:22px;align-items:start;margin-top:2px;}
+  .hm-main{display:flex;flex-direction:column;gap:22px;min-width:0;}
+  .hm-side{display:flex;flex-direction:column;gap:22px;}
+
+  /* Curso atual */
+  .hm-course{background:linear-gradient(120deg,#E9F6F1 0%,#EFF8F4 60%,#F7FBF9 100%);border:1.5px solid #CFE9E1;border-radius:20px;box-shadow:0 6px 22px rgba(26,43,74,.06);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px;overflow:hidden;}
+  .hm-course-info{flex:1;min-width:0;}
+  .hm-course-top{display:flex;align-items:center;gap:16px;}
+  .hm-flag{width:58px;height:58px;border-radius:50%;flex:none;background:#1FA6A8;color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;letter-spacing:.5px;}
+  .hm-course-tag{display:inline-block;font-size:.7rem;font-weight:800;color:#0E7C7E;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px;}
+  .hm-course-top h3{margin:0;font-size:1.6rem;font-weight:800;color:#1E2A4A;line-height:1.12;}
+  .hm-course-top p{margin:3px 0 0;font-size:.92rem;color:#5A6B7B;font-weight:500;}
+  .hm-prog{margin-top:18px;max-width:420px;}
+  .hm-prog-row{display:flex;justify-content:space-between;font-size:.84rem;font-weight:600;color:#5A6B7B;margin-bottom:7px;}
+  .hm-prog-pct{color:#1FA6A8;font-weight:800;}
+  .hm-course .progress{margin:0;width:100%;height:10px;border-radius:7px;background:#D2EAE3;overflow:hidden;}
+  .hm-btn{margin-top:18px;display:inline-flex;align-items:center;gap:12px;background:#1FA6A8;color:#fff;border-radius:13px;padding:13px 24px;font-size:.98rem;font-weight:700;box-shadow:0 8px 18px rgba(31,166,168,.28);transition:filter .2s,transform .2s;}
+  .hm-btn:hover{filter:brightness(1.05);transform:translateY(-2px);}
+  .hm-btn svg{width:18px;height:18px;}
+  .hm-course-art{flex:none;width:220px;display:flex;justify-content:flex-end;}
+  .hm-course-art img{width:195px;max-width:100%;height:auto;mix-blend-mode:multiply;}
+
+  /* Atividades (carrossel) */
+  .hm-ativ{background:#fff;border:1.5px solid #E6ECF3;border-radius:18px;box-shadow:0 3px 14px rgba(26,43,74,.05);padding:22px 24px;}
+  .hm-ativ-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+  .hm-ativ-title{display:flex;align-items:center;gap:12px;}
+  .hm-ativ-ic{width:40px;height:40px;border-radius:12px;background:#E4F4F1;color:#1FA6A8;display:flex;align-items:center;justify-content:center;flex:none;}
+  .hm-ativ-ic svg{width:22px;height:22px;}
+  .hm-ativ-title h3{margin:0;font-size:1.15rem;font-weight:800;color:#1E2A4A;}
+  .hm-ativ-title p{margin:1px 0 0;font-size:.82rem;color:#8A95A6;}
+  .hm-ghost{display:inline-flex;align-items:center;gap:8px;border:1.5px solid #E3E8EF;background:#fff;border-radius:11px;padding:9px 16px;font-size:.84rem;font-weight:700;color:#5A6B7B;}
+  .hm-ghost:hover{background:#F7F9FB;}
+  .hm-ghost svg{width:15px;height:15px;}
+  .hm-games{display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory;}
+  .hm-games::-webkit-scrollbar{height:6px;}
+  .hm-games::-webkit-scrollbar-thumb{background:#D7DEE7;border-radius:6px;}
+  .hm-game{flex:0 0 200px;scroll-snap-align:start;background:#fff;border:1.5px solid #E9EEF3;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;text-decoration:none;transition:transform .15s,box-shadow .15s,border-color .15s;}
+  .hm-game:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(26,43,74,.10);border-color:#1FA6A8;}
+  .hm-game-art{height:92px;border-radius:11px;background:#F4F7FA;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:2rem;}
+  .hm-game-art img{max-width:86%;max-height:80px;}
+  .hm-game h4{margin:0;font-size:.95rem;font-weight:800;color:#1E2A4A;}
+  .hm-game p{margin:0;font-size:.78rem;color:#7A8696;line-height:1.4;flex:1;}
+  .hm-jogar{display:inline-flex;align-items:center;gap:6px;color:#1FA6A8;font-weight:800;font-size:.84rem;}
+
+  /* Geni (lateral) */
+  .hm-geni{background:#fff;border:1.5px solid #E6ECF3;border-radius:18px;box-shadow:0 3px 14px rgba(26,43,74,.05);padding:22px;display:flex;flex-direction:column;gap:14px;overflow:hidden;}
+  .hm-geni-head{display:flex;align-items:center;gap:10px;}
+  .hm-geni-ic{width:38px;height:38px;border-radius:11px;background:#E4F4F1;color:#1FA6A8;display:flex;align-items:center;justify-content:center;flex:none;}
+  .hm-geni-ic svg{width:20px;height:20px;}
+  .hm-geni-head h3{margin:0;font-size:1.24rem;font-weight:800;color:#1E2A4A;line-height:1.14;}
+  .hm-geni-head h3 span{color:#1FA6A8;}
+  .hm-geni-body{display:flex;gap:16px;align-items:center;}
+  .hm-geni-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:11px;}
+  .hm-geni-sub{margin:0;font-size:.86rem;color:#5A6B7B;line-height:1.5;}
+  .hm-geni-supp{margin:0;font-size:.82rem;font-weight:600;color:#3A4A66;line-height:1.45;}
+  .hm-geni-art{flex:none;width:172px;align-self:center;}
+  .hm-geni-art img,.hm-geni-art svg{width:100%;height:auto;display:block;}
+  .hm-geni-btn{margin-top:2px;align-self:flex-start;display:inline-flex;align-items:center;gap:9px;background:#1FA6A8;color:#fff;border-radius:12px;padding:10px 18px;font-size:.86rem;font-weight:700;white-space:nowrap;box-shadow:0 8px 16px rgba(31,166,168,.26);}
+  .hm-geni-btn:hover{filter:brightness(1.05);}
+
+  /* Cards laterais (jornada, dica) */
+  .hm-side-card{background:#fff;border:1.5px solid #E6ECF3;border-radius:18px;box-shadow:0 3px 14px rgba(26,43,74,.05);padding:18px 20px;}
+  .hm-side-head{display:flex;align-items:center;gap:9px;margin-bottom:13px;}
+  .hm-side-head .ic{font-size:1.15rem;}
+  .hm-side-head h3{margin:0;font-size:1.02rem;font-weight:800;color:#1E2A4A;}
+  .hm-jornada-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
+  .hm-jornada-list li{display:flex;align-items:center;gap:10px;font-size:.9rem;color:#5A6B7B;}
+  .hm-jornada-list li b{color:#1E2A4A;}
+  .hm-ji{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex:none;background:#EAF4FF;}
+  .hm-dica p{margin:0;font-size:.88rem;color:#5A6B7B;line-height:1.5;}
+
+  @media (max-width:980px){
+    .hm-grid{grid-template-columns:1fr;}
+    .hm-course{flex-direction:column;align-items:flex-start;}
+    .hm-course-art{width:100%;justify-content:center;margin-top:8px;}
+  }
+</style>
+<link rel="stylesheet" href="css/site-header.css?v=4" />
+</head>
+<body>
+  <div class="nsthd-wrap">
+  <a class="nsthd-brand" href="plataforma.html">
+    <img class="nsthd-logo" src="assets/logo.png" alt="NoSeuTempo" onerror="this.onerror=null;this.src='assets/logo-icon.svg'" />
+    <div class="nsthd-bt"><h1><span>No</span><span class="seu">Seu</span><span>Tempo</span></h1><p>Aprenda no seu tempo. Evolua sempre.</p></div>
+  </a>
+  <div class="nsthd-nav" role="navigation">
+    <a class="nsthd-item active" href="plataforma.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="nsthd-tx">InÃ­cio</span><span class="nsthd-sm">InÃ­cio</span></a>
+    <a class="nsthd-item" href="cursos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 8h2"/><path d="M6 12h2"/></svg><span class="nsthd-tx">Cursos</span><span class="nsthd-sm">Cursos</span></a>
+    <a class="nsthd-item" href="treino-extra.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="2" y="10" rx="2" ry="2"/><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/><path d="M6 18h.01"/><path d="M10 14h.01"/><path d="M15 6h.01"/><path d="M18 9h.01"/></svg><span class="nsthd-tx">Atividades</span><span class="nsthd-sm">Atividades</span></a>
+    <a class="nsthd-item" href="geni.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg><span class="nsthd-tx">Geni IA</span><span class="nsthd-sm">Geni IA</span></a>
+  </div>
+  <div class="nsthd-right">
+    <a class="nsthd-bell" href="#" aria-label="Notificacoes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></svg><span class="nsthd-badge"></span></a>
+    <button class="nsthd-sair" onclick="try{localStorage.removeItem('nst.token')}catch(e){};location.href='index.html'">Sair</button>
+  </div>
+</div>
+
+  <main>
+    <section class="greeting reveal">
+      <h2>OlÃ¡, <span id="pf-nome">aluno</span>! <span class="wave-emoji">ðŸ‘‹</span></h2>
+      <p>Que bom te ver aqui novamente. ðŸ’™</p>
+    </section>
+
+    <div class="hm-grid">
+      <!-- â”€â”€ COLUNA PRINCIPAL â”€â”€ -->
+      <div class="hm-main">
+
+        <!-- CURSO ATUAL -->
+        <div class="hm-course reveal">
+          <div class="hm-course-info">
+            <div class="hm-course-top">
+              <span class="hm-flag">ES</span>
+              <div>
+                <span class="hm-course-tag">â— Em andamento</span>
+                <h3 id="pf-curso">Espanhol BÃ¡sico</h3>
+                <p><span id="pf-modulo">MÃ³dulo 1 Â· Dias da Semana</span> Â· <span id="pf-aula">Aula 1</span></p>
+              </div>
+            </div>
+            <div class="hm-prog">
+              <div class="hm-prog-row"><span>Seu progresso</span><span class="hm-prog-pct"><span id="pf-pct">65</span>%</span></div>
+              <div class="progress"><i></i></div>
+            </div>
+            <a class="hm-btn" id="pf-continue" href="cursos.html">Continuar aula
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+          <div class="hm-course-art"><img src="assets/calendar.png" alt="" onerror="this.style.display='none'" /></div>
+        </div>
+
+        <!-- ATIVIDADES (carrossel) -->
+        <div class="hm-ativ reveal">
+          <div class="hm-ativ-head">
+            <div class="hm-ativ-title">
+              <span class="hm-ativ-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="2" y="10" rx="2"/><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/><path d="M6 18h.01"/><path d="M10 14h.01"/><path d="M15 6h.01"/><path d="M18 9h.01"/></svg></span>
+              <div><h3>Atividades</h3><p>Jogos recomendados para vocÃª</p></div>
+            </div>
+            <a class="hm-ghost" href="treino-extra.html">Ver todos os jogos
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+          <div class="hm-games">
+            <a class="hm-game" href="treino-extra.html">
+              <div class="hm-game-art"><img src="assets/mem3.png" alt="" onerror="this.parentNode.textContent='ðŸƒ'" /></div>
+              <h4>Jogo da MemÃ³ria</h4><p>Encontre os pares e treine seu vocabulÃ¡rio.</p>
+              <span class="hm-jogar">Jogar â–¸</span>
+            </a>
+            <a class="hm-game" href="treino-extra.html">
+              <div class="hm-game-art"><img src="assets/ws3.png" alt="" onerror="this.parentNode.textContent='ðŸ”¤'" /></div>
+              <h4>CaÃ§a-Palavras</h4><p>Ache as palavras escondidas na grade.</p>
+              <span class="hm-jogar">Jogar â–¸</span>
+            </a>
+            <a class="hm-game" href="treino-extra.html">
+              <div class="hm-game-art"><img src="assets/hp5.png" alt="" onerror="this.parentNode.textContent='ðŸŽ§'" /></div>
+              <h4>Ditado com Ãudio</h4><p>OuÃ§a e escreva o que entendeu.</p>
+              <span class="hm-jogar">Jogar â–¸</span>
+            </a>
+            <a class="hm-game" href="treino-extra.html">
+              <div class="hm-game-art">ðŸ“‹</div>
+              <h4>VocabulÃ¡rio</h4><p>Palavras com Ã¡udio para praticar.</p>
+              <span class="hm-jogar">Jogar â–¸</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- â”€â”€ COLUNA LATERAL â”€â”€ -->
+      <aside class="hm-side">
+
+        <!-- GENI IA -->
+        <div class="hm-geni reveal">
+          <div class="hm-geni-head">
+            <span class="hm-geni-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span>
+            <h3>Conversar com a <span>Geni IA</span></h3>
+          </div>
+          <div class="hm-geni-body">
+            <div class="hm-geni-left">
+              <p class="hm-geni-sub">Pratique por voz, tire dÃºvidas e aprenda no seu ritmo.</p>
+              <p class="hm-geni-supp">ðŸ’™ Aprenda, pratique e evolua com mais confianÃ§a.</p>
+              <a class="hm-geni-btn" href="geni.html">Conversar agora
+                <span class="eq"><i></i><i></i><i></i><i></i><i></i></span>
+              </a>
+            </div>
+            <div class="hm-geni-art">
+            <img src="assets/geni-robot.png?v=4" alt="Geni" onload="var s=document.getElementById('geni-bot-svg'); if(s) s.style.display='none';" onerror="this.style.display='none';" />
+            <svg id="geni-bot-svg" class="geni-bot" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geni">
+              <ellipse cx="120" cy="216" rx="64" ry="11" fill="#C7CEF0" opacity=".5"/>
+              <g class="geni-bot-body">
+                <line x1="120" y1="46" x2="120" y2="26" stroke="#26409E" stroke-width="4.5" stroke-linecap="round"/>
+                <circle cx="120" cy="21" r="6.5" fill="#3B5BE0"/>
+                <rect x="46" y="84" width="20" height="34" rx="10" fill="#2F4DD0"/>
+                <rect x="174" y="84" width="20" height="34" rx="10" fill="#2F4DD0"/>
+                <rect x="58" y="46" width="124" height="104" rx="46" fill="#ffffff" stroke="#26409E" stroke-width="4.5"/>
+                <rect x="76" y="62" width="88" height="70" rx="30" fill="#101A33"/>
+                <g class="geni-eyes" fill="#56E1F2"><ellipse cx="104" cy="92" rx="8" ry="11"/><ellipse cx="136" cy="92" rx="8" ry="11"/></g>
+                <path d="M105 110 q15 12 30 0" fill="none" stroke="#56E1F2" stroke-width="4" stroke-linecap="round"/>
+                <path d="M84 156 q36 -12 72 0 l0 14 a36 34 0 0 1 -72 0 z" fill="#ffffff" stroke="#26409E" stroke-width="4.5"/>
+                <path d="M156 162 q24 8 27 30" fill="none" stroke="#2F4DD0" stroke-width="14" stroke-linecap="round"/>
+                <g class="geni-wave"><path d="M84 156 q-26 -6 -38 -32" fill="none" stroke="#2F4DD0" stroke-width="14" stroke-linecap="round"/><circle cx="44" cy="120" r="12" fill="#2F4DD0"/></g>
+              </g>
+            </svg>
+          </div>
+          </div>
+        </div>
+
+        <!-- SUA JORNADA -->
+        <div class="hm-side-card reveal">
+          <div class="hm-side-head"><span class="ic">â­</span><h3>Sua jornada</h3></div>
+          <ul class="hm-jornada-list">
+            <li><span class="hm-ji">ðŸ“–</span><span><b>12</b> palavras aprendidas</span></li>
+            <li><span class="hm-ji">âœ…</span><span><b>3</b> aulas concluÃ­das</span></li>
+            <li><span class="hm-ji">ðŸ”¥</span><span><b>2</b> dias de sequÃªncia</span></li>
+          </ul>
+        </div>
+
+        <!-- DICA DA GENI -->
+        <div class="hm-side-card hm-dica reveal">
+          <div class="hm-side-head"><span class="ic">ðŸ’¡</span><h3>Dica da Geni</h3></div>
+          <p>Sem pressa â€” vÃ¡ no seu ritmo. Errar faz parte. Continue! ðŸ’™</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- HISTÃ“RIAS REAIS DOS ALUNOS (full-width) -->
+    <div class="card historias reveal" style="margin-top:22px">
+      <div class="historias-head">
+        <span class="historias-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.2l5.9-.9z"/></svg></span>
+        <h3>HistÃ³rias Reais dos Alunos</h3>
+      </div>
+      <div class="historias-body">
+        <div class="historias-deco"><span class="hd-s">âœ¦</span><span class="hd-h">ðŸ’™</span><span class="hd-s">âœ¦</span></div>
+        <p><strong>Estamos construindo esta jornada junto com nossos alunos.</strong></p>
+        <p>Quando alguÃ©m compartilhar sua experiÃªncia com o NoSeuTempo, ela aparecerÃ¡ aqui. ðŸ’™</p>
+        <p class="historias-quiet">Nada de avaliaÃ§Ãµes inventadas.<br>Apenas <b>histÃ³rias reais</b> de quem aprende no seu tempo.</p>
+        <div id="historias-list"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="js/config.js?v=5"></script>
+  <script src="js/main.js?v=3"></script>
+  <script>
+    /* â”€â”€ SessÃ£o, nome do aluno, contexto e aÃ§Ãµes â”€â”€ */
+    (function () {
+      var API = window.NST_API || 'https://api.noseutempo.app';
+      var token = localStorage.getItem('nst.token');
+      if (!token) { location.href = 'login.html?next=plataforma.html'; return; }
+
+      /* Nome do aluno (e gate de pagamento) */
+      fetch(API + '/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function (u) {
+          if (u && u.paid === false && !u.admin) { location.href = 'pagamento.html'; return; }
+          var nome = ((u && u.nome) || '').trim().split(' ')[0];
+          if (nome) { var el = document.getElementById('pf-nome'); if (el) el.textContent = nome; }
+        })
+        .catch(function () { /* offline: mantÃ©m saudaÃ§Ã£o genÃ©rica */ });
+
+      /* Contexto da Ãºltima aula â†’ botÃ£o Continuar + cabeÃ§alho do curso */
+      try {
+        var cid = localStorage.getItem('nst.ctx.courseId');
+        var un  = localStorage.getItem('nst.ctx.unit');
+        var ls  = localStorage.getItem('nst.ctx.lesson');
+        if (cid) {
+          var cont = document.getElementById('pf-continue');
+          if (cont) cont.href = 'aula.html?course=' + encodeURIComponent(cid) + '&unit=' + (un || 0) + '&lesson=' + (ls || 0);
+        }
+        var curso = localStorage.getItem('nst.ctx.curso');
+        var mod   = localStorage.getItem('nst.ctx.modulo');
+        var aula  = localStorage.getItem('nst.ctx.aula');
+        if (curso) { var c = document.getElementById('pf-curso'); if (c) c.textContent = curso; }
+        if (mod)   { var m = document.getElementById('pf-modulo'); if (m) m.textContent = mod; }
+        if (aula)  { var a = document.getElementById('pf-aula'); if (a) a.textContent = aula; }
+      } catch (e) {}
+
+      /* Progresso (Ã‚ncora de MemÃ³ria local) */
+      try {
+        var pct = (window.NST && NST.getProgress) ? NST.getProgress() : 65;
+        var pe = document.getElementById('pf-pct'); if (pe) pe.textContent = pct;
+        var bar = document.querySelector('.progress > i'); if (bar) bar.style.width = pct + '%';
+      } catch (e) {}
+
+      /* Sair */
+      var sair = document.getElementById('pf-sair');
+      if (sair) sair.addEventListener('click', function () {
+        try { localStorage.removeItem('nst.token'); } catch (e) {}
+        location.href = 'index.html';
+      });
+
+      /* Falar com a Carol â†’ abre o widget flutuante */
+      var carolBtn = document.getElementById('pf-carol');
+      if (carolBtn) carolBtn.addEventListener('click', function () {
+        var fab = document.getElementById('carol-fab');
+        if (fab) fab.click();
+      });
+    })();
+
+    /* â”€â”€ AnimaÃ§Ãµes do design â”€â”€ */
+    (function () {
+      document.documentElement.classList.add('js');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function onReady(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded', fn); }
+      onReady(function () {
+        var nums = [].slice.call(document.querySelectorAll('.stat .num'));
+        if (!reduce && 'IntersectionObserver' in window) {
+          var countIO = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              var el = e.target; countIO.unobserve(el);
+              var target = parseInt(el.textContent, 10) || 0;
+              var dur = 1000, start = performance.now();
+              el.textContent = '0';
+              function tick(now) {
+                var p = Math.min(1, (now - start) / dur);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(target * eased);
+                if (p < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+            });
+          }, { threshold: 0.5 });
+          nums.forEach(function (n) { countIO.observe(n); });
+        }
+        document.querySelectorAll('button, .nav-item, .bell, .game').forEach(function (b) {
+          b.addEventListener('pointerdown', function () { b.style.transform = 'scale(.97)'; });
+          ['pointerup','pointerleave'].forEach(function (ev) { b.addEventListener(ev, function () { b.style.transform = ''; }); });
+        });
+      });
+    })();
+  </script>
+  <script src="js/carol-chat.js?v=27"></script>
+  <script src="js/notifications.js?v=2"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,787 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geni IA Â· NoSeuTempo</title>
+  <link rel="icon" href="assets/logo-icon.svg" />
+  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/platform.css?v=6" />
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       GENI PAGE â€” CSS limpo, prefixo .gc-, zero conflito
+  â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <style>
+    /* Fundo suave da pÃ¡gina */
+    body { background: #F2F4F7; }
+
+    /* â”€â”€ Wrapper principal abaixo do header â”€â”€ */
+    .gc-page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 16px 20px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* â”€â”€ Barra de contexto (curso / mÃ³dulo / aula) â”€â”€ */
+    .gc-ctx {
+      background: #fff;
+      border: 1.5px solid #E0E8F0;
+      border-radius: 14px;
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 8px rgba(26,43,74,.05);
+    }
+    .gc-ctx-item { display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+    /* RÃ“TULO (em cima): fino, cinza, pequeno â€” SEM negrito */
+    .gc-ctx-label {
+      font-size: .62rem !important;
+      font-weight: 400 !important;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #A2AEBD !important;
+      line-height: 1;
+    }
+    /* CONTEÃšDO (embaixo): NEGRITO forte, escuro, maior â€” o destaque */
+    .gc-ctx-val {
+      font-size: 1.12rem !important;
+      font-weight: 800 !important;
+      color: #1A2B4A !important;
+      line-height: 1.15;
+    }
+    .gc-ctx-sep { width: 1.5px; height: 42px; background: #E0E8F0; flex: none; align-self: center; }
+    .gc-ctx-badge {
+      margin-left: auto;
+      background: #E2F3F5; color: #1F9AAB;
+      font-size: .8rem; font-weight: 800;
+      padding: 5px 16px; border-radius: 99px;
+      white-space: nowrap;
+    }
+
+    /* â”€â”€ Grid: coluna do chat + coluna de dicas â”€â”€ */
+    .gc-grid {
+      display: grid;
+      grid-template-columns: 1fr 290px;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .gc-grid { grid-template-columns: 1fr; }
+      .gc-sidebar { order: 2; }
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       CARD DO CHAT
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .gc-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1.5px solid #E0E8F0;
+      box-shadow: 0 6px 28px rgba(26,43,74,.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* CabeÃ§alho do chat */
+    .gc-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 20px;
+      border-bottom: 1.5px solid #F0F4F8;
+      background: #fff;
+    }
+    .gc-mascot { width: 50px; height: 50px; flex: none; }
+    .gc-head-name { font-weight: 800; font-size: 1rem; color: #1A2B4A; }
+    .gc-head-sub  { font-size: .76rem; color: #6B7A8D; margin-top: 1px; }
+    .gc-online {
+      margin-left: auto;
+      font-size: .78rem; font-weight: 700; color: #1F9AAB;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .gc-online::before {
+      content: ''; width: 8px; height: 8px;
+      border-radius: 50%; background: #8FE0B6;
+    }
+
+    /* Ãrea de mensagens â€” altura grande baseada na viewport */
+    .gc-messages {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      padding: 22px;
+      background: #F7F9FB;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      height: 65vh;       /* altura clara e ampla */
+      min-height: 520px;  /* nunca menor que isso */
+      max-height: 78vh;   /* limite superior elegante */
+    }
+
+    /* â”€â”€ Linha de mensagem (row) â”€â”€ */
+    .gc-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .gc-row.gc-me { flex-direction: row-reverse; }
+
+    /* Avatar da Geni */
+    .gc-av {
+      width: 32px; height: 32px;
+      border-radius: 50%; background: #E2F3F5;
+      flex: none; overflow: hidden;
+    }
+    .gc-av svg { width: 100%; height: 100%; }
+    .gc-row.gc-me .gc-av { display: none; } /* usuÃ¡rio sem avatar */
+
+    /* BalÃ£o de mensagem */
+    .gc-bubble {
+      max-width: 65%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .gc-bubble.gc-geni-b {
+      background: #fff;
+      border: 1.5px solid #E0EEF4;
+      border-bottom-left-radius: 5px;
+      box-shadow: 0 2px 8px rgba(26,43,74,.06);
+    }
+    .gc-bubble.gc-user-b {
+      background: #1A2B4A;
+      border-bottom-right-radius: 5px;
+      min-width: 160px;
+      max-width: 220px;
+    }
+
+    /* Player de Ã¡udio dentro do balÃ£o */
+    .gc-player {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: nowrap;
+    }
+    .gc-play-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%; border: 0;
+      display: grid; place-items: center;
+      cursor: pointer; flex: none;
+      font-size: .78rem;
+    }
+    .gc-geni-b .gc-play-btn { background: #1F9AAB; color: #fff; }
+    .gc-user-b .gc-play-btn { background: rgba(255,255,255,.18); color: #fff; }
+    .gc-play-btn:hover { filter: brightness(1.12); }
+
+    .gc-waves {
+      display: flex; align-items: center; gap: 3px; height: 20px;
+    }
+    .gc-waves span {
+      width: 3px; border-radius: 3px; display: inline-block; opacity: .55;
+    }
+    .gc-waves span:nth-child(1){ height:6px  }
+    .gc-waves span:nth-child(2){ height:12px }
+    .gc-waves span:nth-child(3){ height:18px }
+    .gc-waves span:nth-child(4){ height:10px }
+    .gc-waves span:nth-child(5){ height:16px }
+    .gc-waves span:nth-child(6){ height:8px  }
+    .gc-geni-b .gc-waves span { background: #1F9AAB; }
+    .gc-user-b .gc-waves span { background: rgba(255,255,255,.65); }
+
+    .gc-dur { font-size: .72rem; opacity: .7; white-space: nowrap; }
+    .gc-geni-b .gc-dur { color: #6B7A8D; }
+    .gc-user-b .gc-dur { color: rgba(255,255,255,.75); }
+
+    /* Texto da mensagem */
+    .gc-text {
+      font-size: .92rem; line-height: 1.58;
+      margin: 0; word-break: break-word; text-align: left;
+    }
+    .gc-geni-b .gc-text { color: #1A2B4A; }
+    .gc-user-b .gc-text { color: #fff; }
+
+    /* Typing indicator */
+    .gc-typing {
+      display: flex; align-items: center; gap: 5px; padding: 2px 0;
+    }
+    .gc-typing span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #1F9AAB; animation: gc-blink 1.1s infinite;
+    }
+    .gc-typing span:nth-child(2){ animation-delay:.18s }
+    .gc-typing span:nth-child(3){ animation-delay:.36s }
+    @keyframes gc-blink { 0%,80%,100%{opacity:.25;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
+
+    /* Feedback card */
+    .gc-feedback {
+      margin-bottom: 14px;
+      margin-left: 42px; /* alinha com balÃµes da Geni */
+      background: #F0FBF4;
+      border: 1.5px solid #B8E4CC;
+      border-radius: 14px;
+      padding: 11px 14px;
+    }
+    .gc-feedback-ok  { font-weight: 800; color: #0E8A60; font-size: .88rem; margin-bottom: 3px; }
+    .gc-feedback-tip { font-size: .84rem; color: #2E6A48; }
+
+    /* â”€â”€ RodapÃ© do chat (barra do microfone) â”€â”€ */
+    .gc-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 18px;
+      border-top: 1.5px solid #F0F4F8;
+      background: #fff;
+    }
+    .gc-mic {
+      width: 44px; height: 44px;
+      border-radius: 50%; border: 0;
+      background: #1F9AAB; color: #fff;
+      display: grid; place-items: center;
+      cursor: pointer; flex: none;
+      box-shadow: 0 4px 12px rgba(31,154,171,.28);
+      transition: background .15s, transform .12s;
+    }
+    .gc-mic:hover { background: #177E8C; transform: scale(1.05); }
+    .gc-mic.gc-rec {
+      background: #E0563F;
+      animation: gc-pulse 1.1s infinite;
+    }
+    @keyframes gc-pulse {
+      0%,100%{ box-shadow: 0 0 0 0 rgba(224,86,63,.4); }
+      50%    { box-shadow: 0 0 0 10px rgba(224,86,63,0); }
+    }
+    .gc-hint {
+      font-size: .88rem; font-weight: 600; color: #8090A8;
+      flex: 1; user-select: none;
+    }
+    .gc-hint.gc-rec { color: #E0563F; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       SIDEBAR DE DICAS
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .gc-sidebar { display: flex; flex-direction: column; gap: 14px; }
+
+    .gc-tip-card {
+      background: #fff;
+      border-radius: 18px;
+      border: 1.5px solid #E0E8F0;
+      box-shadow: 0 3px 14px rgba(26,43,74,.06);
+      padding: 18px 16px;
+    }
+    .gc-tip-card h3 {
+      font-size: .9rem; font-weight: 800; color: #1A2B4A;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 7px;
+    }
+    .gc-tip-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #F4F6F8;
+      font-size: .83rem; color: #46536A; line-height: 1.5;
+    }
+    .gc-tip-item:last-child { border: 0; padding-bottom: 0; }
+    .gc-tip-ic { flex: none; font-size: 1rem; }
+
+    .gc-prog {
+      background: #fff;
+      border-radius: 18px;
+      border: 1.5px solid #E0E8F0;
+      box-shadow: 0 3px 14px rgba(26,43,74,.06);
+      padding: 16px;
+    }
+    .gc-prog h3 { font-size: .88rem; font-weight: 800; color: #1A2B4A; margin-bottom: 12px; }
+    .gc-prog-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .gc-prog-label { font-size: .76rem; color: #6B7A8D; min-width: 76px; }
+    .gc-prog-bar { flex: 1; height: 7px; background: #E8EDF4; border-radius: 99px; overflow: hidden; }
+    .gc-prog-bar span { display: block; height: 100%; background: #1F9AAB; border-radius: 99px; transition: width .5s; }
+    .gc-prog-val { font-size: .74rem; font-weight: 800; color: #1F9AAB; min-width: 26px; text-align: right; }
+  </style>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/site-header.css?v=4" />
+</head>
+<body>
+
+  <!-- â•â•â• HEADER IDÃŠNTICO Ã€ PLATAFORMA â•â•â• -->
+  <div class="nsthd-wrap">
+  <a class="nsthd-brand" href="plataforma.html">
+    <img class="nsthd-logo" src="assets/logo.png" alt="NoSeuTempo" onerror="this.onerror=null;this.src='assets/logo-icon.svg'" />
+    <div class="nsthd-bt"><h1><span>No</span><span class="seu">Seu</span><span>Tempo</span></h1><p>Aprenda no seu tempo. Evolua sempre.</p></div>
+  </a>
+  <div class="nsthd-nav" role="navigation">
+    <a class="nsthd-item" href="plataforma.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="nsthd-tx">InÃ­cio</span><span class="nsthd-sm">InÃ­cio</span></a>
+    <a class="nsthd-item" href="cursos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 8h2"/><path d="M6 12h2"/></svg><span class="nsthd-tx">Cursos</span><span class="nsthd-sm">Cursos</span></a>
+    <a class="nsthd-item" href="treino-extra.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="2" y="10" rx="2" ry="2"/><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/><path d="M6 18h.01"/><path d="M10 14h.01"/><path d="M15 6h.01"/><path d="M18 9h.01"/></svg><span class="nsthd-tx">Atividades</span><span class="nsthd-sm">Atividades</span></a>
+    <a class="nsthd-item active" href="geni.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg><span class="nsthd-tx">Geni IA</span><span class="nsthd-sm">Geni IA</span></a>
+  </div>
+  <div class="nsthd-right">
+    <a class="nsthd-bell" href="#" aria-label="Notificacoes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></svg><span class="nsthd-badge"></span></a>
+    <button class="nsthd-sair" onclick="try{localStorage.removeItem('nst.token')}catch(e){};location.href='index.html'">Sair</button>
+  </div>
+</div>
+
+  <!-- â•â•â• CONTEÃšDO â•â•â• -->
+  <div class="gc-page">
+
+    <!-- Barra de contexto -->
+    <div class="gc-ctx">
+      <div class="gc-ctx-item">
+        <span class="gc-ctx-label">Curso</span>
+        <span class="gc-ctx-val" id="gc-curso">ðŸ‡ªðŸ‡¸ Espanhol</span>
+      </div>
+      <div class="gc-ctx-sep"></div>
+      <div class="gc-ctx-item">
+        <span class="gc-ctx-label">MÃ³dulo</span>
+        <span class="gc-ctx-val" id="gc-modulo">Dias da Semana</span>
+      </div>
+      <div class="gc-ctx-sep"></div>
+      <div class="gc-ctx-item">
+        <span class="gc-ctx-label">Aula</span>
+        <span class="gc-ctx-val" id="gc-aula">Aula 1</span>
+      </div>
+      <span class="gc-ctx-badge">ðŸŽ™ï¸ Bate-papo ativo</span>
+    </div>
+
+
+    <!-- Grid: chat (esq) + dicas (dir) -->
+    <div class="gc-grid">
+
+      <!-- â”€â”€ CARD DE CHAT â”€â”€ -->
+      <div class="gc-card">
+
+        <!-- CabeÃ§alho -->
+        <div class="gc-head">
+          <svg class="gc-mascot" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="6"  y="28" width="10" height="16" rx="5" fill="#1F9AAB"/>
+            <rect x="64" y="28" width="10" height="16" rx="5" fill="#1F9AAB"/>
+            <rect x="14" y="16" width="52" height="50" rx="14" fill="#E2F3F5" stroke="#1F9AAB" stroke-width="2"/>
+            <line x1="40" y1="16" x2="40" y2="6" stroke="#1A2B4A" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="40" cy="4" r="4" fill="#F0902F"/>
+            <ellipse cx="30" cy="36" rx="8" ry="8" fill="#fff" stroke="#1F9AAB" stroke-width="1.5"/>
+            <ellipse cx="50" cy="36" rx="8" ry="8" fill="#fff" stroke="#1F9AAB" stroke-width="1.5"/>
+            <circle cx="31" cy="35" r="4" fill="#1F9AAB"/>
+            <circle cx="51" cy="35" r="4" fill="#1F9AAB"/>
+            <circle cx="32.5" cy="33.5" r="1.5" fill="#fff"/>
+            <circle cx="52.5" cy="33.5" r="1.5" fill="#fff"/>
+            <path d="M28 52 Q40 62 52 52" stroke="#1F9AAB" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <circle cx="22" cy="50" r="5" fill="#F0902F" opacity=".22"/>
+            <circle cx="58" cy="50" r="5" fill="#F0902F" opacity=".22"/>
+          </svg>
+          <div>
+            <div class="gc-head-name">Geni IA Â· Parceira de Aprendizagem</div>
+            <div class="gc-head-sub" id="gc-sub">MÃ³dulo: Dias da Semana Â· Aula 1</div>
+          </div>
+          <div class="gc-online">online agora</div>
+        </div>
+
+        <!-- Ãrea de mensagens -->
+        <div class="gc-messages" id="gc-msgs"></div>
+
+        <!-- RodapÃ©: barra do microfone -->
+        <div class="gc-footer">
+          <button class="gc-mic" id="gc-mic" aria-label="Gravar voz">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="2" width="6" height="11" rx="3"/>
+              <path d="M5 10a7 7 0 0 0 14 0"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+              <line x1="8"  y1="22" x2="16" y2="22"/>
+            </svg>
+          </button>
+          <span class="gc-hint" id="gc-hint">Toque para responder por voz Â· Fale em espanhol</span>
+        </div>
+
+      </div><!-- /gc-card -->
+
+      <!-- â”€â”€ SIDEBAR â”€â”€ -->
+      <aside class="gc-sidebar">
+
+        <div class="gc-tip-card">
+          <h3>ðŸ’¡ Dicas para vocÃª</h3>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸ¢</span><span>Fale devagar. NÃ£o precisa ter pressa â€” a Geni vai entender vocÃª.</span></div>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸ’š</span><span>Tudo bem errar. Errar faz parte do aprendizado!</span></div>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸ”Š</span><span>OuÃ§a a pergunta antes de responder.</span></div>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸ—£ï¸</span><span>Tente responder em espanhol. Misturar com portuguÃªs tambÃ©m vale!</span></div>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸ”</span><span>Repita as palavras da Geni. RepetiÃ§Ã£o Ã© a chave!</span></div>
+        </div>
+
+        <div class="gc-tip-card">
+          <h3>ðŸ“š MÃ³dulo atual</h3>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸ“…</span><span><b>lunes</b> â€” segunda-feira</span></div>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸ“…</span><span><b>martes</b> â€” terÃ§a-feira</span></div>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸ“…</span><span><b>miÃ©rcoles</b> â€” quarta-feira</span></div>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸ“…</span><span><b>jueves</b> â€” quinta-feira</span></div>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸ“…</span><span><b>viernes</b> â€” sexta-feira</span></div>
+          <div class="gc-tip-item"><span class="gc-tip-ic">ðŸŽ‰</span><span><b>sÃ¡bado Â· domingo</b> â€” fim de semana</span></div>
+        </div>
+
+        <div class="gc-prog">
+          <h3>ðŸ† Sua prÃ¡tica hoje</h3>
+          <div class="gc-prog-row">
+            <span class="gc-prog-label">Respostas</span>
+            <div class="gc-prog-bar"><span id="pb-resp" style="width:0%"></span></div>
+            <span class="gc-prog-val" id="pv-resp">0</span>
+          </div>
+          <div class="gc-prog-row">
+            <span class="gc-prog-label">Acertos</span>
+            <div class="gc-prog-bar"><span id="pb-ac" style="width:0%"></span></div>
+            <span class="gc-prog-val" id="pv-ac">0%</span>
+          </div>
+        </div>
+
+      </aside>
+    </div><!-- /gc-grid -->
+  </div><!-- /gc-page -->
+
+  <script src="js/config.js?v=5"></script>
+  <script src="js/main.js?v=3"></script>
+  <script src="js/geni-voice.js?v=6"></script>
+  <script>
+  (function () {
+    'use strict';
+    if (!localStorage.getItem('nst.token')) { location.href = 'login.html?next=geni.html'; return; }
+
+    /* â”€â”€ Contexto â”€â”€ */
+    var ctx = {
+      curso:  localStorage.getItem('nst.ctx.curso')  || 'Espanhol',
+      modulo: localStorage.getItem('nst.ctx.modulo') || 'Dias da Semana',
+      aula:   localStorage.getItem('nst.ctx.aula')   || 'Aula 1',
+      emoji:  localStorage.getItem('nst.ctx.emoji')  || 'ðŸ‡ªðŸ‡¸',
+    };
+    document.getElementById('gc-curso').textContent  = ctx.emoji + ' ' + ctx.curso;
+    document.getElementById('gc-modulo').textContent = ctx.modulo;
+    document.getElementById('gc-aula').textContent   = ctx.aula;
+    document.getElementById('gc-sub').textContent    = 'MÃ³dulo: ' + ctx.modulo + ' Â· ' + ctx.aula;
+
+    /* â”€â”€ Roteiros contextualizados â”€â”€ */
+    var ROTEIROS = {
+      'Dias da Semana': [
+        { say:'Â¡Hola! Â¿Sabes cuÃ¡l es el dÃ­a de hoy?',       tip:'ðŸ’¡ Responda: "Hoy es lunes/martes..."' },
+        { say:'Â¿Y maÃ±ana? Â¿QuÃ© dÃ­a es maÃ±ana?',             tip:'ðŸ’¡ "MaÃ±ana es..." (amanhÃ£ Ã©...)' },
+        { say:'Â¿CuÃ¡les son los dÃ­as del fin de semana?',     tip:'ðŸ’¡ sÃ¡bado y domingo' },
+        { say:'Â¿CuÃ¡l es tu dÃ­a favorito de la semana?',      tip:'ðŸ’¡ "Mi dÃ­a favorito es... porque..."' },
+      ],
+      'Meses do Ano': [
+        { say:'Â¿En quÃ© mes estamos ahora?',                  tip:'ðŸ’¡ "Estamos en el mes de..."' },
+        { say:'Â¿CuÃ¡l es el mes de tu cumpleaÃ±os?',           tip:'ðŸ’¡ "Mi cumpleaÃ±os es en..."' },
+        { say:'Â¿CuÃ¡les son los meses de verano en Brasil?',  tip:'ðŸ’¡ diciembre, enero y febrero' },
+      ],
+      'SaudaÃ§Ãµes': [
+        { say:'Â¡Hola! Â¿CÃ³mo estÃ¡s hoy?',                    tip:'ðŸ’¡ "Estoy bien / mal / mÃ¡s o menos"' },
+        { say:'Son las 8 de la maÃ±ana. Â¿CÃ³mo saludas?',     tip:'ðŸ’¡ Â¡Buenos dÃ­as!' },
+        { say:'Por la noche, Â¿cÃ³mo te despides?',            tip:'ðŸ’¡ Â¡Buenas noches! / Â¡Hasta luego!' },
+      ],
+    };
+    var roteiro = ROTEIROS[ctx.modulo] || ROTEIROS['Dias da Semana'];
+    var step = 0, resps = 0, acerts = 0;
+
+    var msgs   = document.getElementById('gc-msgs');
+    var micBtn = document.getElementById('gc-mic');
+    var hint   = document.getElementById('gc-hint');
+
+    /* â”€â”€ Avatar SVG mini â”€â”€ */
+    var AV = '<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">'
+      + '<rect x="6" y="28" w="10" h="16"/>'  /* simplificado abaixo */
+      + '</svg>';
+
+    var AV_SVG = '<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">'
+      +'<rect x="6" y="28" width="10" height="16" rx="5" fill="#1F9AAB"/>'
+      +'<rect x="64" y="28" width="10" height="16" rx="5" fill="#1F9AAB"/>'
+      +'<rect x="14" y="16" width="52" height="50" rx="14" fill="#E2F3F5" stroke="#1F9AAB" stroke-width="2"/>'
+      +'<line x1="40" y1="16" x2="40" y2="6" stroke="#1A2B4A" stroke-width="2.5" stroke-linecap="round"/>'
+      +'<circle cx="40" cy="4" r="4" fill="#F0902F"/>'
+      +'<ellipse cx="30" cy="36" rx="8" ry="8" fill="#fff" stroke="#1F9AAB" stroke-width="1.5"/>'
+      +'<ellipse cx="50" cy="36" rx="8" ry="8" fill="#fff" stroke="#1F9AAB" stroke-width="1.5"/>'
+      +'<circle cx="31" cy="35" r="4" fill="#1F9AAB"/>'
+      +'<circle cx="51" cy="35" r="4" fill="#1F9AAB"/>'
+      +'<circle cx="32.5" cy="33.5" r="1.5" fill="#fff"/>'
+      +'<circle cx="52.5" cy="33.5" r="1.5" fill="#fff"/>'
+      +'<path d="M28 52 Q40 62 52 52" stroke="#1F9AAB" stroke-width="2.5" fill="none" stroke-linecap="round"/>'
+      +'</svg>';
+
+    function scroll() { msgs.scrollTop = msgs.scrollHeight; }
+
+    /* Cria player de Ã¡udio */
+    function makePlayer(url, side) {
+      var d = document.createElement('div');
+      d.className = 'gc-player';
+      d.innerHTML =
+        '<button class="gc-play-btn" title="Ouvir">â–¶</button>'
+        + '<div class="gc-waves"><span></span><span></span><span></span><span></span><span></span><span></span></div>'
+        + '<span class="gc-dur">0:03</span>';
+      if (url) {
+        var audio = new Audio(url);
+        d.querySelector('.gc-play-btn').addEventListener('click', function () { audio.play(); });
+      } else if (side === 'geni') {
+        /* botÃ£o para sÃ­ntese de voz â€” preenchido depois */
+      }
+      return d;
+    }
+
+    /* Mensagem da Geni */
+    function addGeniMsg(text, speak) {
+      var row = document.createElement('div');
+      row.className = 'gc-row';
+
+      var av = document.createElement('div');
+      av.className = 'gc-av'; av.innerHTML = AV_SVG;
+
+      var bub = document.createElement('div');
+      bub.className = 'gc-bubble gc-geni-b';
+
+      var player = makePlayer(null, 'geni');
+      player.querySelector('.gc-play-btn').setAttribute('data-text', text);
+      player.querySelector('.gc-play-btn').addEventListener('click', function () {
+        speakTTS(this.getAttribute('data-text'));
+      });
+
+      var p = document.createElement('p');
+      p.className = 'gc-text'; p.textContent = text;
+
+      bub.appendChild(player);
+      bub.appendChild(p);
+      row.appendChild(av);
+      row.appendChild(bub);
+      msgs.appendChild(row); scroll();
+      if (speak) setTimeout(function () { speakTTS(text); }, 300);
+    }
+
+    /* Mensagem do usuÃ¡rio */
+    function addUserMsg(url) {
+      var row = document.createElement('div');
+      row.className = 'gc-row gc-me';
+      var bub = document.createElement('div');
+      bub.className = 'gc-bubble gc-user-b';
+      bub.appendChild(makePlayer(url, 'user'));
+      row.appendChild(bub);
+      msgs.appendChild(row); scroll();
+    }
+
+    /* Indicador de digitaÃ§Ã£o */
+    function showTyping() {
+      var row = document.createElement('div');
+      row.className = 'gc-row'; row.id = 'gc-typing';
+      var av = document.createElement('div');
+      av.className = 'gc-av'; av.innerHTML = AV_SVG;
+      var bub = document.createElement('div');
+      bub.className = 'gc-bubble gc-geni-b';
+      bub.innerHTML = '<div class="gc-typing"><span></span><span></span><span></span></div>';
+      row.appendChild(av); row.appendChild(bub);
+      msgs.appendChild(row); scroll(); return row;
+    }
+
+    /* Feedback */
+    function addFeedback(tip) {
+      var el = document.createElement('div');
+      el.className = 'gc-feedback';
+      el.innerHTML = '<div class="gc-feedback-ok">âœ… Boa! Continue assim!</div>'
+        + '<div class="gc-feedback-tip">' + tip + '</div>';
+      msgs.appendChild(el); scroll();
+    }
+
+    function updateStats() {
+      var pct = resps > 0 ? Math.round((acerts/resps)*100) : 0;
+      document.getElementById('pb-resp').style.width  = Math.min(resps*25,100)+'%';
+      document.getElementById('pv-resp').textContent  = resps;
+      document.getElementById('pb-ac').style.width    = pct+'%';
+      document.getElementById('pv-ac').textContent    = pct+'%';
+    }
+
+    /* â”€â”€ SeleÃ§Ã£o de voz FEMININA em espanhol â”€â”€ */
+    var geniVoice = null;
+
+    function pickFemaleVoice() {
+      var voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+      if (!voices.length) return null;
+
+      // sÃ³ vozes em espanhol (es-ES, es-MX, es-US, es-AR...)
+      var es = voices.filter(function (v) { return /^es/i.test(v.lang); });
+      if (!es.length) es = voices;
+
+      // LISTA DE PRIORIDADE â€” vozes femininas conhecidas (Google / Microsoft / Apple)
+      var prioridade = [
+        'Google espaÃ±ol',                 // Chrome â€” feminina
+        'Google espaÃ±ol de Estados Unidos',
+        'Microsoft Helena',               // Windows es-ES feminina
+        'Microsoft Sabina',               // Windows es-MX feminina
+        'Microsoft Laura',
+        'MÃ³nica', 'Monica',               // macOS/iOS es-ES feminina
+        'Paulina',                        // macOS/iOS es-MX feminina
+        'Esperanza', 'Marisol', 'LucÃ­a', 'Lucia', 'Conchita', 'PenÃ©lope',
+      ];
+
+      // 1) busca exata pela ordem de prioridade
+      for (var i = 0; i < prioridade.length; i++) {
+        var match = es.find(function (v) {
+          return v.name.toLowerCase().indexOf(prioridade[i].toLowerCase()) !== -1;
+        });
+        if (match) return match;
+      }
+
+      // 2) qualquer voz com marcador "female" no nome
+      var fem = es.find(function (v) { return /female|mujer|femenina/i.test(v.name); });
+      if (fem) return fem;
+
+      // 3) evita vozes claramente masculinas
+      var maleNames = /jorge|diego|pablo|carlos|juan|miguel|enrique|male|hombre|raul|raÃºl/i;
+      var naoMasc = es.find(function (v) { return !maleNames.test(v.name); });
+      if (naoMasc) return naoMasc;
+
+      // 4) primeira voz es disponÃ­vel
+      return es[0] || null;
+    }
+
+    function loadVoice() { geniVoice = pickFemaleVoice(); }
+    loadVoice();
+    if (window.speechSynthesis) {
+      speechSynthesis.onvoiceschanged = loadVoice; // vozes carregam de forma assÃ­ncrona
+    }
+
+    function speakTTS(text) {
+      if (window.NSTVoice && window.NSTVoice.speak) { window.NSTVoice.speak(text); return; }
+      if (!window.speechSynthesis || !text) return;
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'es-ES'; u.rate = 0.82; u.pitch = 1.15;
+      if (!geniVoice) geniVoice = pickFemaleVoice();
+      if (geniVoice) u.voice = geniVoice;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }
+
+    /* â”€â”€ Conversa com IA (Geni) â€” mesmo token/arquitetura do ContentForge â”€â”€ */
+    var API = window.NST_API || 'https://api.noseutempo.app';
+    var TOKEN = localStorage.getItem('nst.token');
+    var history = [];
+    var aiOn = true;
+    var lastTranscript = '';
+
+    /* TranscriÃ§Ã£o opcional (es-ES) para a Geni responder ao que o aluno disse */
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var recog = null;
+    if (SR) {
+      try {
+        recog = new SR(); recog.lang = 'es-ES'; recog.continuous = false; recog.interimResults = false;
+        recog.onresult = function (e) { lastTranscript = (e.results[0] && e.results[0][0] && e.results[0][0].transcript) || ''; };
+      } catch (e) { recog = null; }
+    }
+
+    function askGeni(userText, isInitial) {
+      var t = showTyping();
+      if (!isInitial && userText) history.push({ role: 'aluno', text: userText });
+      if (!aiOn) { t.remove(); return fallback(isInitial); }
+      fetch(API + '/api/geni/respond', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + TOKEN },
+        body: JSON.stringify({ curso: ctx.curso, modulo: ctx.modulo, aula: ctx.aula, history: history, userText: userText || '' })
+      })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (d) {
+        t.remove();
+        history.push({ role: 'geni', text: d.reply });
+        addGeniMsg(d.reply, true);
+        if (!isInitial) { resps++; if (d.correct === true) acerts++; updateStats(); if (d.tip) addFeedback(d.tip); }
+        if (d.done) { micBtn.disabled = true; hint.textContent = 'ðŸ† SessÃ£o concluÃ­da! IncrÃ­vel!'; }
+      })
+      .catch(function () { aiOn = false; t.remove(); fallback(isInitial); });
+    }
+
+    /* Fallback scriptado (se a IA estiver indisponÃ­vel) */
+    function fallback(isInitial) {
+      if (isInitial) { addGeniMsg(roteiro[0].say, true); return; }
+      resps++; var cur = roteiro[step]; if (cur) { addFeedback(cur.tip); acerts++; } updateStats(); step++;
+      if (step < roteiro.length) {
+        var t2 = showTyping();
+        setTimeout(function () { t2.remove(); addGeniMsg(roteiro[step].say, true); }, 900);
+      } else {
+        addGeniMsg('Â¡Excelente! ðŸŽ‰ VocÃª concluiu "' + ctx.modulo + '" hoje. Un paso de cada vez. ðŸ’™', true);
+        micBtn.disabled = true; hint.textContent = 'ðŸ† SessÃ£o concluÃ­da!';
+      }
+    }
+
+    /* Voz oficial da Geni = OpenAI Sage (definida em geni-voice.js). Sem seletor. */
+
+    /* Inicia a conversa */
+    setTimeout(function () { askGeni('', true); }, 500);
+
+    /* â”€â”€ GravaÃ§Ã£o â”€â”€ */
+    var recording = false, mediaRec = null, chunks = [];
+
+    micBtn.addEventListener('click', function () { recording ? stopRec() : startRec(); });
+
+    function startRec() {
+      if (!navigator.mediaDevices) { simulateResp(); return; }
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(function (stream) {
+          mediaRec = new MediaRecorder(stream);
+          chunks = [];
+          mediaRec.ondataavailable = function (e) { chunks.push(e.data); };
+          mediaRec.onstop = function () {
+            var blob = new Blob(chunks, { type: 'audio/webm' });
+            addUserMsg(URL.createObjectURL(blob));
+            saveRec(blob);
+            stream.getTracks().forEach(function (t) { t.stop(); });
+            processResp();
+          };
+          mediaRec.start();
+          if (recog) { try { recog.start(); } catch (e) {} }
+          recording = true;
+          micBtn.classList.add('gc-rec');
+          hint.textContent = 'â— Gravandoâ€¦ toque para parar';
+          hint.classList.add('gc-rec');
+        })
+        .catch(simulateResp);
+    }
+
+    function stopRec() {
+      if (mediaRec) mediaRec.stop();
+      if (recog) { try { recog.stop(); } catch (e) {} }
+      recording = false;
+      micBtn.classList.remove('gc-rec');
+      hint.textContent = 'Toque para responder por voz Â· Fale em espanhol';
+      hint.classList.remove('gc-rec');
+    }
+
+    function simulateResp() {
+      stopRec();
+      addUserMsg(null);
+      processResp();
+    }
+
+    function processResp() {
+      var tx = lastTranscript; lastTranscript = '';
+      askGeni(tx, false);
+    }
+
+    function saveRec(blob) {
+      var token = localStorage.getItem('nst.token');
+      if (!token) return;
+      var r = new FileReader();
+      r.onload = function () {
+        fetch((window.NST_API||'https://api.noseutempo.app')+'/api/recordings', {
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+          body: JSON.stringify({ audioBase64:r.result.split(',')[1], mimeType:'audio/webm',
+            courseId:ctx.curso, lessonId:ctx.modulo,
+            geniQuestion: roteiro[step] ? roteiro[step].say : '' }),
+        }).catch(function(){});
+      };
+      r.readAsDataURL(blob);
+    }
+  })();
+  </script>
+  <script src="js/carol-chat.js?v=27"></script>
+  <script src="js/notifications.js?v=2"></script>
+</body>
+</html>
+
+
+
+

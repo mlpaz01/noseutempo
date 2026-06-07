@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O App — NoSeuTempo</title>
+<meta name="description" content="Conheça o app NoSeuTempo por dentro: tela inicial, progresso, prática de fala e tudo que você faz no seu ritmo.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-fx" aria-hidden="true"><span class="orb a"></span><span class="orb b"></span><span class="orb c"></span></div>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a href="index.html" class="logo-lockup" aria-label="NoSeuTempo — início">
+      <span class="logo-mark"><span class="lm-arc"></span><svg viewBox="0 0 100 100" class="lm-hands" aria-hidden="true"><g fill="none" stroke-width="9" stroke-linecap="round"><path d="M50 50 V28"/><path d="M50 50 H72"/></g><path class="lm-arrow" d="M72 64 L86 60 L78 74 Z"/></svg></span>
+      <span class="logo-word">NoSeu<span class="t">Tempo</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Início</a>
+      <a href="metodo.html">Método</a>
+      <a href="plataforma.html" class="active">O App</a>
+    </nav>
+    <div class="nav-cta"><a href="login.html" class="btn btn-ghost">Entrar</a><a href="cadastro.html" class="btn btn-primary">Começar agora</a>
+      <button class="nav-toggle" aria-label="Abrir menu"><i data-lucide="menu"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="blob" style="width:380px;height:380px;background:#bfe0f5;top:-100px;left:-90px;"></div>
+  <div class="wrap">
+    <p class="eyebrow reveal" style="justify-content:center;">O app por dentro</p>
+    <h1 class="reveal d1">Simples de usar. <span class="teal">Difícil de largar.</span></h1>
+    <p class="reveal d2">Cada tela foi desenhada para te dar clareza, motivação e a sensação de que você está sempre avançando.</p>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="section app-preview" style="padding-top:40px;">
+  <div class="wrap">
+    <div class="phones-row">
+      <!-- TELA 1 -->
+      <div class="phone reveal">
+        <div class="phone-screen">
+          <div class="notch"></div>
+          <div class="statusbar"><span>9:41</span><span class="sb-icons"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+          <div class="app-head">
+            <button class="app-iconbtn" aria-label="Menu"><i data-lucide="menu"></i></button>
+            <span class="ah-logo">
+              <span class="logo-mark"><span class="lm-arc"></span><svg viewBox="0 0 100 100" class="lm-hands" aria-hidden="true"><g fill="none" stroke-width="9" stroke-linecap="round"><path d="M50 50 V28"/><path d="M50 50 H72"/></g><path class="lm-arrow" d="M72 64 L86 60 L78 74 Z"/></svg></span>
+              <span class="logo-word">NoSeu<span class="t">Tempo</span></span>
+            </span>
+            <button class="app-iconbtn" aria-label="Notificações"><i data-lucide="bell"></i><span class="dot"></span></button>
+          </div>
+          <div class="app-body">
+            <div class="greet">
+              <div class="g-ill"><i data-lucide="globe-2" class="g-globe"></i><i data-lucide="send" class="g-send"></i><i data-lucide="message-square" class="g-msg"></i></div>
+              <h4>Olá, Carol! 👋</h4>
+              <p class="g-sub">Que bom te ver aqui!</p>
+              <p class="g-mini">Vamos continuar sua jornada?</p>
+            </div>
+            <div class="app-section-title"><h5>Seu progresso</h5><a href="#">Ver tudo</a></div>
+            <div class="progress-card">
+              <div class="ring" data-value="65">
+                <svg width="70" height="70" viewBox="0 0 70 70">
+                  <circle cx="35" cy="35" r="29" fill="none" stroke="#e7eef7" stroke-width="8"/>
+                  <circle class="ring-fg" cx="35" cy="35" r="29" fill="none" stroke="#2f7fd1" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+                <span class="ring-val">65%</span>
+              </div>
+              <div class="progress-meta">
+                <div class="pm-title">Nível 1 – Iniciante</div>
+                <div class="pm-sub">A caminho da sua conquista! 🚀</div>
+                <div class="pbar"><span></span></div>
+              </div>
+            </div>
+            <div class="app-section-title"><h5>O que vamos fazer hoje?</h5></div>
+            <div class="tiles">
+              <div class="tile"><div class="ti ti-teal"><i data-lucide="headphones"></i></div><div><div class="tt">Aulas</div><div class="ts">Assista e aprenda</div></div></div>
+              <div class="tile"><div class="ti ti-orange"><i data-lucide="mic"></i></div><div><div class="tt">Prática</div><div class="ts">Fale e escute</div></div></div>
+              <div class="tile"><div class="ti ti-blue"><i data-lucide="book-open"></i></div><div><div class="tt">Exercícios</div><div class="ts">Fixe o conteúdo</div></div></div>
+              <div class="tile"><div class="ti ti-indigo"><i data-lucide="messages-square"></i></div><div><div class="tt">Conversa</div><div class="ts">IA de prática</div></div></div>
+              <div class="tile"><div class="ti ti-amber"><i data-lucide="circle-check"></i></div><div><div class="tt">Revisão</div><div class="ts">Reforce e evolua</div></div></div>
+              <div class="tile"><div class="ti ti-green"><i data-lucide="target"></i></div><div><div class="tt">Metas</div><div class="ts">Seu plano de estudo</div></div></div>
+            </div>
+          </div>
+          <div class="app-tabbar">
+            <div class="tab active"><i data-lucide="home"></i><span>Início</span></div>
+            <div class="tab"><i data-lucide="book-open"></i><span>Aulas</span></div>
+            <div class="tab"><i data-lucide="mic"></i><span>Prática</span></div>
+            <div class="tab"><i data-lucide="trending-up"></i><span>Progresso</span></div>
+            <div class="tab"><i data-lucide="user"></i><span>Perfil</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TELA 2 -->
+      <div class="phone small reveal d2">
+        <div class="phone-screen">
+          <div class="notch"></div>
+          <div class="statusbar"><span>9:41</span><span class="sb-icons"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-full"></i></span></div>
+          <div class="sp-head">
+            <button class="sp-back" aria-label="Voltar"><i data-lucide="arrow-left"></i></button>
+            <span class="sp-title">Prática de fala</span>
+            <button class="sp-back" aria-label="Mais"><i data-lucide="chevron-down"></i></button>
+          </div>
+          <div class="sp-bubble"><div class="sp-es">¡Hola! ¿Cómo estás?</div><div class="sp-pt">(Como você está?)</div></div>
+          <div class="sp-wave"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="sp-foot">
+            <div class="sp-time">00:18<small>Gravando…</small></div>
+            <div class="sp-mic"><i data-lucide="mic"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE VOCÊ FAZ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow reveal">O que você faz hoje</p>
+      <h2 class="reveal d1">Seis formas de avançar, no seu ritmo</h2>
+    </div>
+    <div class="features-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="feature f4 reveal"><div class="fi"><i data-lucide="headphones" style="color:var(--teal-deep);"></i></div><h3>Aulas</h3><p>Assista e aprenda com lições curtas e claras.</p></div>
+      <div class="feature f2 reveal d1"><div class="fi"><i data-lucide="mic" style="color:#e07b16;"></i></div><h3>Prática</h3><p>Fale e escute para soltar a voz sem medo.</p></div>
+      <div class="feature f1 reveal d2"><div class="fi"><i data-lucide="book-open" style="color:var(--blue);"></i></div><h3>Exercícios</h3><p>Fixe o conteúdo com atividades rápidas.</p></div>
+      <div class="feature f3 reveal"><div class="fi"><i data-lucide="messages-square" style="color:var(--purple);"></i></div><h3>Conversa</h3><p>Pratique com uma IA paciente, quando quiser.</p></div>
+      <div class="feature f2 reveal d1"><div class="fi"><i data-lucide="circle-check" style="color:#e0941a;"></i></div><h3>Revisão</h3><p>Reforce e evolua no momento certo.</p></div>
+      <div class="feature f4 reveal d2"><div class="fi"><i data-lucide="target" style="color:var(--teal-deep);"></i></div><h3>Metas</h3><p>Seu plano de estudo, do seu jeito.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-sm">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <div class="cta-glow" style="width:340px;height:340px;background:#2f7fd1;top:-120px;left:-60px;"></div>
+      <div class="cta-glow" style="width:300px;height:300px;background:#f7941d;bottom:-140px;right:-40px;"></div>
+      <h2>Leve o NoSeuTempo com você</h2>
+      <p>Tudo isso no seu bolso, pronto para quando der vontade de aprender.</p>
+      <div class="stores">
+        <a href="cadastro.html" class="store-badge"><i data-lucide="smartphone"></i><span><span class="sb-top">Baixar na</span><span class="sb-main">App Store</span></span></a>
+        <a href="cadastro.html" class="store-badge"><i data-lucide="play"></i><span><span class="sb-top">Disponível no</span><span class="sb-main">Google Play</span></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a href="index.html" class="logo-lockup">
+        <span class="logo-mark"><span class="lm-arc"></span><svg viewBox="0 0 100 100" class="lm-hands" aria-hidden="true"><g fill="none" stroke-width="9" stroke-linecap="round"><path d="M50 50 V28"/><path d="M50 50 H72"/></g><path class="lm-arrow" d="M72 64 L86 60 L78 74 Z"/></svg></span>
+        <span class="logo-word">NoSeu<span class="t">Tempo</span></span>
+      </a>
+      <p>Um curso de idiomas criado com carinho para quem já tentou aprender antes.</p>
+      <p class="footer-tag">Aprenda no seu ritmo.</p>
+    </div>
+    <div class="footer-col"><h5>Navegar</h5><a href="index.html">Início</a><a href="metodo.html">Método</a><a href="plataforma.html">O App</a><a href="cadastro.html">Baixar</a></div>
+    <div class="footer-col"><h5>Aprender</h5><a href="metodo.html">Metodologia</a><a href="plataforma.html">Recursos</a><a href="cadastro.html">Comece grátis</a></div>
+    <div class="footer-col"><h5>Contato</h5><a href="mailto:oi@noseutempo.app">oi@noseutempo.app</a><a href="#">Instagram</a><a href="#">Ajuda</a></div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 NoSeuTempo · noseutempo.app</span>
+    <span>Feito com carinho 💙 · Um passo de cada vez.</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="site.js"></script><script src="js/config.js"></script><script src="js/main.js"></script>
+</body>
+</html>

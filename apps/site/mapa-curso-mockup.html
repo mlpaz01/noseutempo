@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mockup — Mapa do Curso (NoSeuTempo)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#1E2A4A; --navy2:#234B86;
+    --teal:#1FA6A8; --teal-deep:#0F8275;
+    --lav:#EDE7FA; --ia:#EAF4FF;
+    --orange:#F0902F; --yellow:#FFC23C;
+    --ink:#1E2A4A; --muted:#6B7589;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#F4F7F6;font-family:'Lexend',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Poppins',system-ui,sans-serif;}
+
+  .mock-flag{background:#FFF4E5;color:#7A4E12;text-align:center;font-size:13px;font-weight:600;padding:8px;border-bottom:1px solid #F0C98A;}
+
+  .wrap{max-width:860px;margin:0 auto;padding:26px 20px 60px;}
+
+  /* Cabeçalho */
+  .head{background:#fff;border:1.5px solid #E6ECF3;border-radius:20px;padding:22px 26px;box-shadow:0 4px 16px rgba(26,43,74,.05);display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+  .head .ic{width:58px;height:58px;border-radius:16px;background:linear-gradient(135deg,var(--navy) 0%,var(--teal) 130%);display:flex;align-items:center;justify-content:center;flex:none;}
+  .head .ic svg{width:32px;height:32px;color:#fff;}
+  .head h1{margin:0;font-size:1.5rem;}
+  .head h1 span{color:var(--teal);}
+  .head p{margin:3px 0 0;color:var(--muted);font-size:.92rem;}
+  .head .prog{margin-left:auto;text-align:right;min-width:160px;}
+  .head .prog .big{font-size:1.7rem;font-weight:800;font-family:'Poppins';color:var(--teal);line-height:1;}
+  .head .prog .sm{font-size:.82rem;color:var(--muted);margin-top:3px;}
+  .pbar{height:8px;background:#EAE8F2;border-radius:99px;overflow:hidden;margin-top:8px;}
+  .pbar > i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),#34C6B0);}
+
+  /* Legenda */
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin:18px 4px 6px;font-size:.83rem;color:var(--muted);font-weight:500;}
+  .legend span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:13px;height:13px;border-radius:50%;flex:none;}
+  .dot.done{background:var(--teal);}
+  .dot.cur{background:var(--yellow);}
+  .dot.todo{background:var(--lav);border:1.5px solid #CFC6E8;}
+
+  /* Trilha */
+  .board{position:relative;margin-top:8px;}
+  .board svg.road{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+
+  .mod-label{position:absolute;transform:translate(-50%,-50%);background:#fff;border:1.5px solid #E2DAF3;color:var(--navy2);font-family:'Poppins';font-weight:700;font-size:.72rem;padding:5px 12px;border-radius:99px;box-shadow:0 3px 10px rgba(26,43,74,.08);white-space:nowrap;}
+  .mod-label .n{color:var(--teal);}
+
+  .node{position:absolute;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Poppins';font-weight:800;font-size:1.15rem;box-shadow:0 6px 14px rgba(26,43,74,.14);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;}
+  .node:hover{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 10px 22px rgba(26,43,74,.2);}
+  .node .tt{position:absolute;bottom:74px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-family:'Lexend';font-weight:500;font-size:.74rem;padding:6px 10px;border-radius:9px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease;max-width:200px;}
+  .node .tt::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--navy);}
+  .node:hover .tt{opacity:1;}
+
+  .node.done{background:linear-gradient(135deg,var(--teal),#34C6B0);color:#fff;}
+  .node.todo{background:#fff;color:#B6ADD2;border:2px dashed #D6CEEC;box-shadow:0 4px 10px rgba(26,43,74,.07);}
+  .node.cur{background:#fff;color:var(--navy2);border:3px solid var(--yellow);box-shadow:0 0 0 6px rgba(255,194,60,.25),0 8px 18px rgba(26,43,74,.16);}
+  .node.r1{rotate:-5deg;} .node.r2{rotate:5deg;}
+  .node .chk{width:26px;height:26px;}
+
+  /* Peão */
+  .pawn{position:absolute;transform:translate(-50%,-100%);width:54px;height:66px;z-index:5;pointer-events:none;filter:drop-shadow(0 6px 6px rgba(26,43,74,.22));}
+  @keyframes bob{0%,100%{transform:translate(-50%,-100%)}50%{transform:translate(-50%,-112%)}}
+  @media(prefers-reduced-motion:no-preference){ .pawn{animation:bob 2.6s ease-in-out infinite;} }
+
+  /* Início e bandeira */
+  .start{position:absolute;transform:translate(-50%,-50%);background:#fff;border:2px solid #E6ECF3;color:var(--muted);font-family:'Poppins';font-weight:700;font-size:.72rem;padding:7px 14px;border-radius:99px;box-shadow:0 4px 10px rgba(26,43,74,.08);}
+  .flag{position:absolute;transform:translate(-50%,-100%);width:86px;height:96px;z-index:4;pointer-events:none;}
+  .flag .label{position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);font-family:'Poppins';font-weight:700;font-size:.78rem;color:var(--orange);white-space:nowrap;}
+
+  .foot{margin-top:34px;text-align:center;color:var(--muted);font-size:.85rem;}
+</style>
+</head>
+<body>
+  <div class="mock-flag">🔍 MOCKUP — visual para aprovação · dados de exemplo (não ligado ao backend ainda)</div>
+  <div style="background:#fff;border-bottom:1px solid #E6ECF3;padding:12px 24px;display:flex;align-items:center;gap:9px">
+    <a href="plataforma.html" style="display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink);font-family:'Poppins';font-weight:700;font-size:1.12rem">
+      <img src="assets/logo.png" alt="NoSeuTempo" onerror="this.onerror=null;this.src='assets/logo-icon.svg'" style="height:34px;width:auto;display:block" />
+      No<span style="color:var(--teal)">Seu</span>Tempo
+    </a>
+  </div>
+
+  <div class="wrap">
+    <div class="head">
+      <div class="ic">
+        <!-- ícone trilha+bandeira -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c3-6 5-8 8-8s5 2 8-2"/><circle cx="6" cy="19" r="1.4" fill="currentColor" stroke="none"/><path d="M17 4v7"/><path d="M17 4l5 1.5L17 7"/></svg>
+      </div>
+      <div>
+        <h1>Mapa do Curso — <span>Espanhol</span></h1>
+        <p>Veja toda a sua jornada num só lugar 💙</p>
+      </div>
+      <div class="prog">
+        <div class="big" id="pct">42%</div>
+        <div class="sm" id="psum">5 de 12 aulas concluídas</div>
+        <div class="pbar"><i id="pbar" style="width:42%"></i></div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span><i class="dot done"></i> Concluída</span>
+      <span><i class="dot cur"></i> Você está aqui</span>
+      <span><i class="dot todo"></i> A fazer</span>
+      <span>🚩 Meta do curso</span>
+    </div>
+
+    <div class="board" id="board">
+      <svg class="road" id="road" preserveAspectRatio="none"></svg>
+    </div>
+
+    <div class="foot">Cada casa é uma aula · as bandeirinhas marcam o fim de cada módulo · o peão mostra onde você está.</div>
+  </div>
+
+<script>
+  // ── Dados de exemplo (4 módulos × 3 aulas) ─────────────────
+  var COURSE = {
+    current: 5, // índice global (0-based) onde está o peão
+    modules: [
+      { n:'Módulo 1', title:'Primeiros Passos', lessons:['Oi, eu sou...','Cumprimentos do dia','Como você está?'] },
+      { n:'Módulo 2', title:'No Dia a Dia',      lessons:['Dias da semana','Que horas são?','Combinar encontros'] },
+      { n:'Módulo 3', title:'Pelo Mundo',        lessons:['Pedir direções','No restaurante','Fazendo compras'] },
+      { n:'Módulo 4', title:'Conversando',       lessons:['Falar de você','Planos futuros','Missão final'] }
+    ]
+  };
+
+  var board = document.getElementById('board');
+  var road  = document.getElementById('road');
+
+  // Flatten lessons
+  var lessons = [];
+  COURSE.modules.forEach(function(m, mi){
+    m.lessons.forEach(function(t, li){
+      lessons.push({ title:t, mi:mi, li:li, lastOfModule: li === m.lessons.length-1, firstOfModule: li===0, modN:m.n, modTitle:m.title });
+    });
+  });
+
+  // Layout serpentina
+  var PER_ROW = 3, GAPX = 240, GAPY = 165, PADX = 120, PADY = 150;
+  var W = PADX*2 + (PER_ROW-1)*GAPX;
+  function coord(i){
+    var row = Math.floor(i/PER_ROW), col = i%PER_ROW;
+    if (row % 2 === 1) col = (PER_ROW-1) - col; // serpentina
+    return { x: PADX + col*GAPX, y: PADY + row*GAPY };
+  }
+  var pts = lessons.map(function(_,i){ return coord(i); });
+  var rows = Math.ceil(lessons.length/PER_ROW);
+  var H = PADY + (rows-1)*GAPY + 150;
+
+  // Início (acima da 1ª) e meta (abaixo da última)
+  var startPt = { x: pts[0].x, y: PADY - 95 };
+  var lastPt  = pts[pts.length-1];
+  var flagPt  = { x: lastPt.x, y: lastPt.y + 110 };
+
+  board.style.width = W + 'px';
+  board.style.height = H + 'px';
+  board.style.margin = '8px auto 0';
+  road.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+  // ── Estrada (spline catmull-rom → bezier) ──────────────────
+  function spline(points){
+    if(points.length<2) return '';
+    var d = 'M ' + points[0].x + ' ' + points[0].y;
+    for(var i=0;i<points.length-1;i++){
+      var p0=points[i-1]||points[i], p1=points[i], p2=points[i+1], p3=points[i+2]||p2;
+      var c1x=p1.x+(p2.x-p0.x)/6, c1y=p1.y+(p2.y-p0.y)/6;
+      var c2x=p2.x-(p3.x-p1.x)/6, c2y=p2.y-(p3.y-p1.y)/6;
+      d += ' C '+c1x+' '+c1y+' '+c2x+' '+c2y+' '+p2.x+' '+p2.y;
+    }
+    return d;
+  }
+  var roadPts = [startPt].concat(pts).concat([flagPt]);
+  var dPath = spline(roadPts);
+  road.innerHTML =
+    '<path d="'+dPath+'" fill="none" stroke="#1E2A4A" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<path d="'+dPath+'" fill="none" stroke="#33457A" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<path d="'+dPath+'" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="2 12" stroke-linecap="round" opacity=".5"/>';
+
+  // ── Início ─────────────────────────────────────────────────
+  var s = document.createElement('div');
+  s.className = 'start'; s.textContent = 'Início';
+  s.style.left = startPt.x+'px'; s.style.top = startPt.y+'px';
+  board.appendChild(s);
+
+  // ── Nós (aulas) ────────────────────────────────────────────
+  var CHK = '<svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  lessons.forEach(function(L, i){
+    var p = pts[i];
+    var state = i < COURSE.current ? 'done' : (i === COURSE.current ? 'cur' : 'todo');
+    var el = document.createElement('div');
+    el.className = 'node ' + state + ' ' + (i%2?'r1':'r2');
+    el.style.left = p.x+'px'; el.style.top = p.y+'px';
+    el.innerHTML = (state==='done'? CHK : (i+1)) +
+      '<span class="tt">'+ L.modN +' · '+ L.title +'</span>';
+    board.appendChild(el);
+
+    // rótulo do módulo na 1ª aula de cada módulo
+    if (L.firstOfModule){
+      var ml = document.createElement('div');
+      ml.className = 'mod-label';
+      ml.innerHTML = '<span class="n">'+L.modN+'</span> · '+L.modTitle;
+      ml.style.left = p.x+'px';
+      ml.style.top = (p.y - 52)+'px';
+      board.appendChild(ml);
+    }
+    // bandeirinha de checkpoint no fim de cada módulo (menos o último, que tem a meta grande)
+    if (L.lastOfModule && i !== lessons.length-1){
+      var cf = document.createElement('div');
+      cf.style.cssText = 'position:absolute;transform:translate(28px,-44px);font-size:20px;left:'+p.x+'px;top:'+p.y+'px;';
+      cf.textContent = '🚩';
+      board.appendChild(cf);
+    }
+  });
+
+  // ── Peão (posição atual) ───────────────────────────────────
+  var pawnPt = pts[COURSE.current] || pts[0];
+  var pawn = document.createElement('div');
+  pawn.className = 'pawn';
+  pawn.style.left = pawnPt.x+'px';
+  pawn.style.top  = (pawnPt.y - 24)+'px';
+  pawn.innerHTML =
+    '<svg viewBox="0 0 60 74" fill="none">' +
+      '<ellipse cx="30" cy="69" rx="20" ry="5" fill="#1E2A4A" opacity=".18"/>' +
+      '<path d="M16 66c0-9 5-13 7-18-4-2-6-6-6-10a13 13 0 0 1 26 0c0 4-2 8-6 10 2 5 7 9 7 18z" fill="#FFC23C"/>' +
+      '<path d="M16 66c0-9 5-13 7-18-4-2-6-6-6-10a13 13 0 0 1 13-13" stroke="#F0902F" stroke-width="0" />' +
+      '<circle cx="30" cy="27" r="13" fill="#FFC23C"/>' +
+      '<circle cx="25" cy="25" r="1.7" fill="#1E2A4A"/>' +
+      '<circle cx="35" cy="25" r="1.7" fill="#1E2A4A"/>' +
+      '<path d="M25 31a6 6 0 0 0 10 0" stroke="#1E2A4A" stroke-width="2" stroke-linecap="round" fill="none"/>' +
+      '<circle cx="25.5" cy="22" r="3.5" fill="#fff" opacity=".5"/>' +
+    '</svg>';
+  board.appendChild(pawn);
+
+  // ── Bandeira final (meta) ──────────────────────────────────
+  var fl = document.createElement('div');
+  fl.className = 'flag';
+  fl.style.left = flagPt.x+'px';
+  fl.style.top  = (flagPt.y + 6)+'px';
+  fl.innerHTML =
+    '<svg viewBox="0 0 86 96" fill="none">' +
+      '<ellipse cx="30" cy="92" rx="20" ry="4.5" fill="#1E2A4A" opacity=".16"/>' +
+      '<rect x="27" y="8" width="5" height="84" rx="2.5" fill="#1E2A4A"/>' +
+      '<path d="M32 10h44l-9 12 9 12H32z" fill="#F0902F"/>' +
+      '<path d="M54 14l2.6 5.6 6 .5-4.6 4 1.4 6-5.4-3.3-5.4 3.3 1.4-6-4.6-4 6-.5z" fill="#fff"/>' +
+    '</svg>' +
+    '<span class="label">Meta 🎉</span>';
+  board.appendChild(fl);
+</script>
+</body>
+</html>
