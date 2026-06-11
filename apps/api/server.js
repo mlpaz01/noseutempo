@@ -821,6 +821,30 @@ app.post("/api/tts", auth, async (req, res) => {
 });
 
 /* ── Notificações (acompanhamento do aluno) ── */
+/* Video interativo da aula (job assincrono via fal.ai, com fallback local) */
+app.post("/api/videos/generate", auth, async (req, res) => {
+  try {
+    const { createVideoJob, publicJob } = require("./contentforge/video");
+    const job = await createVideoJob({ userId: req.user.id, body: req.body || {} });
+    res.json(publicJob(job));
+  } catch (e) {
+    console.error("videos/generate:", e);
+    res.status(500).json({ error: e.message || "Erro ao iniciar video." });
+  }
+});
+
+app.get("/api/videos/:id/status", auth, async (req, res) => {
+  try {
+    const { getVideoJobForUser, publicJob } = require("./contentforge/video");
+    const job = await getVideoJobForUser(req.user.id, req.params.id);
+    if (!job) return res.status(404).json({ error: "Video nao encontrado." });
+    res.json(publicJob(job));
+  } catch (e) {
+    console.error("videos/status:", e);
+    res.status(500).json({ error: e.message || "Erro ao consultar video." });
+  }
+});
+
 app.get("/api/notifications", auth, (req, res) => {
   const list = notifs
     .filter(n => String(n.userId) === String(req.user.id))

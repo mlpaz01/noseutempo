@@ -1,0 +1,2171 @@
+{
+  "id": "mq63oh7smfjy",
+  "titulo": "Primeiras palavras em espanhol",
+  "descricao": "Você vai cumprimentar, dizer seu nome e se apresentar com calma, sem medo de errar. Cada palavra vem com som, imagem e prática no seu ritmo.",
+  "tagline": "Fale suas primeiras palavras em espanhol com confiança",
+  "category": "idiomas",
+  "difficulty": "basico",
+  "capa": "",
+  "coverImageQuery": "friendly person waving hello warm sunlight soft colors welcoming gesture",
+  "totalEstimatedMinutes": 32,
+  "units": [
+    {
+      "id": "mq63quvlm2z2",
+      "title": "Oi, tudo bem?",
+      "description": "Você vai cumprimentar alguém em espanhol de um jeito natural e leve.",
+      "icon": "heart",
+      "motivacao": "Todo mundo começa por aqui: um simples olá abre portas",
+      "order": 0,
+      "lessons": [
+        {
+          "id": "mq63po521wra",
+          "title": "Hola: como dizer oi e sentir a diferença",
+          "estimatedMinutes": 4,
+          "objective": "Dizer 'hola' com confiança e perceber que espanhol e português são parecidos, mas têm seu próprio jeito",
+          "prerequisites": [
+            "Vontade de tentar sem medo de errar",
+            "Saber que espanhol é falado em vários países",
+            "Curiosidade sobre como as pessoas se cumprimentam"
+          ],
+          "masteryCheck": "Consegue dizer 'hola' e reconhecer quando alguém está cumprimentando em espanhol",
+          "adaptationHints": {
+            "simplerExplanation": "Hola é como dizer oi. Parece com português, mas o som é diferente. Você vai sentir a diferença ouvindo.",
+            "everydayAnalogy": "É como quando você conhece alguém novo: um sorriso e um oi já quebram o gelo. Em espanhol, esse oi é hola.",
+            "whenStuck": "Está tudo bem. Vamos ouvir de novo e tentar no seu tempo."
+          },
+          "blocks": [
+            {
+              "type": "concept",
+              "data": {
+                "title": "Hola",
+                "body": "Esta é a palavra mais usada para dizer oi em espanhol. Você vai ouvir ela em mercados, na rua, em filmes. É simples e abre qualquer conversa.",
+                "takeaway": "Hola é o seu primeiro passo para falar espanhol com qualquer pessoa.",
+                "visualCue": "Uma pessoa sorrindo e acenando, com a palavra HOLA em letras grandes e amigáveis ao lado.",
+                "narration": "Hola. Esta é a palavra mais usada para dizer oi em espanhol. Você vai ouvir ela em mercados, na rua, em filmes. É simples e abre qualquer conversa. Hola é o seu primeiro passo para falar espanhol com qualquer pessoa."
+              },
+              "presentation": {
+                "stageName": "Ver",
+                "primaryFormat": "video",
+                "icon": "eye",
+                "visualScene": "Pessoa acenando com a mão em uma praça ensolarada, a palavra HOLA aparece flutuando ao lado",
+                "imagePrompt": "friendly person waving hello in a sunny plaza, word HOLA floating beside them in bold friendly letters, soft 3D illustration style, warm colors, welcoming atmosphere",
+                "caption": "Hola: a palavra que abre portas",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Reconhecer a palavra hola visualmente e no som",
+                "skill": "conceito",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Hola quer dizer oi. É a primeira palavra que você vai aprender.",
+                  "example": "Quando você entra numa loja, pode dizer hola para cumprimentar.",
+                  "hint": "Olhe para a palavra. Ouça o som. Você já está aprendendo."
+                }
+              }
+            },
+            {
+              "type": "audio_vocab",
+              "data": {
+                "title": "Ouça e sinta a diferença",
+                "instruction": "Toque em cada palavra para ouvir. Repita em voz alta se quiser. Não tem certo ou errado aqui.",
+                "tip": "O h em espanhol é mudo. O som é como ola, mas com um toque mais suave.",
+                "words": [
+                  {
+                    "word": "Hola",
+                    "translation": "Oi, olá",
+                    "visualCue": "Pessoa acenando",
+                    "imageQuery": "person waving hello warmly"
+                  },
+                  {
+                    "word": "Buenos días",
+                    "translation": "Bom dia",
+                    "visualCue": "Sol nascendo",
+                    "imageQuery": "sunrise with warm morning light"
+                  },
+                  {
+                    "word": "Buenas tardes",
+                    "translation": "Boa tarde",
+                    "visualCue": "Sol da tarde",
+                    "imageQuery": "afternoon sun in the sky"
+                  }
+                ],
+                "narration": "Agora você vai ouvir três formas de cumprimentar. Toque em cada uma e sinta o som. O h em espanhol é mudo, então hola soa como ola, mas com um jeito próprio. Não tem pressa. Ouça quantas vezes quiser."
+              },
+              "presentation": {
+                "stageName": "Sentir",
+                "primaryFormat": "game",
+                "icon": "heart",
+                "visualScene": "Três cartões com imagens e palavras, cada um com um botão de play para ouvir o áudio",
+                "imagePrompt": "three interactive cards showing greetings in Spanish with play buttons, soft pastel colors, clean educational interface, friendly icons for morning and afternoon",
+                "caption": "Toque para ouvir. Sinta o som do espanhol.",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Associar som e significado sem pressão de acertar",
+                "skill": "vocabulário",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Só ouça. Você não precisa decorar agora.",
+                  "example": "É como aprender uma música nova. Primeiro você só escuta.",
+                  "hint": "Toque de novo. Cada vez que ouve, seu cérebro aprende um pouco mais."
+                }
+              }
+            },
+            {
+              "type": "fill_blank",
+              "data": {
+                "template": "Quando você encontra alguém de manhã, pode dizer: Buenos ____",
+                "correctAnswers": [
+                  "días"
+                ],
+                "wordBank": [
+                  "días",
+                  "tardes",
+                  "noches"
+                ],
+                "hint": "Pense em qual parte do dia é de manhã. A palavra parece com dia em português.",
+                "explanation": "Buenos días é bom dia. Días vem de dia. Você usou a lógica e acertou.",
+                "narration": "Vamos praticar. Quando você encontra alguém de manhã, pode dizer buenos e mais uma palavra. Escolha a palavra que completa a frase. Se precisar de ajuda, toque na lâmpada."
+              },
+              "presentation": {
+                "stageName": "Praticar",
+                "primaryFormat": "game",
+                "icon": "pencil",
+                "visualScene": "Frase com espaço em branco e três palavras embaixo para escolher, ilustração de manhã ao fundo",
+                "imagePrompt": "fill-in-the-blank exercise with morning scene background, three word options below, soft educational game style, clear typography, gentle colors",
+                "caption": "Complete a frase. Você consegue.",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Completar uma frase simples usando contexto e memória",
+                "skill": "memória",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Qual palavra parece com dia? Essa é a resposta.",
+                  "example": "De manhã você diz bom dia. Em espanhol é buenos días.",
+                  "hint": "Olhe para as palavras. Uma delas tem dia dentro."
+                }
+              }
+            },
+            {
+              "type": "multiple_choice",
+              "data": {
+                "question": "Você entra numa padaria em Madri às 10 da manhã. O que você diz?",
+                "options": [
+                  "Hola",
+                  "Buenos días",
+                  "Buenas noches"
+                ],
+                "correctIndex": 1,
+                "explanation": "Buenos días é perfeito para a manhã. Mas hola também funciona a qualquer hora. As duas estão certas, mas buenos días mostra que você sabe a hora do dia.",
+                "narration": "Agora um jogo rápido. Você entra numa padaria em Madri às 10 da manhã. O que você diz? Escolha a melhor opção. Não tem pegadinha, só uma situação real."
+              },
+              "presentation": {
+                "stageName": "Jogar",
+                "primaryFormat": "game",
+                "icon": "game",
+                "visualScene": "Interior de padaria aconchegante com balcão e pães, três opções de resposta aparecem como balões de fala",
+                "imagePrompt": "cozy bakery interior in Madrid with counter and bread, three speech bubbles showing greeting options, warm morning light, inviting atmosphere, soft 3D style",
+                "caption": "Qual cumprimento você usa?",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Escolher o cumprimento certo para a situação",
+                "skill": "decisão",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "É de manhã. Qual frase tem a palavra dia?",
+                  "example": "Você entra numa padaria aqui no Brasil de manhã. Diz bom dia, certo? Lá é parecido.",
+                  "hint": "Pense na hora do dia. Isso ajuda a escolher."
+                }
+              }
+            },
+            {
+              "type": "scenario_choice",
+              "data": {
+                "character": "Você",
+                "scenario": "Você está viajando e encontra uma pessoa simpática no elevador do hotel. Ela sorri e espera você dizer algo.",
+                "question": "O que você faz?",
+                "choices": [
+                  {
+                    "text": "Diz hola e sorri de volta",
+                    "outcome": "A pessoa responde hola e pergunta de onde você é. Você começou uma conversa.",
+                    "isBest": true
+                  },
+                  {
+                    "text": "Fica em silêncio e olha para o chão",
+                    "outcome": "Tudo bem ter vergonha. Mas um simples hola teria deixado tudo mais leve. Vamos tentar de novo?",
+                    "isBest": false
+                  },
+                  {
+                    "text": "Tenta falar em português",
+                    "outcome": "A pessoa não entende, mas percebe que você está tentando. Que tal tentar hola na próxima vez?",
+                    "isBest": false
+                  }
+                ],
+                "narration": "Agora uma situação real. Você está no elevador do hotel e encontra alguém simpático. A pessoa sorri e espera você dizer algo. O que você faz? Escolha e veja o que acontece."
+              },
+              "presentation": {
+                "stageName": "Conversar",
+                "primaryFormat": "chat",
+                "icon": "chat",
+                "visualScene": "Interior de elevador de hotel com duas pessoas, uma sorrindo para a outra, clima amigável",
+                "imagePrompt": "hotel elevator interior with two people, one smiling warmly at the other, friendly atmosphere, soft lighting, modern design, welcoming body language",
+                "caption": "Você no elevador. O que diz?",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Usar hola numa situação social real",
+                "skill": "expressão",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Um sorriso e hola já resolvem. Não precisa de mais nada.",
+                  "example": "É como quando alguém te cumprimenta no mercado. Você responde oi. Aqui é hola.",
+                  "hint": "A pessoa está sendo gentil. Um hola de volta é suficiente."
+                }
+              }
+            },
+            {
+              "type": "voice_challenge",
+              "data": {
+                "instruction": "Agora é sua vez. Diga hola em voz alta. Lembre que o h é mudo.",
+                "phrase": "Hola",
+                "tip": "Relaxe a garganta. Pense em ola com um toque suave. Você pode tentar quantas vezes quiser.",
+                "alternativeText": "Se preferir, escreva hola três vezes no papel. O importante é praticar do seu jeito.",
+                "narration": "Você chegou ao final. Agora é sua vez de falar. Diga hola em voz alta. Lembre que o h é mudo, então soa como ola. Relaxe e tente. Se preferir, escreva a palavra três vezes. O importante é praticar do seu jeito. Você já deu o primeiro passo."
+              },
+              "presentation": {
+                "stageName": "Avançar",
+                "primaryFormat": "chat",
+                "icon": "flag",
+                "visualScene": "Tela com microfone amigável no centro, botão de gravar, e a palavra HOLA em destaque",
+                "imagePrompt": "friendly microphone icon in center of screen with record button, word HOLA displayed prominently, encouraging interface, soft colors, supportive design, option to write shown subtly",
+                "caption": "Sua vez de dizer hola. Você consegue.",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Produzir a palavra hola com confiança",
+                "skill": "confiança",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Só diga ola. O h não faz som. Pronto, você falou espanhol.",
+                  "example": "É como dizer olá, mas sem o á no final. Ola. Simples assim.",
+                  "hint": "Não precisa ser perfeito. Só precisa tentar. Você já está aprendendo."
+                }
+              }
+            }
+          ],
+          "order": 0,
+          "failed": false
+        },
+        {
+          "id": "mq63quvlydjp",
+          "title": "¿Cómo estás? sem travar na pronúncia",
+          "estimatedMinutes": 4,
+          "objective": "Você vai conseguir perguntar e responder '¿Cómo estás?' com naturalidade, sem travar na pronúncia",
+          "prerequisites": [
+            "Saber dizer 'Hola'",
+            "Entender que espanhol e português são parecidos mas diferentes",
+            "Estar disposto a tentar sem medo de errar"
+          ],
+          "masteryCheck": "Consegue perguntar como alguém está e responder com confiança, mesmo que devagar",
+          "adaptationHints": {
+            "simplerExplanation": "É como perguntar 'tudo bem?' em português, mas com som diferente no 'o' e no 's'",
+            "everydayAnalogy": "Pense em quando você encontra alguém no elevador. É isso, só que em espanhol",
+            "whenStuck": "Respira. Vamos devagar. Cada tentativa é um passo"
+          },
+          "blocks": [
+            {
+              "type": "concept",
+              "data": {
+                "title": "¿Cómo estás?",
+                "body": "Esta pergunta significa 'como você está?'. É o jeito mais comum de mostrar interesse pela pessoa depois do 'Hola'.",
+                "takeaway": "Você não precisa decorar regras. Só precisa ouvir e repetir algumas vezes",
+                "visualCue": "Duas pessoas se encontram na rua. Uma pergunta, a outra responde com um sorriso",
+                "narration": "Quando você encontra alguém em espanhol, depois do Hola vem uma pergunta simples: Cómo estás. É como perguntar tudo bem, mas com um jeitinho diferente no som. Vamos ver como funciona."
+              },
+              "presentation": {
+                "stageName": "Ver",
+                "primaryFormat": "video",
+                "icon": "eye",
+                "visualScene": "Animação suave: dois personagens 3D se encontram na calçada, um acena e fala, o outro responde",
+                "imagePrompt": "two friendly 3D characters meeting on a sunny street, one asking a question with open gesture, warm colors, soft educational illustration style",
+                "caption": "É assim que a gente pergunta como alguém está",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Entender que a pergunta é natural e usada o tempo todo",
+                "skill": "conceito",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "É o nosso 'tudo bem?'",
+                  "example": "Imagine encontrar um vizinho no mercado",
+                  "hint": "Você já faz isso em português todo dia"
+                }
+              }
+            },
+            {
+              "type": "audio_vocab",
+              "data": {
+                "title": "Escute e sinta o som",
+                "instruction": "Toque em cada palavra para ouvir. Não precisa repetir agora, só escute",
+                "tip": "Preste atenção no 'ó' de Cómo. É mais fechado que em português",
+                "words": [
+                  {
+                    "word": "¿Cómo estás?",
+                    "translation": "Como você está?",
+                    "visualCue": "Rosto curioso, sobrancelhas levantadas",
+                    "imageQuery": "curious friendly face with raised eyebrows, 3D character asking question"
+                  },
+                  {
+                    "word": "Bien",
+                    "translation": "Bem",
+                    "visualCue": "Polegar para cima, sorriso tranquilo",
+                    "imageQuery": "thumbs up gesture with calm smile, 3D character feeling good"
+                  },
+                  {
+                    "word": "Mal",
+                    "translation": "Mal",
+                    "visualCue": "Mão na testa, expressão cansada",
+                    "imageQuery": "hand on forehead, tired expression, 3D character not feeling well"
+                  },
+                  {
+                    "word": "Más o menos",
+                    "translation": "Mais ou menos",
+                    "visualCue": "Mão balançando de um lado pro outro",
+                    "imageQuery": "hand gesture waving side to side, so-so expression, 3D character"
+                  }
+                ],
+                "narration": "Agora você vai ouvir cada palavra. Não se preocupe em falar ainda. Só deixe o som entrar. Toque em cada uma e sinta a diferença. O Cómo tem um ó fechado, como se você estivesse surpreso."
+              },
+              "presentation": {
+                "stageName": "Sentir",
+                "primaryFormat": "image",
+                "icon": "heart",
+                "visualScene": "Quatro cartões com áudio: cada um mostra uma palavra e uma expressão facial correspondente",
+                "imagePrompt": "four interactive audio cards with 3D character faces showing different emotions, warm educational design, clear typography",
+                "caption": "Toque para ouvir. Sinta o som antes de falar",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Familiarizar o ouvido com os sons do espanhol sem pressão",
+                "skill": "vocabulário",
+                "difficultySignals": [
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Só escute. Não precisa fazer nada ainda",
+                  "example": "É como ouvir uma música nova pela primeira vez",
+                  "hint": "Você pode ouvir quantas vezes quiser"
+                }
+              }
+            },
+            {
+              "type": "fill_blank",
+              "data": {
+                "template": "Quando alguém pergunta ¿Cómo estás?, você pode responder: _____",
+                "correctAnswers": [
+                  "Bien",
+                  "bien"
+                ],
+                "wordBank": [
+                  "Bien",
+                  "Mal",
+                  "Hola",
+                  "Gracias"
+                ],
+                "hint": "Pense na resposta mais comum quando você está ok",
+                "explanation": "Bien é a resposta mais usada. Significa que você está bem",
+                "narration": "Vamos praticar com calma. Quando alguém pergunta como você está, qual palavra você usaria para dizer que está bem? Escolha da lista e complete a frase."
+              },
+              "presentation": {
+                "stageName": "Praticar",
+                "primaryFormat": "game",
+                "icon": "pencil",
+                "visualScene": "Frase com espaço em branco e quatro botões de palavra embaixo, design limpo e claro",
+                "imagePrompt": "clean fill-in-the-blank interface with word buttons below, soft colors, educational game design, 3D elements",
+                "caption": "Escolha a palavra que completa a resposta",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Conectar som e significado através de escolha guiada",
+                "skill": "memoria",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Qual palavra significa 'bem'?",
+                  "example": "Se você está se sentindo ok, você diz Bien",
+                  "hint": "Lembra do cartão com o polegar para cima?"
+                }
+              }
+            },
+            {
+              "type": "multiple_choice",
+              "data": {
+                "question": "Você encontra uma amiga na padaria. Ela diz: ¿Cómo estás? O que você responde?",
+                "options": [
+                  "Bien, gracias",
+                  "Hola, adiós",
+                  "Sí, mucho"
+                ],
+                "correctIndex": 0,
+                "explanation": "Bien, gracias é perfeito. Você diz que está bem e agradece o interesse",
+                "narration": "Agora um jogo rápido. Imagine a cena: você está na padaria e uma amiga pergunta como você está. Qual das três respostas faz sentido?"
+              },
+              "presentation": {
+                "stageName": "Jogar",
+                "primaryFormat": "game",
+                "icon": "game",
+                "visualScene": "Cena de padaria com duas personagens, três botões de resposta aparecem como balões de fala",
+                "imagePrompt": "bakery scene with two 3D characters talking, three speech bubble options floating above, warm lighting, friendly atmosphere",
+                "caption": "Escolha a resposta que faz sentido na situação",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Aplicar a frase em contexto real e reconhecer respostas naturais",
+                "skill": "decisão",
+                "difficultySignals": [
+                  "wrong_answer"
+                ],
+                "support": {
+                  "simpler": "Qual resposta combina com a pergunta sobre como você está?",
+                  "example": "Se alguém pergunta como você está, você responde sobre como você está",
+                  "hint": "A primeira opção responde a pergunta e agradece"
+                }
+              }
+            },
+            {
+              "type": "scenario_choice",
+              "data": {
+                "character": "Carlos, seu colega de trabalho",
+                "scenario": "Você chega no escritório de manhã. Carlos te vê e diz: Hola, ¿cómo estás?",
+                "question": "Como você responde?",
+                "choices": [
+                  {
+                    "text": "Bien, gracias. ¿Y tú?",
+                    "outcome": "Carlos sorri e responde que também está bem. Vocês começam o dia com leveza",
+                    "isBest": true
+                  },
+                  {
+                    "text": "Más o menos",
+                    "outcome": "Carlos percebe que você não está 100% e oferece um café. Também funciona",
+                    "isBest": false
+                  },
+                  {
+                    "text": "Ficar em silêncio",
+                    "outcome": "Carlos fica sem saber o que fazer. É melhor tentar responder alguma coisa",
+                    "isBest": false
+                  }
+                ],
+                "narration": "Agora você está numa conversa de verdade. Carlos te cumprimenta e pergunta como você está. Você tem três jeitos de reagir. Escolha o que parece mais natural para você."
+              },
+              "presentation": {
+                "stageName": "Conversar",
+                "primaryFormat": "chat",
+                "icon": "chat",
+                "visualScene": "Escritório pela manhã, Carlos acenando com uma xícara de café na mão, três opções de resposta",
+                "imagePrompt": "office morning scene, friendly coworker Carlos waving with coffee cup, three response options as speech bubbles, 3D illustration, warm morning light",
+                "caption": "Escolha como você quer responder nesta situação real",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Ganhar confiança para usar a frase em situação social real",
+                "skill": "expressão",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Não existe resposta errada. Cada escolha mostra um jeito de reagir",
+                  "example": "Pense em como você responderia em português e faça parecido",
+                  "hint": "A primeira opção é a mais completa: responde e devolve a pergunta"
+                }
+              }
+            },
+            {
+              "type": "mission",
+              "data": {
+                "title": "Sua missão até a próxima aula",
+                "description": "Use ¿Cómo estás? com alguém. Pode ser com um amigo que estuda espanhol, num app de idiomas, ou até sozinho no espelho",
+                "howToReport": "Não precisa provar nada. Só tente uma vez. Quando tentar, volte aqui e avance",
+                "motivation": "Cada vez que você fala, seu cérebro grava melhor. Não precisa ser perfeito. Precisa ser real",
+                "narration": "Você chegou no final desta aula. Agora vem a parte mais importante: usar o que aprendeu. Sua missão é simples. Fale Cómo estás uma vez antes da próxima aula. Pode ser com alguém, pode ser sozinho. O importante é tirar do papel e colocar na boca. Quando fizer isso, você vai sentir a diferença."
+              },
+              "presentation": {
+                "stageName": "Avançar",
+                "primaryFormat": "chat",
+                "icon": "flag",
+                "visualScene": "Personagem confiante segurando uma bandeira, caminho iluminado à frente",
+                "imagePrompt": "confident 3D character holding a small flag, illuminated path ahead, warm encouraging colors, achievement moment illustration",
+                "caption": "Você está pronto. Agora é só praticar uma vez no mundo real",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Criar ponte entre aprendizado e uso real, sem cobrança",
+                "skill": "confiança",
+                "difficultySignals": [],
+                "support": {
+                  "simpler": "Fale uma vez. Só isso. Pode ser baixinho",
+                  "example": "Grave um áudio para você mesmo dizendo Cómo estás",
+                  "hint": "Não precisa ser perfeito. Precisa ser tentado"
+                }
+              }
+            }
+          ],
+          "order": 1,
+          "failed": false
+        }
+      ]
+    },
+    {
+      "id": "mq63stp2lfis",
+      "title": "Meu nome é...",
+      "description": "Você vai dizer seu nome e entender como os nomes soam em espanhol.",
+      "icon": "chat",
+      "motivacao": "Seu nome é seu: vamos falar ele com segurança",
+      "order": 1,
+      "lessons": [
+        {
+          "id": "mq63ruknn3q8",
+          "title": "Me llamo: dizer seu nome sem medo",
+          "estimatedMinutes": 4,
+          "objective": "Dizer 'Me llamo' e seu próprio nome com confiança em espanhol",
+          "prerequisites": [
+            "Saber dizer seu nome em português",
+            "Vontade de se apresentar",
+            "Curiosidade por sons novos"
+          ],
+          "masteryCheck": "Consegue dizer 'Me llamo' seguido do próprio nome sem pausar",
+          "adaptationHints": {
+            "simplerExplanation": "Me llamo é como você diz seu nome em espanhol. É igual a 'eu me chamo'.",
+            "everydayAnalogy": "É como quando você atende o telefone e fala quem você é. Só que em espanhol.",
+            "whenStuck": "Seu nome continua sendo seu. Só muda a frase antes dele."
+          },
+          "blocks": [
+            {
+              "type": "concept",
+              "data": {
+                "title": "Me llamo",
+                "body": "Em espanhol, você diz seu nome assim: Me llamo. Depois vem seu nome. Me llamo é como dizer 'eu me chamo'.",
+                "takeaway": "Me llamo + seu nome = sua apresentação em espanhol",
+                "visualCue": "Uma pessoa sorrindo e apontando para si mesma enquanto fala",
+                "narration": "Olá. Hoje você vai aprender a dizer seu nome em espanhol. É simples. Você fala Me llamo e depois seu nome. Me llamo significa eu me chamo. Vamos ver como fica?"
+              },
+              "presentation": {
+                "stageName": "Ver",
+                "primaryFormat": "video",
+                "icon": "eye",
+                "visualScene": "Pessoa em close sorrindo, apontando para si mesma, com legenda 'Me llamo' aparecendo suavemente",
+                "imagePrompt": "friendly person smiling pointing to themselves, warm lighting, soft 3D illustration style, welcoming gesture, educational scene",
+                "caption": "Me llamo: sua primeira frase em espanhol",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Reconhecer que Me llamo é a forma de dizer seu nome",
+                "skill": "conceito",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Me llamo = eu me chamo",
+                  "example": "Me llamo Maria. Me llamo João.",
+                  "hint": "Você só precisa trocar o nome da pessoa pelo seu"
+                }
+              }
+            },
+            {
+              "type": "audio_vocab",
+              "data": {
+                "title": "Escute e repita",
+                "instruction": "Toque em cada palavra para ouvir. Depois repita em voz baixa.",
+                "tip": "O 'll' em llamo soa como 'i'. Fica 'iamo'.",
+                "words": [
+                  {
+                    "word": "Me",
+                    "translation": "me",
+                    "visualCue": "Mão apontando para o peito",
+                    "imageQuery": "hand pointing to chest, simple gesture illustration"
+                  },
+                  {
+                    "word": "llamo",
+                    "translation": "chamo",
+                    "visualCue": "Boca falando com destaque no som",
+                    "imageQuery": "person speaking with sound waves, friendly face, educational illustration"
+                  },
+                  {
+                    "word": "Me llamo",
+                    "translation": "eu me chamo",
+                    "visualCue": "Pessoa se apresentando com gesto aberto",
+                    "imageQuery": "person introducing themselves with open gesture, warm and welcoming, soft illustration"
+                  }
+                ],
+                "narration": "Agora vamos sentir o som. Toque em cada palavra. Ouça com calma. Repita do seu jeito. O 'll' em espanhol soa como 'i'. Então llamo fica 'iamo'. Sem pressa."
+              },
+              "presentation": {
+                "stageName": "Sentir",
+                "primaryFormat": "image",
+                "icon": "heart",
+                "visualScene": "Três cartões de som com ilustrações suaves, cada um com uma palavra e um ícone visual",
+                "imagePrompt": "three audio cards with soft illustrations, each showing a Spanish word with visual icon, clean educational design, pastel colors",
+                "caption": "Toque para ouvir cada palavra",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Familiarizar-se com o som de Me llamo",
+                "skill": "vocabulário",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Só ouça. Não precisa falar perfeito agora.",
+                  "example": "Llamo soa como 'iamo'. Lia-mo.",
+                  "hint": "Repita só a parte que você conseguir. Está bom assim."
+                }
+              }
+            },
+            {
+              "type": "fill_blank",
+              "data": {
+                "template": "__ __ Ana.",
+                "correctAnswers": [
+                  "Me",
+                  "llamo"
+                ],
+                "wordBank": [
+                  "Me",
+                  "llamo",
+                  "soy",
+                  "tu"
+                ],
+                "hint": "Lembra da frase que você viu? Me llamo vem antes do nome.",
+                "explanation": "Perfeito. Me llamo Ana é como Ana se apresenta em espanhol.",
+                "narration": "Agora é sua vez de montar. Ana quer dizer o nome dela. Escolha as palavras certas. Me llamo vem antes do nome. Tente sem pressa."
+              },
+              "presentation": {
+                "stageName": "Praticar",
+                "primaryFormat": "game",
+                "icon": "pencil",
+                "visualScene": "Frase com espaços em branco e banco de palavras abaixo, design limpo e claro",
+                "imagePrompt": "fill in the blank exercise with word bank below, clean educational interface, soft colors, friendly design",
+                "caption": "Complete a frase de Ana",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Montar a estrutura Me llamo + nome",
+                "skill": "sequência",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Me llamo sempre vem junto, antes do nome",
+                  "example": "Me llamo Maria. Me llamo Pedro. Me llamo Ana.",
+                  "hint": "As duas primeiras palavras são sempre Me llamo"
+                }
+              }
+            },
+            {
+              "type": "multiple_choice",
+              "data": {
+                "question": "Carlos quer se apresentar em espanhol. O que ele fala?",
+                "options": [
+                  "Me llamo Carlos",
+                  "Carlos me llamo",
+                  "Llamo Carlos"
+                ],
+                "correctIndex": 0,
+                "explanation": "Isso. Me llamo sempre vem antes do nome. Me llamo Carlos.",
+                "narration": "Vamos jogar. Carlos quer se apresentar. Qual frase está certa? Pense na ordem que você aprendeu. Me llamo vem primeiro."
+              },
+              "presentation": {
+                "stageName": "Jogar",
+                "primaryFormat": "game",
+                "icon": "game",
+                "visualScene": "Três botões grandes com as opções, personagem Carlos ao lado esperando",
+                "imagePrompt": "three large option buttons with character Carlos waiting beside, playful educational game interface, warm colors",
+                "caption": "Como Carlos se apresenta?",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Reconhecer a ordem correta de Me llamo + nome",
+                "skill": "decisão",
+                "difficultySignals": [
+                  "wrong_answer"
+                ],
+                "support": {
+                  "simpler": "Me llamo sempre vem antes. Depois o nome.",
+                  "example": "Me llamo Ana. Me llamo João. Me llamo Carlos.",
+                  "hint": "Olhe a primeira palavra de cada opção. Qual começa certo?"
+                }
+              }
+            },
+            {
+              "type": "scenario_choice",
+              "data": {
+                "character": "Você",
+                "scenario": "Você entra numa sala de aula de espanhol. A professora sorri e pergunta seu nome. O que você fala?",
+                "question": "Como você se apresenta?",
+                "choices": [
+                  {
+                    "text": "Me llamo e digo meu nome",
+                    "outcome": "A professora sorri e repete seu nome. Você se sente acolhido.",
+                    "isBest": true
+                  },
+                  {
+                    "text": "Falo só meu nome em português",
+                    "outcome": "A professora entende, mas te ajuda: 'Me llamo...' Você aprende na hora.",
+                    "isBest": false
+                  },
+                  {
+                    "text": "Fico em silêncio com vergonha",
+                    "outcome": "A professora espera com paciência. Você respira e tenta de novo.",
+                    "isBest": false
+                  }
+                ],
+                "narration": "Agora uma situação real. Você está numa aula de espanhol. A professora quer saber seu nome. Como você se apresenta? Escolha o que você faria."
+              },
+              "presentation": {
+                "stageName": "Conversar",
+                "primaryFormat": "chat",
+                "icon": "chat",
+                "visualScene": "Sala de aula acolhedora, professora sorrindo, você de frente para ela",
+                "imagePrompt": "warm classroom scene, friendly teacher smiling, student perspective, welcoming atmosphere, soft illustration style",
+                "caption": "Como você se apresenta?",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Imaginar-se usando Me llamo em situação real",
+                "skill": "confiança",
+                "difficultySignals": [
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Não tem resposta errada aqui. Escolha o que você sente.",
+                  "example": "Muita gente tem vergonha no começo. É normal.",
+                  "hint": "Pense: o que você gostaria de conseguir fazer?"
+                }
+              }
+            },
+            {
+              "type": "voice_challenge",
+              "data": {
+                "instruction": "Agora é com você. Diga em voz alta: Me llamo e seu nome.",
+                "phrase": "Me llamo [seu nome]",
+                "tip": "Lembre: 'll' soa como 'i'. Me iamo. Depois seu nome.",
+                "alternativeText": "Se preferir, escreva a frase completa com seu nome.",
+                "narration": "Chegou sua vez. Diga em voz alta: Me llamo e seu nome. Pode falar baixo. Pode repetir. Seu nome é seu. Você já sabe dizer isso em espanhol."
+              },
+              "presentation": {
+                "stageName": "Avançar",
+                "primaryFormat": "chat",
+                "icon": "flag",
+                "visualScene": "Microfone amigável no centro, botão de gravar, espaço para escrever como alternativa",
+                "imagePrompt": "friendly microphone icon in center, record button, alternative text input option, encouraging design, soft colors",
+                "caption": "Diga seu nome em espanhol",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Produzir Me llamo + próprio nome com confiança",
+                "skill": "expressão",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Só diga Me llamo e seu nome. Nada mais.",
+                  "example": "Me llamo Sofia. Me llamo Lucas. Me llamo você.",
+                  "hint": "Pode tentar quantas vezes quiser. Ninguém está julgando."
+                }
+              }
+            }
+          ],
+          "order": 0,
+          "failed": false
+        },
+        {
+          "id": "mq63stp2pjye",
+          "title": "Mucho gusto: responder quando alguém se apresenta",
+          "estimatedMinutes": 4,
+          "objective": "Responder com naturalidade quando alguém se apresenta em espanhol",
+          "prerequisites": [
+            "Saber dizer seu próprio nome em espanhol",
+            "Reconhecer quando alguém está se apresentando",
+            "Estar aberto para repetir até sentir confiança"
+          ],
+          "masteryCheck": "Consegue responder mucho gusto e perguntar o nome de volta em uma conversa simples",
+          "adaptationHints": {
+            "simplerExplanation": "Quando alguém diz o nome, você responde mucho gusto. É como dizer prazer em conhecer.",
+            "everydayAnalogy": "É igual quando você aperta a mão de alguém novo. Você sorri e diz que é um prazer. Em espanhol é mucho gusto.",
+            "whenStuck": "Tudo bem pausar. Vamos devagar. Você já sabe mais do que imagina."
+          },
+          "blocks": [
+            {
+              "type": "concept",
+              "data": {
+                "title": "Mucho gusto",
+                "body": "Quando alguém diz o nome em espanhol, você responde mucho gusto. Significa prazer em conhecer você.",
+                "takeaway": "Mucho gusto é sua resposta amigável quando conhece alguém.",
+                "visualCue": "Duas pessoas sorrindo, uma estendendo a mão para a outra",
+                "narration": "Quando alguém diz o nome em espanhol, você responde mucho gusto. Significa prazer em conhecer você. É sua resposta amigável quando conhece alguém."
+              },
+              "presentation": {
+                "stageName": "Ver",
+                "primaryFormat": "video",
+                "icon": "eye",
+                "visualScene": "Duas pessoas em um café, uma se apresenta e a outra sorri e responde mucho gusto",
+                "imagePrompt": "Two friendly people meeting in a bright cafe, one person smiling and saying hello, warm 3D illustration style, soft colors, welcoming atmosphere",
+                "caption": "Mucho gusto: sua resposta amigável",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Entender que mucho gusto é a resposta natural ao conhecer alguém",
+                "skill": "conceito",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Mucho gusto quer dizer prazer em conhecer.",
+                  "example": "É como quando você conhece o amigo de um amigo e diz que é um prazer.",
+                  "hint": "Pense em um aperto de mão amigável."
+                }
+              }
+            },
+            {
+              "type": "audio_vocab",
+              "data": {
+                "title": "Escute e repita",
+                "instruction": "Ouça cada frase. Repita quando quiser. Não precisa ser perfeito.",
+                "tip": "O u em mucho soa como u em uva. O ch soa como tch em tchau.",
+                "words": [
+                  {
+                    "word": "Mucho gusto",
+                    "translation": "Prazer em conhecer",
+                    "visualCue": "Pessoa sorrindo com mão no peito",
+                    "imageQuery": "Person smiling warmly with hand on chest, friendly greeting gesture, soft illustration"
+                  },
+                  {
+                    "word": "Igualmente",
+                    "translation": "Igualmente",
+                    "visualCue": "Duas pessoas acenando uma para a outra",
+                    "imageQuery": "Two people waving to each other with friendly smiles, mutual greeting, warm colors"
+                  },
+                  {
+                    "word": "¿Y tú?",
+                    "translation": "E você?",
+                    "visualCue": "Pessoa apontando gentilmente para a outra",
+                    "imageQuery": "Person gesturing gently toward another person, asking question, friendly conversation scene"
+                  }
+                ],
+                "narration": "Ouça cada frase com calma. Repita quando se sentir pronto. O u em mucho soa como u em uva. O ch soa como tch em tchau. Não precisa ser perfeito agora."
+              },
+              "presentation": {
+                "stageName": "Sentir",
+                "primaryFormat": "game",
+                "icon": "heart",
+                "visualScene": "Cartões de som com ilustrações suaves, cada um mostrando uma pessoa em situação de cumprimento",
+                "imagePrompt": "Three friendly audio cards with soft illustrations showing people greeting each other, warm educational style, clean design",
+                "caption": "Ouça, sinta o som, repita no seu tempo",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Reconhecer o som de mucho gusto e palavras relacionadas",
+                "skill": "vocabulário",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Só escute primeiro. Depois tente falar baixinho.",
+                  "example": "Mucho gusto soa como mutcho gusto. O tch é suave.",
+                  "hint": "Pode ouvir quantas vezes quiser. Sem pressa."
+                }
+              }
+            },
+            {
+              "type": "fill_blank",
+              "data": {
+                "template": "Quando Maria diz me llamo Maria, você responde: ___ ___",
+                "correctAnswers": [
+                  "mucho gusto"
+                ],
+                "wordBank": [
+                  "mucho",
+                  "gusto",
+                  "hola",
+                  "adiós"
+                ],
+                "hint": "Lembra da frase que significa prazer em conhecer?",
+                "explanation": "Mucho gusto é a resposta perfeita quando alguém se apresenta. Mostra que você ficou feliz em conhecer.",
+                "narration": "Quando Maria diz me llamo Maria, como você responde? Escolha as palavras certas. Lembra da frase que significa prazer em conhecer?"
+              },
+              "presentation": {
+                "stageName": "Praticar",
+                "primaryFormat": "game",
+                "icon": "pencil",
+                "visualScene": "Maria sorrindo e dizendo seu nome, com espaço em branco para você completar sua resposta",
+                "imagePrompt": "Friendly woman named Maria smiling and introducing herself, speech bubble with blank space for response, soft educational illustration",
+                "caption": "Complete sua resposta para Maria",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Completar a resposta correta em uma situação real",
+                "skill": "memoria",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "A resposta começa com mucho.",
+                  "example": "É como dizer prazer em conhecer em português.",
+                  "hint": "São duas palavras. A segunda é gusto."
+                }
+              }
+            },
+            {
+              "type": "multiple_choice",
+              "data": {
+                "question": "Carlos diz: Hola, me llamo Carlos. O que você responde?",
+                "options": [
+                  "Mucho gusto",
+                  "Me llamo Carlos",
+                  "Adiós Carlos"
+                ],
+                "correctIndex": 0,
+                "explanation": "Mucho gusto é a resposta certa. Você está dizendo que é um prazer conhecer Carlos.",
+                "narration": "Carlos diz olá, me chamo Carlos. Como você responde? Pense na frase amigável que aprendeu."
+              },
+              "presentation": {
+                "stageName": "Jogar",
+                "primaryFormat": "game",
+                "icon": "game",
+                "visualScene": "Carlos se apresentando com um sorriso, três opções de resposta aparecem como botões coloridos",
+                "imagePrompt": "Friendly man named Carlos introducing himself with a smile, three colorful answer buttons below, playful educational game style",
+                "caption": "O que você diz para Carlos?",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Escolher a resposta apropriada em contexto social",
+                "skill": "decisao",
+                "difficultySignals": [
+                  "wrong_answer"
+                ],
+                "support": {
+                  "simpler": "Qual frase mostra que você ficou feliz em conhecer?",
+                  "example": "É a frase que você usa quando conhece alguém novo.",
+                  "hint": "Começa com mucho."
+                }
+              }
+            },
+            {
+              "type": "scenario_choice",
+              "data": {
+                "character": "Geni",
+                "scenario": "Você está em uma festa. Ana se aproxima e diz: Hola, me llamo Ana.",
+                "question": "Como você responde?",
+                "choices": [
+                  {
+                    "text": "Mucho gusto, Ana. Me llamo [seu nome].",
+                    "outcome": "Ana sorri e começa a conversar com você. Vocês ficam amigos.",
+                    "isBest": true
+                  },
+                  {
+                    "text": "Hola.",
+                    "outcome": "Ana fica esperando. Ela queria saber seu nome também.",
+                    "isBest": false
+                  },
+                  {
+                    "text": "Mucho gusto.",
+                    "outcome": "Ana sorri. Está quase perfeito. Você pode dizer seu nome também.",
+                    "isBest": false
+                  }
+                ],
+                "narration": "Você está em uma festa. Ana se aproxima e diz olá, me chamo Ana. Como você responde? Pense no que seria mais amigável."
+              },
+              "presentation": {
+                "stageName": "Conversar",
+                "primaryFormat": "chat",
+                "icon": "chat",
+                "visualScene": "Festa com música suave ao fundo, Ana sorrindo e se apresentando, você escolhe como responder",
+                "imagePrompt": "Friendly party scene with soft music, woman named Ana smiling and introducing herself, warm welcoming atmosphere, illustration style",
+                "caption": "Ana quer conhecer você",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Aplicar mucho gusto em conversa real e completa",
+                "skill": "expressao",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Primeiro diga mucho gusto. Depois diga seu nome.",
+                  "example": "É como quando você conhece alguém no trabalho. Você diz prazer e fala seu nome.",
+                  "hint": "A melhor resposta tem duas partes: mucho gusto e me llamo."
+                }
+              }
+            },
+            {
+              "type": "mission",
+              "data": {
+                "title": "Sua missão: conhecer alguém",
+                "description": "Hoje ou amanhã, apresente-se para alguém em espanhol. Pode ser um amigo, familiar ou até no espelho. Diga seu nome e responda mucho gusto.",
+                "howToReport": "Volte aqui e conte como foi. Você pode escrever uma frase ou só marcar que conseguiu.",
+                "motivation": "Cada vez que você fala, fica mais natural. Você está construindo sua confiança.",
+                "narration": "Sua missão é conhecer alguém. Hoje ou amanhã, apresente-se para alguém em espanhol. Pode ser um amigo, familiar ou até no espelho. Diga seu nome e responda mucho gusto. Cada vez que você fala, fica mais natural. Você está construindo sua confiança."
+              },
+              "presentation": {
+                "stageName": "Avancar",
+                "primaryFormat": "chat",
+                "icon": "flag",
+                "visualScene": "Você em frente ao espelho ou conversando com alguém, praticando com confiança",
+                "imagePrompt": "Person practicing Spanish introduction confidently, either in front of mirror or with friend, encouraging warm atmosphere, success moment",
+                "caption": "Você está pronto para falar",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Aplicar o aprendizado no mundo real com confiança",
+                "skill": "confianca",
+                "difficultySignals": [
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Só diga me llamo e seu nome. Depois mucho gusto. Só isso.",
+                  "example": "Pode treinar com seu gato, seu cachorro ou no espelho. Vale tudo.",
+                  "hint": "Não precisa ser perfeito. Só precisa tentar."
+                }
+              }
+            }
+          ],
+          "order": 1,
+          "failed": false
+        }
+      ]
+    },
+    {
+      "id": "mq63v3j7hac1",
+      "title": "De onde você é?",
+      "description": "Você vai contar de onde vem e perguntar isso para outra pessoa.",
+      "icon": "path",
+      "motivacao": "Falar de onde você é conecta você com o mundo",
+      "order": 2,
+      "lessons": [
+        {
+          "id": "mq63tzptvj3n",
+          "title": "Soy de Brasil: dizer sua origem com clareza",
+          "estimatedMinutes": 4,
+          "objective": "Dizer de onde você é em espanhol com clareza e confiança",
+          "prerequisites": [
+            "Conhecer o som básico das vogais em espanhol",
+            "Saber que idiomas têm jeitos diferentes de dizer a mesma coisa"
+          ],
+          "masteryCheck": "Consegue dizer 'Soy de Brasil' com naturalidade e entende quando alguém pergunta de onde você é",
+          "adaptationHints": {
+            "simplerExplanation": "Em espanhol, você usa 'soy de' mais o nome do lugar. É como dizer 'eu sou de' em português.",
+            "everydayAnalogy": "É como quando você conhece alguém novo no elevador e diz de onde veio. Simples assim.",
+            "whenStuck": "Respira fundo. Vamos por partes. Primeiro só escuta, depois você tenta."
+          },
+          "blocks": [
+            {
+              "type": "concept",
+              "data": {
+                "title": "Soy de Brasil",
+                "body": "Quando alguém pergunta de onde você é, você responde: Soy de Brasil. Soy significa 'sou'. De significa 'de'. Simples assim.",
+                "takeaway": "Soy de Brasil é como você se apresenta em espanhol.",
+                "visualCue": "Uma pessoa sorrindo apontando para um mapa do Brasil",
+                "narration": "Quando alguém pergunta de onde você é, você responde: Soy de Brasil. Soy significa sou. De significa de. Simples assim. É a sua apresentação em espanhol."
+              },
+              "presentation": {
+                "stageName": "Ver",
+                "primaryFormat": "video",
+                "icon": "eye",
+                "visualScene": "Animação suave mostrando uma pessoa em frente a um mapa da América do Sul, com o Brasil em destaque. A frase 'Soy de Brasil' aparece com cada palavra iluminando gentilmente.",
+                "imagePrompt": "friendly 3D character standing in front of colorful South America map, Brazil highlighted in warm green and yellow, speech bubble showing 'Soy de Brasil', soft educational style, welcoming atmosphere",
+                "caption": "Sua primeira frase para se apresentar em espanhol",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Reconhecer a estrutura básica 'Soy de' e associar ao significado",
+                "skill": "conceito",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Soy de = eu sou de. Você coloca o nome do seu país depois.",
+                  "example": "Maria diz: Soy de Brasil. Pedro diz: Soy de Brasil. Você diz: Soy de Brasil.",
+                  "hint": "Pensa em como você diz em português. Agora troca para: Soy de Brasil."
+                }
+              }
+            },
+            {
+              "type": "audio_vocab",
+              "data": {
+                "title": "Escute e sinta o som",
+                "instruction": "Escute cada palavra com calma. Depois você vai ouvir de novo.",
+                "tip": "Não precisa repetir agora. Só deixa o som entrar.",
+                "words": [
+                  {
+                    "word": "Soy",
+                    "translation": "sou",
+                    "visualCue": "Pessoa apontando para si mesma",
+                    "imageQuery": "simple icon of person pointing to themselves, warm colors, friendly style"
+                  },
+                  {
+                    "word": "de",
+                    "translation": "de",
+                    "visualCue": "Seta saindo de um ponto",
+                    "imageQuery": "simple arrow coming from a point, indicating origin, soft educational illustration"
+                  },
+                  {
+                    "word": "Brasil",
+                    "translation": "Brasil",
+                    "visualCue": "Bandeira do Brasil estilizada",
+                    "imageQuery": "stylized Brazil flag with soft edges, warm and welcoming, educational context"
+                  }
+                ],
+                "narration": "Agora vamos sentir o som de cada parte. Escute com calma. Soy. De. Brasil. Não precisa repetir ainda. Só deixa o som entrar no seu ouvido."
+              },
+              "presentation": {
+                "stageName": "Sentir",
+                "primaryFormat": "image",
+                "icon": "heart",
+                "visualScene": "Três cartões visuais aparecem um de cada vez, cada um com a palavra em espanhol, tradução e imagem. Som claro e pausado acompanha cada cartão.",
+                "imagePrompt": "three vocabulary cards floating gently, each showing Spanish word with translation and simple icon, soft pastel background, calm educational design, 3D style",
+                "caption": "Ouça o som de cada palavra antes de tentar falar",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Familiarizar o ouvido com os sons das palavras-chave",
+                "skill": "vocabulário",
+                "difficultySignals": [
+                  "help_request",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Só escuta. Soy. De. Brasil. Mais nada por enquanto.",
+                  "example": "É como quando você escuta uma música nova. Primeiro só ouve, depois canta junto.",
+                  "hint": "Pode fechar os olhos e só escutar. Sem pressa."
+                }
+              }
+            },
+            {
+              "type": "fill_blank",
+              "data": {
+                "template": "Soy ___ Brasil",
+                "correctAnswers": [
+                  "de"
+                ],
+                "wordBank": [
+                  "de",
+                  "en",
+                  "para"
+                ],
+                "hint": "Pensa: eu sou DE algum lugar. Qual palavra significa DE?",
+                "explanation": "De é a palavra que liga você ao seu lugar de origem. Soy de Brasil.",
+                "narration": "Agora você monta a frase. Soy, alguma coisa, Brasil. Escolhe a palavra que falta. Pensa: eu sou DE algum lugar."
+              },
+              "presentation": {
+                "stageName": "Praticar",
+                "primaryFormat": "game",
+                "icon": "pencil",
+                "visualScene": "Frase com espaço em branco no centro. Três palavras flutuam abaixo como botões. Quando a pessoa escolhe, a palavra preenche o espaço com animação suave.",
+                "imagePrompt": "sentence with blank space in center, three word buttons floating below, soft colors, gentle animation style, educational game interface, 3D friendly design",
+                "caption": "Escolha a palavra que completa a frase",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Reconhecer que 'de' é a preposição de origem",
+                "skill": "sequência",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Soy DE Brasil. DE é a palavra que você precisa.",
+                  "example": "Em português você diz: eu sou DE São Paulo. Em espanhol: Soy DE Brasil.",
+                  "hint": "A palavra DE é a mesma nas duas línguas. Escolhe DE."
+                }
+              }
+            },
+            {
+              "type": "match_pairs",
+              "data": {
+                "instruction": "Ligue cada palavra em espanhol com seu significado em português",
+                "leftItems": [
+                  "Soy",
+                  "de",
+                  "Brasil"
+                ],
+                "rightItems": [
+                  "sou",
+                  "de",
+                  "Brasil"
+                ],
+                "correctPairs": [
+                  [
+                    "Soy",
+                    "sou"
+                  ],
+                  [
+                    "de",
+                    "de"
+                  ],
+                  [
+                    "Brasil",
+                    "Brasil"
+                  ]
+                ],
+                "explanation": "Soy é sou. De é de. Brasil é Brasil. Você já conhece essas palavras.",
+                "narration": "Agora um jogo rápido. Ligue cada palavra em espanhol com o significado em português. Vai ser fácil, você já viu tudo isso."
+              },
+              "presentation": {
+                "stageName": "Jogar",
+                "primaryFormat": "game",
+                "icon": "game",
+                "visualScene": "Duas colunas com palavras. Linhas aparecem conectando os pares quando a pessoa acerta. Cores suaves e feedback visual gentil.",
+                "imagePrompt": "two columns of words with connecting lines between matches, playful colors, friendly game interface, soft shadows, educational matching game design",
+                "caption": "Ligue as palavras que têm o mesmo significado",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Reforçar a memória das três palavras-chave",
+                "skill": "memória",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Soy quer dizer sou. De quer dizer de. Brasil é Brasil mesmo.",
+                  "example": "Pensa na ordem da frase: Soy de Brasil. Sou de Brasil.",
+                  "hint": "Brasil é igual nas duas línguas. Começa por essa."
+                }
+              }
+            },
+            {
+              "type": "scenario_choice",
+              "data": {
+                "character": "Lucas, brasileiro viajando pela Argentina",
+                "scenario": "Lucas está em um café em Buenos Aires. A pessoa ao lado pergunta: De dónde eres? Lucas quer responder de onde ele é.",
+                "question": "O que Lucas deve dizer?",
+                "choices": [
+                  {
+                    "text": "Soy de Brasil",
+                    "outcome": "A pessoa sorri e diz: Bienvenido! Lucas se sente confiante e a conversa continua naturalmente.",
+                    "isBest": true
+                  },
+                  {
+                    "text": "Brasil solamente",
+                    "outcome": "A pessoa entende, mas Lucas percebe que faltou algo. Seria mais claro dizer Soy de Brasil.",
+                    "isBest": false
+                  },
+                  {
+                    "text": "Yo Brasil",
+                    "outcome": "A pessoa fica confusa. Lucas lembra que precisa usar Soy de Brasil para ficar claro.",
+                    "isBest": false
+                  }
+                ],
+                "narration": "Lucas está em um café em Buenos Aires. Alguém pergunta de onde ele é. O que Lucas deve dizer para responder com clareza?"
+              },
+              "presentation": {
+                "stageName": "Conversar",
+                "primaryFormat": "chat",
+                "icon": "chat",
+                "visualScene": "Cena de café aconchegante. Lucas e outra pessoa conversando. Três opções de resposta aparecem como balões de fala que Lucas pode escolher.",
+                "imagePrompt": "cozy cafe scene in Buenos Aires, two people having friendly conversation, three speech bubble options floating, warm lighting, welcoming atmosphere, 3D illustration style",
+                "caption": "Escolha como Lucas deve responder",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Aplicar a frase completa em contexto real de conversa",
+                "skill": "decisão",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "A resposta completa é: Soy de Brasil. Essa é a mais clara.",
+                  "example": "É como quando alguém pergunta de onde você é e você responde: eu sou de São Paulo. Completo assim.",
+                  "hint": "Lembra da frase que você praticou? Soy de Brasil. Escolhe essa."
+                }
+              }
+            },
+            {
+              "type": "voice_challenge",
+              "data": {
+                "instruction": "Agora é sua vez de falar. Diga em voz alta: Soy de Brasil",
+                "phrase": "Soy de Brasil",
+                "tip": "Fala devagar. So-y de Bra-sil. Pode repetir quantas vezes quiser.",
+                "alternativeText": "Se preferir, escreva a frase no campo abaixo e avance quando se sentir pronto.",
+                "narration": "Chegou sua vez. Respira fundo e diz em voz alta: Soy de Brasil. Fala devagar. Pode repetir quantas vezes quiser. Você consegue."
+              },
+              "presentation": {
+                "stageName": "Avançar",
+                "primaryFormat": "chat",
+                "icon": "flag",
+                "visualScene": "Tela com microfone amigável no centro. A frase 'Soy de Brasil' aparece em letras grandes e claras. Botão de gravar pulsa suavemente.",
+                "imagePrompt": "friendly microphone icon in center, phrase 'Soy de Brasil' in large clear letters, record button pulsing gently, encouraging colors, safe practice environment, 3D soft design",
+                "caption": "Fale com calma. Você está pronto para isso.",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Produzir a frase completa com a própria voz",
+                "skill": "expressão",
+                "difficultySignals": [
+                  "help_request",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Só três palavras. Soy. De. Brasil. Uma de cada vez.",
+                  "example": "Imagina que você está conhecendo alguém legal. Você diz: Soy de Brasil. Natural assim.",
+                  "hint": "Não precisa ser perfeito. Só precisa tentar. Pode falar baixinho se preferir."
+                }
+              }
+            }
+          ],
+          "order": 0,
+          "failed": false
+        },
+        {
+          "id": "mq63v3j74prk",
+          "title": "¿De dónde eres? perguntar sem travar",
+          "estimatedMinutes": 4,
+          "objective": "Perguntar de onde alguém é em espanhol com segurança e responder naturalmente",
+          "prerequisites": [
+            "Saber dizer Soy de Brasil",
+            "Reconhecer nomes de países em espanhol",
+            "Entender que perguntar é parte da conversa"
+          ],
+          "masteryCheck": "Consegue fazer a pergunta ¿De dónde eres? e entender a resposta",
+          "adaptationHints": {
+            "simplerExplanation": "É como perguntar de onde você é em português, mas trocando as palavras",
+            "everydayAnalogy": "Quando você conhece alguém novo no trabalho ou na festa, sempre pergunta de onde a pessoa é. Em espanhol é a mesma coisa",
+            "whenStuck": "Respira. Vamos tentar de outro jeito. Você já sabe mais do que imagina"
+          },
+          "blocks": [
+            {
+              "type": "concept",
+              "data": {
+                "title": "¿De dónde eres?",
+                "body": "Esta pergunta abre portas. Você conhece alguém novo e quer saber de onde a pessoa é. Em espanhol, você diz: ¿De dónde eres?",
+                "takeaway": "¿De dónde eres? é como você pergunta de onde alguém é",
+                "visualCue": "Duas pessoas se encontrando, uma fazendo a pergunta com um sorriso",
+                "narration": "Esta pergunta abre portas. Você conhece alguém novo e quer saber de onde a pessoa é. Em espanhol, você diz: De dónde eres. Repare no tom de pergunta. De dónde eres."
+              },
+              "presentation": {
+                "stageName": "Ver",
+                "primaryFormat": "video",
+                "icon": "eye",
+                "visualScene": "Animação 3D de dois personagens se encontrando em um café, um deles fazendo a pergunta com balão de fala",
+                "imagePrompt": "3D illustration of two friendly characters meeting at a cafe, one asking a question with speech bubble showing '¿De dónde eres?', warm lighting, welcoming atmosphere, educational style",
+                "caption": "¿De dónde eres? é sua chave para começar a conversa",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Reconhecer a pergunta e seu som",
+                "skill": "conceito",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "É como perguntar: você é de onde?",
+                  "example": "Imagina conhecer alguém na fila do mercado e querer saber de onde ele é",
+                  "hint": "Escute o som da pergunta. Ela sobe no final, como toda pergunta"
+                }
+              }
+            },
+            {
+              "type": "audio_vocab",
+              "data": {
+                "title": "Escute e repita",
+                "instruction": "Toque em cada palavra para ouvir. Depois repita em voz alta",
+                "tip": "Não precisa ser perfeito. O importante é tentar",
+                "words": [
+                  {
+                    "word": "¿De dónde",
+                    "translation": "de onde",
+                    "visualCue": "Seta apontando para um mapa",
+                    "imageQuery": "simple arrow pointing to a map icon, educational illustration"
+                  },
+                  {
+                    "word": "eres?",
+                    "translation": "você é",
+                    "visualCue": "Pessoa apontando para si mesma",
+                    "imageQuery": "friendly character pointing to themselves, simple 3D style"
+                  },
+                  {
+                    "word": "Soy de",
+                    "translation": "eu sou de",
+                    "visualCue": "Pessoa indicando sua origem",
+                    "imageQuery": "character gesturing to show origin, warm educational style"
+                  }
+                ],
+                "narration": "Agora vamos ouvir cada parte da pergunta. Toque em cada palavra. Escute com calma. Depois repita em voz alta, do seu jeito. Não precisa ser perfeito. O importante é tentar."
+              },
+              "presentation": {
+                "stageName": "Sentir",
+                "primaryFormat": "image",
+                "icon": "heart",
+                "visualScene": "Cards de vocabulário com áudio, cada palavra destacada com ilustração simples",
+                "imagePrompt": "clean vocabulary cards with audio icons, each word illustrated with simple friendly icons, educational app interface style, soft colors",
+                "caption": "Ouça cada parte. Seu ritmo, seu tempo",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Sentir o som da pergunta e das respostas",
+                "skill": "vocabulário",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Toque e escute quantas vezes precisar",
+                  "example": "É como aprender uma música nova. Você escuta, repete, e vai pegando o jeito",
+                  "hint": "Comece pela palavra que parece mais fácil para você"
+                }
+              }
+            },
+            {
+              "type": "fill_blank",
+              "data": {
+                "template": "¿___ ___ eres?",
+                "correctAnswers": [
+                  "De",
+                  "dónde"
+                ],
+                "wordBank": [
+                  "De",
+                  "dónde",
+                  "Soy",
+                  "donde"
+                ],
+                "hint": "Pense: de onde você é. As duas primeiras palavras fazem a pergunta",
+                "explanation": "¿De dónde eres? As palavras De e dónde juntas fazem a pergunta. Repare no acento em dónde",
+                "narration": "Agora é sua vez. Complete a pergunta com as palavras certas. Pense: de onde você é. As duas primeiras palavras fazem a pergunta. Tente. Se errar, sem problema. Você vai tentar de novo."
+              },
+              "presentation": {
+                "stageName": "Praticar",
+                "primaryFormat": "game",
+                "icon": "pencil",
+                "visualScene": "Frase com espaços em branco, banco de palavras abaixo, feedback visual suave",
+                "imagePrompt": "fill-in-the-blank exercise interface with word bank below, soft educational colors, friendly drag-and-drop style, clear visual feedback",
+                "caption": "Monte a pergunta. Tente, erre, aprenda",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Montar a pergunta com as palavras na ordem certa",
+                "skill": "sequência",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "De dónde vai junto. Depois vem eres",
+                  "example": "É como montar um quebra-cabeça de três peças. De, dónde, eres",
+                  "hint": "A palavra com acento é dónde. Ela vem depois de De"
+                }
+              }
+            },
+            {
+              "type": "multiple_choice",
+              "data": {
+                "question": "Alguém pergunta: ¿De dónde eres? O que você responde?",
+                "options": [
+                  "Soy de Brasil",
+                  "¿De dónde eres?",
+                  "Eres de Brasil"
+                ],
+                "correctIndex": 0,
+                "explanation": "Soy de Brasil é a resposta. Você diz de onde você é. As outras opções repetem a pergunta ou falam da outra pessoa",
+                "narration": "Agora um desafio rápido. Alguém pergunta de onde você é. O que você responde? Pense na aula anterior. Você já sabe isso."
+              },
+              "presentation": {
+                "stageName": "Jogar",
+                "primaryFormat": "game",
+                "icon": "game",
+                "visualScene": "Três opções em cards coloridos, personagem esperando sua resposta",
+                "imagePrompt": "multiple choice interface with three colorful cards, friendly character waiting for answer, game-like educational design, encouraging atmosphere",
+                "caption": "Escolha a resposta certa. Você já sabe isso",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Reconhecer a resposta adequada para a pergunta",
+                "skill": "decisão",
+                "difficultySignals": [
+                  "wrong_answer"
+                ],
+                "support": {
+                  "simpler": "A pergunta é: de onde você é. A resposta começa com: eu sou de",
+                  "example": "Se alguém te pergunta de onde você é em português, você responde: eu sou de. Em espanhol é parecido",
+                  "hint": "Procure a frase que começa com Soy"
+                }
+              }
+            },
+            {
+              "type": "scenario_choice",
+              "data": {
+                "character": "Carlos, um colega novo no curso online",
+                "scenario": "Carlos entra na sala de aula virtual e você quer saber de onde ele é. O que você diz?",
+                "question": "Como você pergunta?",
+                "choices": [
+                  {
+                    "text": "¿De dónde eres?",
+                    "outcome": "Carlos sorri e responde: Soy de Argentina. Vocês começam uma conversa legal",
+                    "isBest": true
+                  },
+                  {
+                    "text": "¿Eres de Brasil?",
+                    "outcome": "Carlos responde que não. Você perdeu a chance de descobrir de onde ele realmente é",
+                    "isBest": false
+                  },
+                  {
+                    "text": "Soy de Brasil",
+                    "outcome": "Carlos fica confuso. Você falou de você, mas não perguntou sobre ele",
+                    "isBest": false
+                  }
+                ],
+                "narration": "Agora uma situação real. Carlos entra na sala de aula virtual e você quer saber de onde ele é. O que você diz? Pense na pergunta que você aprendeu hoje."
+              },
+              "presentation": {
+                "stageName": "Conversar",
+                "primaryFormat": "chat",
+                "icon": "chat",
+                "visualScene": "Sala de aula virtual com Carlos aparecendo na tela, três opções de fala",
+                "imagePrompt": "virtual classroom scene with friendly character Carlos on screen, three speech options shown as chat bubbles, welcoming online learning environment, 3D style",
+                "caption": "Escolha o que dizer. Cada escolha leva a um caminho",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Usar a pergunta em uma situação real de conversa",
+                "skill": "expressão",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Você quer saber de onde ele é. Use a pergunta que aprendeu hoje",
+                  "example": "É como quando você conhece alguém novo no trabalho. Você pergunta de onde a pessoa é",
+                  "hint": "A pergunta certa começa com De dónde"
+                }
+              }
+            },
+            {
+              "type": "mission",
+              "data": {
+                "title": "Sua missão: perguntar de verdade",
+                "description": "Nas próximas 24 horas, pergunte para alguém de onde ela é. Pode ser em português, mas tente pensar como seria em espanhol. Depois, volte aqui e conte como foi",
+                "howToReport": "Conte para a Geni: você perguntou? Como a pessoa reagiu? O que você sentiu?",
+                "motivation": "Cada vez que você usa o que aprendeu, seu cérebro guarda melhor. Você está construindo confiança",
+                "narration": "Agora sua missão. Nas próximas vinte e quatro horas, pergunte para alguém de onde ela é. Pode ser em português, mas tente pensar como seria em espanhol. Depois, volte aqui e conte para a Geni como foi. Cada vez que você usa o que aprendeu, seu cérebro guarda melhor. Você está construindo confiança."
+              },
+              "presentation": {
+                "stageName": "Avançar",
+                "primaryFormat": "image",
+                "icon": "flag",
+                "visualScene": "Personagem saindo da tela com uma missão, caminho iluminado à frente",
+                "imagePrompt": "character stepping forward with confidence, mission badge or flag in hand, bright path ahead, encouraging educational illustration, 3D style",
+                "caption": "Você aprendeu. Agora é hora de usar no mundo real",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Conectar o aprendizado com a vida real",
+                "skill": "confiança",
+                "difficultySignals": [
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Pergunte para alguém próximo. Pode ser até por mensagem",
+                  "example": "Você pode perguntar para um colega, um vizinho, ou alguém que você conhece online",
+                  "hint": "Não precisa ser perfeito. O importante é tentar e perceber como as pessoas reagem"
+                }
+              }
+            }
+          ],
+          "order": 1,
+          "failed": false
+        }
+      ]
+    },
+    {
+      "id": "mq63x6ssof98",
+      "title": "Conversinha rápida",
+      "description": "Você vai juntar tudo e ter uma conversa curta, do jeito real.",
+      "icon": "spark",
+      "motivacao": "Agora você já consegue trocar as primeiras palavras",
+      "order": 3,
+      "lessons": [
+        {
+          "id": "mq63w580pqwq",
+          "title": "Encaixar cumprimento, nome e origem numa fala",
+          "estimatedMinutes": 4,
+          "objective": "Conseguir se apresentar em espanhol dizendo nome e de onde é, numa conversa curta",
+          "prerequisites": [
+            "Saber dizer olá em espanhol",
+            "Conhecer seu próprio nome",
+            "Saber de qual cidade ou país você é"
+          ],
+          "masteryCheck": "Montar uma apresentação simples com cumprimento, nome e origem sem travar",
+          "adaptationHints": {
+            "simplerExplanation": "Você vai aprender a juntar três coisas: oi, meu nome, de onde sou. Como montar um sanduíche.",
+            "everydayAnalogy": "É como quando você conhece alguém na fila do mercado. Oi, nome, de onde é. Sempre nessa ordem.",
+            "whenStuck": "Respira. Vamos por partes. Primeiro só o oi. Depois só o nome. Depois junta tudo."
+          },
+          "blocks": [
+            {
+              "type": "concept",
+              "data": {
+                "title": "A conversa mais curta do mundo",
+                "body": "Toda apresentação em espanhol tem três partes. Cumprimento. Nome. Origem. Nesta ordem.",
+                "takeaway": "Três partes. Sempre a mesma ordem.",
+                "visualCue": "Três cartões lado a lado: mão acenando, crachá com nome, mapa",
+                "narration": "Toda apresentação em espanhol tem três partes. Cumprimento. Nome. Origem. Sempre nesta ordem. É como montar um sanduíche. Você vai ver que é simples."
+              },
+              "presentation": {
+                "stageName": "Ver",
+                "primaryFormat": "video",
+                "icon": "eye",
+                "visualScene": "Três cartões flutuantes aparecem em sequência: mão acenando (cumprimento), crachá com nome escrito, pequeno mapa do Brasil",
+                "imagePrompt": "Three floating cards in sequence on soft gradient background, first card shows friendly waving hand, second card shows name tag, third card shows small map pin, gentle 3D style, warm educational colors",
+                "caption": "Cumprimento → Nome → Origem",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Entender que apresentação tem estrutura fixa",
+                "skill": "conceito",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Três passos. Oi. Nome. De onde é.",
+                  "example": "Como quando você se apresenta em português. Mesma ordem.",
+                  "hint": "Pensa na última vez que você conheceu alguém. Foi assim também."
+                }
+              }
+            },
+            {
+              "type": "audio_vocab",
+              "data": {
+                "title": "Os três sons que você vai usar",
+                "instruction": "Escute cada palavra. Depois repete baixinho. Sem pressa.",
+                "tip": "O som do espanhol é parecido com o português. Relaxa a boca.",
+                "words": [
+                  {
+                    "word": "Hola",
+                    "translation": "Olá",
+                    "visualCue": "Mão acenando amigável",
+                    "imageQuery": "friendly waving hand illustration, warm colors, simple style"
+                  },
+                  {
+                    "word": "Me llamo",
+                    "translation": "Meu nome é",
+                    "visualCue": "Crachá com espaço para nome",
+                    "imageQuery": "name tag badge with blank space, clean design, educational illustration"
+                  },
+                  {
+                    "word": "Soy de",
+                    "translation": "Sou de",
+                    "visualCue": "Ponteiro de mapa",
+                    "imageQuery": "map location pin marker, simple icon style, friendly colors"
+                  }
+                ],
+                "narration": "Agora você vai ouvir os três sons que precisa. Hola. Me llamo. Soy de. Escuta com calma. Repete do seu jeito. Não tem certo ou errado aqui. Só escuta e sente o som."
+              },
+              "presentation": {
+                "stageName": "Sentir",
+                "primaryFormat": "image",
+                "icon": "heart",
+                "visualScene": "Três cartões de áudio com ícones visuais, cada um com botão de play e tradução embaixo",
+                "imagePrompt": "Three audio cards with play buttons, each card has simple icon and translation below, soft pastel background, friendly educational design",
+                "caption": "Escuta. Repete. Sem pressa.",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Reconhecer os sons básicos da apresentação",
+                "skill": "vocabulário",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Só escuta. Nem precisa repetir agora.",
+                  "example": "Hola soa como ola. Me llamo como me chamo. Soy de como sou de.",
+                  "hint": "Pode ouvir quantas vezes quiser. Vai no seu ritmo."
+                }
+              }
+            },
+            {
+              "type": "fill_blank",
+              "data": {
+                "template": "Hola, ___ Ana. ___ Brasil.",
+                "correctAnswers": [
+                  "me llamo",
+                  "Soy de"
+                ],
+                "wordBank": [
+                  "me llamo",
+                  "Soy de",
+                  "hola",
+                  "adiós"
+                ],
+                "hint": "Primeiro vem o nome. Depois a origem.",
+                "explanation": "Me llamo é para dizer o nome. Soy de é para dizer de onde você é.",
+                "narration": "Agora você vai montar a frase. Hola, alguma coisa Ana. Alguma coisa Brasil. Escolhe as palavras certas. Pensa na ordem: nome primeiro, origem depois."
+              },
+              "presentation": {
+                "stageName": "Praticar",
+                "primaryFormat": "game",
+                "icon": "pencil",
+                "visualScene": "Frase com dois espaços vazios, banco de palavras embaixo como botões coloridos",
+                "imagePrompt": "Sentence with two blank spaces, word bank buttons below in soft colors, drag and drop interface, clean educational game design",
+                "caption": "Encaixa as palavras certas",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Colocar as expressões na ordem certa",
+                "skill": "sequência",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Hola você já sabe. Falta nome e origem.",
+                  "example": "É igual em português. Oi, meu nome é Ana, sou do Brasil.",
+                  "hint": "Qual vem primeiro? O nome ou de onde a pessoa é?"
+                }
+              }
+            },
+            {
+              "type": "multiple_choice",
+              "data": {
+                "question": "Maria quer dizer que é de São Paulo. O que ela fala?",
+                "options": [
+                  "Soy de São Paulo",
+                  "Me llamo São Paulo",
+                  "Hola São Paulo"
+                ],
+                "correctIndex": 0,
+                "explanation": "Soy de é para dizer de onde você é. Me llamo é só para nome.",
+                "narration": "Maria quer dizer que é de São Paulo. Qual frase ela usa? Pensa com calma. Soy de é para lugar. Me llamo é para nome."
+              },
+              "presentation": {
+                "stageName": "Jogar",
+                "primaryFormat": "game",
+                "icon": "game",
+                "visualScene": "Personagem Maria com balão de fala vazio, três botões de opção embaixo",
+                "imagePrompt": "Character named Maria with empty speech bubble, three choice buttons below, friendly illustration style, warm colors",
+                "caption": "O que Maria vai falar?",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Escolher a expressão certa para origem",
+                "skill": "decisão",
+                "difficultySignals": [
+                  "wrong_answer"
+                ],
+                "support": {
+                  "simpler": "Soy de é para lugar. Me llamo é para nome.",
+                  "example": "Se você diz de onde é, usa Soy de. Soy de Recife. Soy de Curitiba.",
+                  "hint": "São Paulo é lugar ou nome de pessoa?"
+                }
+              }
+            },
+            {
+              "type": "scenario_choice",
+              "data": {
+                "character": "Carlos",
+                "scenario": "Carlos conheceu alguém novo na academia. Quer se apresentar em espanhol.",
+                "question": "Como Carlos começa?",
+                "choices": [
+                  {
+                    "text": "Hola, me llamo Carlos. Soy de Belo Horizonte.",
+                    "outcome": "A pessoa sorri e responde em espanhol também. Conversa flui.",
+                    "isBest": true
+                  },
+                  {
+                    "text": "Me llamo Carlos. Hola. Soy de Belo Horizonte.",
+                    "outcome": "Dá para entender, mas a ordem ficou estranha. A pessoa estranha um pouco.",
+                    "isBest": false
+                  },
+                  {
+                    "text": "Soy de Belo Horizonte. Hola. Me llamo Carlos.",
+                    "outcome": "A pessoa fica confusa. Origem antes do nome é estranho.",
+                    "isBest": false
+                  }
+                ],
+                "narration": "Carlos conheceu alguém novo na academia. Quer se apresentar em espanhol. Como ele começa? Lembra da ordem: cumprimento, nome, origem."
+              },
+              "presentation": {
+                "stageName": "Conversar",
+                "primaryFormat": "chat",
+                "icon": "chat",
+                "visualScene": "Carlos na academia, balão de pensamento com três opções de fala",
+                "imagePrompt": "Character Carlos at gym with thought bubble, three speech option buttons, friendly scenario illustration, warm lighting",
+                "caption": "Ajuda o Carlos a se apresentar",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Aplicar a estrutura numa situação real",
+                "skill": "decisão",
+                "difficultySignals": [
+                  "wrong_answer"
+                ],
+                "support": {
+                  "simpler": "Qual começa com Hola?",
+                  "example": "Pensa em como você se apresenta em português. Mesma ordem.",
+                  "hint": "Cumprimento sempre vem primeiro. Depois nome. Depois origem."
+                }
+              }
+            },
+            {
+              "type": "voice_challenge",
+              "data": {
+                "instruction": "Agora é sua vez. Fala sua apresentação completa em espanhol.",
+                "phrase": "Hola, me llamo [seu nome]. Soy de [sua cidade].",
+                "tip": "Coloca seu nome e sua cidade de verdade. Fala do seu jeito. Pode ser baixinho.",
+                "alternativeText": "Se preferir, escreve sua apresentação no campo abaixo.",
+                "narration": "Agora é sua vez. Fala sua apresentação completa em espanhol. Hola, me llamo seu nome. Soy de sua cidade. Coloca seu nome e sua cidade de verdade. Pode falar baixinho. Pode tentar quantas vezes quiser."
+              },
+              "presentation": {
+                "stageName": "Avançar",
+                "primaryFormat": "chat",
+                "icon": "flag",
+                "visualScene": "Microfone amigável no centro, botão de gravar, campo de texto alternativo embaixo",
+                "imagePrompt": "Friendly microphone icon in center, record button below, optional text field at bottom, encouraging design, soft colors",
+                "caption": "Sua apresentação em espanhol",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Produzir a apresentação completa com informação pessoal",
+                "skill": "expressão",
+                "difficultySignals": [
+                  "help_request",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Fala só Hola e seu nome. O resto vem depois.",
+                  "example": "Hola, me llamo João. Soy de Fortaleza. Assim mesmo. Simples.",
+                  "hint": "Não precisa ser perfeito. Só precisa tentar. Você consegue."
+                }
+              }
+            }
+          ],
+          "order": 0,
+          "failed": false
+        },
+        {
+          "id": "mq63x6ssha33",
+          "title": "Ouvir e responder com calma numa cena real",
+          "estimatedMinutes": 4,
+          "objective": "Ouvir uma pergunta simples em espanhol e responder com calma, usando as palavras que já conhece",
+          "prerequisites": [
+            "Conhecer cumprimentos básicos em espanhol",
+            "Saber dizer nome e origem",
+            "Ter praticado frases curtas antes"
+          ],
+          "masteryCheck": "Consegue ouvir uma pergunta em espanhol e escolher uma resposta adequada sem travar",
+          "adaptationHints": {
+            "simplerExplanation": "Você vai ouvir alguém falar em espanhol e responder do jeito que conseguir. Pode ser curto. Pode respirar antes.",
+            "everydayAnalogy": "É como quando alguém te cumprimenta na rua. Você não precisa de frase perfeita. Um sorriso e duas palavras já funcionam.",
+            "whenStuck": "Respira fundo. Você já sabe o suficiente. Vamos tentar de novo, mais devagar."
+          },
+          "blocks": [
+            {
+              "type": "concept",
+              "data": {
+                "title": "Ouvir com calma",
+                "body": "Quando alguém fala em espanhol, você não precisa entender tudo. Você só precisa pegar a ideia principal e responder do seu jeito.",
+                "takeaway": "Ouvir é sobre pegar o sentido, não cada palavra.",
+                "visualCue": "Uma pessoa ouvindo com atenção calma, sem pressa",
+                "narration": "Quando alguém fala em espanhol, você não precisa entender tudo. Você só precisa pegar a ideia principal e responder do seu jeito. Ouvir é sobre pegar o sentido, não cada palavra."
+              },
+              "presentation": {
+                "stageName": "Ver",
+                "primaryFormat": "video",
+                "icon": "eye",
+                "visualScene": "Pessoa em mercado ouvindo vendedor, expressão tranquila, balão de fala com palavras em espanhol flutuando",
+                "imagePrompt": "calm person listening to friendly vendor at market, soft 3D style, speech bubbles with Spanish words floating gently, warm lighting, educational illustration",
+                "caption": "Você não precisa entender tudo para responder",
+                "durationLabel": "0:45"
+              },
+              "adaptive": {
+                "microGoal": "Entender que ouvir em outro idioma não exige perfeição",
+                "skill": "conceito",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Ouvir é pegar a ideia. Não precisa de cada palavra.",
+                  "example": "É como quando você ouve alguém falar baixo. Você pega o tom e responde.",
+                  "hint": "Respire. Você já sabe o bastante para começar."
+                }
+              }
+            },
+            {
+              "type": "audio_vocab",
+              "data": {
+                "title": "Palavras que você vai ouvir",
+                "instruction": "Escute cada palavra. Repita baixinho se quiser.",
+                "tip": "Você não precisa decorar agora. Só reconhecer quando ouvir.",
+                "words": [
+                  {
+                    "word": "¿Cómo estás?",
+                    "translation": "Como você está?",
+                    "visualCue": "Pessoa sorrindo e apontando para outra",
+                    "imageQuery": "friendly person asking how are you, warm gesture, soft 3D illustration"
+                  },
+                  {
+                    "word": "Bien",
+                    "translation": "Bem",
+                    "visualCue": "Polegar para cima, expressão tranquila",
+                    "imageQuery": "thumbs up gesture, calm happy expression, simple 3D style"
+                  },
+                  {
+                    "word": "¿Y tú?",
+                    "translation": "E você?",
+                    "visualCue": "Pessoa apontando de volta para quem perguntou",
+                    "imageQuery": "person pointing back in conversation, friendly gesture, educational 3D art"
+                  },
+                  {
+                    "word": "Gracias",
+                    "translation": "Obrigado",
+                    "visualCue": "Mão no coração, gesto de agradecimento",
+                    "imageQuery": "hand on heart gesture, grateful expression, soft illustration style"
+                  }
+                ],
+                "narration": "Agora você vai ouvir algumas palavras que aparecem muito em conversas. Escute cada uma. Repita baixinho se quiser. Você não precisa decorar agora. Só reconhecer quando ouvir."
+              },
+              "presentation": {
+                "stageName": "Sentir",
+                "primaryFormat": "image",
+                "icon": "heart",
+                "visualScene": "Quatro cartões com palavras em espanhol, cada um com ilustração e áudio",
+                "imagePrompt": "four word cards with Spanish phrases, each with small illustration and audio icon, clean educational design, pastel colors, 3D soft style",
+                "caption": "Palavras que você vai reconhecer na conversa",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Reconhecer palavras-chave em espanhol pelo som",
+                "skill": "vocabulário",
+                "difficultySignals": [
+                  "slow_block",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "Só escute. Não precisa repetir perfeito.",
+                  "example": "É como reconhecer o nome de alguém numa festa barulhenta.",
+                  "hint": "Aperte o áudio de novo. Sem pressa."
+                }
+              }
+            },
+            {
+              "type": "fill_blank",
+              "data": {
+                "template": "Alguém te pergunta: ¿Cómo estás? Você responde: ___ gracias.",
+                "correctAnswers": [
+                  "Bien"
+                ],
+                "wordBank": [
+                  "Bien",
+                  "Hola",
+                  "Adiós"
+                ],
+                "hint": "Você está respondendo que está bem.",
+                "explanation": "Bien gracias é a forma mais comum de dizer que você está bem e agradecer.",
+                "narration": "Alguém te pergunta como você está. Você responde que está bem e agradece. Escolha a palavra que completa a frase."
+              },
+              "presentation": {
+                "stageName": "Praticar",
+                "primaryFormat": "game",
+                "icon": "pencil",
+                "visualScene": "Frase com espaço em branco e três palavras para escolher abaixo",
+                "imagePrompt": "fill in the blank exercise with Spanish phrase, three word options below, friendly interface, soft colors, educational game style",
+                "caption": "Complete a resposta que você daria",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Completar uma resposta básica em espanhol",
+                "skill": "sequência",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Você quer dizer que está bem. Qual palavra significa bem?",
+                  "example": "É como quando alguém pergunta tudo bem e você diz tudo sim obrigado.",
+                  "hint": "A palavra que falta rima com trem em português."
+                }
+              }
+            },
+            {
+              "type": "multiple_choice",
+              "data": {
+                "question": "Você ouve: ¿Y tú? O que a pessoa quer saber?",
+                "options": [
+                  "Como você está",
+                  "Qual é seu nome",
+                  "De onde você é"
+                ],
+                "correctIndex": 0,
+                "explanation": "¿Y tú? significa e você. A pessoa está devolvendo a pergunta sobre como você está.",
+                "narration": "Você acabou de dizer que está bem. A pessoa responde e você, querendo saber como você está também. Escolha o que a pessoa quer saber."
+              },
+              "presentation": {
+                "stageName": "Jogar",
+                "primaryFormat": "game",
+                "icon": "game",
+                "visualScene": "Balão de fala com pergunta em espanhol e três opções de resposta",
+                "imagePrompt": "speech bubble with Spanish question, three answer options as cards, playful educational style, soft 3D design",
+                "caption": "O que a pessoa está perguntando?",
+                "durationLabel": "1:10"
+              },
+              "adaptive": {
+                "microGoal": "Entender a intenção de uma pergunta curta",
+                "skill": "memória",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "help_request"
+                ],
+                "support": {
+                  "simpler": "A pessoa disse e você. Ela quer saber algo sobre você.",
+                  "example": "É como quando você diz tudo bem e a pessoa diz e você, querendo saber de você também.",
+                  "hint": "Vocês estavam falando sobre como cada um está."
+                }
+              }
+            },
+            {
+              "type": "scenario_choice",
+              "data": {
+                "character": "Carlos",
+                "scenario": "Você encontra Carlos na padaria. Ele sorri e diz: Hola, ¿cómo estás?",
+                "question": "Como você responde?",
+                "choices": [
+                  {
+                    "text": "Bien gracias, ¿y tú?",
+                    "outcome": "Carlos sorri e diz que também está bem. Vocês continuam conversando.",
+                    "isBest": true
+                  },
+                  {
+                    "text": "Hola",
+                    "outcome": "Carlos espera um pouco. Você pode dizer mais alguma coisa sobre como está.",
+                    "isBest": false
+                  },
+                  {
+                    "text": "No entiendo",
+                    "outcome": "Carlos repete mais devagar. Você pode tentar responder que está bem.",
+                    "isBest": false
+                  }
+                ],
+                "narration": "Você encontra Carlos na padaria. Ele sorri e diz olá, como você está. Escolha como você responde."
+              },
+              "presentation": {
+                "stageName": "Conversar",
+                "primaryFormat": "chat",
+                "icon": "chat",
+                "visualScene": "Padaria acolhedora, Carlos sorrindo, balão de fala com cumprimento",
+                "imagePrompt": "friendly bakery scene, person named Carlos smiling and greeting, warm lighting, speech bubble with Spanish greeting, soft 3D illustration style",
+                "caption": "Carlos te cumprimenta na padaria",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Escolher uma resposta adequada numa situação real",
+                "skill": "decisão",
+                "difficultySignals": [
+                  "wrong_answer",
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Carlos perguntou como você está. Você pode dizer que está bem e perguntar de volta.",
+                  "example": "É como quando alguém te cumprimenta. Você responde e pergunta de volta.",
+                  "hint": "A melhor resposta usa as palavras que você acabou de praticar."
+                }
+              }
+            },
+            {
+              "type": "mission",
+              "data": {
+                "title": "Sua conversa de verdade",
+                "description": "Nos próximos dias, ouça alguém falando espanhol. Pode ser na rua, num vídeo, numa música. Preste atenção se você reconhece alguma palavra.",
+                "howToReport": "Volte aqui e conte qual palavra você reconheceu. Pode ser só uma.",
+                "motivation": "Você já sabe o suficiente para começar a reconhecer espanhol no mundo real. Isso é um passo grande.",
+                "narration": "Agora você tem uma missão. Nos próximos dias, ouça alguém falando espanhol. Pode ser na rua, num vídeo, numa música. Preste atenção se você reconhece alguma palavra. Volte aqui e conte qual palavra você reconheceu. Pode ser só uma. Você já sabe o suficiente para começar a reconhecer espanhol no mundo real."
+              },
+              "presentation": {
+                "stageName": "Avançar",
+                "primaryFormat": "image",
+                "icon": "flag",
+                "visualScene": "Pessoa caminhando com fones de ouvido, pequenos balões de fala em espanhol ao redor",
+                "imagePrompt": "person walking with headphones, small Spanish speech bubbles floating around, confident expression, soft 3D style, warm colors, motivational scene",
+                "caption": "Sua missão: reconhecer uma palavra em espanhol no mundo real",
+                "durationLabel": "1:30"
+              },
+              "adaptive": {
+                "microGoal": "Levar o aprendizado para fora da aula",
+                "skill": "confiança",
+                "difficultySignals": [
+                  "slow_block"
+                ],
+                "support": {
+                  "simpler": "Só escute. Não precisa entender tudo. Uma palavra já conta.",
+                  "example": "É como quando você reconhece uma música que já ouviu antes.",
+                  "hint": "Você pode começar com uma música em espanhol que você goste."
+                }
+              }
+            }
+          ],
+          "order": 1,
+          "failed": false
+        }
+      ]
+    }
+  ],
+  "criado": "2026-06-09T03:55:35.212Z",
+  "generatedBy": "contentforge-noseutempo-v3",
+  "learningEngine": {
+    "schema": "aula-viva-v2",
+    "capabilities": [
+      "six_moment_path",
+      "visual_scene_contract",
+      "narration_script",
+      "adaptive_support",
+      "difficulty_signals",
+      "geni_lesson_help"
+    ]
+  },
+  "report": {
+    "totalLessons": 8,
+    "failedLessons": [],
+    "failedCount": 0,
+    "providerCounts": {
+      "openrouter": 8
+    },
+    "ok": true
+  }
+}

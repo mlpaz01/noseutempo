@@ -8,6 +8,7 @@
  */
 
 const { generateJson } = require('./llm');
+const { TURMINHA_STYLE } = require('./turminha');
 
 const BLOCK_SEQUENCE = `
 SEQUÊNCIA PEDAGÓGICA PROGRESSIVA (inspirada em ELE - Español Lengua Extranjera):
@@ -139,6 +140,33 @@ ${BLOCK_SEQUENCE}
 
 ${BLOCK_SPECS}
 
+CAMADA VISUAL/VIDEO OBRIGATORIA:
+Cada bloco deve incluir no nivel raiz estes objetos:
+
+presentation:
+  stageName: uma destas etapas, em ordem pedagogica quando fizer sentido: "Ver", "Sentir", "Praticar", "Jogar", "Conversar", "Avancar"
+  primaryFormat: "video" | "image" | "game"
+  caption: frase curta para a cena principal
+  durationLabel: "0:45" ou "1:00"
+  videoScene:
+    focusCharacter: "Caua" | "Carol" | "Geni" | "Bia" | "Leo" | "Nina"
+    supportCharacters: array com 0 a 2 nomes da Turminha
+    sceneGoal: o que a cena explica visualmente em 1 frase
+    misconception: qual confusao comum esta cena resolve
+    scriptBeats: 3 frases curtas, uma acao por frase, sem texto na tela
+    falPrompt: prompt completo para fal.ai gerar video curto 16:9, usando a Turminha e o contexto exato do bloco
+    preloadPriority: "high" | "normal" | "low"
+
+adaptive:
+  microGoal: objetivo pequeno desta etapa
+  support:
+    simpler: explicacao alternativa em 1 frase
+    example: exemplo cotidiano em 1 frase
+    hint: dica curta para destravar
+
+Use a Turminha NoSeuTempo nos prompts visuais:
+${TURMINHA_STYLE}
+
 Retorne APENAS JSON válido:
 {
   "estimatedMinutes": 3,
@@ -172,4 +200,3 @@ Gere os blocos desta aula.`;
 }
 
 module.exports = { generateLessonBlocks };
-
