@@ -176,30 +176,60 @@
 
       <!-- ═══════════ ESTÚDIO COM IA ═══════════ -->
       <div id="page-studio" class="hidden">
-        <div style="max-width:640px">
+        <div class="studio-shell">
 
           <!-- Cabeçalho do Estúdio -->
-          <div style="background:linear-gradient(135deg,#1B2B4A 0%,#1F9AAB 100%);border-radius:20px;padding:28px 32px;color:#fff;margin-bottom:24px">
-            <div style="font-size:2rem;margin-bottom:8px">✨</div>
-            <h2 style="margin-bottom:8px;color:#fff">Estúdio de Criação com IA</h2>
-            <p style="color:rgba(255,255,255,.8);font-size:.95rem">
-              Descreva o tema e a IA cria um curso completo — com blocos lúdicos, jogos, reflexões e desafios de voz —
-              adaptado para pessoas com dificuldade de aprender.
-            </p>
-          </div>
+          <section class="studio-hero">
+            <div class="studio-hero-copy">
+              <span class="studio-kicker">Geni IA + ContentForge</span>
+              <h2>Gerar curso bonito, adaptativo e no estilo da Carol.</h2>
+              <p>
+                Descreva o tema e a IA monta uma jornada com cenas visuais, jogos leves, histórias, imagens fofas e ajuda por chips.
+              </p>
+              <div class="studio-hero-chips" aria-label="Camadas do curso">
+                <span>visual primeiro</span>
+                <span>uma ideia por vez</span>
+                <span>sem sobrecarga</span>
+                <span>Turminha</span>
+              </div>
+            </div>
+            <div class="studio-preview" aria-hidden="true">
+              <div class="studio-preview-stage">
+                <img src="assets/turminha/turminha-referencia-v1.png" alt="" />
+                <div class="studio-preview-note">
+                  <b>Aula Viva</b>
+                  <span>Sol + água + ar viram uma cena que a pessoa entende antes de ler.</span>
+                </div>
+              </div>
+              <div class="studio-preview-steps">
+                <span>Ver</span>
+                <span>Sentir</span>
+                <span>Jogar</span>
+                <span>Conversar</span>
+              </div>
+            </div>
+          </section>
 
           <!-- Saúde do motor de IA -->
           <div id="studio-health" style="display:none;margin-bottom:18px;border-radius:14px;padding:14px 18px;font-size:.88rem;line-height:1.5"></div>
 
-          <div class="card" style="padding:28px">
-            <form id="form-studio">
+          <div class="studio-grid">
+            <section class="studio-form-card">
+              <div class="studio-card-head">
+                <span>1</span>
+                <div>
+                  <h3>Conte para a Geni o que criar</h3>
+                  <p>Ela transforma o tema em curso curto, visual e acolhedor.</p>
+                </div>
+              </div>
+              <form id="form-studio">
               <div class="field">
-                <label>🎯 Tema do curso *</label>
+                <label>Tema do curso *</label>
                 <input type="text" id="st-topic" placeholder='Ex: "Como usar ChatGPT no trabalho", "Técnicas de foco para quem tem TDAH"' required />
               </div>
               <div class="field-row">
                 <div class="field">
-                  <label>📂 Categoria</label>
+                  <label>Categoria</label>
                   <select id="st-category">
                     <option value="personal_ia">✨ IA Pessoal</option>
                     <option value="estudos" selected>📖 Estudos</option>
@@ -211,7 +241,7 @@
                   </select>
                 </div>
                 <div class="field">
-                  <label>📊 Dificuldade</label>
+                  <label>Dificuldade</label>
                   <select id="st-difficulty">
                     <option value="basico" selected>🌱 Básico (iniciante)</option>
                     <option value="intermediario">🔥 Intermediário</option>
@@ -221,7 +251,7 @@
               </div>
               <div class="field-row">
                 <div class="field">
-                  <label>⏱️ Duração estimada (min)</label>
+                  <label>Duração estimada</label>
                   <select id="st-duration">
                     <option value="30">30 min (3 unidades)</option>
                     <option value="60" selected>60 min (4 unidades)</option>
@@ -229,46 +259,76 @@
                   </select>
                 </div>
                 <div class="field">
-                  <label>👥 Público-alvo</label>
+                  <label>Público-alvo</label>
                   <input type="text" id="st-audience" placeholder="Ex: adultos com TDAH que querem aprender IA" />
                 </div>
               </div>
-              <button type="submit" class="btn btn--primary" style="width:100%;font-size:1rem;height:52px" id="btn-gerar">
-                ✨ Gerar curso com IA
+              <button type="submit" class="btn btn--primary studio-generate-btn" id="btn-gerar">
+                Gerar curso com IA
               </button>
             </form>
 
             <!-- Progresso da geração -->
-            <div id="studio-progress" class="hidden" style="margin-top:24px">
-              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-                <div style="width:28px;height:28px;border:3px solid var(--teal-soft);border-top-color:var(--teal);border-radius:50%;animation:spin 1s linear infinite;flex:none"></div>
-                <span id="studio-status" style="font-weight:700;color:var(--navy)">Iniciando…</span>
+            <div id="studio-progress" class="studio-progress hidden">
+              <div class="studio-progress-head">
+                <div class="studio-loader"></div>
+                <span id="studio-status">Iniciando…</span>
               </div>
-              <div style="background:var(--bg);border-radius:10px;overflow:hidden;height:10px">
-                <div id="studio-bar" style="height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:10px;transition:width .4s ease"></div>
+              <div class="studio-progress-track">
+                <div id="studio-bar"></div>
               </div>
-              <p id="studio-pct" style="font-size:.82rem;color:var(--muted);margin-top:6px">0%</p>
+              <p id="studio-pct">0%</p>
               <!-- Log ao vivo (provedores, fallbacks, avisos) -->
-              <div id="studio-notes" style="margin-top:12px;max-height:160px;overflow-y:auto;background:#0E1A2E;color:#CBE3E6;border-radius:10px;padding:10px 12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.74rem;line-height:1.6;display:none"></div>
+              <div id="studio-notes" class="studio-notes" style="display:none"></div>
             </div>
 
             <!-- Resultado -->
-            <div id="studio-result" class="hidden" style="margin-top:24px;background:var(--green-soft);border:1.5px solid #CDE7D8;border-radius:16px;padding:20px">
-              <div style="font-size:1.5rem;margin-bottom:8px">🎉</div>
-              <h3 id="st-result-title" style="margin-bottom:6px"></h3>
-              <p id="st-result-desc" style="color:var(--muted);font-size:.9rem;margin-bottom:14px"></p>
-              <div id="st-result-warn" style="display:none;background:#FFF4E5;border:1.5px solid #F0C98A;border-radius:12px;padding:12px 14px;font-size:.85rem;color:#7A4E12;margin-bottom:14px;line-height:1.5"></div>
-              <div style="display:flex;gap:10px;flex-wrap:wrap">
-                <button class="btn btn--teal btn--sm" id="btn-ver-curso">📚 Ver curso criado</button>
-                <button class="btn btn--ghost btn--sm" id="btn-gerar-outro">✨ Criar outro</button>
+            <div id="studio-result" class="studio-result hidden">
+              <div class="studio-result-mark">OK</div>
+              <h3 id="st-result-title"></h3>
+              <p id="st-result-desc"></p>
+              <div id="st-result-warn" class="studio-result-warn" style="display:none"></div>
+              <div class="studio-result-actions">
+                <button class="btn btn--teal btn--sm" id="btn-ver-curso">Ver curso criado</button>
+                <button class="btn btn--ghost btn--sm" id="btn-gerar-outro">Criar outro</button>
               </div>
             </div>
+            </section>
+
+            <aside class="studio-dna-panel" aria-label="DNA visual do curso">
+              <div class="studio-card-head">
+                <span>2</span>
+                <div>
+                  <h3>O curso nasce com direção visual</h3>
+                  <p>O motor usa o mapa das 11 telas para criar aulas mais bonitas.</p>
+                </div>
+              </div>
+              <div class="studio-dna-list">
+                <div><b>Cena principal</b><span>fundo, personagem, objeto fofo e analogia visual</span></div>
+                <div><b>Ajuda da Geni</b><span>ouvir, mais simples, tópicos, história e exemplo</span></div>
+                <div><b>Jogo leve</b><span>cartões, pares, sequência e tentativa sem pressão</span></div>
+                <div><b>Vídeo bonito</b><span>prompt fal.ai com Turminha, ambiente e ação clara</span></div>
+              </div>
+              <div class="studio-mini-phone">
+                <div class="studio-phone-top">passo 1 de 6 - sem pressa</div>
+                <div class="studio-phone-scene">
+                  <span>sol</span><span>água</span><span>ar</span><b>folha feliz</b>
+                </div>
+                <p>A Geni transforma o conteúdo em uma cena que dá para sentir.</p>
+              </div>
+            </aside>
           </div>
 
           <!-- Dicas -->
-          <div class="card" style="padding:20px;margin-top:18px">
-            <h4 style="margin-bottom:12px">💡 Temas que funcionam bem</h4>
-            <div style="display:flex;flex-wrap:wrap;gap:8px" id="studio-suggestions">
+          <section class="studio-suggestions-card">
+            <div class="studio-card-head compact">
+              <span>3</span>
+              <div>
+                <h3>Temas que funcionam bem</h3>
+                <p>Toque para preencher o tema do curso.</p>
+              </div>
+            </div>
+            <div id="studio-suggestions">
               <button class="ftab" onclick="usarSugestao(this)">ChatGPT para iniciantes</button>
               <button class="ftab" onclick="usarSugestao(this)">Técnicas de memorização com TDAH</button>
               <button class="ftab" onclick="usarSugestao(this)">Produtividade com método Pomodoro</button>
@@ -278,7 +338,7 @@
               <button class="ftab" onclick="usarSugestao(this)">IA para criação de conteúdo</button>
               <button class="ftab" onclick="usarSugestao(this)">Gestão emocional no trabalho</button>
             </div>
-          </div>
+          </section>
         </div>
       </div>
 

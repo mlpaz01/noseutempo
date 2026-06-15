@@ -8,6 +8,192 @@
   <link rel="stylesheet" href="css/styles.css?v=3" />
   <link rel="stylesheet" href="css/platform.css?v=3" />
   <style>
+    body.login-shell {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 13% 16%, rgba(236,231,251,.86) 0 18%, transparent 19%),
+        radial-gradient(circle at 88% 18%, rgba(252,238,221,.88) 0 14%, transparent 15%),
+        linear-gradient(180deg, #fdfbf7 0%, #fbf7ff 52%, #fff8ea 100%);
+      overflow-x: hidden;
+    }
+    .login-page {
+      min-height: calc(100vh - 74px);
+      padding: 38px 0 54px;
+      display: grid;
+      align-items: center;
+    }
+    .login-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, .82fr);
+      gap: 34px;
+      align-items: stretch;
+    }
+    .login-grid > * {
+      min-width: 0;
+    }
+    .login-hero {
+      position: relative;
+      min-height: 600px;
+      display: grid;
+      align-content: space-between;
+      gap: 22px;
+      padding: 30px;
+      border: 1.5px solid rgba(236,227,215,.9);
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.76), rgba(255,250,242,.82)),
+        linear-gradient(135deg, #e8f8f5 0%, #f0edff 58%, #fff4de 100%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .login-hero::before {
+      content: "";
+      position: absolute;
+      inset: auto -8% -18% -8%;
+      height: 48%;
+      background:
+        radial-gradient(ellipse at 28% 64%, rgba(62,157,120,.22) 0 18%, transparent 19%),
+        radial-gradient(ellipse at 72% 52%, rgba(31,154,171,.18) 0 20%, transparent 21%),
+        linear-gradient(180deg, transparent, rgba(223,242,234,.72));
+      pointer-events: none;
+    }
+    .login-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+    }
+    .login-copy h1 {
+      margin: 16px 0 14px;
+      font-size: clamp(2.2rem, 4.2vw, 4.4rem);
+      overflow-wrap: break-word;
+      max-width: calc(100vw - 68px);
+    }
+    .login-copy h1 span {
+      display: block;
+    }
+    .login-copy .lead {
+      max-width: 24ch;
+    }
+    .login-art {
+      position: relative;
+      z-index: 2;
+      min-height: 310px;
+      display: grid;
+      align-items: end;
+      border-radius: 26px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(27,43,74,.06)),
+        url("assets/turminha/turminha-referencia-v1.png") center 36% / cover no-repeat;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.68);
+    }
+    .login-art-note {
+      width: min(420px, calc(100% - 32px));
+      max-width: calc(100vw - 104px);
+      margin: 0 16px 16px;
+      padding: 14px 16px;
+      border: 1px solid rgba(236,227,215,.92);
+      border-radius: 18px;
+      background: rgba(255,255,255,.9);
+      color: var(--navy);
+      font-weight: 700;
+      line-height: 1.35;
+      box-shadow: var(--shadow-sm);
+    }
+    .login-chips {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .login-chip {
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 13px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(108,92,231,.18);
+      background: rgba(255,255,255,.78);
+      color: var(--navy);
+      font-weight: 800;
+      font-size: .84rem;
+    }
+    .login-card {
+      align-self: center;
+      border: 1.5px solid rgba(236,227,215,.92);
+      border-radius: 28px;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 24px 70px rgba(27,43,74,.14);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+    .login-card-head {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      padding: 24px 24px 18px;
+      background: linear-gradient(135deg, #f4f0ff, #e8f8f5 62%, #fff4de);
+      border-bottom: 1.5px solid rgba(236,227,215,.72);
+    }
+    .login-geni {
+      width: 72px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      border-radius: 22px;
+      background: rgba(255,255,255,.78);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .login-geni img {
+      width: 96px;
+      max-width: none;
+      transform: translateY(8px);
+    }
+    .login-card-head span {
+      display: inline-flex;
+      width: fit-content;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      color: var(--teal-deep);
+      font-size: .76rem;
+      font-weight: 900;
+    }
+    .login-card-head h2 {
+      margin-top: 6px;
+      font-size: 1.55rem;
+    }
+    .login-form-wrap {
+      padding: 24px;
+    }
+    .login-form-wrap .field label {
+      color: var(--navy);
+    }
+    .login-form-wrap input {
+      min-height: 52px;
+      border-radius: 14px;
+      background: #fff;
+    }
+    .login-card-foot {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+      text-align: center;
+      color: var(--navy-muted);
+      font-weight: 600;
+      font-size: .92rem;
+    }
+    .login-card-foot a {
+      color: var(--navy);
+      font-weight: 900;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
     .password-wrap { position: relative; }
     .password-wrap input { padding-right: 52px; }
     .password-toggle {
@@ -32,9 +218,59 @@
       color: var(--teal-deep);
       outline: none;
     }
+    @media (max-width: 940px) {
+      .login-grid {
+        grid-template-columns: 1fr;
+      }
+      .login-hero {
+        min-height: auto;
+      }
+      .login-art {
+        min-height: 260px;
+      }
+    }
+    @media (max-width: 560px) {
+      .login-page {
+        padding: 20px 0 34px;
+      }
+      .container {
+        padding-inline: 16px;
+      }
+      .login-hero,
+      .login-card {
+        border-radius: 22px;
+      }
+      .login-hero,
+      .login-form-wrap,
+      .login-card-head {
+        padding: 18px;
+      }
+      .login-card-head {
+        grid-template-columns: 58px minmax(0, 1fr);
+      }
+      .login-geni {
+        width: 58px;
+        height: 58px;
+      }
+      .login-card-head h2 {
+        font-size: 1.28rem;
+      }
+      .login-copy h1 {
+        font-size: clamp(1.95rem, 10vw, 2.25rem);
+        line-height: 1.12;
+        max-width: calc(100vw - 68px);
+      }
+      .login-copy .lead {
+        font-size: .98rem;
+        max-width: calc(100vw - 68px);
+      }
+      .login-art-note {
+        max-width: calc(100vw - 104px);
+      }
+    }
   </style>
 </head>
-<body>
+<body class="login-shell">
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="index.html">
@@ -47,16 +283,36 @@
     </div>
   </header>
 
-  <main class="section">
-    <div class="container" style="max-width:480px">
-      <div class="text-center" style="margin-bottom:24px">
-        <span class="eyebrow"><span class="heart">♥</span> Que bom te ver de novo</span>
-        <h1 style="margin-top:14px">Entrar</h1>
-        <p class="lead" style="margin:8px auto 0">Acesse sua conta para continuar de onde parou.</p>
-      </div>
+  <main class="login-page">
+    <div class="container">
+      <div class="login-grid">
+        <section class="login-hero" aria-label="Boas-vindas NoSeuTempo">
+          <div class="login-copy">
+            <span class="eyebrow"><span class="heart">♥</span> Que bom te ver de novo</span>
+            <h1><span>Continue</span><span>aprendendo</span><span>no seu tempo.</span></h1>
+            <p class="lead">A Geni guarda seu caminho, suas preferências e o próximo passo leve para você voltar sem recomeçar do zero.</p>
+          </div>
+          <div class="login-art" aria-hidden="true">
+            <div class="login-art-note">A Turminha está pronta para seguir com calma, exemplos curtos e imagens bonitas.</div>
+          </div>
+          <div class="login-chips" aria-label="Preferências acolhedoras">
+            <span class="login-chip">áudio + imagem</span>
+            <span class="login-chip">pouco estímulo</span>
+            <span class="login-chip">frases curtas</span>
+            <span class="login-chip">sem pressa</span>
+          </div>
+        </section>
 
-      <div class="checkout-card">
-        <form id="form-login" novalidate>
+        <section class="login-card" aria-label="Entrar na plataforma">
+          <div class="login-card-head">
+            <div class="login-geni"><img src="assets/geni-ia-maos-sem-fundo-v2.png" alt="" /></div>
+            <div>
+              <span>Geni IA</span>
+              <h2>Vamos entrar?</h2>
+            </div>
+          </div>
+          <div class="login-form-wrap">
+            <form id="form-login" novalidate>
           <div class="field">
             <label for="email">Seu e-mail</label>
             <input type="email" id="email" placeholder="voce@email.com" autocomplete="email" required />
@@ -68,12 +324,15 @@
               <button type="button" class="password-toggle" id="toggle-senha" aria-label="Mostrar senha" aria-pressed="false" title="Mostrar senha">&#128065;</button>
             </div>
           </div>
-          <p id="erro" class="hidden" style="background:var(--blush-soft);color:var(--coral);padding:12px 14px;border-radius:12px;font-weight:600;margin-bottom:12px"></p>
+          <p id="erro" class="hidden" style="background:#FBE6E2;color:#B33A32;padding:12px 14px;border-radius:12px;font-weight:600;margin-bottom:12px"></p>
           <button type="submit" class="btn btn--primary btn--block" id="btn-login">Entrar</button>
-        </form>
-        <p style="text-align:center;color:var(--navy-muted);margin-top:16px">
-          Ainda não tem conta? <a href="cadastro.html" style="color:var(--navy);font-weight:700;text-decoration:underline">Criar conta</a>
-        </p>
+            </form>
+            <div class="login-card-foot">
+              <p>Ainda não tem conta? <a href="cadastro.html">Criar conta</a></p>
+              <p>Você pode mudar seu jeito de aprender depois.</p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </main>
