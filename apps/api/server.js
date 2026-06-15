@@ -485,11 +485,21 @@ app.post("/api/admin/studio/gerar", auth, isAdmin, async (req, res) => {
     }, report: course.report || null });
   } catch (e) {
     console.error("[Studio] Erro:", e);
-    const quota = /429|quota|sem.?saldo|no_provider|all_failed/i.test(String(e.message || e));
+    const raw = String(e.message || e);
+    const quota = /429|quota|sem.?saldo|no_provider/i.test(raw);
+    const transient = /500|502|503|504|service unavailable|currently experiencing|temporar|timeout|overloaded|all_failed/i.test(raw);
+    const friendly = transient
+      ? "A IA ficou instavel agora. Tente gerar novamente em alguns instantes; o motor ja tenta Gemini Flash e Flash-Lite antes de desistir."
+      : (e.message || "Erro ao gerar curso.");
     send("error", {
-      message: e.message || "Erro ao gerar curso.",
-      quota,
-      hint: quota ? "A IA está sem saldo/cota. Configure um provedor com saldo (Groq é grátis: console.groq.com) no .env e reinicie a API." : "",
+      message: friendly,
+      quota: quota || transient,
+      transient,
+      hint: quota
+        ? "A IA esta sem saldo/cota. Configure um provedor com saldo (Groq e uma boa opcao: console.groq.com) no .env e reinicie a API."
+        : transient
+          ? "Se continuar acontecendo, adicione GROQ_API_KEY ou OPENROUTER_API_KEY para ter fallback real alem do Gemini."
+          : "",
     });
   } finally {
     res.end();
