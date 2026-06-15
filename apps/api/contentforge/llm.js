@@ -31,6 +31,11 @@ const KEYS = {
   openrouter: () => process.env.OPENROUTER_API_KEY || '',
 };
 
+const MAX_TOKENS = {
+  groq:       () => Number(process.env.GROQ_MAX_TOKENS || 6000),
+  openrouter: () => Number(process.env.OPENROUTER_MAX_TOKENS || 6000),
+};
+
 function providerOrder() {
   const raw = (process.env.AI_PROVIDER_ORDER || 'groq,gemini,openrouter')
     .split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
@@ -71,7 +76,7 @@ function isTransientError(err) {
   return /(^|\D)(500|502|503|504)(\D|$)|service unavailable|unavailable|currently experiencing|overloaded|temporar|timeout|timed.?out|fetch failed|ECONNRESET|ETIMEDOUT|EAI_AGAIN/i.test(m);
 }
 
-async function callOpenAICompat({ baseUrl, key, model, system, user, temperature, headers }) {
+async function callOpenAICompat({ baseUrl, key, model, system, user, temperature, headers, maxTokens }) {
   const resp = await fetch(baseUrl, {
     method: 'POST',
     headers: Object.assign({
@@ -81,6 +86,7 @@ async function callOpenAICompat({ baseUrl, key, model, system, user, temperature
     body: JSON.stringify({
       model,
       temperature: temperature ?? 0.7,
+      max_tokens: maxTokens || undefined,
       response_format: { type: 'json_object' },
       messages: [
         { role: 'system', content: system },
@@ -105,6 +111,7 @@ async function callGroq({ system, user, temperature }) {
   return callOpenAICompat({
     baseUrl: 'https://api.groq.com/openai/v1/chat/completions',
     key: KEYS.groq(), model: MODELS.groq(), system, user, temperature,
+    maxTokens: MAX_TOKENS.groq(),
   });
 }
 
@@ -112,6 +119,7 @@ async function callOpenRouter({ system, user, temperature }) {
   return callOpenAICompat({
     baseUrl: 'https://openrouter.ai/api/v1/chat/completions',
     key: KEYS.openrouter(), model: MODELS.openrouter(), system, user, temperature,
+    maxTokens: MAX_TOKENS.openrouter(),
     headers: {
       'HTTP-Referer': process.env.SITE_URL || 'https://noseutempo.app',
       'X-Title': 'NoSeuTempo ContentForge',
@@ -192,7 +200,7 @@ async function generateJson(opts) {
         const transient = isTransientError(err);
         if (quota) {
           providerCooldown[provider] = Date.now() + QUOTA_COOLDOWN_MS;
-          note(`${provider} sem credito/cota no momento; pulando para o proximo provedor.`);
+          note(`${provider} recusou por credito/limite; pulando para o proximo provedor.`);
         } else if (transient) {
           note(`${provider} instavel agora; tentando alternativa.`);
         } else {
