@@ -3725,7 +3725,7 @@ body.aula-body {
   border-radius: inherit;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02)),
-    url("../assets/familia-geni-notebook-hero-v2.png") center center / cover no-repeat;
+    url("../assets/turminha/turminha-referencia-v1.png") center 42% / cover no-repeat;
   filter: none;
 }
 
@@ -3940,6 +3940,33 @@ body.aula-body {
 .video-scene.has-video {
   isolation: isolate;
   background: #eef8f6;
+}
+
+.video-scene:not(.has-interactive-video):not(.has-video) {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, .86) 0 14%, transparent 15%),
+    radial-gradient(circle at 78% 20%, rgba(255, 244, 222, .78) 0 11%, transparent 12%),
+    linear-gradient(180deg, #e7f8f4 0%, #eef0ff 58%, #fff6df 100%);
+}
+
+.video-scene:not(.has-interactive-video):not(.has-video)::after {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.34) 46%, rgba(255,250,242,.52)),
+    linear-gradient(90deg, rgba(108,92,231,.06), transparent 28%, transparent 72%, rgba(0,169,143,.07));
+}
+
+.video-scene:not(.has-interactive-video):not(.has-video) .scene-art {
+  position: absolute;
+  opacity: .95;
+  transform: scale(1.02);
+}
+
+.video-scene:not(.has-interactive-video):not(.has-video) .video-caption {
+  z-index: 2;
+  border: 1px solid rgba(216, 209, 245, .86);
+  background: rgba(255,255,255,.88);
+  color: #152044;
+  box-shadow: 0 16px 34px rgba(51, 55, 98, .12);
 }
 
 .video-scene.has-interactive-video::before,
@@ -4454,7 +4481,7 @@ body.aula-body {
 .adaptive-visual {
   background:
     linear-gradient(180deg, rgba(255,255,255,.04), rgba(10,18,45,.10)),
-    url("../assets/familia-geni-notebook-hero-v2.png") center center / cover no-repeat;
+    url("../assets/turminha/turminha-referencia-v1.png") center 42% / cover no-repeat;
 }
 
 .adaptive-visual span,

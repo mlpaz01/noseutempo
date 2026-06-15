@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { turminhaPrompt, TURMINHA_ASSETS } = require('./turminha');
+const { COURSE_VISUAL_DNA, LESSON_VISUAL_BLUEPRINT } = require('./visual_reference');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const JOB_FILE = path.join(DATA_DIR, 'video-jobs.json');
@@ -56,12 +57,17 @@ function buildEducationalVideoPrompt(params) {
 
   return [
     turminhaPrompt(),
+    COURSE_VISUAL_DNA,
+    LESSON_VISUAL_BLUEPRINT,
     `Short educational animated video for NoSeuTempo about: "${topic}".`,
     text ? `Lesson context: ${text}.` : '',
     `Audience: ${targetAge}. Inclusive neurodivergent-friendly learning, Brazilian Portuguese classroom context.`,
     focusCharacter ? `Focus the scene on ${focusCharacter}, while keeping the Turminha consistent.` : '',
     `Visual style: ${styleLine}.`,
     supportLine,
+    'Build a concrete beautiful learning scene: soft background, one clear visual metaphor, cute didactic objects, calm camera, gentle expressions, and a visible action that explains the idea.',
+    'For science or nature lessons, prefer bright simple landscapes, friendly plants, sun, water, clouds, soil, cards, and sparkle accents only when useful.',
+    'For abstract lessons, turn the idea into tangible props: cards, paths, blocks, notebooks, small maps, or a cozy study table.',
     'Use Caua as the main learner whenever possible, with Carol or Geni guiding, and Bia, Leo or Nina as classmates when a group scene helps.',
     'No text overlays except very short readable Portuguese labels if needed. No logos. High quality 16:9 composition.'
   ].filter(Boolean).join(' ');
@@ -76,6 +82,7 @@ function fallbackStoryboard(params, prompt) {
     cast: TURMINHA_ASSETS.characters,
     referenceSheet: TURMINHA_ASSETS.referenceSheet,
     scenes: [
+      { label: 'Cena', text: `Um fundo calmo e bonito mostra ${topic} com objetos fofos e poucos estimulos.` },
       { label: 'Caua', text: text || `Caua olha para ${topic} como uma coisa pequena por vez.` },
       { label: 'Turma', text: `Carol, Geni e a turma mostram ${topic} em uma cena simples do dia a dia.` },
       { label: 'Agora', text: 'Caua respira, escuta a Geni e segue para o próximo passo quando quiser.' },

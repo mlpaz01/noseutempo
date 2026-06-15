@@ -9,6 +9,11 @@
 
 const { generateJson } = require('./llm');
 const { TURMINHA_STYLE } = require('./turminha');
+const {
+  COURSE_VISUAL_DNA,
+  LESSON_VISUAL_BLUEPRINT,
+  SCREEN_DETAIL_REFERENCE,
+} = require('./visual_reference');
 
 const BLOCK_SEQUENCE = `
 SEQUÊNCIA PEDAGÓGICA PROGRESSIVA (inspirada em ELE - Español Lengua Extranjera):
@@ -148,11 +153,20 @@ presentation:
   primaryFormat: "video" | "image" | "game"
   caption: frase curta para a cena principal
   durationLabel: "0:45" ou "1:00"
+  visualBrief: 2-3 frases descrevendo exatamente a cena visual do bloco, incluindo fundo, personagem, objeto fofo e analogia
+  background: fundo amigavel e especifico da aula (ex: colinas verdes, mesa de estudo, ceu claro, jardim, cozinha visual da folha)
+  cuteElements: array com 2 a 4 elementos fofos e didaticos que aparecem na cena (ex: sol com rostinho, gota sorrindo, cartoes coloridos)
+  assistiveChips: array com 3 a 6 chips de ajuda que combinam com o bloco (ex: "ouvir", "mais simples", "em topicos", "historia", "exemplo")
+  imagePrompt: prompt completo para gerar uma imagem 16:9 da etapa, sem texto legivel, com visual NoSeuTempo
   videoScene:
     focusCharacter: "Caua" | "Carol" | "Geni" | "Bia" | "Leo" | "Nina"
     supportCharacters: array com 0 a 2 nomes da Turminha
     sceneGoal: o que a cena explica visualmente em 1 frase
     misconception: qual confusao comum esta cena resolve
+    environment: cenario fisico especifico, bonito e simples
+    mainAction: acao visivel que ensina o conceito sem depender de texto
+    backgroundDetails: detalhes de fundo fofos, calmos e relevantes ao tema
+    camera: enquadramento 16:9, claro e estavel
     scriptBeats: 3 frases curtas, uma acao por frase, sem texto na tela
     falPrompt: prompt completo para fal.ai gerar video curto 16:9, usando a Turminha e o contexto exato do bloco
     preloadPriority: "high" | "normal" | "low"
@@ -166,6 +180,22 @@ adaptive:
 
 Use a Turminha NoSeuTempo nos prompts visuais:
 ${TURMINHA_STYLE}
+
+DNA visual obrigatorio do produto:
+${COURSE_VISUAL_DNA}
+
+Blueprint da tela de aula que deve guiar cada bloco:
+${LESSON_VISUAL_BLUEPRINT}
+
+Mapa visual de referencia da Carol:
+${SCREEN_DETAIL_REFERENCE}
+
+Regras visuais adicionais:
+- Nunca retorne prompts visuais genericos como "educational illustration". Descreva fundo, personagens, objetos, emocao, composicao, cores e acao.
+- Quando o aluno escolher "visual" ou "ver com imagens", a cena precisa ter uma imagem mental clara, fofa e didatica.
+- Use analogias visuais do cotidiano: cozinha, mapa, caminho, pecas, cartoes, jardim, luz, passos.
+- O falPrompt deve ser rico o suficiente para gerar algo bonito mesmo sem contexto externo: inclua estilo, personagens, ambiente, acao, objetos, ritmo e o que evitar.
+- Evite texto escrito dentro da imagem/video; se precisar de rotulo, use formas simples, icones e objetos.
 
 Retorne APENAS JSON válido:
 {
