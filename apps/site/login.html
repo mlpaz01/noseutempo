@@ -18,31 +18,32 @@
     }
     .login-page {
       min-height: calc(100vh - 78px);
-      padding: 12px 0 16px;
+      padding: 48px 0 28px;
       display: grid;
-      align-items: center;
+      align-items: start;
     }
     .login-grid {
-      width: min(100%, 820px);
+      width: min(100%, 1080px);
       margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 440px) minmax(300px, 340px);
-      gap: 22px;
+      grid-template-columns: minmax(0, 620px) minmax(330px, 390px);
+      gap: 30px;
       align-items: center;
       justify-content: center;
     }
     .login-grid > * {
       min-width: 0;
+      max-width: 100%;
     }
     .login-hero {
       position: relative;
       min-height: 0;
       display: grid;
       align-content: space-between;
-      gap: 10px;
-      padding: 16px 18px;
+      gap: 14px;
+      padding: 24px 26px;
       border: 1.5px solid rgba(236,227,215,.9);
-      border-radius: 22px;
+      border-radius: 28px;
       background:
         linear-gradient(180deg, rgba(255,255,255,.76), rgba(255,250,242,.82)),
         linear-gradient(135deg, #e8f8f5 0%, #f0edff 58%, #fff4de 100%);
@@ -66,9 +67,9 @@
       max-width: 560px;
     }
     .login-copy h1 {
-      margin: 10px 0 10px;
-      font-size: clamp(2rem, 3vw, 2.65rem);
-      line-height: 1.08;
+      margin: 12px 0 12px;
+      font-size: clamp(2.45rem, 3.3vw, 3.25rem);
+      line-height: 1.1;
       overflow-wrap: break-word;
       max-width: calc(100vw - 68px);
     }
@@ -76,35 +77,45 @@
       display: block;
     }
     .login-copy .lead {
-      max-width: 24ch;
-      font-size: .88rem;
-      line-height: 1.48;
+      max-width: 29ch;
+      font-size: .98rem;
+      line-height: 1.55;
     }
     .login-art {
       position: relative;
       z-index: 2;
-      min-height: 158px;
-      display: grid;
-      align-items: end;
-      border-radius: 18px;
+      min-height: 322px;
+      border-radius: 24px;
       overflow: hidden;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.02), rgba(27,43,74,.06)),
-        url("assets/turminha/turminha-referencia-v1.png") center 36% / cover no-repeat;
+        linear-gradient(180deg, rgba(27,43,74,.02), rgba(27,43,74,.24)),
+        url("assets/geni-aulas-login.png") center center / cover no-repeat;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,.68);
     }
+    .login-art::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.48), transparent 42%),
+        linear-gradient(180deg, transparent 45%, rgba(255,248,234,.42));
+      pointer-events: none;
+    }
     .login-art-note {
-      width: min(320px, calc(100% - 24px));
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      z-index: 3;
+      width: min(390px, calc(100% - 32px));
       max-width: calc(100vw - 104px);
-      margin: 0 12px 10px;
-      padding: 8px 12px;
+      padding: 10px 14px;
       border: 1px solid rgba(236,227,215,.92);
       border-radius: 18px;
       background: rgba(255,255,255,.9);
       color: var(--navy);
       font-weight: 700;
       line-height: 1.25;
-      font-size: .74rem;
+      font-size: .82rem;
       box-shadow: var(--shadow-sm);
     }
     .login-chips {
@@ -112,26 +123,26 @@
       z-index: 2;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 9px;
     }
     .login-chip {
-      min-height: 28px;
+      min-height: 34px;
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 0 10px;
+      padding: 0 12px;
       border-radius: 999px;
       border: 1.5px solid rgba(108,92,231,.18);
       background: rgba(255,255,255,.78);
       color: var(--navy);
       font-weight: 800;
-      font-size: .68rem;
+      font-size: .76rem;
     }
     .login-card {
       align-self: center;
       width: 100%;
       border: 1.5px solid rgba(236,227,215,.92);
-      border-radius: 22px;
+      border-radius: 26px;
       background: rgba(255,255,255,.88);
       box-shadow: 0 24px 70px rgba(27,43,74,.14);
       backdrop-filter: blur(18px);
@@ -139,71 +150,71 @@
     }
     .login-card-head {
       display: grid;
-      grid-template-columns: 48px minmax(0, 1fr);
-      gap: 10px;
+      grid-template-columns: 56px minmax(0, 1fr);
+      gap: 12px;
       align-items: center;
-      padding: 14px 16px 12px;
+      padding: 18px 20px 16px;
       background: linear-gradient(135deg, #f4f0ff, #e8f8f5 62%, #fff4de);
       border-bottom: 1.5px solid rgba(236,227,215,.72);
     }
     .login-geni {
-      width: 48px;
-      height: 48px;
+      width: 56px;
+      height: 56px;
       display: grid;
       place-items: center;
-      border-radius: 16px;
+      border-radius: 20px;
       background: rgba(255,255,255,.78);
       overflow: hidden;
       box-shadow: var(--shadow-sm);
     }
     .login-geni img {
-      width: 64px;
+      width: 74px;
       max-width: none;
       transform: translateY(8px);
     }
     .login-card-head span {
       display: inline-flex;
       width: fit-content;
-      padding: 3px 8px;
+      padding: 4px 10px;
       border-radius: 999px;
       background: rgba(255,255,255,.78);
       color: var(--teal-deep);
-      font-size: .66rem;
+      font-size: .74rem;
       font-weight: 900;
     }
     .login-card-head h2 {
       margin-top: 6px;
-      font-size: 1.1rem;
+      font-size: 1.28rem;
     }
     .login-form-wrap {
-      padding: 16px;
+      padding: 20px;
     }
     .login-form-wrap .field {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .login-form-wrap .field label {
       color: var(--navy);
     }
     .login-form-wrap input {
-      min-height: 38px;
-      padding: 8px 12px;
-      border-radius: 12px;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 14px;
       background: #fff;
     }
     .login-card .btn {
-      min-height: 42px;
+      min-height: 46px;
       padding: 0 18px;
       border-radius: 12px;
-      font-size: .9rem;
+      font-size: .95rem;
     }
     .login-card-foot {
       display: grid;
-      gap: 6px;
-      margin-top: 10px;
+      gap: 8px;
+      margin-top: 12px;
       text-align: center;
       color: var(--navy-muted);
       font-weight: 600;
-      font-size: .72rem;
+      font-size: .8rem;
     }
     .login-card-foot a {
       color: var(--navy);
@@ -237,20 +248,27 @@
       outline: none;
     }
     @media (max-width: 940px) {
+      .login-page {
+        padding-top: 28px;
+      }
       .login-grid {
-        width: min(100%, 520px);
+        width: min(100%, 640px);
         grid-template-columns: 1fr;
+        justify-content: stretch;
       }
       .login-hero {
         min-height: auto;
       }
       .login-art {
-        min-height: 178px;
+        min-height: 330px;
       }
     }
     @media (max-width: 560px) {
       .login-page {
-        padding: 12px 0 22px;
+        padding: 18px 0 28px;
+      }
+      .login-grid {
+        width: min(100%, 358px);
       }
       .container {
         padding-inline: 16px;
@@ -265,26 +283,41 @@
         padding: 14px;
       }
       .login-card-head {
-        grid-template-columns: 48px minmax(0, 1fr);
+        grid-template-columns: 50px minmax(0, 1fr);
       }
       .login-geni {
-        width: 48px;
-        height: 48px;
+        width: 50px;
+        height: 50px;
       }
       .login-card-head h2 {
-        font-size: 1.1rem;
+        font-size: 1.14rem;
       }
       .login-copy h1 {
         font-size: clamp(1.85rem, 9vw, 2.15rem);
         line-height: 1.08;
-        max-width: calc(100vw - 68px);
+        max-width: 100%;
       }
       .login-copy .lead {
         font-size: .9rem;
-        max-width: calc(100vw - 68px);
+        max-width: 100%;
+      }
+      .login-art {
+        min-height: 260px;
+        background-position: 54% center;
       }
       .login-art-note {
-        max-width: calc(100vw - 104px);
+        width: min(300px, calc(100% - 32px));
+        max-width: calc(100% - 32px);
+        font-size: .74rem;
+      }
+      .login-chips {
+        max-width: 100%;
+        gap: 7px;
+      }
+      .login-chip {
+        min-height: 30px;
+        padding: 0 10px;
+        font-size: .7rem;
       }
     }
   </style>
@@ -309,10 +342,10 @@
           <div class="login-copy">
             <span class="eyebrow"><span class="heart">♥</span> Que bom te ver de novo</span>
             <h1><span>Continue</span><span>aprendendo</span><span>no seu tempo.</span></h1>
-            <p class="lead">A Geni guarda seu caminho, suas preferências e o próximo passo leve para você voltar sem recomeçar do zero.</p>
+            <p class="lead">A Geni guarda seu caminho, suas preferências e prepara o próximo passo leve para você voltar sem recomeçar do zero.</p>
           </div>
           <div class="login-art" aria-hidden="true">
-            <div class="login-art-note">A Turminha está pronta para seguir com calma, exemplos curtos e imagens bonitas.</div>
+            <div class="login-art-note">A Geni cria aulas bonitas, leves e adaptadas ao seu jeito de aprender.</div>
           </div>
           <div class="login-chips" aria-label="Preferências acolhedoras">
             <span class="login-chip">áudio + imagem</span>
