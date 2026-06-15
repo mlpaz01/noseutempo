@@ -69,6 +69,25 @@ function courseContent(id) {
   try { return JSON.parse(fs.readFileSync(path.join(DATA, "course-content", `${id}.json`), "utf8")); }
   catch { return null; }
 }
+function courseContentStats(id) {
+  const content = courseContent(id);
+  const units = Array.isArray(content?.units) ? content.units : [];
+  const lessons = units.reduce((sum, unit) => sum + (Array.isArray(unit.lessons) ? unit.lessons.length : 0), 0);
+  const blocks = units.reduce((sum, unit) => sum + (Array.isArray(unit.lessons)
+    ? unit.lessons.reduce((lessonSum, lesson) => lessonSum + (Array.isArray(lesson.blocks) ? lesson.blocks.length : 0), 0)
+    : 0), 0);
+  const failed = units.reduce((sum, unit) => sum + (Array.isArray(unit.lessons)
+    ? unit.lessons.filter(lesson => lesson && lesson.failed).length
+    : 0), 0);
+  return {
+    hasContent: !!content,
+    lessons,
+    blocks,
+    failed,
+    generatedBy: content?.generatedBy || null,
+    editadoEm: content?.editadoEm || null,
+  };
+}
 function ymd(dt) { return dt.toISOString().slice(0, 10); }
 function computeStreak(days) {
   if (!days || !days.length) return 0;
@@ -589,6 +608,23 @@ app.get("/api/admin/sales", auth, isAdmin, (req, res) => {
    CURSOS  /api/admin/courses
 ═══════════════════════════════════════════════════════════ */
 const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+/* Listar cursos para o admin com status do conteudo gerado */
+app.get("/api/admin/courses", auth, isAdmin, (_req, res) => {
+  res.json(courses.map(c => ({
+    id:       c.id,
+    titulo:   c.titulo,
+    descricao:c.descricao,
+    tagline:  c.tagline || "",
+    capa:     c.capa,
+    category: c.category,
+    difficulty: c.difficulty,
+    totalMinutes: c.totalMinutes || c.totalEstimatedMinutes || 0,
+    modulos: typeof c.modulos === "number" ? c.modulos : (c.modulos?.length || 0),
+    criado:   c.criado,
+    ...courseContentStats(c.id),
+  })));
+});
 
 /* Listar cursos (público, para a plataforma) */
 app.get("/api/courses", (_req, res) => {

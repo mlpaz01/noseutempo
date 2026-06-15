@@ -31,6 +31,16 @@
   function fmt(n) { return Number(n).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
   function fmtDate(d) { return d ? new Date(d).toLocaleDateString('pt-BR') : '—'; }
   function esc(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function jsArg(s) { return JSON.stringify(String(s || '')); }
+  function htmlAttr(s) { return esc(s).replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+  function jsCall(name) {
+    var args = Array.prototype.slice.call(arguments, 1).map(jsArg).join(',');
+    return htmlAttr(name + '(' + args + ')');
+  }
+  function courseTime(c) { var t = c && c.criado ? Date.parse(c.criado) : 0; return isNaN(t) ? 0 : t; }
+  function sortCoursesNewest(courses) {
+    return (Array.isArray(courses) ? courses : []).slice().sort(function (a, b) { return courseTime(b) - courseTime(a); });
+  }
 
   /* ── Verificar admin ─────────────────────────────────────── */
   api('/api/me').then(function (r) { return r.json(); }).then(function (me) {
@@ -384,31 +394,59 @@
      CURSOS
   ══════════════════════════════════════════════════════════ */
   var currentCourse = null;
+  var currentContentData = null;
 
   function loadCursos() {
     var list = document.getElementById('courses-list');
     list.innerHTML = '<div class="spinner"></div>';
 
-    api('/api/courses').then(function (r) { return r.json(); }).then(function (courses) {
+    api('/api/admin/courses').then(function (r) {
+      if (!r.ok) return api('/api/courses');
+      return r;
+    }).then(function (r) { return r.json(); }).then(function (courses) {
+      courses = sortCoursesNewest(courses);
       document.getElementById('courses-count').textContent = courses.length + ' curso(s)';
       if (!courses.length) {
         list.innerHTML = '<div class="empty"><div class="em-ic">📚</div><p>Nenhum curso criado ainda. Crie o primeiro!</p></div>';
         return;
       }
       list.innerHTML = courses.map(function (c) {
+        var hasContent = !!c.hasContent;
+        var lessons = c.lessons || 0;
+        var blocks = c.blocks || 0;
+        var failed = c.failed || 0;
+        var details = [
+          (c.modulos || 0) + ' módulo(s)',
+          lessons ? lessons + ' aula(s)' : '',
+          blocks ? blocks + ' bloco(s)' : '',
+          'Criado em ' + fmtDate(c.criado)
+        ].filter(Boolean).join(' · ');
+        var status = hasContent
+          ? '<span class="badge badge--teal">IA editável</span>'
+          : '<span class="badge badge--orange">manual</span>';
+        if (failed) status += ' <span class="badge badge--orange">' + failed + ' pendente(s)</span>';
+        var contentBtn = hasContent
+          ? '<button class="btn btn--sm btn--ghost" onclick="' + jsCall('verConteudo', c.id) + '">Conteúdo</button>'
+          : '<button class="btn btn--sm btn--ghost" disabled title="Curso sem conteúdo gerado">Conteúdo</button>';
+        var previewBtn = hasContent
+          ? '<button class="btn btn--sm btn--teal" onclick="' + jsCall('previewLesson', c.id, 0, 0) + '">Prévia aluno</button>'
+          : '<button class="btn btn--sm btn--teal" disabled title="Curso sem conteúdo gerado">Prévia aluno</button>';
         return '<div class="course-row" style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">' +
           '<div style="flex:none;width:48px;height:48px;border-radius:12px;background:var(--teal-soft);display:grid;place-items:center;font-size:1.4rem">' +
             (c.capa ? '<img src="' + esc(c.capa) + '" style="width:48px;height:48px;object-fit:cover;border-radius:12px">' : '📚') +
           '</div>' +
           '<div style="flex:1;min-width:0">' +
             '<div style="font-weight:700">' + esc(c.titulo) + '</div>' +
-            '<div style="font-size:.82rem;color:var(--muted)">' + c.modulos + ' módulo(s) · Criado em ' + fmtDate(c.criado) + '</div>' +
+            '<div style="font-size:.82rem;color:var(--muted)">' + esc(details) + '</div>' +
+            '<div style="margin-top:5px">' + status + '</div>' +
+            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' + previewBtn + contentBtn + '</div>' +
           '</div>' +
-          '<button class="btn btn--sm btn--ghost" onclick="verConteudo(\'' + c.id + '\')">👁 Visualizar</button>' +
-          '<button class="btn btn--sm btn--teal" onclick="editCourse(\'' + c.id + '\')">✏️ Editar</button>' +
-          '<button class="btn btn--sm btn--danger" onclick="deleteCourse(\'' + c.id + '\',\'' + esc(c.titulo) + '\')">🗑</button>' +
+          '<button class="btn btn--sm btn--ghost" onclick="' + jsCall('editCourse', c.id) + '">Ficha</button>' +
+          '<button class="btn btn--sm btn--danger" onclick="' + jsCall('deleteCourse', c.id, c.titulo) + '">Excluir</button>' +
         '</div>';
       }).join('');
+    }).catch(function () {
+      list.innerHTML = '<div class="empty"><p>Erro ao carregar cursos.</p></div>';
     });
   }
 
@@ -466,6 +504,7 @@
       if (!r.ok) throw new Error('Este curso não tem conteúdo gerado pela IA (criado manualmente ou ainda vazio).');
       return r.json();
     }).then(function (c) {
+      currentContentData = c;
       var units = c.units || [];
       var totalLessons = units.reduce(function(s,u){return s+(u.lessons||[]).length;},0);
       var totalBlocks = units.reduce(function(s,u){return s+(u.lessons||[]).reduce(function(a,l){return a+(l.blocks||[]).length;},0);},0);
@@ -473,8 +512,9 @@
       document.getElementById('mc-title').textContent = c.titulo || 'Conteúdo do curso';
       document.getElementById('mc-sub').textContent = units.length + ' módulos · ' + totalLessons + ' aulas · ' + totalBlocks + ' blocos · ' + (c.totalEstimatedMinutes||0) + ' min';
       var warn = pendentes > 0 ? '<div style="background:#FFF4E5;border:1.5px solid #F0C98A;border-radius:12px;padding:12px 14px;font-size:.85rem;color:#7A4E12;margin-bottom:14px">⚠️ <b>' + pendentes + ' aula(s) pendente(s)</b> (não geradas por falta de saldo de IA). Use 🔄 Regenerar em cada uma após configurar uma chave com saldo.</div>' : '';
-      var toolbar = '<div style="display:flex;justify-content:flex-end;margin-bottom:14px">' +
+      var toolbar = '<div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-bottom:14px">' +
         '<button class="btn btn--sm btn--teal" onclick="previewLesson(\'' + c.id + '\',0,0)">👁 Pré-visualizar como aluno (do início)</button>' +
+        '<button class="btn btn--sm btn--ghost" onclick="editContentJson()">Editar conteúdo</button>' +
         '</div>';
       body.innerHTML = toolbar + warn + units.map(function (u, ui) {
         return '<div style="margin-bottom:18px">' +
@@ -489,6 +529,55 @@
     }).catch(function (e) {
       body.innerHTML = '<div class="empty" style="padding:40px"><div class="em-ic">📭</div><p>' + esc(e.message || 'Erro ao carregar conteúdo.') + '</p></div>';
     });
+  };
+
+  window.editContentJson = function () {
+    if (!currentContentData || !currentContentData.id) return;
+    var body = document.getElementById('mc-body');
+    var payload = {
+      titulo: currentContentData.titulo || '',
+      descricao: currentContentData.descricao || '',
+      tagline: currentContentData.tagline || '',
+      capa: currentContentData.capa || '',
+      units: currentContentData.units || []
+    };
+    document.getElementById('mc-title').textContent = 'Editar conteúdo';
+    document.getElementById('mc-sub').textContent = currentContentData.titulo || '';
+    body.innerHTML =
+      '<div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px">' +
+        '<p style="margin:0 0 10px;color:var(--muted);font-size:.88rem">Edite com cuidado. Título, descrição, capa e unidades serão salvos no curso gerado.</p>' +
+        '<textarea id="content-json-editor" spellcheck="false" style="width:100%;min-height:58vh;border:1px solid var(--line);border-radius:12px;padding:14px;font:13px/1.45 Consolas,monospace;resize:vertical">' + esc(JSON.stringify(payload, null, 2)) + '</textarea>' +
+      '</div>' +
+      '<div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap">' +
+        '<button class="btn btn--sm btn--ghost" onclick="' + jsCall('verConteudo', currentContentData.id) + '">Cancelar</button>' +
+        '<button class="btn btn--sm btn--teal" onclick="saveContentJson()">Salvar conteúdo</button>' +
+      '</div>';
+  };
+
+  window.saveContentJson = function () {
+    if (!currentContentData || !currentContentData.id) return;
+    var editor = document.getElementById('content-json-editor');
+    var raw = editor ? editor.value : '';
+    var data;
+    try {
+      data = JSON.parse(raw);
+    } catch (e) {
+      toast('JSON inválido: ' + e.message, 'err');
+      return;
+    }
+    if (!Array.isArray(data.units)) {
+      toast('O campo units precisa ser uma lista.', 'err');
+      return;
+    }
+    api('/api/admin/courses/' + currentContentData.id + '/content', { method: 'PUT', body: JSON.stringify(data) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (!res.ok) { toast('Erro: ' + (res.d.error || 'falha ao salvar'), 'err'); return; }
+        toast('Conteúdo salvo.', 'ok');
+        loadCursos();
+        verConteudo(currentContentData.id);
+      })
+      .catch(function () { toast('Erro ao salvar conteúdo.', 'err'); });
   };
 
   window.previewLesson = function (courseId, ui, li) {
@@ -561,6 +650,15 @@
   function renderModulos(c) {
     var el = document.getElementById('modulos-container');
     el.classList.remove('hidden');
+    if (!Array.isArray(c.modulos)) {
+      document.getElementById('modulos-lista').innerHTML =
+        '<div class="empty" style="padding:18px">' +
+          '<div class="em-ic">IA</div>' +
+          '<p>Este curso foi gerado no Estúdio. Use "Conteúdo" para ver, regenerar aulas e editar o conteúdo completo.</p>' +
+          '<button class="btn btn--teal" type="button" onclick="' + jsCall('verConteudo', c.id) + '">Abrir conteúdo gerado</button>' +
+        '</div>';
+      return;
+    }
     document.getElementById('modulos-lista').innerHTML = (c.modulos || []).map(function (m, mi) {
       return '<div class="modulo-card">' +
         '<div class="modulo-head" onclick="toggleModulo(\'' + m.id + '\')">' +
