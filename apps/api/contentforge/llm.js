@@ -16,6 +16,8 @@
 const { parseLenientJson } = require('./jsonparse');
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+const providerCooldown = {};
+const QUOTA_COOLDOWN_MS = Number(process.env.AI_PROVIDER_QUOTA_COOLDOWN_MS || 10 * 60 * 1000);
 
 const MODELS = {
   groq:       () => process.env.GROQ_MODEL       || 'llama-3.3-70b-versatile',
@@ -61,7 +63,7 @@ function getProviderStatus() {
 
 function isQuotaError(err) {
   const m = String(err && err.message || err || '');
-  return /429|quota|rate.?limit|too many requests|insufficient|exceeded/i.test(m);
+  return /402|payment required|credit|billing|429|quota|rate.?limit|too many requests|insufficient|exceeded/i.test(m);
 }
 
 function isTransientError(err) {
@@ -153,11 +155,18 @@ async function callGemini({ system, user, temperature, onNote }) {
 const CALLERS = { groq: callGroq, gemini: callGemini, openrouter: callOpenRouter };
 
 async function generateJson(opts) {
-  const order = providerOrder();
-  if (!order.length) {
+  const configuredOrder = providerOrder();
+  if (!configuredOrder.length) {
     const e = new Error('NENHUM_PROVEDOR_IA: configure GROQ_API_KEY, GEMINI_API_KEY ou OPENROUTER_API_KEY no .env');
     e.code = 'NO_PROVIDER';
     throw e;
+  }
+
+  const now = Date.now();
+  const order = configuredOrder.filter(provider => !providerCooldown[provider] || providerCooldown[provider] <= now);
+  if (!order.length) {
+    Object.keys(providerCooldown).forEach(provider => { delete providerCooldown[provider]; });
+    order.push(...configuredOrder);
   }
 
   const retries = opts.retries ?? 1;
@@ -181,7 +190,14 @@ async function generateJson(opts) {
         lastErr = err;
         const quota = isQuotaError(err);
         const transient = isTransientError(err);
-        note(`${provider} falhou${quota ? ' (cota/limite)' : transient ? ' (temporario)' : ''}: ${String(err.message || err).slice(0, 120)}`);
+        if (quota) {
+          providerCooldown[provider] = Date.now() + QUOTA_COOLDOWN_MS;
+          note(`${provider} sem credito/cota no momento; pulando para o proximo provedor.`);
+        } else if (transient) {
+          note(`${provider} instavel agora; tentando alternativa.`);
+        } else {
+          note(`${provider} falhou; tentando alternativa.`);
+        }
         if ((quota || transient) && attempt < retries) {
           await sleep((transient ? 1200 : 1500) * (attempt + 1));
           continue;
