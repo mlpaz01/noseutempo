@@ -134,6 +134,14 @@
       notesEl.scrollTop = notesEl.scrollHeight;
     }
 
+    function friendlyStudioError(err) {
+      var raw = String((err && err.message) || err || '').toLowerCase();
+      if (/network|fetch|failed to fetch|load failed|native/i.test(raw)) {
+        return 'A conexao com o Estudio foi interrompida. Isso pode acontecer se a API reiniciar durante a geracao. Nenhum curso foi salvo; clique em Gerar novamente.';
+      }
+      return 'Nao foi possivel concluir a geracao agora. Tente novamente em alguns instantes.';
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var topic     = document.getElementById('st-topic').value.trim();
@@ -155,6 +163,12 @@
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
         body: JSON.stringify({ topic: topic, category: category, difficulty: difficulty, duration: Number(duration), audience: audience }),
       }).then(function (r) {
+        if (!r.ok) {
+          return r.json().catch(function () { return {}; }).then(function (d) {
+            throw new Error(d.error || 'Falha ao iniciar a geracao.');
+          });
+        }
+        if (!r.body || !r.body.getReader) throw new Error('Conexao sem stream de progresso.');
         var reader = r.body.getReader();
         var decoder = new TextDecoder();
         var buf = '';
@@ -215,7 +229,9 @@
       }).catch(function (err) {
         progress.classList.add('hidden');
         btn.disabled = false; btn.textContent = '✨ Gerar curso com IA';
-        toast('Erro: ' + (err.message || err), 'err');
+        var msg = friendlyStudioError(err);
+        toast(msg, 'err');
+        note(msg);
       });
     });
 
