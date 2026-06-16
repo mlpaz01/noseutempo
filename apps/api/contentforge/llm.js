@@ -76,23 +76,25 @@ function isTransientError(err) {
   return /(^|\D)(500|502|503|504)(\D|$)|service unavailable|unavailable|currently experiencing|overloaded|temporar|timeout|timed.?out|fetch failed|ECONNRESET|ETIMEDOUT|EAI_AGAIN/i.test(m);
 }
 
-async function callOpenAICompat({ baseUrl, key, model, system, user, temperature, headers, maxTokens }) {
+async function callOpenAICompat({ baseUrl, key, model, system, user, temperature, headers, maxTokens, responseFormat = true }) {
+  const body = {
+    model,
+    temperature: temperature ?? 0.7,
+    max_tokens: maxTokens || undefined,
+    messages: [
+      { role: 'system', content: system },
+      { role: 'user',   content: user },
+    ],
+  };
+  if (responseFormat) body.response_format = { type: 'json_object' };
+
   const resp = await fetch(baseUrl, {
     method: 'POST',
     headers: Object.assign({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${key}`,
     }, headers || {}),
-    body: JSON.stringify({
-      model,
-      temperature: temperature ?? 0.7,
-      max_tokens: maxTokens || undefined,
-      response_format: { type: 'json_object' },
-      messages: [
-        { role: 'system', content: system },
-        { role: 'user',   content: user },
-      ],
-    }),
+    body: JSON.stringify(body),
   });
 
   if (!resp.ok) {
@@ -116,10 +118,13 @@ async function callGroq({ system, user, temperature }) {
 }
 
 async function callOpenRouter({ system, user, temperature }) {
+  const model = MODELS.openrouter();
+  const supportsResponseFormat = !/^anthropic\//i.test(model);
   return callOpenAICompat({
     baseUrl: 'https://openrouter.ai/api/v1/chat/completions',
-    key: KEYS.openrouter(), model: MODELS.openrouter(), system, user, temperature,
+    key: KEYS.openrouter(), model, system, user, temperature,
     maxTokens: MAX_TOKENS.openrouter(),
+    responseFormat: supportsResponseFormat,
     headers: {
       'HTTP-Referer': process.env.SITE_URL || 'https://noseutempo.app',
       'X-Title': 'NoSeuTempo ContentForge',
