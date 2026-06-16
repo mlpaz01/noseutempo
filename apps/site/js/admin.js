@@ -481,7 +481,7 @@
           ? '<button class="btn btn--sm btn--ghost" onclick="' + jsCall('verConteudo', c.id) + '">Conteúdo</button>'
           : '<button class="btn btn--sm btn--ghost" disabled title="Curso sem conteúdo gerado">Conteúdo</button>';
         var previewBtn = hasContent
-          ? '<button class="btn btn--sm btn--teal" onclick="' + jsCall('previewLesson', c.id, 0, 0) + '">Prévia aluno</button>'
+          ? '<button class="btn btn--sm btn--teal" onclick="' + jsCall('previewCourse', c.id, 0, 0) + '">Prévia aluno</button>'
           : '<button class="btn btn--sm btn--teal" disabled title="Curso sem conteúdo gerado">Prévia aluno</button>';
         var practiceBtn = hasContent
           ? '<button class="btn btn--sm btn--ghost" onclick="' + jsCall('previewPractice', c.id, 0, 0) + '">Pr&eacute;via treino</button>'
@@ -548,7 +548,7 @@
       '<summary style="cursor:pointer;padding:11px 14px;list-style:none;display:flex;align-items:center;gap:10px;flex-wrap:wrap">' +
         '<span style="font-weight:700;font-size:.9rem">' + esc(l.title) + failed + '</span>' +
         '<span style="font-size:.76rem;color:var(--muted)">' + blocks.length + ' bloco(s) · ' + (l.estimatedMinutes||3) + ' min</span>' +
-        '<button class="btn btn--sm btn--teal" style="margin-left:auto" onclick="event.preventDefault();previewLesson(\'' + courseId + '\',' + ui + ',' + li + ')">👁 Ver como aluno</button>' +
+        '<button class="btn btn--sm btn--teal" style="margin-left:auto" onclick="event.preventDefault();previewLesson(\'' + courseId + '\',' + ui + ',' + li + ')">👁 Ver aula</button>' +
         '<button class="btn btn--sm btn--ghost" onclick="event.preventDefault();previewPractice(\'' + courseId + '\',' + ui + ',' + li + ')">Treino extra</button>' +
         '<button class="btn btn--sm btn--ghost" onclick="event.preventDefault();regenLesson(\'' + courseId + '\',\'' + l.id + '\',this)">🔄 Regenerar</button>' +
       '</summary>' +
@@ -574,7 +574,7 @@
       document.getElementById('mc-sub').textContent = units.length + ' módulos · ' + totalLessons + ' aulas · ' + totalBlocks + ' blocos · ' + (c.totalEstimatedMinutes||0) + ' min';
       var warn = pendentes > 0 ? '<div style="background:#FFF4E5;border:1.5px solid #F0C98A;border-radius:12px;padding:12px 14px;font-size:.85rem;color:#7A4E12;margin-bottom:14px">⚠️ <b>' + pendentes + ' aula(s) pendente(s)</b> (não geradas por falta de saldo de IA). Use 🔄 Regenerar em cada uma após configurar uma chave com saldo.</div>' : '';
       var toolbar = '<div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-bottom:14px">' +
-        '<button class="btn btn--sm btn--teal" onclick="previewLesson(\'' + c.id + '\',0,0)">👁 Pré-visualizar como aluno (do início)</button>' +
+        '<button class="btn btn--sm btn--teal" onclick="previewCourse(\'' + c.id + '\',0,0)">👁 Pré-visualizar jornada do aluno</button>' +
         '<button class="btn btn--sm btn--ghost" onclick="previewPractice(\'' + c.id + '\',0,0)">Treino extra</button>' +
         '<button class="btn btn--sm btn--ghost" onclick="editContentJson()">Editar conteúdo</button>' +
         '</div>';
@@ -640,6 +640,11 @@
         verConteudo(currentContentData.id);
       })
       .catch(function () { toast('Erro ao salvar conteúdo.', 'err'); });
+  };
+
+  window.previewCourse = function (courseId, ui, li) {
+    var url = 'plataforma.html?preview=1&course=' + encodeURIComponent(courseId) + '&unit=' + (ui || 0) + '&lesson=' + (li || 0) + '&v=3';
+    window.open(url, '_blank', 'noopener');
   };
 
   window.previewLesson = function (courseId, ui, li) {

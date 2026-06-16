@@ -7,9 +7,19 @@
 
   var state = { courses: [], progress: { courses: {}, summary: {} }, current: null, content: null };
   var labels = { basico: 'iniciante', intermediario: 'intermediario', avancado: 'avancado' };
+  var qs = new URLSearchParams(location.search);
+  var previewMode = qs.get('preview') === '1';
+  var forcedCourseId = qs.get('course') || '';
+  var forcedUnitIndex = Number(qs.get('unit') || 0);
+  var forcedLessonIndex = Number(qs.get('lesson') || 0);
 
   function esc(s) {
     return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function safeIndex(n) {
+    n = Number(n);
+    return Number.isFinite(n) && n >= 0 ? n : 0;
   }
 
   function courseTime(c) {
@@ -24,7 +34,20 @@
   }
 
   function hrefFor(course, unit, lesson) {
-    return 'aula.html?course=' + encodeURIComponent(course.id) + '&unit=' + (unit || 0) + '&lesson=' + (lesson || 0) + '&v=carol1';
+    var safeUnit = safeIndex(unit);
+    var safeLesson = safeIndex(lesson);
+    return 'aula.html?course=' + encodeURIComponent(course.id) + '&unit=' + safeUnit + '&lesson=' + safeLesson + '&v=carol1' + (previewMode ? '&preview=1' : '');
+  }
+
+  function treinoHrefFor(course, unit, lesson) {
+    var safeUnit = safeIndex(unit);
+    var safeLesson = safeIndex(lesson);
+    return 'treino-extra.html?course=' + encodeURIComponent(course.id) + '&unit=' + safeUnit + '&lesson=' + safeLesson + (previewMode ? '&preview=1' : '');
+  }
+
+  function pageHrefFor(page) {
+    if (!previewMode || !forcedCourseId) return page;
+    return page + '?preview=1&course=' + encodeURIComponent(forcedCourseId) + '&unit=' + safeIndex(forcedUnitIndex) + '&lesson=' + safeIndex(forcedLessonIndex);
   }
 
   function pickCurrent() {
@@ -37,6 +60,13 @@
     }).sort(function (a, b) {
       return a.rank - b.rank || courseTime(b.course) - courseTime(a.course) || a.idx - b.idx;
     });
+    if (forcedCourseId) {
+      var forced = ranked.find(function (item) { return item.course && item.course.id === forcedCourseId; });
+      if (forced) {
+        state.current = forced;
+        return;
+      }
+    }
     state.current = ranked[0] || null;
   }
 
@@ -58,8 +88,20 @@
     var p = current.progress || {};
     var unitIndex = p.last && Number.isFinite(Number(p.last.unit)) ? Number(p.last.unit) : 0;
     var lessonIndex = p.last && Number.isFinite(Number(p.last.lesson)) ? Number(p.last.lesson) : 0;
+    if (previewMode && current.course && current.course.id === forcedCourseId) {
+      unitIndex = safeIndex(forcedUnitIndex);
+      lessonIndex = safeIndex(forcedLessonIndex);
+    }
     var unit = state.content && state.content.units && state.content.units[unitIndex];
+    if (!unit && state.content && Array.isArray(state.content.units) && state.content.units.length) {
+      unitIndex = 0;
+      unit = state.content.units[0];
+    }
     var lesson = unit && unit.lessons && unit.lessons[lessonIndex];
+    if (!lesson && unit && Array.isArray(unit.lessons) && unit.lessons.length) {
+      lessonIndex = 0;
+      lesson = unit.lessons[0];
+    }
     return {
       unitIndex: unitIndex,
       lessonIndex: lessonIndex,
@@ -87,20 +129,22 @@
     var current = state.current.course;
     var info = lessonInfo();
     var href = hrefFor(current, info.unitIndex, info.lessonIndex);
+    var treinoHref = treinoHrefFor(current, info.unitIndex, info.lessonIndex);
+    var cursosHref = pageHrefFor('cursos.html');
     var summary = state.progress.summary || {};
     main.innerHTML =
       '<section class="nst-hero">' +
         '<article class="nst-card continue-card">' +
           '<div class="lesson-art" aria-hidden="true"></div>' +
           '<div class="continue-copy">' +
-            '<p class="nst-eyebrow">Minha página inicial</p>' +
+            '<p class="nst-eyebrow">' + (previewMode ? 'Prévia da jornada' : 'Minha página inicial') + '</p>' +
             '<h2>Tudo pronto para aprender no seu tempo.</h2>' +
             '<p>Seu espaço foi organizado do seu jeito. A Geni separou o próximo passo com calma.</p>' +
             '<h3>' + esc(info.title) + '</h3>' +
             '<p>' + esc(info.unitTitle) + ' - passo ' + (info.lessonIndex + 1) + ' de ' + Math.max(1, info.totalLessons || 1) + '</p>' +
             '<div class="progress-row"><div class="progress-track"><span style="width:' + info.percent + '%"></span></div><b>' + info.percent + '%</b></div>' +
             '<div class="chip-row"><span>áudio + imagem</span><span>com exemplos</span><span>pouco estímulo</span></div>' +
-            '<div class="nst-actions"><a class="nst-btn primary" href="' + href + '">Continuar aula</a><a class="nst-btn ghost" href="treino-extra.html?course=' + encodeURIComponent(current.id) + '&unit=' + info.unitIndex + '&lesson=' + info.lessonIndex + '">Treino extra</a><a class="nst-btn ghost" href="cursos.html">Ver cursos</a></div>' +
+            '<div class="nst-actions"><a class="nst-btn primary" href="' + href + '">' + (previewMode ? 'Abrir aula' : 'Continuar aula') + '</a><a class="nst-btn ghost" href="' + treinoHref + '">Treino extra</a><a class="nst-btn ghost" href="' + cursosHref + '">Ver cursos</a></div>' +
           '</div>' +
         '</article>' +
         '<aside class="nst-card geni-side">' +
@@ -110,10 +154,10 @@
       '</section>' +
       '<section><div class="section-title"><div><h2>O que você pode fazer agora</h2><p>Escolha um caminho leve para continuar.</p></div></div>' +
         '<div class="quick-grid">' +
-          '<a class="quick-card" href="' + href + '"><span>1</span><h3>Continuar aula</h3><p>Voltar para onde parou.</p></a>' +
-          '<a class="quick-card" href="treino-extra.html?course=' + encodeURIComponent(current.id) + '&unit=' + info.unitIndex + '&lesson=' + info.lessonIndex + '"><span>2</span><h3>Treino extra</h3><p>Praticar com jogos leves.</p></a>' +
+          '<a class="quick-card" href="' + href + '"><span>1</span><h3>' + (previewMode ? 'Abrir aula' : 'Continuar aula') + '</h3><p>Voltar para onde parou.</p></a>' +
+          '<a class="quick-card" href="' + treinoHref + '"><span>2</span><h3>Treino extra</h3><p>Praticar com jogos leves.</p></a>' +
           '<a class="quick-card" href="geni.html"><span>3</span><h3>Conversar com a Geni IA</h3><p>Tirar dúvidas e pedir exemplos.</p></a>' +
-          '<a class="quick-card" href="cursos.html"><span>4</span><h3>Escolher outro curso</h3><p>Ver tudo que está disponível.</p></a>' +
+          '<a class="quick-card" href="' + cursosHref + '"><span>4</span><h3>Escolher outro curso</h3><p>Ver tudo que está disponível.</p></a>' +
         '</div></section>' +
       '<section class="two-grid">' +
         '<article class="small-card"><span>T</span><h3>Meus temas favoritos</h3><p>A Geni usa exemplos curtos, imagens bonitas e pouco estímulo.</p><div class="chip-row"><span>áudio + imagem</span><span>frases curtas</span><span>sem pressa</span></div></article>' +
@@ -133,6 +177,7 @@
       var p = byId[c.id] || {};
       var pct = Number(p.percent) || 0;
       var last = p.last || {};
+      if (previewMode && c.id === forcedCourseId) last = { unit: safeIndex(forcedUnitIndex), lesson: safeIndex(forcedLessonIndex) };
       var href = hrefFor(c, last.unit || 0, last.lesson || 0);
       return '<a class="course-card" href="' + href + '">' +
         '<div class="course-cover"></div>' +
