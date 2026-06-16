@@ -1,124 +1,75 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NoSeuTempo â€” Meus Cursos</title>
+  <title>NoSeuTempo - Cursos</title>
   <link rel="icon" href="assets/logo-icon.svg" />
-  <link rel="stylesheet" href="css/styles.css?v=3" />
-  <link rel="stylesheet" href="css/platform.css?v=3" />
-  <style>
-    .cursos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; margin-top: 28px; }
-    .curso-card { background: var(--bg-card); border: 1.5px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .15s, box-shadow .2s; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
-    .curso-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-    .curso-capa { height: 140px; background: linear-gradient(135deg, var(--teal-soft), var(--blue-soft)); display: grid; place-items: center; font-size: 3.5rem; }
-    .curso-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-    .curso-body h3 { font-size: 1.1rem; }
-    .curso-body p { color: var(--navy-muted); font-size: .88rem; line-height: 1.5; flex: 1; }
-    .curso-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
-    .curso-tag { font-size: .75rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: var(--teal-soft); color: var(--teal-deep); }
-    .curso-footer { padding: 14px 20px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
-    .curso-progress-bar { flex: 1; height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; margin: 0 12px; }
-    .curso-progress-bar span { display: block; height: 100%; background: var(--teal); border-radius: 99px; }
-    .empty-state { text-align: center; padding: 60px 24px; color: var(--navy-muted); }
-    .empty-state .icon { font-size: 3rem; margin-bottom: 16px; }
-  </style>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/site-header.css?v=4" />
+  <link rel="stylesheet" href="css/learn-unified.css?v=2" />
 </head>
-<body>
-  <div class="nsthd-wrap">
-  <a class="nsthd-brand" href="plataforma.html">
-    <img class="nsthd-logo" src="assets/logo.png" alt="NoSeuTempo" onerror="this.onerror=null;this.src='assets/logo-icon.svg'" />
-    <div class="nsthd-bt"><h1><span>No</span><span class="seu">Seu</span><span>Tempo</span></h1><p>Aprenda no seu tempo. Evolua sempre.</p></div>
-  </a>
-  <div class="nsthd-nav" role="navigation">
-    <a class="nsthd-item" href="plataforma.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="nsthd-tx">InÃ­cio</span><span class="nsthd-sm">InÃ­cio</span></a>
-    <a class="nsthd-item active" href="cursos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 8h2"/><path d="M6 12h2"/></svg><span class="nsthd-tx">Cursos</span><span class="nsthd-sm">Cursos</span></a>
-    <a class="nsthd-item" href="treino-extra.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="2" y="10" rx="2" ry="2"/><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/><path d="M6 18h.01"/><path d="M10 14h.01"/><path d="M15 6h.01"/><path d="M18 9h.01"/></svg><span class="nsthd-tx">Atividades</span><span class="nsthd-sm">Atividades</span></a>
-    <a class="nsthd-item" href="geni.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg><span class="nsthd-tx">Geni IA</span><span class="nsthd-sm">Geni IA</span></a>
-  </div>
-  <div class="nsthd-right">
-    <a class="nsthd-bell" href="#" aria-label="Notificacoes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></svg><span class="nsthd-badge"></span></a>
-    <button class="nsthd-sair" onclick="try{localStorage.removeItem('nst.token')}catch(e){};location.href='index.html'">Sair</button>
-  </div>
-</div>
+<body class="nst-learn">
+  <header class="nst-topbar">
+    <div class="nst-shell">
+      <a class="nst-brand" href="plataforma.html" aria-label="NoSeuTempo">
+        <img src="assets/logo-icon.svg" alt="" />
+        <span>
+          <strong>No<span>Seu</span>Tempo</strong>
+          <small>Aprenda no seu tempo.</small>
+        </span>
+      </a>
 
-  <main class="container" style="padding: 36px 28px">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; flex-wrap:wrap; gap:12px">
-      <div>
-        <h1 style="font-size:clamp(1.6rem,3vw,2.2rem)">ðŸ“š Meus cursos</h1>
-        <p style="color:var(--navy-muted)">Continue de onde parou, no seu ritmo. ðŸ’™</p>
-      </div>
-      <a href="plataforma.html" class="btn btn--ghost">â† Voltar ao dashboard</a>
+      <nav class="nst-nav" aria-label="Menu da plataforma">
+        <a href="plataforma.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v9a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z"/></svg>
+          <span>Início</span>
+        </a>
+        <a class="active" href="cursos.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v18H6.5A2.5 2.5 0 0 1 4 18.5z"/><path d="M13 3h4.5A2.5 2.5 0 0 1 20 5.5v13a2.5 2.5 0 0 1-2.5 2.5H13z"/></svg>
+          <span>Cursos</span>
+        </a>
+        <a href="treino-extra.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="12" height="11" rx="2"/><path d="m17.9 14 3.5-3.5a2.2 2.2 0 0 0 0-3l-5-4.9a2.2 2.2 0 0 0-3 0L10 6"/><path d="M7 18h.01M11 14h.01M16 6h.01M19 9h.01"/></svg>
+          <span>Treino</span>
+        </a>
+        <a href="geni.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3"/><path d="M7 8h10a4 4 0 0 1 4 4v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5v-3a4 4 0 0 1 4-4Z"/><path d="M9 13h.01"/><path d="M15 13h.01"/><path d="M9 16c1.5 1 4.5 1 6 0"/></svg>
+          <span>Geni IA</span>
+        </a>
+      </nav>
+
+      <a class="nst-exit" href="login.html" onclick="localStorage.removeItem('nst.token')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5H5v14h5"/><path d="M14 8l4 4-4 4"/><path d="M18 12H9"/></svg>
+        <span>Sair</span>
+      </a>
     </div>
+  </header>
 
-    <div id="cursos-grid" class="cursos-grid">
-      <div style="grid-column:1/-1;text-align:center;padding:40px">
-        <div class="spinner" style="margin:0 auto"></div>
+  <main class="nst-page">
+    <div class="nst-shell">
+      <div class="nst-intro">
+        <div class="nst-robot-badge"><img src="assets/geni-avatar.png" alt="" /></div>
+        <div>
+          <p class="nst-eyebrow">Tela 3 - Minhas aulas</p>
+          <h1>Meus cursos</h1>
+          <p>A Geni organizou tudo do jeito mais leve para você.</p>
+        </div>
+      </div>
+
+      <section class="section-title">
+        <div>
+          <h2>Escolha por onde continuar.</h2>
+          <p>Os cursos mais novos aparecem primeiro.</p>
+        </div>
+        <a class="nst-btn ghost" href="plataforma.html">Voltar ao início</a>
+      </section>
+
+      <div class="courses-grid" id="courses-root">
+        <div class="nst-card loading-card">Carregando cursos...</div>
       </div>
     </div>
   </main>
 
-  <script src="js/config.js?v=5"></script>
-  <script src="js/main.js?v=3"></script>
-  <script>
-  (function () {
-    var API   = window.NST_API || 'https://api.noseutempo.app';
-    var token = localStorage.getItem('nst.token');
-    if (!token) { location.href = 'login.html'; return; }
-
-    var ICONS = { personal_ia:'âœ¨', estudos:'ðŸ“–', produtividade:'âš¡', neurodiversidade:'ðŸ§ ', carreira:'ðŸŽ¯', dev_humano:'ðŸŒ±', idiomas:'ðŸ—£ï¸' };
-    var LABELS = { basico:'Iniciante', intermediario:'IntermediÃ¡rio', avancado:'AvanÃ§ado' };
-
-    fetch(API + '/api/courses', { headers: { 'Authorization': 'Bearer ' + token } })
-      .then(function(r){ return r.json(); })
-      .then(function(courses) {
-        courses = sortCoursesNewest(Array.isArray(courses) ? courses : []);
-        var grid = document.getElementById('cursos-grid');
-        if (!courses.length) {
-          grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="icon">ðŸ“š</div><h3>Nenhum curso disponÃ­vel ainda</h3><p>Os cursos criados no EstÃºdio aparecerÃ£o aqui.<br>Fale com o administrador para liberar conteÃºdo.</p></div>';
-          return;
-        }
-        grid.innerHTML = courses.map(function(c) {
-          var icon = c.capa ? '<img src="'+c.capa+'" style="width:100%;height:100%;object-fit:cover">' : (ICONS[c.category] || 'ðŸ“š');
-          var prog = Math.round(Math.random() * 0); // TODO: progresso real por aluno
-          return '<a class="curso-card" href="aula.html?course='+encodeURIComponent(c.id)+'&v=2">'
-            + '<div class="curso-capa">' + icon + '</div>'
-            + '<div class="curso-body">'
-            +   '<h3>' + esc(c.titulo) + '</h3>'
-            +   '<p>' + esc(c.descricao || '') + '</p>'
-            +   '<div class="curso-meta">'
-            +     (c.category ? '<span class="curso-tag">'+(ICONS[c.category]||'')+'&nbsp;'+(c.category)+'</span>' : '')
-            +     (c.difficulty ? '<span class="curso-tag">'+LABELS[c.difficulty]+'</span>' : '')
-            +     (c.totalMinutes ? '<span class="curso-tag">â±ï¸ '+c.totalMinutes+' min</span>' : '')
-            +     (c.modulos ? '<span class="curso-tag">ðŸ“¦ '+c.modulos+' mÃ³dulos</span>' : '')
-            +   '</div>'
-            + '</div>'
-            + '<div class="curso-footer">'
-            +   '<span style="font-size:.8rem;font-weight:700;color:var(--navy-muted)">'+prog+'% concluÃ­do</span>'
-            +   '<div class="curso-progress-bar"><span style="width:'+prog+'%"></span></div>'
-            +   '<span class="btn btn--teal" style="font-size:.82rem;padding:6px 14px">Acessar â†’</span>'
-            + '</div>'
-            + '</a>';
-        }).join('');
-      })
-      .catch(function(){ document.getElementById('cursos-grid').innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="icon">ðŸ˜•</div><p>Erro ao carregar cursos. Tente novamente.</p></div>'; });
-
-    function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
-    function courseTime(c){
-      var t = c && c.criado ? Date.parse(c.criado) : 0;
-      return isNaN(t) ? 0 : t;
-    }
-    function sortCoursesNewest(courses){
-      return courses.slice().sort(function(a,b){ return courseTime(b) - courseTime(a); });
-    }
-  })();
-  </script>
-  <script src="js/notifications.js?v=2"></script>
+  <script src="js/config.js?v=6"></script>
+  <script src="js/learn-unified.js?v=2"></script>
 </body>
 </html>
-
-

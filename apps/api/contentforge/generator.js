@@ -159,8 +159,8 @@ presentation:
   assistiveChips: array com 3 a 6 chips de ajuda que combinam com o bloco (ex: "ouvir", "mais simples", "em topicos", "historia", "exemplo")
   imagePrompt: prompt completo para gerar uma imagem 16:9 da etapa, sem texto legivel, com visual NoSeuTempo
   videoScene:
-    focusCharacter: "Caua" | "Carol" | "Geni" | "Bia" | "Leo" | "Nina"
-    supportCharacters: array com 0 a 2 nomes da Turminha
+    focusCharacter: "Geni"
+    supportCharacters: array vazio ou ["Geni"]
     sceneGoal: o que a cena explica visualmente em 1 frase
     misconception: qual confusao comum esta cena resolve
     environment: cenario fisico especifico, bonito e simples
@@ -168,7 +168,7 @@ presentation:
     backgroundDetails: detalhes de fundo fofos, calmos e relevantes ao tema
     camera: enquadramento 16:9, claro e estavel
     scriptBeats: 3 frases curtas, uma acao por frase, sem texto na tela
-    falPrompt: prompt completo para fal.ai gerar video curto 16:9, usando a Turminha e o contexto exato do bloco
+    falPrompt: prompt completo para fal.ai gerar video curto 16:9, usando a Geni como criadora visual principal e o contexto exato do bloco
     preloadPriority: "high" | "normal" | "low"
 
 adaptive:
@@ -178,7 +178,25 @@ adaptive:
     example: exemplo cotidiano em 1 frase
     hint: dica curta para destravar
 
-Use a Turminha NoSeuTempo nos prompts visuais:
+TREINO EXTRA OBRIGATORIO:
+Além dos blocos, cada aula deve retornar no nivel raiz um objeto extraPractice.
+Ele alimenta a pagina treino-extra.html, entao precisa ser simples, bonito e jogavel:
+extraPractice:
+  title: titulo curto do treino desta aula
+  purpose: 1 frase dizendo o que este treino fixa
+  suggestedGame: "vocab" | "memory" | "match" | "quiz" | "order"
+  focusWords: array de 4 a 8 objetos [{ "word":"termo principal", "translation":"significado ou pista curta", "emoji":"icone simples" }]
+  cards: array de 4 a 8 pares [{ "word":"item A", "meaning":"par correspondente" }]
+  prompts: array de 2 a 4 perguntas [{ "title":"curto", "question":"pergunta simples", "options":["A","B","C"], "correctIndex":0, "explanation":"feedback gentil" }]
+
+Regras do treino extra:
+- Deve nascer do conteudo da aula, nao ser generico.
+- Deve funcionar para qualquer tema, inclusive violao, matematica, IA, estudo e idiomas.
+- Uma ideia por atividade, pouco texto, sem pressao.
+- Geni deve aparecer como criadora do treino no texto/purpose quando fizer sentido.
+- Nao use "prova", "nota", "erro" ou cobranca.
+
+Use a Geni IA NoSeuTempo nos prompts visuais:
 ${TURMINHA_STYLE}
 
 DNA visual obrigatorio do produto:
@@ -194,12 +212,21 @@ Regras visuais adicionais:
 - Nunca retorne prompts visuais genericos como "educational illustration". Descreva fundo, personagens, objetos, emocao, composicao, cores e acao.
 - Quando o aluno escolher "visual" ou "ver com imagens", a cena precisa ter uma imagem mental clara, fofa e didatica.
 - Use analogias visuais do cotidiano: cozinha, mapa, caminho, pecas, cartoes, jardim, luz, passos.
-- O falPrompt deve ser rico o suficiente para gerar algo bonito mesmo sem contexto externo: inclua estilo, personagens, ambiente, acao, objetos, ritmo e o que evitar.
+- O falPrompt deve ser rico o suficiente para gerar algo bonito mesmo sem contexto externo: inclua Geni, ambiente, acao, objetos, ritmo e o que evitar.
+- Nao use a Turminha antiga como cast. Se precisar de alguem aprendendo, use uma pessoa generica em segundo plano; Geni continua sendo a criadora/guia da cena.
 - Evite texto escrito dentro da imagem/video; se precisar de rotulo, use formas simples, icones e objetos.
 
 Retorne APENAS JSON válido:
 {
   "estimatedMinutes": 3,
+  "extraPractice": {
+    "title": "Treino leve da Geni",
+    "purpose": "Fixar o ponto principal com calma.",
+    "suggestedGame": "memory",
+    "focusWords": [ { "word":"...", "translation":"...", "emoji":"..." } ],
+    "cards": [ { "word":"...", "meaning":"..." } ],
+    "prompts": [ { "title":"...", "question":"...", "options":["...","...","..."], "correctIndex":0, "explanation":"..." } ]
+  },
   "blocks": [ ...array de blocos... ]
 }
 

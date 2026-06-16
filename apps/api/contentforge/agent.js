@@ -112,6 +112,7 @@ async function generateCourse(opts) {
         id:                newId(),
         title:             lessonTitle,
         estimatedMinutes:  lessonData.estimatedMinutes || 3,
+        extraPractice:     lessonData.extraPractice || null,
         blocks:            lessonData.blocks || [],
         order:             li,
         failed:            !!lessonData._failed,

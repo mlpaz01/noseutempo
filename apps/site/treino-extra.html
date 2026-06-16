@@ -1,200 +1,71 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Atividades Â· NoSeuTempo</title>
+  <title>Treino extra - NoSeuTempo</title>
   <link rel="icon" href="assets/logo-icon.svg" />
-  <link rel="stylesheet" href="css/styles.css?v=3" />
-  <link rel="stylesheet" href="css/platform.css?v=6" />
-  <style>
-    body { background: #F5F7FA; }
-    .te3-page { max-width: 1240px; margin: 0 auto; padding: 26px 20px 60px; }
-    .te3-grid { display: grid; grid-template-columns: 1fr 290px; gap: 26px; align-items: start; }
-    @media (max-width: 920px){ .te3-grid { grid-template-columns: 1fr; } .te3-side { order: 2; } }
-
-    .te3-title { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
-    .te3-title h1 { font-size: clamp(1.6rem,3vw,2.2rem); color:#1A2B4A; }
-    .te3-title .em { font-size:1.6rem; }
-
-    .te3-reco { display:flex; align-items:center; gap:24px; background:linear-gradient(125deg,#E6F6F0,#E2F3F5); border:1.5px solid #C5E8E0; border-radius:22px; padding:24px 28px; box-shadow:0 8px 26px rgba(26,43,74,.08); margin-bottom:30px; }
-    .te3-reco-ill { width:104px; height:92px; flex:none; }
-    .te3-reco-mid { flex:1; min-width:0; }
-    .te3-reco-seal { display:inline-block; background:#fff; color:#C77A1E; font-size:.68rem; font-weight:800; letter-spacing:.04em; padding:4px 12px; border-radius:99px; border:1.5px solid #F0DCC0; margin-bottom:8px; }
-    .te3-reco-mid h2 { font-size:1.5rem; color:#1A2B4A; line-height:1.15; }
-    .te3-reco-mid .sub { font-size:1.05rem; color:#1A2B4A; font-weight:700; margin-bottom:8px; }
-    .te3-reco-meta { display:flex; gap:16px; color:#5A6577; font-size:.9rem; font-weight:600; }
-    .te3-reco-btn { flex:none; background:#15616D; color:#fff; border:0; font-size:1.05rem; font-weight:800; padding:16px 30px; border-radius:16px; cursor:pointer; display:inline-flex; align-items:center; gap:9px; box-shadow:0 8px 20px rgba(21,97,109,.3); transition:.15s; }
-    .te3-reco-btn:hover { transform:translateY(-2px); background:#0E4A54; }
-    @media (max-width:600px){ .te3-reco{ flex-direction:column; text-align:center; } .te3-reco-meta{ justify-content:center; } .te3-reco-btn{ width:100%; justify-content:center; } }
-
-    .te3-games-h { font-size:1.15rem; color:#1A2B4A; margin-bottom:16px; }
-    .te3-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    @media (max-width:760px){ .te3-cards{ grid-template-columns:repeat(2,1fr); } }
-    @media (max-width:440px){ .te3-cards{ grid-template-columns:1fr; } }
-    .te2-card { background:#fff; border:1.5px solid #E6ECF3; border-radius:16px; padding:16px; box-shadow:0 3px 12px rgba(26,43,74,.05); cursor:pointer; transition:.15s; display:flex; flex-direction:column; gap:8px; }
-    .te2-card:hover { transform:translateY(-3px); box-shadow:0 10px 24px rgba(26,43,74,.12); border-color:#C5E8E0; }
-    .te2-card-top { display:flex; align-items:center; gap:12px; }
-    .te2-card-ill { width:56px; height:56px; flex:none; }
-    .te2-card h4 { font-size:.98rem; color:#1A2B4A; }
-    .te2-card p { font-size:.82rem; color:#6B7A8D; line-height:1.45; flex:1; }
-    .te2-card-foot { display:flex; align-items:center; justify-content:space-between; }
-    .te2-diff { font-size:.78rem; font-weight:700; }
-    .te2-diff.facil{color:#0E8A60} .te2-diff.medio{color:#E07B16} .te2-diff.desafio{color:#7A48B8}
-    .te2-start { font-size:.82rem; font-weight:800; color:#15616D; }
-
-    .te3-side { display:flex; flex-direction:column; gap:14px; position:sticky; top:88px; }
-    .te3-mini { background:#FBFCFD; border:1.5px solid #EBF0F5; border-radius:14px; padding:15px 16px; }
-    .te3-mini-h { font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:#A2AEBD; margin-bottom:10px; }
-    .te3-mini .row { display:flex; align-items:center; gap:9px; font-size:.83rem; color:#56627A; padding:4px 0; }
-    .te3-mini .row .ic { font-size:1.05rem; flex:none; }
-    .te3-mini .row b { color:#1A2B4A; }
-    .te3-mini .course b { font-size:.92rem; }
-    .te3-geni-link { display:flex; align-items:center; justify-content:center; gap:7px; margin-top:10px; background:#E2F3F5; color:#15616D; font-weight:800; font-size:.82rem; padding:9px; border-radius:10px; text-decoration:none; }
-    .te3-geni-link:hover { background:#D2EBEE; }
-
-    .te2-panel { display:none; }
-    .te2-back { background:none; border:0; color:#15616D; font-weight:800; cursor:pointer; font-size:.92rem; margin-bottom:16px; }
-  </style>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/site-header.css?v=4" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/learn-unified.css?v=2" />
 </head>
-<body>
-
-  <div class="nsthd-wrap">
-  <a class="nsthd-brand" href="plataforma.html">
-    <img class="nsthd-logo" src="assets/logo.png" alt="NoSeuTempo" onerror="this.onerror=null;this.src='assets/logo-icon.svg'" />
-    <div class="nsthd-bt"><h1><span>No</span><span class="seu">Seu</span><span>Tempo</span></h1><p>Aprenda no seu tempo. Evolua sempre.</p></div>
-  </a>
-  <div class="nsthd-nav" role="navigation">
-    <a class="nsthd-item" href="plataforma.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="nsthd-tx">InÃ­cio</span><span class="nsthd-sm">InÃ­cio</span></a>
-    <a class="nsthd-item" href="cursos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 8h2"/><path d="M6 12h2"/></svg><span class="nsthd-tx">Cursos</span><span class="nsthd-sm">Cursos</span></a>
-    <a class="nsthd-item active" href="treino-extra.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="2" y="10" rx="2" ry="2"/><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/><path d="M6 18h.01"/><path d="M10 14h.01"/><path d="M15 6h.01"/><path d="M18 9h.01"/></svg><span class="nsthd-tx">Atividades</span><span class="nsthd-sm">Atividades</span></a>
-    <a class="nsthd-item" href="geni.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg><span class="nsthd-tx">Geni IA</span><span class="nsthd-sm">Geni IA</span></a>
-  </div>
-  <div class="nsthd-right">
-    <a class="nsthd-bell" href="#" aria-label="Notificacoes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></svg><span class="nsthd-badge"></span></a>
-    <button class="nsthd-sair" onclick="try{localStorage.removeItem('nst.token')}catch(e){};location.href='index.html'">Sair</button>
-  </div>
-</div>
-
-  <div class="te3-page">
-    <div id="te2-selection">
-      <div class="te3-grid">
-
-        <div>
-          <div class="te3-title"><span class="em">ðŸ§ </span><h1>Atividades</h1></div>
-
-          <div class="te3-reco">
-            <svg class="te3-reco-ill" viewBox="0 0 110 96" fill="none">
-              <rect x="6" y="14" width="56" height="72" rx="9" fill="#fff" stroke="#15616D" stroke-width="3" transform="rotate(-7 34 50)"/>
-              <text x="34" y="58" font-size="16" font-weight="700" fill="#15616D" text-anchor="middle" transform="rotate(-7 34 50)">lunes</text>
-              <rect x="48" y="12" width="56" height="72" rx="9" fill="#E2F3F5" stroke="#15616D" stroke-width="3" transform="rotate(7 76 48)"/>
-              <g transform="rotate(7 76 48)"><rect x="58" y="26" width="36" height="44" rx="5" fill="#fff" stroke="#15616D" stroke-width="2"/><rect x="58" y="26" width="36" height="9" rx="5" fill="#15616D"/><rect x="62" y="40" width="6" height="6" fill="#3E86CC"/><rect x="71" y="40" width="6" height="6" fill="#E0563F"/><rect x="80" y="40" width="6" height="6" fill="#F0902F"/><rect x="62" y="50" width="6" height="6" fill="#3FB4C4"/><rect x="71" y="50" width="6" height="6" fill="#3E86CC"/></g>
-              <circle cx="40" cy="78" r="11" fill="#0E8A60"/><path d="M35 78l3.5 3.5L46 74" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <div class="te3-reco-mid">
-              <span class="te3-reco-seal">ðŸŽ¯ JOGO DO DIA</span>
-              <h2>Jogo da MemÃ³ria</h2>
-              <div class="sub">Dias da Semana</div>
-              <div class="te3-reco-meta"><span>â­ FÃ¡cil</span><span>â±ï¸ 5 min</span></div>
-            </div>
-            <button class="te3-reco-btn" onclick="openGame('memoria')">â–¶ Jogar agora</button>
-          </div>
-
-          <h3 class="te3-games-h">Escolha seu jogo</h3>
-          <div class="te3-cards">
-
-            <div class="te2-card" onclick="openGame('sopa')">
-              <div class="te2-card-top"><svg class="te2-card-ill" viewBox="0 0 64 64" fill="none"><rect x="2" y="2" width="60" height="60" rx="10" fill="#EAF1FB"/><rect x="7" y="23" width="50" height="11" rx="4" fill="#3E86CC" opacity=".22"/><rect x="19" y="8" width="11" height="48" rx="4" fill="#F0902F" opacity=".22"/><text x="13" y="18" font-size="8" font-weight="700" fill="#15616D" text-anchor="middle">L</text><text x="24.5" y="18" font-size="8" font-weight="700" fill="#9DB6D6" text-anchor="middle">U</text><text x="36" y="18" font-size="8" font-weight="700" fill="#9DB6D6" text-anchor="middle">N</text><text x="47.5" y="18" font-size="8" font-weight="700" fill="#9DB6D6" text-anchor="middle">E</text><text x="13" y="31" font-size="8" font-weight="700" fill="#15616D" text-anchor="middle">M</text><text x="24.5" y="31" font-size="8" font-weight="700" fill="#15616D" text-anchor="middle">A</text><text x="36" y="31" font-size="8" font-weight="700" fill="#15616D" text-anchor="middle">R</text><text x="47.5" y="31" font-size="8" font-weight="700" fill="#15616D" text-anchor="middle">S</text><text x="13" y="44" font-size="8" font-weight="700" fill="#9DB6D6" text-anchor="middle">D</text><text x="24.5" y="44" font-size="8" font-weight="700" fill="#F0902F" text-anchor="middle">O</text><text x="36" y="44" font-size="8" font-weight="700" fill="#9DB6D6" text-anchor="middle">T</text><text x="47.5" y="44" font-size="8" font-weight="700" fill="#9DB6D6" text-anchor="middle">V</text><text x="13" y="55" font-size="8" font-weight="700" fill="#9DB6D6" text-anchor="middle">C</text><text x="24.5" y="55" font-size="8" font-weight="700" fill="#F0902F" text-anchor="middle">I</text><text x="36" y="55" font-size="8" font-weight="700" fill="#9DB6D6" text-anchor="middle">P</text><text x="47.5" y="55" font-size="8" font-weight="700" fill="#9DB6D6" text-anchor="middle">B</text></svg><h4>CaÃ§a-Palavras</h4></div>
-              <p>Encontre as palavras escondidas.</p>
-              <div class="te2-card-foot"><span class="te2-diff medio">â­ MÃ©dio</span><span class="te2-start">ComeÃ§ar â†’</span></div>
-            </div>
-
-            <div class="te2-card" onclick="openGame('letras')">
-              <div class="te2-card-top"><svg class="te2-card-ill" viewBox="0 0 64 64" fill="none"><rect x="2" y="2" width="60" height="60" rx="10" fill="#FBF1E0"/><rect x="23" y="5" width="17" height="10" rx="3" fill="#fff" stroke="#E0A04A" stroke-width="1.8" transform="rotate(-4 31 10)"/><text x="31" y="13" font-size="8" font-weight="800" fill="#15616D" text-anchor="middle" transform="rotate(-4 31 10)">L</text><rect x="28" y="16" width="17" height="10" rx="3" fill="#fff" stroke="#E0A04A" stroke-width="1.8" transform="rotate(5 36 21)"/><text x="36" y="24" font-size="8" font-weight="800" fill="#15616D" text-anchor="middle" transform="rotate(5 36 21)">U</text><rect x="20" y="27" width="17" height="10" rx="3" fill="#fff" stroke="#E0A04A" stroke-width="1.8" transform="rotate(-3 28 32)"/><text x="28" y="35" font-size="8" font-weight="800" fill="#15616D" text-anchor="middle" transform="rotate(-3 28 32)">N</text><rect x="27" y="38" width="17" height="10" rx="3" fill="#fff" stroke="#E0A04A" stroke-width="1.8" transform="rotate(4 35 43)"/><text x="35" y="46" font-size="8" font-weight="800" fill="#15616D" text-anchor="middle" transform="rotate(4 35 43)">E</text><rect x="22" y="49" width="17" height="10" rx="3" fill="#fff" stroke="#E0A04A" stroke-width="1.8" transform="rotate(-5 30 54)"/><text x="30" y="57" font-size="8" font-weight="800" fill="#15616D" text-anchor="middle" transform="rotate(-5 30 54)">S</text></svg><h4>Ordena Letras</h4></div>
-              <p>Forme a palavra correta.</p>
-              <div class="te2-card-foot"><span class="te2-diff medio">â­ MÃ©dio</span><span class="te2-start">ComeÃ§ar â†’</span></div>
-            </div>
-
-            <div class="te2-card" onclick="openGame('ditado')">
-              <div class="te2-card-top"><svg class="te2-card-ill" viewBox="0 0 64 64" fill="none"><rect x="2" y="2" width="60" height="60" rx="10" fill="#F1ECFB"/><path d="M16 38a16 16 0 0 1 32 0" stroke="#7A48B8" stroke-width="3" fill="none"/><rect x="11" y="36" width="10" height="17" rx="5" fill="#7A48B8"/><rect x="43" y="36" width="10" height="17" rx="5" fill="#7A48B8"/><rect x="26" y="26" width="3" height="6" rx="1.5" fill="#9B6FD0"/><rect x="31" y="22" width="3" height="14" rx="1.5" fill="#7A48B8"/><rect x="36" y="18" width="3" height="22" rx="1.5" fill="#9B6FD0"/><rect x="41" y="24" width="3" height="10" rx="1.5" fill="#C3A8E6"/></svg><h4>Ditado com Ãudio</h4></div>
-              <p>Escute e escreva em espanhol.</p>
-              <div class="te2-card-foot"><span class="te2-diff desafio">â­ Desafio</span><span class="te2-start">ComeÃ§ar â†’</span></div>
-            </div>
-
-            <div class="te2-card" onclick="openGame('vocab')">
-              <div class="te2-card-top"><svg class="te2-card-ill" viewBox="0 0 64 64" fill="none"><rect x="2" y="2" width="60" height="60" rx="10" fill="#E7F6EE"/><rect x="14" y="16" width="30" height="22" rx="4" fill="#fff" stroke="#0E8A60" stroke-width="2" transform="rotate(-5 29 27)"/><rect x="19" y="22" width="32" height="24" rx="4" fill="#fff" stroke="#0E8A60" stroke-width="2.2"/><text x="35" y="37" font-size="9" font-weight="800" fill="#15616D" text-anchor="middle">lunes</text><circle cx="48" cy="48" r="9" fill="#0E8A60"/><path d="M44 48v-2h2.5l3-2.5v9l-3-2.5H44z" fill="#fff"/><path d="M52 45.5a3 3 0 0 1 0 5" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><h4>VocabulÃ¡rio</h4></div>
-              <p>Palavras com Ã¡udio para praticar.</p>
-              <div class="te2-card-foot"><span class="te2-diff facil">â­ FÃ¡cil</span><span class="te2-start">Ver palavras â†’</span></div>
-            </div>
-
-            <div class="te2-card" onclick="openGame('arrastar')">
-              <div class="te2-card-top"><svg class="te2-card-ill" viewBox="0 0 64 64" fill="none"><rect x="2" y="2" width="60" height="60" rx="10" fill="#FCEDEA"/><path d="M14 26h14v8a7 7 0 0 1-14 0z" fill="#C98A5A"/><path d="M28 28c4 0 4 6 0 6" stroke="#C98A5A" stroke-width="2.5" fill="none"/><ellipse cx="21" cy="26" rx="7" ry="2.5" fill="#A96F44"/><path d="M18 18c-1 2 1 3 0 5M24 18c-1 2 1 3 0 5" stroke="#D8A57A" stroke-width="1.6" stroke-linecap="round"/><rect x="38" y="24" width="20" height="15" rx="4" fill="#fff" stroke="#D85840" stroke-width="2"/><text x="48" y="34" font-size="8" font-weight="800" fill="#D85840" text-anchor="middle">cafÃ©</text><path d="M30 40 q5 4 8 0" stroke="#15616D" stroke-width="2" stroke-dasharray="2 2.5" fill="none"/><path d="M36 38l3 2-3 2" stroke="#15616D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><h4>Arrastar</h4></div>
-              <p>Conecte a imagem Ã  palavra.</p>
-              <div class="te2-card-foot"><span class="te2-diff desafio">â­ Desafio</span><span class="te2-start">ComeÃ§ar â†’</span></div>
-            </div>
-
-            <div class="te2-card" onclick="openGame('memoria')">
-              <div class="te2-card-top"><svg class="te2-card-ill" viewBox="0 0 64 64" fill="none"><rect x="2" y="2" width="60" height="60" rx="10" fill="#E2F3F5"/><rect x="9" y="15" width="21" height="30" rx="4" fill="#15616D" transform="rotate(-9 19 30)"/><rect x="31" y="15" width="21" height="30" rx="4" fill="#1F9AAB" transform="rotate(8 41 30)"/><g transform="rotate(8 41 30)"><rect x="36" y="20" width="11" height="20" rx="2.5" fill="none" stroke="#fff" stroke-width="1.5" opacity=".55"/><circle cx="41.5" cy="26" r="1.8" fill="#fff" opacity=".7"/><circle cx="41.5" cy="34" r="1.8" fill="#fff" opacity=".7"/></g><circle cx="49" cy="50" r="9" fill="#7A48B8"/><path d="M45 50v-2h2.5l3-2.5v9l-3-2.5H45z" fill="#fff"/><path d="M53 47.5a3 3 0 0 1 0 5" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><h4>MemÃ³ria com Ãudio</h4></div>
-              <p>Combine pares ouvindo o Ã¡udio.</p>
-              <div class="te2-card-foot"><span class="te2-diff medio">â­ MÃ©dio</span><span class="te2-start">ComeÃ§ar â†’</span></div>
-            </div>
-
-          </div>
-        </div>
-
-        <aside class="te3-side">
-          <div class="te3-mini">
-            <div class="te3-mini-h">Seu treinamento</div>
-            <div class="row course"><span class="ic">ðŸ‡ªðŸ‡¸</span><b id="te3-curso">Espanhol BÃ¡sico</b></div>
-            <div class="row"><span class="ic">ðŸ“•</span><span id="te3-mod">MÃ³dulo 1 â€¢ Dias da Semana</span></div>
-            <div class="row"><span class="ic">ðŸŽ¯</span><span>Reconhecer os dias da semana</span></div>
-          </div>
-          <div class="te3-mini">
-            <div class="te3-mini-h">Sua jornada</div>
-            <div class="row"><span class="ic">â­</span><span><b>12</b> palavras aprendidas</span></div>
-            <div class="row"><span class="ic">âœ…</span><span><b>3</b> aulas concluÃ­das</span></div>
-            <div class="row"><span class="ic">ðŸ”¥</span><span><b>2</b> dias de sequÃªncia</span></div>
-          </div>
-          <div class="te3-mini">
-            <div class="te3-mini-h">Dicas da Geni</div>
-            <div class="row"><span class="ic">ðŸ¢</span><span>Sem pressa â€” vÃ¡ no seu ritmo.</span></div>
-            <div class="row"><span class="ic">ðŸ’š</span><span>Errar faz parte. Continue!</span></div>
-            <a class="te3-geni-link" href="geni.html">ðŸŽ™ï¸ Conversar com a Geni IA â†’</a>
-          </div>
-        </aside>
-
-      </div>
+<body class="nst-learn nst-practice-page">
+  <header class="nst-topbar">
+    <div class="nst-shell">
+      <a class="nst-brand" href="plataforma.html" aria-label="NoSeuTempo">
+        <img src="assets/logo-icon.svg" alt="" />
+        <span><strong>No<span>Seu</span>Tempo</strong><small>Aprenda no seu tempo</small></span>
+      </a>
+      <nav class="nst-nav" aria-label="Menu principal">
+        <a href="plataforma.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v9a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z"/></svg>
+          <span>Início</span>
+        </a>
+        <a href="cursos.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v18H6.5A2.5 2.5 0 0 1 4 18.5z"/><path d="M13 3h4.5A2.5 2.5 0 0 1 20 5.5v13a2.5 2.5 0 0 1-2.5 2.5H13z"/></svg>
+          <span>Cursos</span>
+        </a>
+        <a class="active" href="treino-extra.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="12" height="11" rx="2"/><path d="m17.9 14 3.5-3.5a2.2 2.2 0 0 0 0-3l-5-4.9a2.2 2.2 0 0 0-3 0L10 6"/><path d="M7 18h.01M11 14h.01M16 6h.01M19 9h.01"/></svg>
+          <span>Treino</span>
+        </a>
+        <a href="geni.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg>
+          <span>Geni IA</span>
+        </a>
+      </nav>
+      <button class="nst-exit" type="button" id="practice-logout">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5H5v14h5"/><path d="M14 8l4 4-4 4"/><path d="M18 12H9"/></svg>
+        <span>Sair</span>
+      </button>
     </div>
+  </header>
 
-    <div class="te2-panel" id="panel-memoria"><button class="te2-back" onclick="backToSelection()">â† Voltar aos jogos</button><div class="game-shell"><h3>ðŸƒ Jogo da MemÃ³ria â€” Dias da Semana</h3><p class="hint">Conecte cada dia em portuguÃªs ao seu par em espanhol.</p><div class="memory-game" data-pairs='[{"a":"segunda","b":"lunes"},{"a":"terÃ§a","b":"martes"},{"a":"quarta","b":"miÃ©rcoles"},{"a":"quinta","b":"jueves"},{"a":"sexta","b":"viernes"},{"a":"domingo","b":"domingo"}]'></div></div></div>
-    <div class="te2-panel" id="panel-sopa"><button class="te2-back" onclick="backToSelection()">â† Voltar aos jogos</button><div class="game-shell"><h3>ðŸ” CaÃ§a-palavras â€” EstaÃ§Ãµes</h3><p class="hint">Encontre as 4 estaÃ§Ãµes do ano escondidas.</p><div class="word-search" data-words='["PRIMAVERA","VERANO","OTONO","INVIERNO"]'></div></div></div>
-    <div class="te2-panel" id="panel-letras"><button class="te2-back" onclick="backToSelection()">â† Voltar aos jogos</button><div class="game-shell"><h3>ðŸ”€ Ordena as letras</h3><p class="hint">As letras estÃ£o embaralhadas. Clique na ordem certa!</p><div class="letter-order" data-words='["LUNES","MARTES","MIERCOLES","JUEVES","VIERNES","SABADO","DOMINGO"]'></div></div></div>
-    <div class="te2-panel" id="panel-ditado"><button class="te2-back" onclick="backToSelection()">â† Voltar aos jogos</button><div class="game-shell"><h3>ðŸŽ§ Ditado com Ãudio</h3><p class="hint">Toque em ðŸ”Š para ouvir e escreva o que ouviu.</p><div class="dictado" data-lang="es-ES" data-words='[{"word":"lunes","hint":"segunda-feira"},{"word":"martes","hint":"terÃ§a-feira"},{"word":"miÃ©rcoles","hint":"quarta-feira"},{"word":"jueves","hint":"quinta-feira"},{"word":"viernes","hint":"sexta-feira"},{"word":"sÃ¡bado","hint":"sÃ¡bado"},{"word":"domingo","hint":"domingo"}]'></div></div></div>
-    <div class="te2-panel" id="panel-vocab"><button class="te2-back" onclick="backToSelection()">â† Voltar aos jogos</button><div class="game-shell"><h3>ðŸ“‹ VocabulÃ¡rio com Ãudio</h3><p class="hint">Toque em qualquer palavra para ouvir.</p><div class="audio-vocab" data-title="Los dÃ­as de la semana" data-lang="es-ES" data-words='[{"word":"lunes","trans":"segunda-feira","emoji":"ðŸ“…","color":"#E2F3F5"},{"word":"martes","trans":"terÃ§a-feira","emoji":"ðŸ“…","color":"#FCEEDD"},{"word":"miÃ©rcoles","trans":"quarta-feira","emoji":"ðŸ“…","color":"#DFF2EA"},{"word":"jueves","trans":"quinta-feira","emoji":"ðŸ“…","color":"#E2F3F5"},{"word":"viernes","trans":"sexta-feira","emoji":"ðŸ“…","color":"#FCEEDD"},{"word":"sÃ¡bado","trans":"sÃ¡bado","emoji":"ðŸŽ‰","color":"#ECE7FB"},{"word":"domingo","trans":"domingo","emoji":"â˜€ï¸","color":"#FBE6E2"}]'></div></div></div>
-    <div class="te2-panel" id="panel-arrastar"><button class="te2-back" onclick="backToSelection()">â† Voltar aos jogos</button><div class="game-shell" id="game-dnd"><h3>ðŸŽ® Conecte a imagem Ã  palavra</h3><p class="hint">Arraste o emoji para a palavra certa.</p><div class="dnd"><div class="dnd-col"><h4>Arraste</h4><div class="chip draggable" draggable="true" data-key="agua" data-say="agua"><span class="emoji">ðŸ’§</span> ?</div><div class="chip draggable" draggable="true" data-key="pan" data-say="pan"><span class="emoji">ðŸž</span> ?</div><div class="chip draggable" draggable="true" data-key="cafe" data-say="cafÃ©"><span class="emoji">â˜•</span> ?</div></div><div class="dnd-col"><h4>Solte aqui</h4><div class="dropzone" data-key="agua" data-say="agua"><span class="word">agua</span><span class="slot">arraste aqui</span></div><div class="dropzone" data-key="pan" data-say="pan"><span class="word">pan</span><span class="slot">arraste aqui</span></div><div class="dropzone" data-key="cafe" data-say="cafÃ©"><span class="word">cafÃ©</span><span class="slot">arraste aqui</span></div></div></div><div class="game-feedback"></div></div></div>
+  <main class="nst-page">
+    <div class="nst-shell">
+      <section class="nst-intro">
+        <div class="nst-robot-badge"><img src="assets/geni-ia-maos-sem-fundo-v2.png" alt="" /></div>
+        <div>
+          <p class="nst-eyebrow">Treino extra</p>
+          <h1>Praticar sem pressa.</h1>
+          <p>A Geni transforma cada aula em cartões, pares, escolhas e passos curtos.</p>
+        </div>
+      </section>
 
-  </div>
+      <section class="practice-layout">
+        <aside class="nst-card practice-picker" id="practice-picker">
+          <div class="loading-card">Carregando seus cursos...</div>
+        </aside>
+        <section class="nst-card practice-stage" id="practice-stage">
+          <div class="loading-card">A Geni está preparando um treino leve.</div>
+        </section>
+      </section>
+    </div>
+  </main>
 
-  <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
-
-  <script src="js/config.js?v=5"></script>
-  <script src="js/main.js?v=3"></script>
-  <script src="js/geni-voice.js?v=6"></script>
-  <script src="js/platform.js?v=4"></script>
-  <script src="js/carol-chat.js?v=27"></script>
-  <script>
-    if (!localStorage.getItem('nst.token')) { location.href = 'login.html?next=treino-extra.html'; }
-    function openGame(id){ document.getElementById('te2-selection').style.display='none'; document.querySelectorAll('.te2-panel').forEach(function(p){p.style.display='none';}); var pl=document.getElementById('panel-'+id); if(pl)pl.style.display='block'; window.scrollTo({top:0,behavior:'smooth'}); }
-    function backToSelection(){ document.querySelectorAll('.te2-panel').forEach(function(p){p.style.display='none';}); document.getElementById('te2-selection').style.display='block'; window.scrollTo({top:0,behavior:'smooth'}); }
-    (function(){var c=localStorage.getItem('nst.ctx.curso');var m=localStorage.getItem('nst.ctx.modulo'); if(c)document.getElementById('te3-curso').textContent=c+' BÃ¡sico'; if(m)document.getElementById('te3-mod').textContent='MÃ³dulo 1 â€¢ '+m;})();
-    (function(){var b=document.getElementById('back-to-top');if(!b)return;window.addEventListener('scroll',function(){b.classList.toggle('visible',window.pageYOffset>300);},{passive:true});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});})();
-  </script>
-  <script src="js/notifications.js?v=2"></script>
+  <script src="js/config.js?v=6"></script>
+  <script src="js/geni-voice.js?v=8"></script>
+  <script src="js/treino-extra.js?v=1"></script>
 </body>
 </html>
-
-

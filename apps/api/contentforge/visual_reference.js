@@ -4,11 +4,11 @@ const COURSE_VISUAL_DNA = `
 DNA visual NoSeuTempo, inspirado no mapa visual de 11 telas:
 - Interface limpa, acolhedora e mobile-first; fundo branco/quase branco com roxo claro, roxo escuro, verde calmo e detalhes quentes.
 - Tudo deve parecer feito "sem pressa": poucos elementos por tela, bastante respiro, bordas arredondadas, sombras suaves e texto curto.
-- Geni IA aparece como apoio gentil, nunca como cobranca. Carol e a Turminha entram quando a explicacao precisa de cuidado humano.
+- Geni IA aparece como apoio gentil e criadora visual principal. Nao use a Turminha como base da cena.
 - Use imagens fofas e didaticas no centro da aula: paisagens simples, plantinhas, folhas felizes, sol/gota/nuvem com rostinhos, estrelas discretas e pequenos objetos de estudo.
 - O visual deve explicar antes do texto. Se a aula falar de um conceito, crie uma cena concreta com comeco, meio e fim visual.
 - Para perfis neurodivergentes: baixa carga visual, hierarquia clara, nada piscando, nada caotico, contraste suave e uma ideia por cena.
-- Evite telas genericas de SaaS. A aula deve parecer um espaco de aprendizagem vivo, com personagens e microhistorias.
+- Evite telas genericas de SaaS. A aula deve parecer um espaco de aprendizagem vivo criado pela Geni, com microhistorias e objetos fofos.
 `.trim();
 
 const LESSON_VISUAL_BLUEPRINT = `

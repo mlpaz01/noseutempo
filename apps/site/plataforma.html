@@ -1,578 +1,67 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NoSeuTempo â€” Aprender</title>
-<link rel="icon" href="assets/logo-icon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/site-header.css?v=4" />
-<style>
-  :root{
-    --bg:#FAF8F2;
-    --ink:#1E2A4A;
-    --ink-soft:#5A6378;
-    --muted:#8A90A0;
-    --purple:#6A41C9;
-    --blue:#2F6BE0;
-    --teal:#179A8C;
-    --teal-deep:#0F8275;
-    --green:#2E9E68;
-    --orange:#F0892A;
-    --pink:#E0529C;
-    --card-radius:22px;
-    --shadow:0 10px 30px rgba(40,40,80,.06);
-    --shadow-sm:0 4px 14px rgba(40,40,80,.05);
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{background:#FDFCFA;font-family:'Poppins',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;}
-  a{text-decoration:none;color:inherit;}
-  button{font-family:inherit;cursor:pointer;border:none;}
-
-  /* ---------- HEADER ---------- */
-  header{
-    background:#fff;border-bottom:1px solid #EFEDE8;padding:0 40px;height:96px;
-    display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;
-  }
-  .brand{display:flex;align-items:center;gap:14px;}
-  .logo-mark{width:56px;height:56px;flex:none;display:block;transition:transform .5s cubic-bezier(.34,1.56,.64,1);}
-  .brand:hover .logo-mark{transform:rotate(-12deg) scale(1.06);}
-  .brand-text h1{margin:0;font-size:27px;font-weight:700;letter-spacing:-.3px;}
-  .brand-text h1 .no{color:var(--ink);}
-  .brand-text h1 .seu{color:var(--teal);}
-  .brand-text h1 .tempo{color:var(--ink);}
-  .brand-text p{margin:2px 0 0;font-size:13px;color:var(--muted);font-weight:400;}
-
-  nav{display:flex;align-items:center;gap:52px;}
-  .nav-item{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:500;color:var(--ink-soft);padding:6px 2px;position:relative;transition:color .2s ease;}
-  .nav-item svg{width:23px;height:23px;}
-  .nav-item.active{color:var(--teal);font-weight:600;}
-  .nav-item.active::after{content:"";position:absolute;left:0;right:0;bottom:-34px;height:3px;border-radius:3px;background:var(--teal);}
-  .nav-item:not(.active):hover{color:var(--teal);}
-
-  .header-right{display:flex;align-items:center;gap:22px;}
-  .bell{position:relative;color:var(--ink-soft);display:flex;align-items:center;}
-  .bell svg{width:26px;height:26px;}
-  .btn-sair{border:1.5px solid #E3E1DC;background:#fff;border-radius:13px;padding:11px 26px;font-size:16px;font-weight:500;color:var(--ink-soft);transition:transform .2s ease,background .2s ease;}
-  .btn-sair:hover{background:#FAF9F6;transform:translateY(-1px);}
-
-  /* ---------- LAYOUT ---------- */
-  main{max-width:1536px;margin:0 auto;padding:34px 40px 40px;}
-  .page-title{display:flex;align-items:center;gap:20px;margin-bottom:26px;}
-  .page-title .book{width:64px;height:auto;display:block;}
-  .page-title h2{margin:0;font-size:46px;font-weight:700;letter-spacing:-1px;color:var(--ink);}
-  .page-title p{margin:6px 0 0;font-size:19px;font-weight:500;color:var(--ink-soft);}
-
-  .grid{display:grid;grid-template-columns:1.62fr 1fr;gap:24px;align-items:start;}
-  .left-col,.right-col{display:flex;flex-direction:column;gap:24px;}
-  .card{border-radius:var(--card-radius);box-shadow:var(--shadow);}
-
-  /* ---------- BIG LEARNING PANEL ---------- */
-  .panel{background:#FBFAF6;border:1px solid #EFEDE6;padding:28px 30px 32px;}
-  .panel h3.sec{margin:0;font-size:23px;font-weight:700;}
-  .panel p.sec{margin:6px 0 0;font-size:16px;color:var(--ink-soft);font-weight:500;}
-
-  .continue-wrap{position:relative;margin-top:20px;}
-  .continue{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-  .cc{background:#fff;border:1px solid #EDEBE4;border-radius:16px;padding:20px;display:flex;flex-direction:column;transition:transform .3s ease,box-shadow .3s ease;}
-  .cc:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(40,40,80,.09);}
-  .cc-head{display:flex;align-items:flex-start;gap:12px;}
-  .cc-meta{flex:1;min-width:0;}
-  .cc-flag{width:40px;height:40px;border-radius:50%;flex:none;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.12);background:#eee;transition:transform .35s ease;}
-  .cc-flag img{width:100%;height:100%;object-fit:cover;}
-  .cc:hover .cc-flag{transform:rotate(-8deg) scale(1.08);}
-  .cc-head h4{margin:0;font-size:18px;font-weight:700;line-height:1.2;}
-  .cc-head .mod{margin:3px 0 0;font-size:13.5px;color:var(--muted);font-weight:500;}
-  .novo{flex:none;align-self:flex-start;margin-top:2px;background:#FCE3EC;color:var(--pink);font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:20px;white-space:nowrap;}
-  .cc-prog{margin-top:auto;padding-top:18px;display:flex;align-items:center;gap:10px;}
-  .cc-prog .track{flex:1;height:8px;border-radius:6px;background:#EAE8E1;overflow:hidden;}
-  .cc-prog .track > i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#1AAE8E,#16C0A0);width:0;}
-  .cc-prog .pct{font-size:13.5px;font-weight:700;color:var(--ink-soft);}
-  .btn-continue{margin-top:18px;align-self:flex-start;background:#E6F4F0;color:var(--teal-deep);border-radius:11px;padding:10px 18px;font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:9px;transition:transform .2s ease,background .2s ease;}
-  .btn-continue svg{width:16px;height:16px;transition:transform .25s ease;}
-  .btn-continue:hover{background:#D6EEE8;transform:translateY(-2px);}
-  .btn-continue:hover svg{transform:translateX(3px);}
-
-  .carousel-next{position:absolute;right:-46px;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:#fff;border:1px solid #E7E4DC;box-shadow:0 6px 16px rgba(40,40,80,.1);display:flex;align-items:center;justify-content:center;color:var(--ink-soft);transition:transform .25s ease,box-shadow .25s ease;}
-  .carousel-next svg{width:22px;height:22px;}
-  .carousel-next:hover{transform:translateY(-50%) scale(1.08);box-shadow:0 10px 22px rgba(40,40,80,.16);color:var(--teal);}
-
-  /* nossos cursos */
-  .courses-head{display:flex;align-items:center;justify-content:space-between;margin-top:34px;}
-  .courses-action{border:1px solid #E7E4DC;background:#fff;color:var(--teal-deep);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:transform .2s ease,background .2s ease;}
-  .courses-action:hover{background:#F4F2EC;transform:translateY(-2px);}
-  .arrows{display:flex;gap:10px;}
-  .arrow{width:42px;height:42px;border-radius:12px;background:#fff;border:1px solid #E7E4DC;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);transition:transform .2s ease,background .2s ease,color .2s ease;}
-  .arrow svg{width:20px;height:20px;}
-  .arrow:hover{background:#F4F2EC;color:var(--teal);transform:translateY(-2px);}
-  .arrow.dim{color:#C7C4BC;}
-  .courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:18px;margin-top:20px;}
-  .course{display:flex;flex-direction:column;}
-  .course .tile{border-radius:16px;height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:48px;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease;}
-  .course:hover .tile{transform:translateY(-6px);box-shadow:0 14px 26px rgba(40,40,80,.12);}
-  .course .tile img{width:88%;height:auto;display:block;transition:transform .4s ease;}
-  .course:hover .tile img{transform:scale(1.07);}
-  .t-espanhol{background:linear-gradient(150deg,#FCEFE3,#FBE7D6);}
-  .t-ingles{background:linear-gradient(150deg,#E7F1FB,#DCEBF8);}
-  .t-abc{background:linear-gradient(150deg,#F1EAF9,#ECE3F6);}
-  .t-brain{background:linear-gradient(150deg,#E4F4EC,#D9F0E5);}
-  .t-laptop{background:linear-gradient(150deg,#FBF4DC,#FAEFCB);}
-  .course h4{margin:14px 0 0;font-size:17px;font-weight:700;line-height:1.25;}
-  .course p{margin:6px 0 0;font-size:13.5px;color:var(--ink-soft);font-weight:500;line-height:1.4;flex:1;}
-  .btn-explorar{margin-top:14px;align-self:flex-start;background:#EEF4F1;color:var(--teal-deep);border-radius:11px;padding:9px 16px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:transform .2s ease,background .2s ease;}
-  .btn-explorar svg{width:15px;height:15px;transition:transform .25s ease;}
-  .btn-explorar:hover{background:#E0EEE9;transform:translateY(-2px);}
-  .btn-explorar:hover svg{transform:translateX(3px);}
-
-  .courses-empty{grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);font-weight:500;}
-
-  /* historias */
-  .historias{background:linear-gradient(100deg,#E7F2F1 0%,#EDF3F1 55%,#F0F4F0 100%);padding:24px 30px;display:flex;align-items:center;gap:20px;}
-  .hist-ico{width:54px;height:54px;border-radius:50%;flex:none;background:var(--teal);display:flex;align-items:center;justify-content:center;color:#fff;}
-  .hist-ico svg{width:28px;height:28px;}
-  .historias h3{margin:0;font-size:21px;font-weight:700;}
-  .historias p{margin:4px 0 0;font-size:16px;color:var(--ink-soft);font-weight:500;}
-
-  /* ---------- RIGHT: GENI ---------- */
-  .geni{background:linear-gradient(135deg,#DEF1EC 0%,#E9F5F0 45%,#F3FAF6 75%,#FEFEFE 100%);padding:26px 28px 22px;position:relative;overflow:hidden;}
-  .geni-top{display:flex;align-items:center;gap:14px;}
-  .geni-ico{width:50px;height:50px;border-radius:14px;flex:none;background:#D6F0EA;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .geni-ico img{width:78%;height:78%;object-fit:contain;}
-  .geni-top .t1{margin:0;font-size:18px;font-weight:600;color:var(--ink);line-height:1.2;}
-  .geni-top .t2{display:block;font-size:25px;font-weight:700;color:var(--teal);letter-spacing:-.3px;}
-  .geni .desc{margin:18px 0 0;font-size:16px;color:var(--ink-soft);font-weight:500;line-height:1.45;max-width:280px;}
-  .geni-pill{margin-top:16px;background:#D9F0E9;border-radius:14px;padding:13px 16px;display:flex;align-items:flex-start;gap:10px;max-width:300px;}
-  .geni-pill .hp{flex:none;font-size:16px;line-height:1.2;}
-  .geni-pill span{font-size:14.5px;color:#2C5E57;font-weight:500;line-height:1.4;}
-  .btn-conversar{margin-top:18px;background:linear-gradient(100deg,#179A8C,#1AAE94);color:#fff;border-radius:14px;padding:14px 26px;font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:12px;box-shadow:0 8px 18px rgba(23,154,140,.3);transition:transform .2s ease,filter .2s ease;}
-  .btn-conversar:hover{transform:translateY(-2px);filter:brightness(1.05);}
-
-  /* robot */
-  .geni-bot{position:absolute;right:6px;bottom:14px;width:208px;height:248px;pointer-events:none;}
-  .geni-bot img{width:100%;height:auto;display:block;position:relative;z-index:2;transform-origin:62% 82%;}
-  .geni-bot::before{content:"";position:absolute;left:50%;top:48%;width:170px;height:170px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(26,174,148,.22),rgba(26,174,148,0) 68%);z-index:1;}
-  .spark{position:absolute;z-index:3;color:#19B89C;opacity:0;}
-  .spark svg{width:100%;height:100%;display:block;}
-  .s1{width:18px;height:18px;left:6px;top:54px;}
-  .s2{width:12px;height:12px;left:30px;top:96px;}
-  .s3{width:14px;height:14px;left:0;top:120px;}
-
-  /* small white cards */
-  .mini{background:#fff;border:1px solid #F0EEE8;padding:22px 24px;}
-  .mini-row{display:flex;align-items:flex-start;gap:14px;}
-  .mini .emoji{font-size:24px;line-height:1;flex:none;margin-top:1px;}
-  .mini h3{margin:0;font-size:19px;font-weight:700;}
-  .mini .body{flex:1;}
-  .mini p{margin:6px 0 0;font-size:15px;color:var(--ink-soft);font-weight:500;line-height:1.45;}
-  .mini .heart{font-size:18px;flex:none;align-self:center;}
-
-  .jornada h3{margin:0 0 16px;font-size:19px;font-weight:700;}
-  .jrow{display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid #F2F0EA;transition:padding-left .25s ease;}
-  .jrow:first-of-type{border-top:none;}
-  .jrow:hover{padding-left:6px;}
-  .jrow .je{font-size:21px;line-height:1;flex:none;}
-  .jrow .jt{flex:1;font-size:15.5px;font-weight:600;color:var(--ink);}
-  .jrow .jt b{font-weight:700;}
-  .jrow .chev{color:#C2BFB7;transition:transform .25s ease,color .25s ease;}
-  .jrow .chev svg{width:18px;height:18px;}
-  .jrow:hover .chev{transform:translateX(4px);color:var(--teal);}
-
-  .nov-head{display:flex;align-items:center;justify-content:space-between;}
-  .nov-head .l{display:flex;align-items:center;gap:12px;}
-  .nov-head .chev{color:#C2BFB7;}
-  .nov-head .chev svg{width:18px;height:18px;}
-
-  /* ---------- MOTION ---------- */
-  .eq{display:inline-flex;align-items:center;gap:3px;height:18px;margin-left:2px;}
-  .eq i{width:3px;background:currentColor;border-radius:2px;height:6px;}
-
-  .js .cc-prog .track > i{animation:fillBar 1.5s cubic-bezier(.22,.61,.36,1) .4s both;}
-  @keyframes fillBar{from{width:0}}
-
-  @keyframes revealUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-  .js .reveal{animation:revealUp .7s cubic-bezier(.22,.61,.36,1) both;animation-delay:var(--rd,0s);}
-  .page-title.reveal{--rd:0s}
-  .panel.reveal{--rd:.08s}
-  .historias.reveal{--rd:.2s}
-  .geni.reveal{--rd:.14s}
-  .dicas.reveal{--rd:.22s}
-  .jornada.reveal{--rd:.3s}
-  .novidades.reveal{--rd:.38s}
-
-  @media (prefers-reduced-motion:no-preference){
-    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-    .page-title .book{animation:floaty 4.6s ease-in-out infinite;}
-
-    @keyframes botFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-    @keyframes botGreet{
-      0%,42%,100%{transform:rotate(0deg) scale(1);}
-      48%{transform:rotate(4.5deg) scale(1.02);}
-      54%{transform:rotate(-3deg) scale(1.02);}
-      60%{transform:rotate(4deg) scale(1.02);}
-      66%{transform:rotate(-2deg) scale(1.01);}
-      72%{transform:rotate(2.5deg) scale(1.01);}
-      78%{transform:rotate(0deg) scale(1);}
-    }
-    .geni-bot{animation:botFloat 4.2s ease-in-out infinite;}
-    .geni-bot img{animation:botGreet 6s ease-in-out infinite;}
-    @keyframes glowPulse{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(.92)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
-    .geni-bot::before{animation:glowPulse 4.2s ease-in-out infinite;}
-    @keyframes sparkle{0%,100%{opacity:0;transform:scale(.4)}45%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1)}80%{opacity:0;transform:scale(.6)}}
-    .s1{animation:sparkle 6s ease-in-out infinite;}
-    .s2{animation:sparkle 6s ease-in-out .25s infinite;}
-    .s3{animation:sparkle 6s ease-in-out .5s infinite;}
-
-    @keyframes eq{0%,100%{height:5px}50%{height:16px}}
-    .eq i{animation:eq 1s ease-in-out infinite;}
-    .eq i:nth-child(1){animation-delay:0s}
-    .eq i:nth-child(2){animation-delay:.14s}
-    .eq i:nth-child(3){animation-delay:.28s}
-    .eq i:nth-child(4){animation-delay:.42s}
-    .eq i:nth-child(5){animation-delay:.56s}
-
-    @keyframes twinkle{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.18) rotate(9deg)}}
-    .heart-beat{display:inline-block;animation:twinkle 2.6s ease-in-out infinite;}
-  }
-
-  @media (max-width:1100px){
-    .grid{grid-template-columns:1fr;}
-    .courses{grid-template-columns:repeat(2,1fr);}
-    .continue{grid-template-columns:1fr;}
-    .carousel-next{display:none;}
-    nav{display:none;}
-    header{padding:0 20px;}
-    main{padding:24px 20px 32px;}
-  }
-
-  /* ===== Widget flutuante da Carol (carol-chat.js) â€” estilos base ===== */
-  #carol-widget-root { position: fixed; bottom: 22px; right: 24px; z-index: 9000; font-family:'Poppins',system-ui,sans-serif; }
-  @media (max-width: 640px) { #carol-widget-root { bottom: 16px; right: 14px; } }
-  .hidden { display: none !important; }
-  .carol-fab { display: flex; align-items: center; gap: 10px; background: transparent; border: 0; cursor: pointer; padding: 0; font-family: inherit; }
-  .carol-fab-bubble { background: var(--teal); color: #fff; font-weight: 700; font-size: .76rem; line-height: 1.2; text-align: center; padding: 8px 13px; border-radius: 14px; box-shadow: 0 6px 18px rgba(23,154,140,.30); white-space: nowrap; position: relative; }
-  .carol-fab-bubble::after { content: ""; position: absolute; right: -6px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-left-color: var(--teal); }
-  .carol-fab-x { position: absolute; top: -8px; right: -8px; width: 18px; height: 18px; border-radius: 50%; background: #fff; color: #5A6378; border: 1px solid #E3E1DC; font-size: 10px; line-height: 1; cursor: pointer; padding: 0; display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0,0,0,.18); }
-  .carol-fab-x:hover { background: #F3F4F6; color: #1E2A4A; }
-  .carol-fab-avatar { position: relative; width: 50px; height: 50px; border-radius: 50%; border: 2.5px solid var(--teal); overflow: hidden; flex: none; background: #fff; box-shadow: 0 6px 18px rgba(27,43,74,.20); transition: transform .15s; padding: 0; cursor: pointer; }
-  .carol-fab:hover .carol-fab-avatar { transform: scale(1.06); }
-  .carol-fab-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-  .carol-fab-dot { position: absolute; bottom: 2px; right: 2px; width: 11px; height: 11px; border-radius: 50%; background: var(--green); border: 2px solid #fff; }
-  .ccw-box { position: absolute; bottom: 78px; right: 0; width: 360px; border-radius: 20px; background: #fff; border: 1.5px solid #E0E8F0; box-shadow: 0 24px 60px rgba(27,43,74,.24); overflow: hidden; animation: ccw-pop .22s cubic-bezier(.34,1.56,.64,1); transform-origin: bottom right; }
-  @keyframes ccw-pop { from { opacity: 0; transform: scale(.88) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-  @media (max-width: 420px) { .ccw-box { width: calc(100vw - 28px); right: -10px; } .ccw-body { max-height: 52vh; } }
-  .ccw-header { background: var(--teal); padding: 12px 12px 12px 14px; display: flex; align-items: center; gap: 10px; color: #fff; }
-  .ccw-hav-img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; object-position: center top; border: 2px solid rgba(255,255,255,.5); flex: none; }
-  .ccw-hinfo { flex: 1; min-width: 0; line-height: 1.15; }
-  .ccw-htitle { display: block; font-size: .9rem; font-weight: 800; white-space: nowrap; }
-  .ccw-status { display: flex; align-items: center; gap: 5px; font-size: .7rem; color: rgba(255,255,255,.9); margin-top: 2px; }
-  .ccw-status-dot { width: 7px; height: 7px; border-radius: 50%; background: #8FE0B6; display: inline-block; flex: none; }
-  .ccw-icon-btn { background: rgba(255,255,255,.16); border: 0; color: #fff; width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-size: .8rem; flex: none; line-height: 1; display: grid; place-items: center; }
-  .ccw-icon-btn:hover { background: rgba(255,255,255,.32); }
-  .ccw-body { padding: 16px 14px; background: #F1FAF8; min-height: 120px; max-height: 460px; overflow-y: auto; }
-  .ccw-bubble { background: #E3F4F1; border: 1.5px solid #CDEAE4; border-radius: 16px; padding: 13px 15px; font-size: .85rem; line-height: 1.62; color: var(--ink); }
-  .ccw-bubble b { color: var(--teal); }
-  .ccw-confirm { text-align: center; font-weight: 700; color: var(--green); padding: 14px 8px; font-size: .9rem; }
-  .ccw-foot { border-top: 1.5px solid #E0E8F0; padding: 12px; display: flex; gap: 9px; align-items: center; background: #fff; }
-  .ccw-input { flex: 1; border: 1.5px solid #E0E8F0; border-radius: 14px; padding: 11px 14px; font-family: inherit; font-size: .88rem; resize: none; min-height: 44px; max-height: 90px; background: #FAF8F2; line-height: 1.4; }
-  .ccw-input:focus { outline: none; border-color: var(--teal); }
-  .ccw-send { background: var(--teal); color: #fff; border: 0; border-radius: 50%; width: 44px; height: 44px; font-size: 1.05rem; cursor: pointer; flex: none; display: grid; place-items: center; }
-  .ccw-send:hover { filter: brightness(1.08); }
-  .ccw-send:disabled { opacity: .6; cursor: default; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NoSeuTempo - Início</title>
+  <link rel="icon" href="assets/logo-icon.svg" />
+  <link rel="stylesheet" href="css/learn-unified.css?v=2" />
 </head>
-<body>
-  <div class="nsthd-wrap">
-  <a class="nsthd-brand" href="plataforma.html">
-    <img class="nsthd-logo" src="assets/logo.png" alt="NoSeuTempo" onerror="this.onerror=null;this.src='assets/logo-icon.svg'" />
-    <div class="nsthd-bt"><h1><span>No</span><span class="seu">Seu</span><span>Tempo</span></h1><p>Aprenda no seu tempo. Evolua sempre.</p></div>
-  </a>
-  <div class="nsthd-nav" role="navigation">
-    <a class="nsthd-item active" href="plataforma.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="nsthd-tx">InÃ­cio</span><span class="nsthd-sm">InÃ­cio</span></a>
-    <a class="nsthd-item" href="cursos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M16 12h2"/><path d="M16 8h2"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/><path d="M6 8h2"/><path d="M6 12h2"/></svg><span class="nsthd-tx">Cursos</span><span class="nsthd-sm">Cursos</span></a>
-    <a class="nsthd-item" href="treino-extra.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="2" y="10" rx="2" ry="2"/><path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6"/><path d="M6 18h.01"/><path d="M10 14h.01"/><path d="M15 6h.01"/><path d="M18 9h.01"/></svg><span class="nsthd-tx">Atividades</span><span class="nsthd-sm">Atividades</span></a>
-    <a class="nsthd-item" href="geni.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg><span class="nsthd-tx">Geni IA</span><span class="nsthd-sm">Geni IA</span></a>
-  </div>
-  <div class="nsthd-right">
-    <a class="nsthd-bell" href="#" aria-label="Notificacoes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></svg><span class="nsthd-badge"></span></a>
-    <button class="nsthd-sair" onclick="try{localStorage.removeItem('nst.token')}catch(e){};location.href='index.html'">Sair</button>
-  </div>
-</div>
+<body class="nst-learn">
+  <header class="nst-topbar">
+    <div class="nst-shell">
+      <a class="nst-brand" href="plataforma.html" aria-label="NoSeuTempo">
+        <img src="assets/logo-icon.svg" alt="" />
+        <span>
+          <strong>No<span>Seu</span>Tempo</strong>
+          <small>Aprenda no seu tempo.</small>
+        </span>
+      </a>
 
-  <main>
-    <div class="page-title reveal">
-      <img class="book" src="assets/aprender/book2.png" alt="" />
-      <div>
-        <h2>Aprender</h2>
-        <p>Sua jornada de aprendizado, do seu jeito<span id="ap-greet"></span>. <span class="heart-beat">ðŸ’™</span></p>
-      </div>
+      <nav class="nst-nav" aria-label="Menu da plataforma">
+        <a class="active" href="plataforma.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v9a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z"/></svg>
+          <span>Início</span>
+        </a>
+        <a href="cursos.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v18H6.5A2.5 2.5 0 0 1 4 18.5z"/><path d="M13 3h4.5A2.5 2.5 0 0 1 20 5.5v13a2.5 2.5 0 0 1-2.5 2.5H13z"/></svg>
+          <span>Cursos</span>
+        </a>
+        <a href="treino-extra.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="12" height="11" rx="2"/><path d="m17.9 14 3.5-3.5a2.2 2.2 0 0 0 0-3l-5-4.9a2.2 2.2 0 0 0-3 0L10 6"/><path d="M7 18h.01M11 14h.01M16 6h.01M19 9h.01"/></svg>
+          <span>Treino</span>
+        </a>
+        <a href="geni.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3"/><path d="M7 8h10a4 4 0 0 1 4 4v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5v-3a4 4 0 0 1 4-4Z"/><path d="M9 13h.01"/><path d="M15 13h.01"/><path d="M9 16c1.5 1 4.5 1 6 0"/></svg>
+          <span>Geni IA</span>
+        </a>
+      </nav>
+
+      <a class="nst-exit" href="login.html" onclick="localStorage.removeItem('nst.token')">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5H5v14h5"/><path d="M14 8l4 4-4 4"/><path d="M18 12H9"/></svg>
+        <span>Sair</span>
+      </a>
     </div>
+  </header>
 
-    <div class="grid">
-      <!-- LEFT -->
-      <div class="left-col">
-        <div class="card panel reveal">
-          <h3 class="sec">Continue aprendendo</h3>
-          <p class="sec">Retome de onde parou e siga evoluindo.</p>
-          <div class="continue-wrap">
-            <div class="continue" id="ap-continue">
-              <div class="courses-empty">Carregando seus cursosâ€¦</div>
-            </div>
-            <button class="carousel-next" aria-label="PrÃ³ximo">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-            </button>
-          </div>
-
-          <div class="courses-head">
-            <div>
-              <h3 class="sec">Nossos cursos</h3>
-              <p class="sec">Escolha um tema e comece uma nova jornada.</p>
-            </div>
-            <a class="courses-action" href="cursos.html">Ver todos <span aria-hidden="true">&rarr;</span></a>
-          </div>
-
-          <div class="courses" id="ap-courses">
-            <div class="courses-empty">Carregando cursosâ€¦</div>
-          </div>
-        </div>
-
-        <div class="card historias reveal">
-          <div class="hist-ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="8.5" r="2.4"/><path d="M16 13.2a5 5 0 0 1 4.5 5.8"/></svg>
-          </div>
-          <div>
-            <h3>HistÃ³rias reais dos alunos</h3>
-            <p>Em breve vocÃª verÃ¡ aqui histÃ³rias inspiradoras de quem aprende no seu tempo. <span class="heart-beat">ðŸ’™</span></p>
-          </div>
+  <main class="nst-page">
+    <div class="nst-shell">
+      <div class="nst-intro">
+        <div class="nst-robot-badge"><img src="assets/geni-avatar.png" alt="" /></div>
+        <div>
+          <p class="nst-eyebrow">Tela 11 - Minha página inicial</p>
+          <h1>Aprender</h1>
+          <p>Seu espaço foi organizado do seu jeito.</p>
         </div>
       </div>
 
-      <!-- RIGHT -->
-      <div class="right-col">
-        <div class="card geni reveal">
-          <div class="geni-top">
-            <div class="geni-ico"><img src="assets/aprender/geni-avatar.png" alt="Geni" /></div>
-            <div>
-              <p class="t1">Converse com a</p>
-              <span class="t2">Geni IA</span>
-            </div>
-          </div>
-          <p class="desc">Pratique por voz, tire dÃºvidas e aprenda no seu ritmo.</p>
-          <div class="geni-pill">
-            <span class="hp">ðŸ’™</span>
-            <span>Estou aqui para te ajudar sempre que precisar.</span>
-          </div>
-          <a class="btn-conversar" href="geni.html">Conversar agora
-            <span class="eq"><i></i><i></i><i></i><i></i><i></i></span>
-          </a>
-          <div class="geni-bot">
-            <span class="spark s1"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z"/></svg></span>
-            <span class="spark s2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z"/></svg></span>
-            <span class="spark s3"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z"/></svg></span>
-            <img src="assets/aprender/robot_cut.png" alt="RobÃ´ Geni acenando" />
-          </div>
-        </div>
-
-        <div class="card mini dicas reveal">
-          <div class="mini-row">
-            <span class="emoji">ðŸ’¡</span>
-            <div class="body">
-              <h3>Dicas da Geni</h3>
-              <p>Pequenos passos todos os dias geram grandes conquistas.</p>
-            </div>
-            <span class="heart heart-beat">ðŸ’™</span>
-          </div>
-        </div>
-
-        <div class="card mini jornada reveal">
-          <h3>Sua jornada</h3>
-          <div class="jrow">
-            <span class="je">â­</span>
-            <span class="jt"><b id="jr-palavras">0</b> palavras aprendidas</span>
-            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </div>
-          <div class="jrow">
-            <span class="je">âœ…</span>
-            <span class="jt"><b id="jr-aulas">0</b> aulas concluÃ­das</span>
-            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </div>
-          <div class="jrow">
-            <span class="je">ðŸ”¥</span>
-            <span class="jt"><b id="jr-dias">0</b> dias de sequÃªncia</span>
-            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </div>
-          <a href="perfil.html" class="jrow" style="text-decoration:none;color:var(--teal)">
-            <span class="je">ðŸ§©</span>
-            <span class="jt" style="color:var(--teal);font-weight:700">Meu perfil de aprendizagem</span>
-            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </a>
-        </div>
-
-        <div class="card mini novidades reveal">
-          <div class="nov-head">
-            <div class="l">
-              <span class="emoji">ðŸŽ</span>
-              <h3>Novidades</h3>
-            </div>
-            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </div>
-          <p style="margin:10px 0 0;font-size:15px;color:var(--ink-soft);font-weight:500;line-height:1.45;">Novos conteÃºdos e jogos em breve. Fique ligado!</p>
-        </div>
+      <div id="home-root">
+        <div class="nst-card loading-card">A Geni está preparando seu início...</div>
       </div>
     </div>
   </main>
 
-  <script src="js/config.js?v=5"></script>
-  <script src="js/main.js?v=3"></script>
-  <script>
-    /* â”€â”€ SessÃ£o + dados reais (nome, cursos) â”€â”€ */
-    (function () {
-      var API = window.NST_API || 'https://api.noseutempo.app';
-      var token = localStorage.getItem('nst.token');
-      if (!token) { location.href = 'login.html?next=plataforma.html'; return; }
-
-      function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-      function norm(s){
-        return String(s||'').toLowerCase()
-          .replace(/[Ã¡Ã Ã¢Ã£]/g,'a').replace(/[Ã©Ãª]/g,'e').replace(/[Ã­Ã¯]/g,'i')
-          .replace(/[Ã³Ã´Ãµ]/g,'o').replace(/[ÃºÃ¼]/g,'u').replace(/Ã§/g,'c')
-          .trim();
-      }
-
-      var ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
-      var TILEMAP = {
-        'espanhol':                       { img:'c-espanhol.png', cls:'t-espanhol', flag:'flag-es.png' },
-        'ingles':                         { img:'c-ingles.png',   cls:'t-ingles',   flag:'flag-us.png' },
-        'alfabetizacao':                  { img:'c-abc.png',      cls:'t-abc',      flag:'mini-abc.png' },
-        'alfabetizacao neurodivergente':  { img:'c-brain.png',    cls:'t-brain',    flag:'mini-abc.png' },
-        'mundo digital':                  { img:'c-laptop.png',   cls:'t-laptop',   flag:'mini-abc.png' }
-      };
-      var TILECLS = ['t-espanhol','t-ingles','t-abc','t-brain','t-laptop'];
-      function tileFor(titulo, i){
-        return TILEMAP[norm(titulo)] || { img:'', cls: TILECLS[i % TILECLS.length], flag:'mini-abc.png' };
-      }
-
-      /* Nome do aluno + gate de pagamento */
-      fetch(API + '/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
-        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-        .then(function (u) {
-          if (u && !u.acesso && !u.admin) { location.href = 'pagamento.html'; return; }
-          // 1Âº acesso (pago ou trial): convida a preencher o Perfil de Aprendizagem (uma vez)
-          if (u && u.acesso && !u.admin && !u.perfilCompleto && !localStorage.getItem('nst.perfilPrompted')) {
-            try { localStorage.setItem('nst.perfilPrompted', '1'); } catch (e) {}
-            location.href = 'perfil.html'; return;
-          }
-          var nome = ((u && u.nome) || '').trim().split(' ')[0];
-          if (nome) { var el = document.getElementById('ap-greet'); if (el) el.textContent = ', ' + nome; }
-        })
-        .catch(function () {});
-
-      /* Cursos reais + progresso do aluno */
-      Promise.all([
-        fetch(API + '/api/courses').then(function (r) { return r.json(); }).catch(function () { return []; }),
-        fetch(API + '/api/progress', { headers: { 'Authorization': 'Bearer ' + token } })
-          .then(function (r) { return r.ok ? r.json() : { courses: {}, summary: {} }; })
-          .catch(function () { return { courses: {}, summary: {} }; })
-      ]).then(function (arr) {
-        var courses = sortCoursesNewest(Array.isArray(arr[0]) ? arr[0] : []);
-        var prog = arr[1] || { courses: {}, summary: {} };
-        renderCourses(courses);
-        renderContinue(courses, prog.courses || {});
-        renderJornada(prog.summary || {});
-      }).catch(function () {
-        var a = document.getElementById('ap-courses');
-        var b = document.getElementById('ap-continue');
-        if (a) a.innerHTML = '<div class="courses-empty">NÃ£o foi possÃ­vel carregar os cursos agora.</div>';
-        if (b) b.innerHTML = '';
-      });
-
-      function renderJornada(summary) {
-        var set = function (id, v) { var el = document.getElementById(id); if (el) el.textContent = (v == null ? 0 : v); };
-        set('jr-palavras', summary.palavras);
-        set('jr-aulas', summary.aulasConcluidas);
-        set('jr-dias', summary.streak);
-      }
-
-      function courseTime(c) {
-        var t = c && c.criado ? Date.parse(c.criado) : 0;
-        return isNaN(t) ? 0 : t;
-      }
-
-      function sortCoursesNewest(courses) {
-        return courses.slice().sort(function (a, b) { return courseTime(b) - courseTime(a); });
-      }
-
-      function renderCourses(courses) {
-        var el = document.getElementById('ap-courses');
-        if (!el) return;
-        if (!courses.length) { el.innerHTML = '<div class="courses-empty">Nenhum curso disponÃ­vel ainda. ðŸ’™</div>'; return; }
-        el.innerHTML = courses.map(function (c, i) {
-          var t = tileFor(c.titulo, i);
-          var inner = t.img
-            ? '<img src="assets/aprender/' + t.img + '" alt="">'
-            : (c.capa ? '<img src="' + esc(c.capa) + '" alt="">' : 'ðŸ“š');
-          return '<div class="course">' +
-            '<div class="tile ' + t.cls + '">' + inner + '</div>' +
-            '<h4>' + esc(c.titulo) + '</h4>' +
-            '<p>' + esc(c.descricao || '') + '</p>' +
-            '<a class="btn-explorar" href="aula.html?course=' + encodeURIComponent(c.id) + '&v=2">Explorar ' + ARROW + '</a>' +
-            '</div>';
-        }).join('');
-      }
-
-      function renderContinue(courses, progByCourse) {
-        var el = document.getElementById('ap-continue');
-        if (!el) return;
-        if (!courses.length) { el.innerHTML = '<div class="courses-empty">Seus cursos aparecerÃ£o aqui assim que vocÃª comeÃ§ar. ðŸ’™</div>'; return; }
-        progByCourse = progByCourse || {};
-        // Ordena: em andamento primeiro, depois nÃ£o iniciados, concluÃ­dos por Ãºltimo
-        var ordered = courses.map(function (c, i) { return { c: c, i: i, p: progByCourse[c.id] || null }; })
-          .sort(function (a, b) {
-            var pa = a.p ? a.p.percent : 0, pb = b.p ? b.p.percent : 0;
-            var ra = (pa > 0 && pa < 100) ? 0 : (pa === 0 ? 1 : 2);
-            var rb = (pb > 0 && pb < 100) ? 0 : (pb === 0 ? 1 : 2);
-            return ra - rb || courseTime(b.c) - courseTime(a.c) || a.i - b.i;
-          });
-        el.innerHTML = ordered.slice(0, 3).map(function (o) {
-          var c = o.c, i = o.i, p = o.p;
-          var t = tileFor(c.titulo, i);
-          var flagStyle = (t.flag === 'mini-abc.png') ? ' style="border-radius:12px;background:#fff"' : '';
-          var pct = p ? p.percent : 0;
-          var iniciado = pct > 0;
-          var label = pct >= 100 ? 'Revisar' : (iniciado ? 'Continuar' : 'ComeÃ§ar');
-          var mod = pct >= 100 ? 'ConcluÃ­do ðŸŽ‰' : (iniciado ? (p.completed + ' de ' + p.total + ' aulas') : 'Comece sua jornada');
-          var href = 'aula.html?course=' + encodeURIComponent(c.id) + '&v=2';
-          if (p && p.last) href += '&unit=' + (p.last.unit || 0) + '&lesson=' + (p.last.lesson || 0);
-          return '<div class="cc">' +
-            '<div class="cc-head">' +
-              '<div class="cc-flag"' + flagStyle + '><img src="assets/aprender/' + t.flag + '" alt=""></div>' +
-              '<div class="cc-meta"><h4>' + esc(c.titulo) + '</h4><p class="mod">' + mod + '</p></div>' +
-              (iniciado ? '' : '<span class="novo">Novo</span>') +
-            '</div>' +
-            '<div class="cc-prog"><div class="track"><i style="width:' + pct + '%"></i></div><span class="pct">' + pct + '%</span></div>' +
-            '<a class="btn-continue" href="' + href + '">' + label + ' ' + ARROW + '</a>' +
-            '</div>';
-        }).join('');
-      }
-    })();
-
-    /* â”€â”€ AnimaÃ§Ãµes do design â”€â”€ */
-    (function () {
-      document.documentElement.classList.add('js');
-      function onReady(fn){ if(document.readyState!=='loading') fn(); else document.addEventListener('DOMContentLoaded', fn); }
-      onReady(function () {
-        document.querySelectorAll('button, .nav-item, .bell, .course .tile').forEach(function (b) {
-          b.addEventListener('pointerdown', function () { b.style.transform = 'scale(.97)'; });
-          ['pointerup','pointerleave'].forEach(function (ev) { b.addEventListener(ev, function () { b.style.transform = ''; }); });
-        });
-      });
-    })();
-  </script>
-  <script src="js/carol-chat.js?v=27"></script>
-  <script src="js/notifications.js?v=2"></script>
+  <script src="js/config.js?v=6"></script>
+  <script src="js/learn-unified.js?v=2"></script>
 </body>
 </html>
-
-

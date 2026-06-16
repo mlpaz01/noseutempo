@@ -7,7 +7,8 @@
   <link rel="icon" href="assets/logo-icon.svg" />
   <link rel="stylesheet" href="css/styles.css?v=3" />
   <link rel="stylesheet" href="css/platform.css?v=3" />
-  <link rel="stylesheet" href="css/aula.css?v=29" />
+  <link rel="stylesheet" href="css/aula.css?v=30" />
+  <link rel="stylesheet" href="css/aula-carol.css?v=1" />
 </head>
 <body class="aula-body">
   <header class="av-topbar">
@@ -25,6 +26,10 @@
         <a class="av-menu-item active" href="cursos.html">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v18H6.5A2.5 2.5 0 0 1 4 18.5z"/><path d="M13 3h4.5A2.5 2.5 0 0 1 20 5.5v13a2.5 2.5 0 0 1-2.5 2.5H13z"/></svg>
           <span>Cursos</span>
+        </a>
+        <a class="av-menu-item" id="nav-treino-extra" href="treino-extra.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="12" height="11" rx="2"/><path d="m17.9 14 3.5-3.5a2.2 2.2 0 0 0 0-3l-5-4.9a2.2 2.2 0 0 0-3 0L10 6"/><path d="M7 18h.01M11 14h.01M16 6h.01M19 9h.01"/></svg>
+          <span>Treino</span>
         </a>
       </nav>
 
@@ -146,7 +151,7 @@
     <p id="done-msg">Você completou a aula no seu tempo.</p>
     <div class="done-xp" id="done-xp">0 XP</div>
     <a class="av-primary hidden" id="btn-desafio" href="#">Fazer desafio do módulo</a>
-    <a class="av-soft" href="geni.html">Praticar com a Geni</a>
+    <a class="av-soft" id="btn-treino-extra" href="treino-extra.html">Treino extra</a>
     <div class="done-btns">
       <a class="av-ghost" href="cursos.html">Ver cursos</a>
       <a class="av-primary" id="btn-next-lesson" href="cursos.html">Próxima aula</a>
@@ -311,7 +316,7 @@
       );
     }
     function pickVideoFocus() {
-      var cast = ['Caua', 'Carol', 'Geni', 'Bia', 'Leo', 'Nina'];
+      var cast = ['Geni'];
       return cast[(blockIdx + videoRequestSeq) % cast.length];
     }
     function videoJobKey(variation) {
@@ -354,21 +359,21 @@
     }
     function renderInteractiveFallback(scene, job, scenes) {
       scenes = Array.isArray(scenes) && scenes.length ? scenes : [
-        { label: 'Caua', text: 'Caua olha para a ideia com calma.' },
-        { label: 'Carol', text: 'Carol explica de outro jeito.' },
+        { label: 'Geni', text: 'Geni olha para a ideia com calma.' },
+        { label: 'Geni', text: 'Geni explica de outro jeito.' },
         { label: 'Geni', text: 'Geni mostra o proximo passo.' }
       ];
-      var cast = ['Caua', 'Carol', 'Geni', 'Bia', 'Leo', 'Nina'];
+      var cast = ['Geni'];
       scene.classList.add('has-interactive-video');
       scene.classList.remove('has-video', 'has-fallback');
       scene.innerHTML =
-        '<div class="interactive-video-stage" aria-label="Video interativo da Turminha">' +
+        '<div class="interactive-video-stage" aria-label="Video interativo da Geni">' +
           '<div class="interactive-bg" aria-hidden="true"></div>' +
           '<div class="interactive-focus" aria-hidden="true"><span></span><span></span><span></span></div>' +
         '</div>';
       var idx = 0;
       if (window.__nstInteractiveTimer) clearInterval(window.__nstInteractiveTimer);
-      setVideoStatus((scenes[0].label || 'Turminha') + ': ' + shortText(scenes[0].text || '', 150), false);
+      setVideoStatus((scenes[0].label || 'Geni') + ': ' + shortText(scenes[0].text || '', 150), false);
       window.__nstInteractiveTimer = setInterval(function () {
         if (!document.body.contains(scene)) {
           clearInterval(window.__nstInteractiveTimer);
@@ -394,11 +399,11 @@
       var hint = plain(info.hint || d.hint || 'Escolha a parte que combina com a pergunta.');
       return [
         {
-          who: 'Caua',
+          who: 'Geni',
           text: question ? 'Eu travei nesta parte: ' + shortText(question, 120) : 'Eu travei nesta parte.'
         },
         {
-          who: 'Carol',
+          who: 'Geni',
           text: correct ? 'Vamos pelo caminho curto: aqui a melhor resposta e "' + correct + '".' : shortText(simpler, 150)
         },
         {
@@ -412,7 +417,7 @@
       scene.classList.add('has-instant-explain');
       scene.classList.remove('has-video', 'has-fallback', 'has-interactive-video');
       scene.innerHTML =
-        '<div class="instant-explain-stage" aria-label="Explicacao interativa da Turminha">' +
+        '<div class="instant-explain-stage" aria-label="Explicacao interativa da Geni">' +
           '<div class="instant-art" aria-hidden="true"></div>' +
           '<div class="instant-card" id="instant-card">' +
             '<span>' + esc(steps[0].who) + '</span>' +
@@ -429,7 +434,7 @@
         scene.querySelectorAll('[data-instant-step]').forEach(function (dot) {
           dot.classList.toggle('active', Number(dot.getAttribute('data-instant-step')) === idx);
         });
-        setVideoStatus('Explicacao imediata da Turminha. O video real continua sendo preparado em segundo plano.', false);
+        setVideoStatus('Explicacao imediata da Geni. O video real continua sendo preparado em segundo plano.', false);
       }
       scene.querySelectorAll('[data-instant-step]').forEach(function (dot) {
         dot.addEventListener('click', function () { paint(Number(dot.getAttribute('data-instant-step'))); });
@@ -443,7 +448,7 @@
         paint((idx + 1) % steps.length);
       }, 3600);
       paint(0);
-      track('instant_explanation_shown', { meta: { format: 'turminha' } });
+      track('instant_explanation_shown', { meta: { format: 'geni' } });
       return steps;
     }
     function renderGeneratedVideo(job) {
@@ -619,7 +624,7 @@
       document.getElementById('aula-main').classList.toggle('adaptive-video-mode', kind === 'video');
       var container = document.getElementById('aula-block');
       var titleMap = {
-        video: 'Video com a Turminha',
+        video: 'Video com a Geni',
         image: 'Ver em uma cena',
         story: 'Uma história curta',
         steps: 'Só o próximo passo'
@@ -631,7 +636,7 @@
         steps: info.simpler
       };
       var visualMap = {
-        video: 'Caua, Carol, Geni e a turma explicam em uma cena curta.',
+        video: 'Geni explica em uma cena curta, bonita e calma.',
         image: 'Olhe primeiro. Entenda depois.',
         story: 'Uma cena pequena ajuda a memória.',
         steps: 'Uma coisa por vez. Sem pressa.'
@@ -657,9 +662,9 @@
               '<button data-adapt-kind="steps" type="button">Passos</button>' +
             '</div>' +
             '<div class="video-scene" id="lesson-video-scene">' +
-              '<div class="interactive-loading" aria-hidden="true"><span></span><b>Preparando a cena da Turminha</b></div>' +
+              '<div class="interactive-loading" aria-hidden="true"><span></span><b>Preparando a cena da Geni</b></div>' +
             '</div>' +
-            '<div class="video-status" id="video-status">Preparando um video curto com a Turminha...</div>' +
+            '<div class="video-status" id="video-status">Preparando um video curto com a Geni...</div>' +
           '</div>';
         container.querySelectorAll('[data-adapt-kind]').forEach(function (btn) {
           btn.addEventListener('click', function () {
@@ -803,6 +808,11 @@
         document.getElementById('btn-next-lesson').textContent = 'Voltar ao desafio';
       }
       document.getElementById('btn-next-lesson').href = nextHref;
+      var treinoHref = 'treino-extra.html?course=' + encodeURIComponent(courseId) + '&unit=' + unitIndex + '&lesson=' + lessonIndex;
+      var treinoBtn = document.getElementById('btn-treino-extra');
+      var treinoNav = document.getElementById('nav-treino-extra');
+      if (treinoBtn && !adapted) treinoBtn.href = treinoHref;
+      if (treinoNav && !adapted) treinoNav.href = treinoHref;
       var bd = document.getElementById('btn-desafio');
       if (bd && !adapted) {
         bd.href = 'desafios.html?course=' + encodeURIComponent(courseId) + '&unit=' + unitIndex;
@@ -1255,9 +1265,9 @@
             '<button class="game-mode-card" data-game-mode="quiz" type="button"><span>Quiz</span><b>Resposta certa</b><p>Escolha com calma.</p></button>' +
             '<button class="game-mode-card" data-game-mode="blank" type="button"><span>Frase</span><b>Complete</b><p>Encaixe a melhor palavra.</p></button>' +
             '<button class="game-mode-card" data-game-mode="pairs" type="button"><span>Pares</span><b>Ligue ideias</b><p>Conecte pergunta e resposta.</p></button>' +
-            '<button class="game-mode-card" data-game-mode="turma" type="button"><span>Turma</span><b>Quem responde?</b><p>Pratique com Caua e Geni.</p></button>' +
+            '<button class="game-mode-card" data-game-mode="turma" type="button"><span>Geni</span><b>Quem responde?</b><p>Pratique com a Geni.</p></button>' +
           '</div>' +
-          '<div class="game-preview" aria-hidden="true"><div></div><span>Caua</span><span>Carol</span><span>Geni</span></div>' +
+          '<div class="game-preview" aria-hidden="true"><div></div><span>Geni</span><span>Imagem</span><span>Passos</span></div>' +
           '<p class="soft-note">Cada jogo treina a mesma ideia por um caminho diferente.</p>' +
         '</div>';
       container.querySelectorAll('[data-game-mode]').forEach(function (btn) {
@@ -1292,13 +1302,13 @@
       var correct = gameCorrectOption(d);
       var prompt = d.question || d.statement || 'Qual caminho combina melhor?';
       var cast = [
-        { name: 'Caua', role: 'tenta responder com coragem' },
-        { name: 'Carol', role: 'ajuda a pensar devagar' },
-        { name: 'Geni', role: 'da uma dica simples' }
+        { name: 'Geni', role: 'da uma dica simples' },
+        { name: 'Imagem', role: 'mostra a ideia com calma' },
+        { name: 'Passos', role: 'quebra em partes pequenas' }
       ];
       container.innerHTML =
         '<div class="block-panel game-panel turma-game-panel">' +
-          '<div class="game-title"><span>Jogo da Turminha</span><h3>' + esc(prompt) + '</h3></div>' +
+          '<div class="game-title"><span>Jogo da Geni</span><h3>' + esc(prompt) + '</h3></div>' +
           '<div class="turma-game-scene">' +
             '<div class="turma-mini-art" aria-hidden="true"></div>' +
             '<div class="turma-choice-list">' + options.map(function (opt, i) {
@@ -1315,7 +1325,7 @@
           var chosen = plain(options[idx]);
           var ok = chosen.toLowerCase() === correct.toLowerCase();
           btn.classList.add(ok ? 'ok' : 'try');
-          showFeedback(ok, ok ? (d.explanation || 'Caua conseguiu escolher um bom caminho.') : 'Quase. A resposta que combina melhor e: ' + correct);
+          showFeedback(ok, ok ? (d.explanation || 'A Geni encontrou um bom caminho.') : 'Quase. A resposta que combina melhor e: ' + correct);
         });
       });
     }

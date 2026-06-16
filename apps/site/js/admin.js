@@ -431,6 +431,9 @@
         var previewBtn = hasContent
           ? '<button class="btn btn--sm btn--teal" onclick="' + jsCall('previewLesson', c.id, 0, 0) + '">Prévia aluno</button>'
           : '<button class="btn btn--sm btn--teal" disabled title="Curso sem conteúdo gerado">Prévia aluno</button>';
+        var practiceBtn = hasContent
+          ? '<button class="btn btn--sm btn--ghost" onclick="' + jsCall('previewPractice', c.id, 0, 0) + '">Pr&eacute;via treino</button>'
+          : '<button class="btn btn--sm btn--ghost" disabled title="Curso sem conte&uacute;do gerado">Pr&eacute;via treino</button>';
         return '<div class="course-row" style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">' +
           '<div style="flex:none;width:48px;height:48px;border-radius:12px;background:var(--teal-soft);display:grid;place-items:center;font-size:1.4rem">' +
             (c.capa ? '<img src="' + esc(c.capa) + '" style="width:48px;height:48px;object-fit:cover;border-radius:12px">' : '📚') +
@@ -439,7 +442,7 @@
             '<div style="font-weight:700">' + esc(c.titulo) + '</div>' +
             '<div style="font-size:.82rem;color:var(--muted)">' + esc(details) + '</div>' +
             '<div style="margin-top:5px">' + status + '</div>' +
-            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' + previewBtn + contentBtn + '</div>' +
+            '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' + previewBtn + practiceBtn + contentBtn + '</div>' +
           '</div>' +
           '<button class="btn btn--sm btn--ghost" onclick="' + jsCall('editCourse', c.id) + '">Ficha</button>' +
           '<button class="btn btn--sm btn--danger" onclick="' + jsCall('deleteCourse', c.id, c.titulo) + '">Excluir</button>' +
@@ -489,6 +492,7 @@
         '<span style="font-weight:700;font-size:.9rem">' + esc(l.title) + failed + '</span>' +
         '<span style="font-size:.76rem;color:var(--muted)">' + blocks.length + ' bloco(s) · ' + (l.estimatedMinutes||3) + ' min</span>' +
         '<button class="btn btn--sm btn--teal" style="margin-left:auto" onclick="event.preventDefault();previewLesson(\'' + courseId + '\',' + ui + ',' + li + ')">👁 Ver como aluno</button>' +
+        '<button class="btn btn--sm btn--ghost" onclick="event.preventDefault();previewPractice(\'' + courseId + '\',' + ui + ',' + li + ')">Treino extra</button>' +
         '<button class="btn btn--sm btn--ghost" onclick="event.preventDefault();regenLesson(\'' + courseId + '\',\'' + l.id + '\',this)">🔄 Regenerar</button>' +
       '</summary>' +
       '<div style="padding:4px 14px 12px"><div style="margin-bottom:8px">' + chips + '</div>' + blocks.map(renderBlock).join('') + '</div>' +
@@ -514,6 +518,7 @@
       var warn = pendentes > 0 ? '<div style="background:#FFF4E5;border:1.5px solid #F0C98A;border-radius:12px;padding:12px 14px;font-size:.85rem;color:#7A4E12;margin-bottom:14px">⚠️ <b>' + pendentes + ' aula(s) pendente(s)</b> (não geradas por falta de saldo de IA). Use 🔄 Regenerar em cada uma após configurar uma chave com saldo.</div>' : '';
       var toolbar = '<div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-bottom:14px">' +
         '<button class="btn btn--sm btn--teal" onclick="previewLesson(\'' + c.id + '\',0,0)">👁 Pré-visualizar como aluno (do início)</button>' +
+        '<button class="btn btn--sm btn--ghost" onclick="previewPractice(\'' + c.id + '\',0,0)">Treino extra</button>' +
         '<button class="btn btn--sm btn--ghost" onclick="editContentJson()">Editar conteúdo</button>' +
         '</div>';
       body.innerHTML = toolbar + warn + units.map(function (u, ui) {
@@ -582,6 +587,11 @@
 
   window.previewLesson = function (courseId, ui, li) {
     var url = 'aula.html?course=' + encodeURIComponent(courseId) + '&unit=' + (ui || 0) + '&lesson=' + (li || 0) + '&preview=1&v=2';
+    window.open(url, '_blank', 'noopener');
+  };
+
+  window.previewPractice = function (courseId, ui, li) {
+    var url = 'treino-extra.html?course=' + encodeURIComponent(courseId) + '&unit=' + (ui || 0) + '&lesson=' + (li || 0) + '&preview=1&v=2';
     window.open(url, '_blank', 'noopener');
   };
 

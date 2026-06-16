@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 const fs = require('fs');
 const path = require('path');
@@ -9,7 +9,7 @@ const { COURSE_VISUAL_DNA, LESSON_VISUAL_BLUEPRINT } = require('./visual_referen
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const JOB_FILE = path.join(DATA_DIR, 'video-jobs.json');
 const FAL_ENDPOINT = process.env.FAL_VIDEO_ENDPOINT || 'fal-ai/kling-video/v3/pro/image-to-video';
-const TURMINHA_REFERENCE_URL = process.env.TURMINHA_REFERENCE_URL || 'https://noseutempo.app/assets/turminha/turminha-referencia-v1.png';
+const TURMINHA_REFERENCE_URL = process.env.TURMINHA_REFERENCE_URL || 'https://noseutempo.app/assets/geni-ia-maos-sem-fundo-v2.png';
 
 function readJobs() {
   try { return JSON.parse(fs.readFileSync(JOB_FILE, 'utf8')); }
@@ -62,13 +62,13 @@ function buildEducationalVideoPrompt(params) {
     `Short educational animated video for NoSeuTempo about: "${topic}".`,
     text ? `Lesson context: ${text}.` : '',
     `Audience: ${targetAge}. Inclusive neurodivergent-friendly learning, Brazilian Portuguese classroom context.`,
-    focusCharacter ? `Focus the scene on ${focusCharacter}, while keeping the Turminha consistent.` : '',
+    focusCharacter ? `Focus the scene on ${focusCharacter}, keeping Geni as the consistent NoSeuTempo guide.` : 'Focus the scene on Geni as the consistent NoSeuTempo guide.',
     `Visual style: ${styleLine}.`,
     supportLine,
     'Build a concrete beautiful learning scene: soft background, one clear visual metaphor, cute didactic objects, calm camera, gentle expressions, and a visible action that explains the idea.',
     'For science or nature lessons, prefer bright simple landscapes, friendly plants, sun, water, clouds, soil, cards, and sparkle accents only when useful.',
     'For abstract lessons, turn the idea into tangible props: cards, paths, blocks, notebooks, small maps, or a cozy study table.',
-    'Use Caua as the main learner whenever possible, with Carol or Geni guiding, and Bia, Leo or Nina as classmates when a group scene helps.',
+    'Use Geni as the main visual creator. Avoid the old Turminha group cast; if a learner appears, keep them secondary and generic.',
     'No text overlays except very short readable Portuguese labels if needed. No logos. High quality 16:9 composition.'
   ].filter(Boolean).join(' ');
 }
@@ -79,13 +79,13 @@ function fallbackStoryboard(params, prompt) {
   return {
     title: topic,
     prompt,
-    cast: TURMINHA_ASSETS.characters,
+    cast: ['Geni'],
     referenceSheet: TURMINHA_ASSETS.referenceSheet,
     scenes: [
       { label: 'Cena', text: `Um fundo calmo e bonito mostra ${topic} com objetos fofos e poucos estimulos.` },
-      { label: 'Caua', text: text || `Caua olha para ${topic} como uma coisa pequena por vez.` },
-      { label: 'Turma', text: `Carol, Geni e a turma mostram ${topic} em uma cena simples do dia a dia.` },
-      { label: 'Agora', text: 'Caua respira, escuta a Geni e segue para o próximo passo quando quiser.' },
+            { label: 'Geni', text: text || `Geni mostra ${topic} como uma coisa pequena por vez.` },
+            { label: 'Cena', text: `Geni cria uma cena simples do dia a dia para explicar ${topic}.` },
+            { label: 'Agora', text: 'Geni espera o aluno seguir para o proximo passo quando quiser.' },
     ],
   };
 }

@@ -548,10 +548,11 @@ app.post("/api/admin/courses/:cid/lessons/:lid/regenerate", auth, isAdmin, async
       lessonTitle: lesson.title, previousLessonTitles: prevTitles,
     });
     lesson.blocks = data.blocks || [];
+    lesson.extraPractice = data.extraPractice || null;
     lesson.estimatedMinutes = data.estimatedMinutes || lesson.estimatedMinutes || 3;
     lesson.failed = false;
     fs.writeFileSync(contentFile, JSON.stringify(course, null, 2));
-    res.json({ ok: true, lesson: { id: lesson.id, title: lesson.title, blocks: lesson.blocks, estimatedMinutes: lesson.estimatedMinutes }, provider: data._provider });
+    res.json({ ok: true, lesson: { id: lesson.id, title: lesson.title, blocks: lesson.blocks, extraPractice: lesson.extraPractice, estimatedMinutes: lesson.estimatedMinutes }, provider: data._provider });
   } catch (e) {
     console.error("[Studio] Regenerar aula:", e);
     res.status(500).json({ error: e.message || "Erro ao regenerar aula." });

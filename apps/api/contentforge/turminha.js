@@ -1,21 +1,18 @@
 'use strict';
 
 const TURMINHA_STYLE = [
-  'Use the recurring NoSeuTempo cast as the visual base for every explanatory image and video.',
-  'Overall look: warm 3D animated educational series, soft rounded forms, calm expressions, inclusive Brazilian classroom energy, gentle teal/violet/amber accents, no harsh contrast, no scary faces.',
-  'Caua: Brazilian boy, about 9 years old, warm medium-brown skin, short curly dark hair, curious eyes, gentle smile, teal hoodie with a small clock patch, comfortable sneakers, often carrying a notebook. He is the learner-protagonist.',
-  'Carol: Brazilian adult learning guide, curly dark hair, black rounded glasses, beige sweater, warm smile, calm mentor posture. She explains with patience and care.',
-  'Geni: cute small white-and-purple robot assistant, glossy black face screen, glowing cyan eyes and smile, small antenna, kind helper pose. Geni supports without taking over the scene.',
-  'Bia: Brazilian girl, about 9 years old, dark skin, braided hair with teal clips, yellow cardigan, creative and confident, often using colored pencils or drawing cards.',
-  'Leo: Brazilian boy, about 10 years old, light-brown skin, straight dark hair, blue overshirt, thoughtful and observant, often using a tablet or organizing cards.',
-  'Nina: Brazilian child, about 8 years old, light skin, wavy auburn hair, lavender jacket, playful and gentle, often holding flashcards or small learning props.',
-  'Character rules: keep the same cast recognizable across scenes; prefer Caua plus one helper for simple explanations, and include Carol or Geni when the scene needs guidance. Do not invent random new lead characters unless the lesson explicitly needs a background extra.',
-  'Avoid readable text, logos, watermarks, photorealism, distorted hands, clutter, chaotic movement, or dramatic lighting.'
+  'Use Geni IA as the recurring NoSeuTempo visual creator and learning guide for every explanatory image and video.',
+  'Overall look: warm 3D animated educational helper, soft rounded forms, calm expressions, gentle teal/violet/amber accents, no harsh contrast, no scary faces.',
+  'Geni: cute small white-and-teal robot assistant, glossy black face screen, glowing cyan eyes and smile, small antenna, kind helper pose, expressive hands, warm teacher energy.',
+  'Geni creates the learning scene instead of a group cast: she can point, hold a card, project a simple visual, arrange objects on a table, or show a calm metaphor in the background.',
+  'When a human learner is needed, keep them generic and secondary, never the visual identity. The main recurring character is always Geni.',
+  'Character rules: keep Geni recognizable across scenes; do not use the old Turminha group/cast as the base. Do not invent a new mascot.',
+  'Avoid readable text, logos, watermarks, photorealism, distorted hands, clutter, chaotic movement, dramatic lighting, or crowded classroom scenes.'
 ].join('\n');
 
 const TURMINHA_ASSETS = {
-  referenceSheet: '/assets/turminha/turminha-referencia-v1.png',
-  characters: ['Caua', 'Carol', 'Geni', 'Bia', 'Leo', 'Nina'],
+  referenceSheet: '/assets/geni-ia-maos-sem-fundo-v2.png',
+  characters: ['Geni'],
 };
 
 function turminhaPrompt(extra) {
