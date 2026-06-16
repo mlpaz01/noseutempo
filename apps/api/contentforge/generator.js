@@ -141,6 +141,11 @@ PRINCÍPIOS FUNDAMENTAIS:
 - SEMPRE que errar: feedback gentil e encorajador ("Quase lá!" não "Errado!")
 - O mesmo conteúdo pode aparecer de formas diferentes para fixar sem cansar
 
+CONFIGURACAO DO ESTUDIO:
+- Preset escolhido: ${opts.preset || 'aula_viva'}
+- Forca visual: ${opts.visualIntensity || 'alta'}
+${opts.studioPrompt ? `- Instrucoes extras do Estudio:\n${opts.studioPrompt}` : ''}
+
 ${BLOCK_SEQUENCE}
 
 ${BLOCK_SPECS}
@@ -211,6 +216,10 @@ ${SCREEN_DETAIL_REFERENCE}
 Regras visuais adicionais:
 - Nunca retorne prompts visuais genericos como "educational illustration". Descreva fundo, personagens, objetos, emocao, composicao, cores e acao.
 - Quando o aluno escolher "visual" ou "ver com imagens", a cena precisa ter uma imagem mental clara, fofa e didatica.
+- Cada aula deve ter pelo menos uma cena visual principal muito clara, com imagePrompt pronto para geracao de imagem.
+- Em forca visual "alta" ou "maxima", todos os blocos devem ter presentation.imagePrompt especifico e diferente.
+- imagePrompt deve incluir: Geni, ambiente, objeto didatico, acao, composicao 16:9, cores NoSeuTempo, e "sem texto legivel".
+- Use objetos ilustrativos para conceitos abstratos: violao vira cordas/sons/cartoes; matematica vira pecas/luzes/caminhos; IA vira assistentes/cartoes/fluxos simples.
 - Use analogias visuais do cotidiano: cozinha, mapa, caminho, pecas, cartoes, jardim, luz, passos.
 - O falPrompt deve ser rico o suficiente para gerar algo bonito mesmo sem contexto externo: inclua Geni, ambiente, acao, objetos, ritmo e o que evitar.
 - Nao use a Turminha antiga como cast. Se precisar de alguem aprendendo, use uma pessoa generica em segundo plano; Geni continua sendo a criadora/guia da cena.

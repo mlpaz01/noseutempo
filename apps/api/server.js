@@ -466,7 +466,7 @@ app.get("/api/admin/studio/health", auth, isAdmin, (_req, res) => {
 
 /* Gerar curso com IA — streaming de progresso via SSE */
 app.post("/api/admin/studio/gerar", auth, isAdmin, async (req, res) => {
-  const { topic, category, audience, duration, difficulty } = req.body;
+  const { topic, category, audience, duration, difficulty, preset, visualIntensity, studioPrompt } = req.body;
   if (!topic) return res.status(400).json({ error: "Tema obrigatório." });
   if (providerOrder().length === 0)
     return res.status(503).json({ error: "Nenhum provedor de IA configurado. Adicione GROQ_API_KEY (grátis), GEMINI_API_KEY ou OPENROUTER_API_KEY no .env e reinicie a API." });
@@ -488,6 +488,9 @@ app.post("/api/admin/studio/gerar", auth, isAdmin, async (req, res) => {
       topic, category, audience,
       duration:   Number(duration)   || 60,
       difficulty: difficulty         || "basico",
+      preset: preset || "aula_viva",
+      visualIntensity: visualIntensity || "alta",
+      studioPrompt: String(studioPrompt || "").slice(0, 5000),
       onProgress: async (percent, message) => { send("progress", { percent, message }); },
       onNote:     (message) => { send("note", { message }); },
     });

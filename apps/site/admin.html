@@ -213,10 +213,9 @@
           <!-- Saúde do motor de IA -->
           <div id="studio-health" style="display:none;margin-bottom:18px;border-radius:14px;padding:14px 18px;font-size:.88rem;line-height:1.5"></div>
 
-          <div class="studio-grid">
+          <div class="studio-grid studio-grid--single">
             <section class="studio-form-card">
-              <div class="studio-card-head">
-                <span>1</span>
+              <div class="studio-card-head studio-card-head--plain">
                 <div>
                   <h3>Conte para a Geni o que criar</h3>
                   <p>Ela transforma o tema em curso curto, visual e acolhedor.</p>
@@ -226,6 +225,32 @@
               <div class="field">
                 <label>Tema do curso *</label>
                 <input type="text" id="st-topic" placeholder='Ex: "Como usar ChatGPT no trabalho", "Técnicas de foco para quem tem TDAH"' required />
+                <div class="studio-topic-suggestions" id="studio-suggestions">
+                  <button type="button" class="ftab" onclick="usarSugestao(this)">Curso b&aacute;sico de viol&atilde;o</button>
+                  <button type="button" class="ftab" onclick="usarSugestao(this)">Matem&aacute;tica b&aacute;sica</button>
+                  <button type="button" class="ftab" onclick="usarSugestao(this)">T&eacute;cnicas de memoriza&ccedil;&atilde;o com TDAH</button>
+                  <button type="button" class="ftab" onclick="usarSugestao(this)">ChatGPT para iniciantes</button>
+                </div>
+              </div>
+              <div class="field-row studio-mode-row">
+                <div class="field">
+                  <label>Preset do motor</label>
+                  <select id="st-preset">
+                    <option value="aula_viva" selected>Aula Viva NoSeuTempo</option>
+                    <option value="mais_visual">Mais visual e ilustrado</option>
+                    <option value="mais_jogos">Mais jogos e treino</option>
+                    <option value="adulto_direto">Mais adulto e direto</option>
+                    <option value="infantil_fofo">Mais fofo e infantil</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>For&ccedil;a visual</label>
+                  <select id="st-visual-intensity">
+                    <option value="alta" selected>Alta - imagens em toda aula</option>
+                    <option value="maxima">M&aacute;xima - cenas ricas por bloco</option>
+                    <option value="equilibrada">Equilibrada</option>
+                  </select>
+                </div>
               </div>
               <div class="field-row">
                 <div class="field">
@@ -263,6 +288,17 @@
                   <input type="text" id="st-audience" placeholder="Ex: adultos com TDAH que querem aprender IA" />
                 </div>
               </div>
+              <details class="studio-prompt-box">
+                <summary>
+                  <span>Prompt avan&ccedil;ado do motor</span>
+                  <small>ver, ajustar ou restaurar o padr&atilde;o NoSeuTempo</small>
+                </summary>
+                <div class="studio-prompt-actions">
+                  <button class="btn btn--ghost btn--sm" type="button" id="btn-prompt-default">Restaurar padr&atilde;o</button>
+                  <button class="btn btn--ghost btn--sm" type="button" id="btn-prompt-clear">Usar s&oacute; o preset</button>
+                </div>
+                <textarea id="st-prompt-extra" spellcheck="false"></textarea>
+              </details>
               <button type="submit" class="btn btn--primary studio-generate-btn" id="btn-gerar">
                 Gerar curso com IA
               </button>
@@ -295,7 +331,7 @@
             </div>
             </section>
 
-            <aside class="studio-dna-panel" aria-label="DNA visual do curso">
+            <aside class="studio-dna-panel studio-panel-retired" aria-label="DNA visual do curso">
               <div class="studio-card-head">
                 <span>2</span>
                 <div>
@@ -320,7 +356,7 @@
           </div>
 
           <!-- Dicas -->
-          <section class="studio-suggestions-card">
+          <section class="studio-suggestions-card studio-panel-retired">
             <div class="studio-card-head compact">
               <span>3</span>
               <div>
@@ -328,7 +364,7 @@
                 <p>Toque para preencher o tema do curso.</p>
               </div>
             </div>
-            <div id="studio-suggestions">
+            <div class="studio-suggestions-old">
               <button class="ftab" onclick="usarSugestao(this)">ChatGPT para iniciantes</button>
               <button class="ftab" onclick="usarSugestao(this)">Técnicas de memorização com TDAH</button>
               <button class="ftab" onclick="usarSugestao(this)">Produtividade com método Pomodoro</button>
@@ -448,6 +484,6 @@
 <div class="toast-container" id="toasts"></div>
 
 <script src="js/config.js?v=6"></script>
-<script src="js/admin.js?v=15"></script>
+<script src="js/admin.js?v=16"></script>
 </body>
 </html>

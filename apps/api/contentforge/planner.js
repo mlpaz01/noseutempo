@@ -46,6 +46,11 @@ CONTEXTO DA PLATAFORMA:
 - Estilo: lúdico, visual, com personagens e situações do cotidiano
 - Categorias: ${catDesc}
 
+CONFIGURACAO DO ESTUDIO:
+- Preset escolhido: ${opts.preset || 'aula_viva'}
+- Forca visual: ${opts.visualIntensity || 'alta'}
+${opts.studioPrompt ? `- Instrucoes extras do Estudio:\n${opts.studioPrompt}` : ''}
+
 FILOSOFIA PEDAGÓGICA:
 1. "Um passo de cada vez" — cada aula tem UM conceito central, não mais
 2. "Repetição com variação" — o mesmo conteúdo volta em formatos lúdicos diferentes
@@ -89,6 +94,8 @@ Requisitos OBRIGATÓRIOS:
 - EXATAMENTE ${lessonsPer} aulas por unidade
 - Títulos de aulas ESPECÍFICOS e CONVIDATIVOS (não genéricos)
 - Progressão: da curiosidade → compreensão → prática → confiança
+- Planeje cada aula pensando que ela tera uma cena visual principal, prompts de imagem e Treino Extra.
+- Se o tema for instrumento, matematica, idioma, IA ou estudo, transforme conceitos abstratos em objetos visuais concretos.
 - Dificuldade: ${opts.difficulty}
 - Idioma: pt-BR
 - Tom: acolhedor, encorajador, nunca técnico/académico`;

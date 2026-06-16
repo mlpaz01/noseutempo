@@ -122,8 +122,37 @@
     var notesEl = document.getElementById('studio-notes');
     var warnEl  = document.getElementById('st-result-warn');
     var btn     = document.getElementById('btn-gerar');
+    var presetEl = document.getElementById('st-preset');
+    var visualEl = document.getElementById('st-visual-intensity');
+    var promptEl = document.getElementById('st-prompt-extra');
+    var promptDefaultBtn = document.getElementById('btn-prompt-default');
+    var promptClearBtn = document.getElementById('btn-prompt-clear');
     if (!form || form._initialized) return;
     form._initialized = true;
+
+    var DEFAULT_STUDIO_PROMPT = [
+      'Padrao NoSeuTempo Aula Viva:',
+      '- Curso curto, visual, acolhedor, sem prova, sem nota e sem pressao.',
+      '- Geni IA e a criadora/guia visual recorrente; nao usar Turminha antiga como elenco.',
+      '- Cada aula precisa ter uma cena principal clara, pelo menos 1 bloco com imagem forte e prompts ricos para imagem/video.',
+      '- Cada bloco importante deve ter: objetivo pequeno, analogia visual, fundo bonito, objeto fofo/didatico, feedback gentil e chips de apoio.',
+      '- Usar linguagem pt-BR simples, frases curtas, pouco texto por tela e exemplos do cotidiano.',
+      '- Toda aula deve nascer com Treino Extra: vocabulario/cartoes/pares/quiz/ordem, sempre leve.',
+      '- Para instrumentos, matematica, idiomas e IA, transformar conceitos abstratos em objetos visuais concretos.',
+      '- Evitar imagens genericas; especificar composicao, ambiente, personagem Geni, acao e o que evitar.'
+    ].join('\n');
+
+    var PRESET_HINTS = {
+      aula_viva: 'Prioridade: equilibrio Aula Viva, uma ideia por etapa, imagem + treino + conversa com a Geni.',
+      mais_visual: 'Prioridade: mais cenas ilustrativas. Cada aula deve ter imagens principais ricas e prompts de imagem detalhados.',
+      mais_jogos: 'Prioridade: mais pratica. Aumente jogos leves, pares, cartoes, sequencias e treino extra.',
+      adulto_direto: 'Prioridade: tom adulto, direto e acolhedor, sem infantilizar. Visual bonito, mas mais limpo.',
+      infantil_fofo: 'Prioridade: mais fofo, ludico e colorido, com objetos amigaveis e cenas muito visuais.'
+    };
+
+    if (promptEl && !promptEl.value) promptEl.value = DEFAULT_STUDIO_PROMPT;
+    if (promptDefaultBtn) promptDefaultBtn.addEventListener('click', function () { promptEl.value = DEFAULT_STUDIO_PROMPT; });
+    if (promptClearBtn) promptClearBtn.addEventListener('click', function () { promptEl.value = ''; });
 
     function note(msg) {
       if (!notesEl) return;
@@ -149,6 +178,13 @@
       var difficulty= document.getElementById('st-difficulty').value;
       var duration  = document.getElementById('st-duration').value;
       var audience  = document.getElementById('st-audience').value.trim();
+      var preset    = presetEl ? presetEl.value : 'aula_viva';
+      var visualIntensity = visualEl ? visualEl.value : 'alta';
+      var studioPrompt = [
+        PRESET_HINTS[preset] || PRESET_HINTS.aula_viva,
+        'Forca visual: ' + visualIntensity + '.',
+        promptEl ? promptEl.value.trim() : ''
+      ].filter(Boolean).join('\n\n');
       if (!topic) { toast('Informe o tema do curso.', 'err'); return; }
 
       result.classList.add('hidden');
@@ -161,7 +197,7 @@
       fetch(API + '/api/admin/studio/gerar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-        body: JSON.stringify({ topic: topic, category: category, difficulty: difficulty, duration: Number(duration), audience: audience }),
+        body: JSON.stringify({ topic: topic, category: category, difficulty: difficulty, duration: Number(duration), audience: audience, preset: preset, visualIntensity: visualIntensity, studioPrompt: studioPrompt }),
       }).then(function (r) {
         if (!r.ok) {
           return r.json().catch(function () { return {}; }).then(function (d) {
@@ -494,6 +530,11 @@
     else if (t === 'voice_challenge') { body = p(d.instruction) + p(d.tip); }
     else if (t === 'mission') { body = p(d.title) + p(d.description); }
     else { body = p(d.title || d.body || JSON.stringify(d).slice(0,120)); }
+    var pres = b.presentation || d.presentation || {};
+    var imgPrompt = pres.imagePrompt || pres.visualBrief || '';
+    if (imgPrompt) {
+      body += '<div class="admin-visual-prompt"><b>Prompt visual</b><span>' + esc(String(imgPrompt).slice(0, 260)) + '</span></div>';
+    }
     return '<div style="border-left:3px solid var(--teal);background:#fff;border-radius:8px;padding:8px 12px;margin:6px 0">' +
       '<div style="font-size:.78rem;font-weight:700;color:var(--teal-deep)">' + label + '</div>' + body + '</div>';
   }
